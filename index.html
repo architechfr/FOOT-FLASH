@@ -1,0 +1,1977 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Foot Flash 2026</title>
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#04080a">
+<meta name="description" content="Foot Flash 2026 - App compagnon Coupe du Monde FIFA 2026">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--bg:#04080a;--s1:#0b1a10;--s2:#112518;--s3:#162e1c;--g:#00E676;--g2:#00C853;--gw:rgba(0,230,118,.2);--am:#FFB300;--rd:#FF1744;--tx:#e0f2e9;--t2:#6a9e73;--r:14px}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--tx);min-height:100dvh}
+.app{max-width:480px;margin:0 auto;padding:0 12px 100px;animation:fadeIn .2s ease}
+@keyframes fadeIn{from{opacity:.3}to{opacity:1}}
+
+/* Header */
+.hdr{padding:16px 0 10px;text-align:center}
+.hdr h1{font-size:24px;font-weight:900;color:var(--g);letter-spacing:1px}
+.hdr-sub{font-size:11px;color:var(--t2);margin-top:2px}
+.my-team{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;padding:8px 16px;background:var(--gw);border:1px solid rgba(0,230,118,.3);border-radius:99px;font-size:13px;font-weight:700;color:var(--g);width:fit-content;margin-left:auto;margin-right:auto;cursor:pointer}
+
+/* Nav */
+.nav{position:fixed;bottom:0;left:0;right:0;background:rgba(4,8,10,.95);backdrop-filter:blur(12px);border-top:1px solid var(--s3);display:flex;justify-content:center;z-index:100;padding:6px 0 env(safe-area-inset-bottom,8px)}
+.nav-i{display:flex;max-width:480px;width:100%}
+.nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;padding:8px 2px;min-height:48px;border:none;background:transparent;color:var(--t2);font-size:9px;font-weight:700;cursor:pointer;font-family:inherit}
+.nav .on{color:var(--g)}
+.nav .ic{font-size:18px}
+
+/* Filters */
+.filters{display:flex;gap:6px;margin:10px 0;overflow-x:auto;padding-bottom:4px}
+.fil{padding:7px 14px;border-radius:99px;border:1px solid var(--s3);background:transparent;color:var(--t2);font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:inherit}
+.fil.on{background:var(--gw);border-color:var(--g);color:var(--g)}
+
+/* Match card */
+.mc{background:var(--s1);border-radius:var(--r);padding:14px;margin-bottom:8px;border:1px solid var(--s3);cursor:pointer}
+.mc.live{border-color:var(--g);box-shadow:0 0 20px rgba(0,230,118,.15)}
+.mc.soon{border-color:rgba(255,179,0,.3)}
+.mc-status{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.mc-status .dot{width:8px;height:8px;border-radius:50%;animation:blink 1.2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.mc-teams{display:flex;align-items:center;justify-content:center;gap:12px}
+.mc-team{text-align:center;flex:1}
+.mc-flag{font-size:32px;display:flex;align-items:center;justify-content:center}
+.mc-name{font-size:12px;font-weight:700;margin-top:2px}
+.mc-vs{font-size:14px;font-weight:900;color:var(--t2)}
+.mc-score{font-size:28px;font-weight:900;color:var(--g);letter-spacing:2px}
+.mc-info{display:flex;justify-content:center;gap:16px;margin-top:10px;font-size:11px;color:var(--t2)}
+.mc-info span{display:flex;align-items:center;gap:4px}
+.mc-tv{margin-top:8px;padding:8px;background:rgba(0,230,118,.05);border-radius:8px;font-size:11px;color:var(--g);text-align:center;font-weight:600}
+
+/* Team card */
+.tc{background:var(--s1);border-radius:var(--r);padding:14px;margin-bottom:8px;border:1px solid var(--s3);display:flex;align-items:center;gap:12px;cursor:pointer}
+.tc:active{border-color:var(--g)}
+.tc-flag{font-size:36px}
+.tc-info{flex:1}
+.tc-name{font-size:15px;font-weight:800}
+.tc-meta{font-size:11px;color:var(--t2)}
+.tc-grp{font-size:12px;font-weight:800;color:var(--g);background:var(--gw);padding:3px 10px;border-radius:99px}
+
+/* Player card */
+.pc{background:var(--s1);border-radius:10px;padding:10px 12px;margin-bottom:6px;border:1px solid var(--s3);display:flex;align-items:center;gap:10px}
+.pc-pos{font-size:10px;font-weight:800;padding:3px 8px;border-radius:6px;min-width:36px;text-align:center}
+.pc-pos.att{background:rgba(255,23,68,.15);color:var(--rd)}
+.pc-pos.mil{background:rgba(0,230,118,.15);color:var(--g)}
+.pc-pos.def{background:rgba(33,150,243,.15);color:#2196F3}
+.pc-pos.gar{background:rgba(255,179,0,.15);color:var(--am)}
+.pc-name{font-size:13px;font-weight:700;flex:1}
+.pc-stat{font-size:11px;color:var(--t2);text-align:right}
+
+/* Group table */
+.grp-t{width:100%;border-collapse:collapse;margin-bottom:14px}
+.grp-t th{font-size:10px;color:var(--t2);text-align:center;padding:6px 4px;border-bottom:1px solid var(--s3)}
+.grp-t th:first-child{text-align:left}
+.grp-t td{font-size:12px;padding:8px 4px;text-align:center;border-bottom:1px solid rgba(255,255,255,.03)}
+.grp-t td:first-child{text-align:left;font-weight:700}
+.grp-t tr.qual td{color:var(--g)}
+
+/* Prono */
+.prono{background:var(--s1);border-radius:var(--r);padding:14px;margin-bottom:8px;border:1px solid var(--s3)}
+.prono-input{display:flex;align-items:center;justify-content:center;gap:8px;margin:10px 0}
+.prono-input input{width:50px;padding:10px;text-align:center;background:var(--s2);border:2px solid var(--s3);border-radius:10px;color:var(--g);font-size:22px;font-weight:900;font-family:inherit;outline:none}
+.prono-input input:focus{border-color:var(--g)}
+
+/* Section */
+.sec{font-size:12px;font-weight:800;color:var(--t2);text-transform:uppercase;letter-spacing:.8px;margin:16px 0 8px}
+
+/* Detail page */
+.det-hero{text-align:center;padding:20px 0}
+.det-flag{font-size:64px;display:flex;align-items:center;justify-content:center}
+.det-name{font-size:24px;font-weight:900;margin-top:4px}
+.det-meta{font-size:12px;color:var(--t2);margin-top:4px}
+.det-tabs{display:flex;gap:4px;margin:12px 0;background:var(--s1);border-radius:10px;padding:3px}
+.det-tab{flex:1;padding:8px;border:none;border-radius:8px;background:transparent;color:var(--t2);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center}
+.det-tab.on{background:var(--gw);color:var(--g)}
+
+.back{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:var(--s1);border:1px solid var(--s3);border-radius:99px;font-size:12px;font-weight:700;cursor:pointer;margin:10px 0;font-family:inherit;color:var(--tx)}
+.empty{text-align:center;padding:40px;color:var(--t2)}.empty-i{font-size:48px;margin-bottom:10px}
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);padding:10px 20px;border-radius:99px;font-size:13px;font-weight:700;z-index:999;animation:ti 2.5s forwards;background:var(--g);color:#000;font-family:inherit}
+@keyframes ti{0%{opacity:0;transform:translateX(-50%) translateY(-10px)}10%,70%{opacity:1;transform:translateX(-50%) translateY(0)}100%{opacity:0;transform:translateX(-50%) translateY(-10px)}}
+.btn{padding:14px;border:none;border-radius:10px;font-weight:800;font-size:14px;cursor:pointer;width:100%;font-family:inherit;background:var(--g);color:#000}
+.pl-modal{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:200;display:flex;flex-direction:column;overflow-y:auto}
+.pl-card{max-width:480px;width:100%;margin:0 auto;padding:16px}
+.pl-hero{text-align:center;padding:24px 0;border-bottom:1px solid var(--s3)}
+.pl-pos-big{display:inline-block;padding:6px 18px;border-radius:8px;font-size:14px;font-weight:900;margin-bottom:12px}
+.pl-name-big{font-size:26px;font-weight:900;color:#fff}
+.pl-club-big{font-size:15px;color:var(--g);margin-top:6px;font-weight:700}
+.pl-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0}
+.pl-st{background:var(--s1);border:1px solid var(--s3);border-radius:12px;padding:14px;text-align:center}
+.pl-st-n{font-size:24px;font-weight:900;color:var(--g)}
+.pl-st-l{font-size:10px;color:var(--t2);margin-top:2px;font-weight:700;text-transform:uppercase}
+.pl-info{background:var(--s1);border:1px solid var(--s3);border-radius:12px;padding:16px;margin-bottom:8px}
+.pl-info-r{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:13px}
+.pl-info-r:last-child{border:none}
+.pl-info-l{color:var(--t2)}
+.pl-info-v{font-weight:700;color:var(--tx)}
+.mc-team{cursor:pointer;transition:opacity .15s;border-radius:8px;padding:4px}.mc-team:active{opacity:.6;background:rgba(0,230,118,.1)}
+.grp-t tr{transition:background .15s}.grp-t tr:active{background:rgba(0,230,118,.08)}
+.ticker{background:var(--s1);border-bottom:1px solid var(--s3);overflow:hidden;height:32px;position:relative;cursor:pointer}
+.ticker-wrap{display:flex;align-items:center;height:100%;white-space:nowrap;animation:scroll-left 12s linear infinite}
+.ticker-wrap:hover{animation-play-state:paused}
+.ticker-item{padding:0 24px;font-size:12px;font-weight:600;color:var(--tx);display:inline-flex;align-items:center;gap:6px}
+.ticker-item span{color:var(--g);font-weight:800}
+a.ticker-item:hover{color:var(--g)}
+.ticker-dot{width:4px;height:4px;border-radius:50%;background:var(--g);flex-shrink:0}
+@keyframes scroll-left{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.light{--bg:#f5f5f5;--s1:#fff;--s2:#f0f0f0;--s3:#ddd;--g:#059669;--g2:#047857;--gw:rgba(5,150,105,.1);--tx:#1a1a1a;--t2:#666;--t3:#999}
+.light .nav{background:rgba(255,255,255,.97)}
+.light .ticker{background:#fff;border-color:#eee}
+.light .mc{background:#fff}
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+<script>
+// DATA
+var TEAMS=[
+// GROUP A
+{id:"MEX",name:"Mexique",flag:"🇲🇽",group:"A",rank:15,titles:"0",coach:"Aguirre",players:[
+{n:"Hirving Lozano",p:"ATT",club:"PSV",caps:70,g:17},{n:"Raúl Jiménez",p:"ATT",club:"Fulham",caps:105,g:32},{n:"Santiago Giménez",p:"ATT",club:"Feyenoord",caps:25,g:12},
+{n:"Edson Álvarez",p:"MIL",club:"West Ham",caps:75,g:3},{n:"Luis Romo",p:"MIL",club:"Cruz Azul",caps:30,g:4},{n:"Orbelin Pineda",p:"MIL",club:"AEK",caps:45,g:8},
+{n:"Jorge Sánchez",p:"DEF",club:"Porto",caps:40,g:1},{n:"César Montes",p:"DEF",club:"Almería",caps:55,g:2},{n:"Johan Vásquez",p:"DEF",club:"Genoa",caps:30,g:2},
+{n:"Guillermo Ochoa",p:"GAR",club:"Salernitana",caps:140,g:0,wc:5},{n:"Luis Malagón",p:"GAR",club:"América",caps:8,g:0},{n:"Alexis Vega",p:"ATT",club:"Toluca",caps:35,g:8},{n:"Henry Martín",p:"ATT",club:"América",caps:50,g:15},{n:"Roberto Alvarado",p:"MIL",club:"Chivas",caps:25,g:5},{n:"Luis Chávez",p:"MIL",club:"Dinamo Moscú",caps:20,g:4},{n:"Érick Gutiérrez",p:"MIL",club:"PSV",caps:40,g:3},{n:"Carlos Rodríguez",p:"MIL",club:"Cruz Azul",caps:30,g:2},{n:"Jesús Gallardo",p:"DEF",club:"Monterrey",caps:75,g:3},{n:"Kevin Álvarez",p:"DEF",club:"Pachuca",caps:15,g:0},{n:"Gerardo Arteaga",p:"DEF",club:"Genk",caps:20,g:1},{n:"Israel Reyes",p:"DEF",club:"América",caps:10,g:1},{n:"Guillermo Ochoa",p:"GAR",club:"Salernitana",caps:140,g:0},{n:"Luis Malagón",p:"GAR",club:"América",caps:8,g:0}]},
+{id:"KOR",name:"Corée du Sud",flag:"🇰🇷",group:"A",rank:22,titles:"0 (Demi 2002)",coach:"Hong",players:[
+{n:"Son Heung-min",p:"ATT",club:"Tottenham",caps:130,g:48,wc:3},{n:"Hwang Hee-chan",p:"ATT",club:"Wolves",caps:55,g:12},{n:"Lee Kang-in",p:"MIL",club:"PSG",caps:50,g:8},
+{n:"Jung Woo-young",p:"MIL",club:"Al Sadd",caps:110,g:5},{n:"Kim Min-jae",p:"DEF",club:"Bayern",caps:55,g:3},{n:"Kim Jin-su",p:"DEF",club:"Jeonbuk",caps:70,g:5},
+{n:"Kim Seung-gyu",p:"GAR",club:"Al Shabab",caps:60,g:0},{n:"Cho Gue-sung",p:"ATT",club:"Midtjylland",caps:25,g:10},{n:"Oh Hyeon-gyu",p:"ATT",club:"Celtic",caps:10,g:3},{n:"Jeong Woo-yeong",p:"MIL",club:"Fribourg",caps:30,g:5},{n:"Hwang In-beom",p:"MIL",club:"Feyenoord",caps:55,g:5},{n:"Park Yong-woo",p:"MIL",club:"Al Ain",caps:20,g:1},{n:"Lee Jae-sung",p:"MIL",club:"Mainz",caps:45,g:5},{n:"Kim Young-gwon",p:"DEF",club:"Ulsan",caps:110,g:5},{n:"Park Ji-su",p:"DEF",club:"Suwon",caps:15,g:0},{n:"Hong Chul",p:"DEF",club:"Daegu",caps:50,g:2},{n:"Lee Ki-je",p:"DEF",club:"Jeonbuk",caps:40,g:1},{n:"Song Bum-keun",p:"GAR",club:"Jeonbuk",caps:10,g:0},{n:"Cho Hyun-woo",p:"GAR",club:"Ulsan",caps:15,g:0},{n:"Kim Tae-hwan",p:"DEF",club:"Ulsan",caps:35,g:2},{n:"Na Sang-ho",p:"ATT",club:"FC Seoul",caps:25,g:8},{n:"Lee Dong-gyeong",p:"MIL",club:"Ulsan",caps:20,g:3}]},
+{id:"RSA",name:"Afrique du Sud",flag:"🇿🇦",group:"A",rank:60,titles:"0",coach:"Broos",players:[
+{n:"Percy Tau",p:"ATT",club:"Al Ahly",caps:55,g:15},{n:"Lyle Foster",p:"ATT",club:"Burnley",caps:20,g:4},{n:"Themba Zwane",p:"MIL",club:"Sundowns",caps:40,g:12},
+{n:"Teboho Mokoena",p:"MIL",club:"Sundowns",caps:30,g:5},{n:"Mothobi Mvala",p:"DEF",club:"Sundowns",caps:25,g:1},
+{n:"Ronwen Williams",p:"GAR",club:"Sundowns",caps:45,g:0},{n:"Bongokuhle Hlongwane",p:"ATT",club:"Minnesota",caps:25,g:5},{n:"Evidence Makgopa",p:"ATT",club:"Sundowns",caps:15,g:4},{n:"Ethan Brooks",p:"MIL",club:"Sundowns",caps:15,g:2},{n:"Luke Le Roux",p:"MIL",club:"Orlando Pirates",caps:10,g:1},{n:"Grant Kekana",p:"DEF",club:"Sundowns",caps:15,g:0},{n:"Aubrey Modiba",p:"DEF",club:"Sundowns",caps:20,g:2},{n:"Siyabonga Ngezana",p:"DEF",club:"FCSB",caps:20,g:1},{n:"Terrence Mashego",p:"DEF",club:"Cape Town City",caps:15,g:1},{n:"Veli Mothwa",p:"GAR",club:"AmaZulu",caps:10,g:0},{n:"Sipho Mbule",p:"MIL",club:"Sundowns",caps:10,g:1},{n:"Lyle Foster",p:"ATT",club:"Burnley",caps:20,g:4},{n:"Relebohile Mofokeng",p:"ATT",club:"Orlando Pirates",caps:8,g:2},{n:"Rushwin Dortley",p:"DEF",club:"Kaizer Chiefs",caps:10,g:0},{n:"Iqraam Rayners",p:"ATT",club:"Sundowns",caps:12,g:5},{n:"Thapelo Morena",p:"DEF",club:"Sundowns",caps:35,g:3},{n:"Khuliso Mudau",p:"DEF",club:"Sundowns",caps:20,g:1}]},
+{id:"CZE",name:"Tchéquie",flag:"🇨🇿",group:"A",rank:35,titles:"0",coach:"Hašek",players:[
+{n:"Patrik Schick",p:"ATT",club:"Leverkusen",caps:45,g:20},{n:"Adam Hložek",p:"ATT",club:"Leverkusen",caps:30,g:5},{n:"Tomáš Souček",p:"MIL",club:"West Ham",caps:65,g:10},
+{n:"Vladimír Coufal",p:"DEF",club:"West Ham",caps:40,g:1},{n:"Jindřich Staněk",p:"GAR",club:"Slavia",caps:15,g:0},{n:"Mojmír Chytil",p:"ATT",club:"Slavia",caps:20,g:6},{n:"Jan Kuchta",p:"ATT",club:"Rapid Vienne",caps:25,g:5},{n:"Ondřej Lingr",p:"ATT",club:"Feyenoord",caps:15,g:3},{n:"Lukáš Provod",p:"MIL",club:"Slavia",caps:25,g:4},{n:"Alex Král",p:"MIL",club:"Union Berlin",caps:40,g:2},{n:"David Jurásek",p:"DEF",club:"Hoffenheim",caps:15,g:1},{n:"Ladislav Krejčí",p:"DEF",club:"Girona",caps:20,g:2},{n:"Robin Hranáč",p:"DEF",club:"Hoffenheim",caps:10,g:0},{n:"Matěj Kovář",p:"GAR",club:"Leverkusen",caps:5,g:0},{n:"Martin Vitík",p:"DEF",club:"Sparta",caps:12,g:1},{n:"Tomáš Čvančara",p:"ATT",club:"Mönchengladbach",caps:8,g:2},{n:"Antonín Barák",p:"MIL",club:"Fiorentina",caps:40,g:8},{n:"Filip Novák",p:"DEF",club:"Trabzonspor",caps:20,g:1},{n:"Tomáš Holeš",p:"MIL",club:"Slavia",caps:25,g:3},{n:"Matěj Jurásek",p:"ATT",club:"Slavia",caps:8,g:2},{n:"David Zima",p:"DEF",club:"Slavia",caps:18,g:1},{n:"Adam Vlkanova",p:"MIL",club:"PAOK",caps:10,g:2}]},
+// GROUP C
+{id:"BRA",name:"Brésil",flag:"🇧🇷",group:"C",rank:5,titles:"5 (1958, 1962, 1970, 1994, 2002)",coach:"Ancelotti",players:[
+{n:"Vinícius Júnior",p:"ATT",club:"Real Madrid",caps:40,g:10,wc:1},{n:"Raphinha",p:"ATT",club:"Barcelone",caps:35,g:12},{n:"Endrick Felipe",p:"ATT",club:"Lyon (prêt Real)",caps:10,g:3},{n:"Estevão Willian",p:"ATT",club:"Chelsea",caps:8,g:2},{n:"Igor Thiago",p:"ATT",club:"Brentford",caps:3,g:1},
+{n:"Bruno Guimarães",p:"MIL",club:"Newcastle",caps:25,g:2},{n:"Casemiro",p:"MIL",club:"Man Utd",caps:75,g:7,wc:3},{n:"Lucas Paquetá",p:"MIL",club:"West Ham",caps:55,g:12},{n:"Gabriel Sara",p:"MIL",club:"Galatasaray",caps:5,g:0},
+{n:"Marquinhos",p:"DEF",club:"PSG",caps:80,g:7,wc:2},{n:"Éder Militão",p:"DEF",club:"Real Madrid",caps:35,g:3},{n:"Danilo Luiz",p:"DEF",club:"Vasco",caps:55,g:2},{n:"Wendell",p:"DEF",club:"Porto",caps:10,g:0},
+{n:"Alisson Becker",p:"GAR",club:"Liverpool",caps:70,g:0,wc:2},{n:"Ederson Moraes",p:"GAR",club:"Man City",caps:30,g:0},{n:"Matheus Cunha",p:"ATT",club:"Wolves",caps:20,g:5},{n:"João Pedro",p:"ATT",club:"Brighton",caps:8,g:2},{n:"Igor Thiago",p:"ATT",club:"Brentford",caps:5,g:2},{n:"Gabriel Martinelli",p:"ATT",club:"Arsenal",caps:18,g:3},{n:"André Trindade",p:"MIL",club:"Wolverhampton",caps:10,g:0},{n:"Guilherme Arana",p:"DEF",club:"Atlético MG",caps:15,g:2},{n:"Gabriel Magalhães",p:"DEF",club:"Arsenal",caps:12,g:1},{n:"Bremer",p:"DEF",club:"Juventus",caps:10,g:1}]},
+{id:"MAR",name:"Maroc",flag:"🇲🇦",group:"C",rank:12,titles:"0 (Demi 2022)",coach:"Regragui",players:[
+{n:"Achraf Hakimi",p:"DEF",club:"PSG",caps:80,g:10,wc:2},{n:"Sofyan Amrabat",p:"MIL",club:"Fenerbahçe",caps:65,g:2},{n:"Hakim Ziyech",p:"ATT",club:"Galatasaray",caps:50,g:20},
+{n:"Youssef En-Nesyri",p:"ATT",club:"Roma",caps:70,g:25},{n:"Azzedine Ounahi",p:"MIL",club:"Marseille",caps:30,g:3},{n:"Noussair Mazraoui",p:"DEF",club:"Man Utd",caps:25,g:1},
+{n:"Nayef Aguerd",p:"DEF",club:"West Ham",caps:30,g:2},{n:"Romain Saïss",p:"DEF",club:"Besiktas",caps:75,g:5},{n:"Brahim Diaz",p:"ATT",club:"Fiorentina",caps:20,g:5},
+{n:"Yassine Bounou",p:"GAR",club:"Al-Hilal",caps:55,g:0},{n:"Munir El Kajoui",p:"GAR",club:"Feyenoord",caps:15,g:0},{n:"Abde Ezzalzouli",p:"ATT",club:"Betis",caps:15,g:4},{n:"Soufiane Rahimi",p:"ATT",club:"Al-Ain",caps:20,g:8},{n:"El Khannouss",p:"MIL",club:"Leicester",caps:8,g:2},{n:"Selim Amallah",p:"MIL",club:"Valladolid",caps:30,g:3},{n:"Ilias Chair",p:"MIL",club:"QPR",caps:15,g:2},{n:"Achraf Dari",p:"DEF",club:"Brest",caps:10,g:0},{n:"Jawad El Yamiq",p:"DEF",club:"Valladolid",caps:25,g:1},{n:"El Kajoui",p:"GAR",club:"Hatayspor",caps:20,g:0},{n:"Yunis Benoun",p:"DEF",club:"Wydad",caps:25,g:1},{n:"Abde Ezzalzouli",p:"ATT",club:"Betis",caps:10,g:3},{n:"Abdelsamid Sabiri",p:"MIL",club:"Sampdoria",caps:20,g:5},{n:"Walid Cheddira",p:"ATT",club:"Espagnol",caps:10,g:3}]},
+// GROUP E
+{id:"GER",name:"Allemagne",flag:"🇩🇪",group:"E",rank:14,titles:"4 (1954, 1974, 1990, 2014)",coach:"Nagelsmann",players:[
+{n:"Jamal Musiala",p:"ATT",club:"Bayern",caps:40,g:8},{n:"Kai Havertz",p:"ATT",club:"Arsenal",caps:60,g:20},{n:"Leroy Sané",p:"ATT",club:"Bayern",caps:55,g:12},{n:"Florian Wirtz",p:"ATT",club:"Leverkusen",caps:30,g:10},
+{n:"Joshua Kimmich",p:"MIL",club:"Bayern",caps:95,g:5,wc:2},{n:"Toni Kroos",p:"MIL",club:"Retraité",caps:114,g:17},{n:"Robert Andrich",p:"MIL",club:"Leverkusen",caps:15,g:1},{n:"Pascal Groß",p:"MIL",club:"Dortmund",caps:10,g:1},
+{n:"Antonio Rüdiger",p:"DEF",club:"Real Madrid",caps:65,g:3},{n:"Jonathan Tah",p:"DEF",club:"Leverkusen",caps:30,g:1},{n:"David Raum",p:"DEF",club:"Leipzig",caps:20,g:2},
+{n:"Manuel Neuer",p:"GAR",club:"Bayern",caps:120,g:0,wc:4},{n:"Marc-André ter Stegen",p:"GAR",club:"Barcelone",caps:40,g:0},{n:"Niclas Füllkrug",p:"ATT",club:"West Ham",caps:20,g:8},{n:"Lukas Nmecha",p:"ATT",club:"Dortmund",caps:10,g:2},{n:"Benjamin Henrichs",p:"DEF",club:"Leipzig",caps:15,g:0},{n:"Nico Schlotterbeck",p:"DEF",club:"Dortmund",caps:15,g:1},{n:"Maximilian Mittelstädt",p:"DEF",club:"Stuttgart",caps:10,g:1},{n:"Thomas Müller",p:"ATT",club:"Bayern",caps:125,g:45,bo:"2010 (Best Young)",wc:4},{n:"Serge Gnabry",p:"ATT",club:"Bayern",caps:45,g:22},{n:"Julian Brandt",p:"MIL",club:"Dortmund",caps:42,g:5},{n:"Aleksandar Pavlović",p:"MIL",club:"Bayern",caps:8,g:0},{n:"Oliver Baumann",p:"GAR",club:"Hoffenheim",caps:5,g:0}]},
+// GROUP F
+{id:"NED",name:"Pays-Bas",flag:"🇳🇱",group:"F",rank:9,titles:"0",coach:"Koeman",players:[
+{n:"Cody Gakpo",p:"ATT",club:"Liverpool",caps:35,g:14},{n:"Memphis Depay",p:"ATT",club:"Al-Qadsiah",caps:95,g:46,wc:2},{n:"Xavi Simons",p:"ATT",club:"Leipzig",caps:15,g:3},
+{n:"Frenkie de Jong",p:"MIL",club:"Barcelone",caps:55,g:3},{n:"Ryan Gravenberch",p:"MIL",club:"Liverpool",caps:18,g:1},{n:"Tijjani Reijnders",p:"MIL",club:"Milan",caps:20,g:4},
+{n:"Virgil van Dijk",p:"DEF",club:"Liverpool",caps:55,g:8,wc:1},{n:"Matthijs de Ligt",p:"DEF",club:"Man Utd",caps:45,g:3},{n:"Denzel Dumfries",p:"DEF",club:"Inter",caps:50,g:5},
+{n:"Bart Verbruggen",p:"GAR",club:"Brighton",caps:10,g:0},{n:"Brian Brobbey",p:"ATT",club:"Ajax",caps:10,g:2},{n:"Donyell Malen",p:"ATT",club:"Dortmund",caps:25,g:5},{n:"Wout Weghorst",p:"ATT",club:"Ajax",caps:25,g:8},{n:"Teun Koopmeiners",p:"MIL",club:"Juventus",caps:20,g:3},{n:"Joey Veerman",p:"MIL",club:"PSV",caps:15,g:2},{n:"Jurriën Timber",p:"DEF",club:"Arsenal",caps:20,g:1},{n:"Nathan Aké",p:"DEF",club:"Man City",caps:30,g:2},{n:"Jeremie Frimpong",p:"DEF",club:"Leverkusen",caps:5,g:0},{n:"Lutsharel Geertruida",p:"DEF",club:"Leipzig",caps:10,g:0},{n:"Justin Bijlow",p:"GAR",club:"Feyenoord",caps:5,g:0},{n:"Mark Flekken",p:"GAR",club:"Liverpool",caps:3,g:0},{n:"Mats Wieffer",p:"MIL",club:"Brighton",caps:10,g:0},{n:"Joshua Zirkzee",p:"ATT",club:"Man Utd",caps:5,g:1}]},
+{id:"JPN",name:"Japon",flag:"🇯🇵",group:"F",rank:18,titles:"0",coach:"Moriyasu",players:[
+{n:"Takefusa Kubo",p:"ATT",club:"Real Sociedad",caps:40,g:7},{n:"Kaoru Mitoma",p:"ATT",club:"Brighton",caps:35,g:10},{n:"Ritsu Doan",p:"ATT",club:"Fribourg",caps:40,g:8},{n:"Ayase Ueda",p:"ATT",club:"Feyenoord",caps:20,g:8},
+{n:"Daichi Kamada",p:"MIL",club:"Crystal Palace",caps:30,g:6},{n:"Wataru Endo",p:"MIL",club:"Liverpool",caps:55,g:4},{n:"Ao Tanaka",p:"MIL",club:"Düsseldorf",caps:25,g:5},
+{n:"Takehiro Tomiyasu",p:"DEF",club:"Arsenal",caps:35,g:1},{n:"Kou Itakura",p:"DEF",club:"B. Mönchengladbach",caps:25,g:2},{n:"Yuto Nagatomo",p:"DEF",club:"FC Tokyo",caps:142,g:4},
+{n:"Zion Suzuki",p:"GAR",club:"Gamba Osaka",caps:10,g:0},{n:"Kyogo Maeda",p:"ATT",club:"Celtic",caps:20,g:5},{n:"Ayase Ueda",p:"ATT",club:"Feyenoord",caps:25,g:10},{n:"Kyogo Furuhashi",p:"ATT",club:"Celtic",caps:10,g:3},{n:"Tanaka Ao",p:"MIL",club:"Düsseldorf",caps:25,g:5},{n:"Hidemasa Morita",p:"MIL",club:"Sporting",caps:20,g:2},{n:"Hayao Kawabe",p:"MIL",club:"Lazio",caps:12,g:1},{n:"Kou Itakura",p:"DEF",club:"Mönchengladbach",caps:28,g:2},{n:"Koki Machida",p:"DEF",club:"Tottenham",caps:12,g:0},{n:"Hiroki Ito",p:"DEF",club:"Bayern",caps:20,g:1},{n:"Shogo Taniguchi",p:"DEF",club:"Vissel",caps:25,g:2},{n:"Suzuki",p:"GAR",club:"Parme",caps:12,g:0},{n:"Yuya Osako",p:"GAR",club:"Vissel",caps:5,g:0}]},
+// GROUP G
+{id:"BEL",name:"Belgique",flag:"🇧🇪",group:"G",rank:7,titles:"0",coach:"Garcia",players:[
+{n:"Kevin De Bruyne",p:"MIL",club:"Man City",caps:108,g:32,wc:3},{n:"Romelu Lukaku",p:"ATT",club:"Napoli",caps:120,g:85,wc:3},{n:"Jérémy Doku",p:"ATT",club:"Man City",caps:25,g:4},{n:"Leandro Trossard",p:"ATT",club:"Arsenal",caps:35,g:8},
+{n:"Youri Tielemans",p:"MIL",club:"Aston Villa",caps:65,g:10},{n:"Amadou Onana",p:"MIL",club:"Everton",caps:18,g:1},
+{n:"Zeno Debast",p:"DEF",club:"Sporting",caps:15,g:1},{n:"Arthur Theate",p:"DEF",club:"Al-Ittihad",caps:20,g:1},{n:"Timothy Castagne",p:"DEF",club:"Fulham",caps:40,g:3},
+{n:"Koen Casteels",p:"GAR",club:"Wolfsburg",caps:20,g:0},{n:"Loïs Openda",p:"ATT",club:"Leipzig",caps:20,g:5},{n:"Johan Bakayoko",p:"ATT",club:"PSV",caps:10,g:2},{n:"De Ketelaere",p:"ATT",club:"Atalanta",caps:12,g:2},{n:"Hans Vanaken",p:"MIL",club:"Club Brugge",caps:20,g:3},{n:"Orel Mangala",p:"MIL",club:"Lyon",caps:15,g:1},{n:"Wout Faes",p:"DEF",club:"Leicester",caps:20,g:1},{n:"Thomas Meunier",p:"DEF",club:"Trabzonspor",caps:60,g:6},{n:"Jan Vertonghen",p:"DEF",club:"Anderlecht",caps:150,g:10},{n:"Axel Witsel",p:"MIL",club:"Retraité?",caps:130,g:12},{n:"Thomas Kaminski",p:"GAR",club:"Luton",caps:5,g:0},{n:"Matz Sels",p:"GAR",club:"Nottingham",caps:8,g:0},{n:"Killian Sardella",p:"DEF",club:"Anderlecht",caps:5,g:0},{n:"Cédric Bakambu",p:"ATT",club:"Galatasaray",caps:8,g:2}]},
+// GROUP H
+{id:"ESP",name:"Espagne",flag:"🇪🇸",group:"H",rank:1,titles:"1 (2010)",coach:"De la Fuente",players:[
+{n:"Lamine Yamal",p:"ATT",club:"Barcelone",caps:25,g:7,wc:1},{n:"Nico Williams",p:"ATT",club:"Athletic",caps:22,g:6},{n:"Álvaro Morata",p:"ATT",club:"Milan",caps:85,g:38,wc:3},{n:"Mikel Oyarzabal",p:"ATT",club:"R.Sociedad",caps:35,g:10},
+{n:"Pedri González",p:"MIL",club:"Barcelone",caps:35,g:4,wc:1},{n:"Rodrigo Hernández",p:"MIL",club:"Man City",caps:65,g:6,bo:"2024",wc:2},{n:"Fabián Ruiz",p:"MIL",club:"PSG",caps:38,g:5},{n:"Dani Olmo",p:"MIL",club:"Barcelone",caps:45,g:12},
+{n:"Dani Carvajal",p:"DEF",club:"Real Madrid",caps:50,g:4},{n:"Marc Cucurella",p:"DEF",club:"Chelsea",caps:18,g:0},{n:"Aymeric Laporte",p:"DEF",club:"Al-Nassr",caps:20,g:2},{n:"Robin Le Normand",p:"DEF",club:"Atlético",caps:10,g:1},
+{n:"Unai Simón",p:"GAR",club:"Athletic",caps:35,g:0},{n:"Ferran Torres",p:"ATT",club:"Barcelone",caps:45,g:18},{n:"Joselu",p:"ATT",club:"Al-Gharafa",caps:18,g:5},{n:"Ayoze Pérez",p:"ATT",club:"Villarreal",caps:10,g:3},{n:"Álex Grimaldo",p:"DEF",club:"Leverkusen",caps:8,g:1},{n:"Nacho Fernández",p:"DEF",club:"Al-Qadsiah",caps:50,g:3},{n:"Vivian",p:"DEF",club:"Athletic",caps:8,g:0},{n:"Mikel Merino",p:"MIL",club:"Arsenal",caps:15,g:1},{n:"Martín Zubimendi",p:"MIL",club:"Real Sociedad",caps:10,g:0},{n:"David Raya",p:"GAR",club:"Arsenal",caps:5,g:0},{n:"Álex Remiro",p:"GAR",club:"Real Sociedad",caps:3,g:0}]},
+{id:"URU",name:"Uruguay",flag:"🇺🇾",group:"H",rank:16,titles:"2 (1930, 1950)",coach:"Bielsa",players:[
+{n:"Darwin Núñez",p:"ATT",club:"Liverpool",caps:30,g:10},{n:"Luis Araújo",p:"ATT",club:"Flamengo",caps:15,g:5},{n:"Facundo Pellistri",p:"ATT",club:"Panathinaikos",caps:18,g:3},
+{n:"Federico Valverde",p:"MIL",club:"Real Madrid",caps:60,g:10,wc:2},{n:"Rodrigo Bentancur",p:"MIL",club:"Tottenham",caps:55,g:3},{n:"Manuel Ugarte",p:"MIL",club:"Man Utd",caps:25,g:1},
+{n:"Ronald Araújo",p:"DEF",club:"Barcelone",caps:20,g:2},{n:"José María Giménez",p:"DEF",club:"Atlético",caps:80,g:5},{n:"Mathías Olivera",p:"DEF",club:"Napoli",caps:20,g:1},
+{n:"Sergio Rochet",p:"GAR",club:"Inter",caps:15,g:0},{n:"Luis Suárez",p:"ATT",club:"Inter Miami",caps:140,g:70,wc:4},{n:"De Arrascaeta",p:"MIL",club:"Flamengo",caps:40,g:5},{n:"Nicolás Torres",p:"MIL",club:"Orlando City",caps:20,g:2},{n:"Agustín Canobbio",p:"ATT",club:"Athletico",caps:15,g:3},{n:"Nahitan Nández",p:"MIL",club:"Al-Ain",caps:30,g:2},{n:"José María Giménez",p:"DEF",club:"Atlético",caps:80,g:5},{n:"Matías Viña",p:"DEF",club:"Flamengo",caps:20,g:1},{n:"Martín Cáceres",p:"DEF",club:"LA Galaxy",caps:15,g:0},{n:"Fernando Muslera",p:"GAR",club:"Galatasaray",caps:135,g:0,wc:4},{n:"Guillermo Varela",p:"DEF",club:"Flamengo",caps:20,g:2},{n:"Maximiliano Araújo",p:"ATT",club:"Sporting",caps:8,g:2},{n:"Diego Alvarez",p:"MIL",club:"Peñarol",caps:10,g:1},{n:"Sergio Rochet",p:"GAR",club:"Inter",caps:15,g:0}]},
+// GROUP I
+{id:"FRA",name:"France",flag:"🇫🇷",group:"I",rank:2,titles:"2 (1998, 2018)",coach:"Deschamps",players:[
+{n:"Kylian Mbappé",p:"ATT",club:"Real Madrid",caps:88,g:55,wc:2},{n:"Ousmane Dembélé",p:"ATT",club:"PSG",caps:55,g:37,bo:"2025",wc:2},{n:"Marcus Thuram",p:"ATT",club:"Inter",caps:25,g:6,wc:1},{n:"Michael Olise",p:"ATT",club:"Bayern",caps:15,g:4},{n:"Randal Kolo Muani",p:"ATT",club:"PSG",caps:28,g:8},{n:"Hugo Ékitiké",p:"ATT",club:"PSG",caps:5,g:1},{n:"Désiré Doué",p:"ATT",club:"PSG",caps:8,g:1},
+{n:"Aurélien Tchouaméni",p:"MIL",club:"Real Madrid",caps:45,g:3,wc:2},{n:"Eduardo Camavinga",p:"MIL",club:"Real Madrid",caps:28,g:1},{n:"Adrien Rabiot",p:"MIL",club:"Marseille",caps:52,g:5},{n:"N'Golo Kanté",p:"MIL",club:"Al-Ittihad",caps:58,g:2},{n:"Manu Koné",p:"MIL",club:"Milan",caps:12,g:0},{n:"Warren Zaïre-Emery",p:"MIL",club:"PSG",caps:15,g:2},{n:"Rayan Cherki",p:"MIL",club:"Man City",caps:8,g:1},{n:"Maghnes Akliouche",p:"MIL",club:"Monaco",caps:5,g:0},
+{n:"Dayot Upamecano",p:"DEF",club:"Bayern",caps:28,g:1},{n:"Ibrahima Konaté",p:"DEF",club:"Liverpool",caps:18,g:0},{n:"William Saliba",p:"DEF",club:"Arsenal",caps:22,g:1},{n:"Théo Hernandez",p:"DEF",club:"Al-Ahli",caps:40,g:4},{n:"Lucas Hernandez",p:"DEF",club:"PSG",caps:20,g:0},{n:"Pierre Kalulu",p:"DEF",club:"Juventus",caps:6,g:0},{n:"Lucas Digne",p:"DEF",club:"Aston Villa",caps:55,g:2},{n:"Malo Gusto",p:"DEF",club:"Chelsea",caps:8,g:0},
+{n:"Mike Maignan",p:"GAR",club:"Milan",caps:18,g:0,wc:1},{n:"Lucas Chevalier",p:"GAR",club:"PSG",caps:4,g:0},{n:"Brice Samba",p:"GAR",club:"Rennes",caps:3,g:0}]},
+{id:"NOR",name:"Norvège",flag:"🇳🇴",group:"I",rank:25,titles:"0",coach:"Solbakken",players:[
+{n:"Erling Haaland",p:"ATT",club:"Man City",caps:40,g:35,wc:1},{n:"Alexander Sørloth",p:"ATT",club:"Atlético",caps:50,g:15},{n:"Martin Ødegaard",p:"MIL",club:"Arsenal",caps:65,g:14},
+{n:"Sander Berge",p:"MIL",club:"Fulham",caps:40,g:3},{n:"Fredrik Aursnes",p:"MIL",club:"Benfica",caps:25,g:1},
+{n:"Julian Ryerson",p:"DEF",club:"Dortmund",caps:15,g:1},{n:"Leo Østigård",p:"DEF",club:"Rennes",caps:18,g:2},
+{n:"Ørjan Nyland",p:"GAR",club:"Sevilla",caps:35,g:0},{n:"Mohamed Elyounoussi",p:"ATT",club:"Malmö",caps:55,g:10},{n:"Joshua King",p:"ATT",club:"Fenerbahçe",caps:65,g:20},{n:"Morten Thorsby",p:"MIL",club:"Union Berlin",caps:35,g:2},{n:"Mathias Normann",p:"MIL",club:"Lecce",caps:20,g:1},{n:"Birger Meling",p:"DEF",club:"Rennes",caps:30,g:1},{n:"Stefan Strandberg",p:"DEF",club:"Sassuolo",caps:25,g:2},{n:"Marcus Pedersen",p:"DEF",club:"Feyenoord",caps:15,g:0},{n:"Andreas Hanche-Olsen",p:"DEF",club:"Gent",caps:20,g:1},{n:"Ørjan Nyland",p:"GAR",club:"Sevilla",caps:35,g:0},{n:"Per Kristian Selvik",p:"GAR",club:"Viking",caps:5,g:0},{n:"Kristian Thorstvedt",p:"MIL",club:"Sassuolo",caps:30,g:4},{n:"Jens Petter Hauge",p:"ATT",club:"Gent",caps:15,g:3},{n:"Fredrik Bjørkan",p:"DEF",club:"Feyenoord",caps:18,g:0},{n:"Ola Brynhildsen",p:"ATT",club:"Standard",caps:15,g:2}]},
+{id:"SEN",name:"Sénégal",flag:"🇸🇳",group:"I",rank:20,titles:"0 (CAN 2022)",coach:"Cissé",players:[
+{n:"Sadio Mané",p:"ATT",club:"Al-Nassr",caps:105,g:36,wc:3},{n:"Ismaïla Sarr",p:"ATT",club:"Crystal Palace",caps:55,g:12},{n:"Boulaye Dia",p:"ATT",club:"Lazio",caps:25,g:8},
+{n:"Pape Gueye",p:"MIL",club:"Villarreal",caps:20,g:2},{n:"Idrissa Gana Gueye",p:"MIL",club:"Everton",caps:100,g:5},{n:"N. Mendy",p:"MIL",club:"Leicester",caps:30,g:1},
+{n:"Kalidou Koulibaly",p:"DEF",club:"Al-Hilal",caps:72,g:3},{n:"Abdou Diallo",p:"DEF",club:"Lyon",caps:20,g:0},
+{n:"Édouard Mendy",p:"GAR",club:"Al-Ahli",caps:35,g:0},{n:"Iliman Ndiaye",p:"ATT",club:"Everton",caps:20,g:5},{n:"Habib Diallo",p:"ATT",club:"Strasbourg",caps:15,g:5},{n:"Krepin Diatta",p:"ATT",club:"Monaco",caps:25,g:5},{n:"Pape Matar Sarr",p:"MIL",club:"Tottenham",caps:15,g:2},{n:"Nampalys Mendy",p:"MIL",club:"Leicester",caps:30,g:1},{n:"Formose Mendy",p:"DEF",club:"Lens",caps:8,g:0},{n:"Youssouf Sabaly",p:"DEF",club:"Betis",caps:30,g:1},{n:"Ismail Jakobs",p:"DEF",club:"Galatasaray",caps:15,g:0},{n:"Seny Dieng",p:"GAR",club:"Middlesbrough",caps:10,g:0},{n:"Abdoulaye Seck",p:"DEF",club:"Antwerp",caps:20,g:1},{n:"Lamine Camara",p:"MIL",club:"Monaco",caps:10,g:1},{n:"Cheikhou Kouyaté",p:"MIL",club:"Retraité?",caps:90,g:4},{n:"Nicolas Jackson",p:"ATT",club:"Chelsea",caps:15,g:4},{n:"Mikayil Faye",p:"DEF",club:"Rennes",caps:5,g:0}]},
+// GROUP J
+{id:"ARG",name:"Argentine",flag:"🇦🇷",group:"J",rank:3,titles:"3 (1978, 1986, 2022)",coach:"Scaloni",players:[
+{n:"Lionel Messi",p:"ATT",club:"Inter Miami",caps:190,g:112,bo:"2022 (FIFA Best)",wc:5},{n:"Lautaro Martínez",p:"ATT",club:"Inter",caps:60,g:28,wc:2},{n:"Julián Álvarez",p:"ATT",club:"Atlético",caps:35,g:10,wc:1},{n:"Giuliano Simeone",p:"ATT",club:"Atlético",caps:8,g:2},
+{n:"Rodrigo De Paul",p:"MIL",club:"Inter Miami",caps:65,g:4},{n:"Alexis Mac Allister",p:"MIL",club:"Liverpool",caps:40,g:5},{n:"Enzo Fernández",p:"MIL",club:"Chelsea",caps:30,g:3},{n:"Nico Paz",p:"MIL",club:"Como",caps:5,g:1},{n:"Thiago Almada",p:"MIL",club:"Botafogo",caps:15,g:2},
+{n:"Cristian Romero",p:"DEF",club:"Tottenham",caps:30,g:2},{n:"Lisandro Martínez",p:"DEF",club:"Man Utd",caps:20,g:1},{n:"Nahuel Molina",p:"DEF",club:"Atlético",caps:35,g:4},{n:"Nicolás Tagliafico",p:"DEF",club:"Lyon",caps:45,g:1},
+{n:"Emiliano Martínez",p:"GAR",club:"Aston Villa",caps:55,g:0},{n:"Gerónimo Rulli",p:"GAR",club:"Marseille",caps:10,g:0},{n:"Alejandro Garnacho",p:"ATT",club:"Man Utd",caps:10,g:3},{n:"Franco Mastantuono",p:"ATT",club:"Real Madrid",caps:5,g:1},{n:"Leandro Paredes",p:"MIL",club:"Roma",caps:60,g:5},{n:"Exequiel Palacios",p:"MIL",club:"Leverkusen",caps:8,g:0},{n:"Nicolás Otamendi",p:"DEF",club:"Benfica",caps:100,g:8},{n:"Leonardo Balerdi",p:"DEF",club:"Marseille",caps:8,g:0},{n:"Valentín Barco",p:"DEF",club:"Strasbourg",caps:5,g:0},{n:"Juan Musso",p:"GAR",club:"Atalanta",caps:15,g:0}]},
+// GROUP K
+{id:"POR",name:"Portugal",flag:"🇵🇹",group:"K",rank:6,titles:"0",coach:"Martinez",players:[
+{n:"Cristiano Ronaldo",p:"ATT",club:"Al-Nassr",caps:215,g:135,bo:"2008,2013,2014,2016,2017",wc:5},{n:"Rafael Leão",p:"ATT",club:"Milan",caps:30,g:8},{n:"Bernardo Silva",p:"MIL",club:"Man City",caps:90,g:12},{n:"Bruno Fernandes",p:"MIL",club:"Man Utd",caps:70,g:24},
+{n:"Vitinha",p:"MIL",club:"PSG",caps:25,g:3},{n:"João Neves",p:"MIL",club:"PSG",caps:15,g:1},
+{n:"Rúben Dias",p:"DEF",club:"Man City",caps:50,g:3},{n:"Pepe",p:"DEF",club:"Retraité",caps:141,g:8},{n:"Nuno Mendes",p:"DEF",club:"PSG",caps:25,g:1},{n:"João Cancelo",p:"DEF",club:"Al-Hilal",caps:60,g:4},
+{n:"Diogo Costa",p:"GAR",club:"Porto",caps:22,g:0},{n:"Gonçalo Ramos",p:"ATT",club:"PSG",caps:18,g:6},{n:"Pedro Neto",p:"ATT",club:"Chelsea",caps:15,g:3},{n:"Diogo Jota",p:"ATT",club:"Liverpool",caps:30,g:10},{n:"João Palhinha",p:"MIL",club:"Bayern",caps:35,g:2},{n:"Rúben Neves",p:"MIL",club:"Al-Hilal",caps:35,g:4},{n:"Matheus Nunes",p:"MIL",club:"Man City",caps:15,g:1},{n:"Pepe",p:"DEF",club:"Retraité",caps:141,g:8},{n:"Gonçalo Inácio",p:"DEF",club:"Sporting",caps:12,g:1},{n:"António Silva",p:"DEF",club:"Benfica",caps:10,g:0},{n:"Diogo Dalot",p:"DEF",club:"Man Utd",caps:25,g:1},{n:"Rui Silva",p:"GAR",club:"Betis",caps:8,g:0},{n:"José Sá",p:"GAR",club:"Wolves",caps:12,g:0}]},
+{id:"CRO",name:"Croatie",flag:"🇭🇷",group:"L",rank:10,titles:"0 (Finale 2018)",coach:"Dalic",players:[
+{n:"Luka Modrić",p:"MIL",club:"Real Madrid",caps:180,g:27,bo:"2018",wc:4},{n:"Andrej Kramarić",p:"ATT",club:"Hoffenheim",caps:95,g:30},{n:"Ivan Perišić",p:"ATT",club:"Hajduk",caps:130,g:35,wc:3},{n:"Ante Budimir",p:"ATT",club:"Osasuna",caps:15,g:5},
+{n:"Mateo Kovačić",p:"MIL",club:"Man City",caps:95,g:5},{n:"Marcelo Brozović",p:"MIL",club:"Al-Nassr",caps:100,g:8},{n:"Luka Sučić",p:"MIL",club:"Real Sociedad",caps:15,g:3},
+{n:"Joško Gvardiol",p:"DEF",club:"Man City",caps:35,g:3},{n:"Josip Šutalo",p:"DEF",club:"Ajax",caps:12,g:0},
+{n:"Dominik Livaković",p:"GAR",club:"Fenerbahçe",caps:50,g:0},{n:"Lovro Majer",p:"MIL",club:"Wolfsburg",caps:30,g:5},{n:"Mario Pašalić",p:"MIL",club:"Atalanta",caps:40,g:8},{n:"Nikola Vlašić",p:"MIL",club:"Torino",caps:35,g:5},{n:"Josip Juranović",p:"DEF",club:"Union Berlin",caps:30,g:2},{n:"Josip Stanišić",p:"DEF",club:"Leverkusen",caps:10,g:0},{n:"Marin Pongračić",p:"DEF",club:"Rennes",caps:15,g:1},{n:"Martin Erlić",p:"DEF",club:"Sassuolo",caps:20,g:1},{n:"Ivo Ivušić",p:"GAR",club:"Pafos",caps:10,g:0},{n:"Bruno Petković",p:"ATT",club:"PAOK",caps:20,g:5},{n:"Martin Baturina",p:"MIL",club:"Dinamo Zagreb",caps:8,g:2},{n:"Luka Ivanušec",p:"MIL",club:"Feyenoord",caps:15,g:3},{n:"Duje Šimić",p:"DEF",club:"Anderlecht",caps:12,g:0},{n:"Domagoj Vida",p:"DEF",club:"AEK",caps:90,g:3}]},
+// GROUP L
+{id:"ENG",name:"Angleterre",flag:"🏴\u200d☠️",group:"L",rank:4,titles:"1 (1966)",coach:"Tuchel",players:[
+{n:"Jude Bellingham",p:"MIL",club:"Real Madrid",caps:45,g:10,wc:1},{n:"Bukayo Saka",p:"ATT",club:"Arsenal",caps:40,g:14},{n:"Harry Kane",p:"ATT",club:"Bayern",caps:105,g:72,wc:3},{n:"Cole Palmer",p:"ATT",club:"Chelsea",caps:15,g:4},{n:"Anthony Gordon",p:"ATT",club:"Newcastle",caps:8,g:1},
+{n:"Declan Rice",p:"MIL",club:"Arsenal",caps:60,g:4},{n:"Kobbie Mainoo",p:"MIL",club:"Man Utd",caps:15,g:1},{n:"Phil Foden",p:"ATT",club:"Man City",caps:40,g:5},
+{n:"Trent Alexander-Arnold",p:"DEF",club:"Real Madrid",caps:30,g:3},{n:"Kyle Walker",p:"DEF",club:"Milan",caps:80,g:1},{n:"John Stones",p:"DEF",club:"Man City",caps:70,g:3},{n:"Marc Guehi",p:"DEF",club:"Crystal Palace",caps:20,g:0},
+{n:"Jordan Pickford",p:"GAR",club:"Everton",caps:70,g:0},{n:"Ollie Watkins",p:"ATT",club:"Aston Villa",caps:15,g:5},{n:"Ivan Toney",p:"ATT",club:"Al-Ahli",caps:20,g:3},{n:"Jarrod Bowen",p:"ATT",club:"West Ham",caps:10,g:1},{n:"Ezri Konsa",p:"DEF",club:"Aston Villa",caps:8,g:0},{n:"Levi Colwill",p:"DEF",club:"Chelsea",caps:5,g:0},{n:"Rico Lewis",p:"DEF",club:"Man City",caps:5,g:0},{n:"Conor Gallagher",p:"MIL",club:"Atlético",caps:15,g:1},{n:"Adam Wharton",p:"MIL",club:"Crystal Palace",caps:5,g:0},{n:"Dean Henderson",p:"GAR",club:"Crystal Palace",caps:10,g:0},{n:"Aaron Ramsdale",p:"GAR",club:"Ajax",caps:5,g:0}]},
+// GROUP D
+{id:"USA",name:"États-Unis",flag:"🇺🇸",group:"D",rank:11,titles:"0",coach:"Pochettino",players:[
+{n:"Christian Pulisic",p:"ATT",club:"Milan",caps:75,g:30,wc:2},{n:"Timothy Weah",p:"ATT",club:"Juventus",caps:40,g:6},{n:"Folarin Balogun",p:"ATT",club:"Monaco",caps:15,g:3},{n:"Ricardo Pepi",p:"ATT",club:"PSV",caps:30,g:10},
+{n:"Weston McKennie",p:"MIL",club:"Juventus",caps:60,g:12},{n:"Yunus Musah",p:"MIL",club:"Milan",caps:40,g:2},{n:"Tyler Adams",p:"MIL",club:"Bournemouth",caps:35,g:1},
+{n:"Sergiño Dest",p:"DEF",club:"PSV",caps:35,g:3},{n:"Antonee Robinson",p:"DEF",club:"Fulham",caps:35,g:2},{n:"Chris Richards",p:"DEF",club:"Crystal Palace",caps:18,g:0},
+{n:"Matt Turner",p:"GAR",club:"Nottingham",caps:30,g:0},{n:"Gio Reyna",p:"ATT",club:"Borussia Dortmund",caps:30,g:8},{n:"Brenden Aaronson",p:"MIL",club:"Union Berlin",caps:35,g:7},{n:"de la Torre",p:"MIL",club:"Celta Vigo",caps:15,g:2},{n:"Joe Scally",p:"DEF",club:"Mönchengladbach",caps:15,g:0},{n:"Tim Ream",p:"DEF",club:"Charlotte",caps:55,g:1},{n:"CJ dos Santos",p:"GAR",club:"Wolves",caps:3,g:0},{n:"Zack Steffen",p:"GAR",club:"Colorado",caps:30,g:0},{n:"Josh Sargent",p:"ATT",club:"Norwich",caps:20,g:5},{n:"Malik Tillman",p:"MIL",club:"PSV",caps:20,g:3},{n:"Sebastian Lletget",p:"MIL",club:"FC Dallas",caps:35,g:7},{n:"Aaron Long",p:"DEF",club:"New England",caps:35,g:3},{n:"Walker Zimmerman",p:"DEF",club:"Nashville",caps:40,g:3}]},
+{id:"CAN",name:"Canada",flag:"🇨🇦",group:"B",rank:40,titles:"0",coach:"Marsch",players:[
+{n:"Jonathan David",p:"ATT",club:"Lille",caps:60,g:30},{n:"Cyle Larin",p:"ATT",club:"Valladolid",caps:65,g:28},{n:"Tajon Buchanan",p:"ATT",club:"Club Brugge",caps:45,g:10},
+{n:"Alphonso Davies",p:"DEF",club:"Bayern",caps:55,g:15},{n:"Stephen Eustáquio",p:"MIL",club:"Porto",caps:40,g:5},{n:"Jonathan Osorio",p:"MIL",club:"Bruges",caps:25,g:2},
+{n:"Alistair Johnston",p:"DEF",club:"Celtic",caps:20,g:1},{n:"Kamal Miller",p:"DEF",club:"Leeds",caps:15,g:0},
+{n:"Maxime Crépeau",p:"GAR",club:"Portland",caps:20,g:0},{n:"Cyle Larin",p:"ATT",club:"Valladolid",caps:65,g:28},{n:"Junior Hoilett",p:"ATT",club:"Aberdeen",caps:55,g:12},{n:"Jonathan David",p:"ATT",club:"Lille",caps:60,g:30},{n:"Samuel Piette",p:"MIL",club:"CF Montréal",caps:40,g:1},{n:"Ismaël Koné",p:"MIL",club:"Watford",caps:15,g:1},{n:"Richie Laryea",p:"DEF",club:"Toronto FC",caps:35,g:4},{n:"Derek Cornelius",p:"DEF",club:"Malmö",caps:20,g:2},{n:"Moise Bombito",p:"DEF",club:"Colorado",caps:8,g:0},{n:"Milan Borjan",p:"GAR",club:"Red Star",caps:65,g:0},{n:"Dayne St. Clair",p:"GAR",club:"Minnesota",caps:5,g:0},{n:"Liam Millar",p:"ATT",club:"Basel",caps:30,g:4},{n:"Manu Koné",p:"MIL",club:"Watford",caps:15,g:1},{n:"Scott Kennedy",p:"DEF",club:"Real Valladolid",caps:10,g:0},{n:"Jacen Waterman",p:"ATT",club:"Huddersfield",caps:12,g:3}]}
+,
+{id:"BIH",name:"Bosnie-Herzégovine",flag:"🇧🇦",group:"B",rank:55,titles:"0",coach:"Barbarez",players:[{n:"Edin Džeko",p:"ATT",club:"Fenerbahçe",caps:75,g:65},{n:"Ermedin Demirović",p:"ATT",club:"Stuttgart",caps:20,g:8},{n:"Miralem Pjanić",p:"MIL",club:"Sharjah",caps:105,g:18},{n:"Amer Hajradinović",p:"MIL",club:"Gent",caps:25,g:3},{n:"Sead Kolašinac",p:"DEF",club:"Atalanta",caps:45,g:3},{n:"Nikola Vasilj",p:"GAR",club:"St. Pauli",caps:15,g:0},{n:"Smail Prevljak",p:"ATT",club:"Eupen",caps:20,g:8},{n:"Haris Tabakovic",p:"ATT",club:"Hoffenheim",caps:8,g:3},{n:"Amer Hajradinovic",p:"MIL",club:"Gent",caps:25,g:3},{n:"Sanjin Sarić",p:"MIL",club:"Wolfsburg",caps:15,g:1},{n:"Rade Krunić",p:"MIL",club:"Fenerbahçe",caps:45,g:3},{n:"Eldar Čivić",p:"DEF",club:"Ferencváros",caps:15,g:0},{n:"Anel Ahmedhodžić",p:"DEF",club:"Sheffield Utd",caps:20,g:2},{n:"Dennis Hadžikadunić",p:"DEF",club:"Westerlo",caps:18,g:1},{n:"Ermin Bičakčić",p:"DEF",club:"Hoffenheim",caps:45,g:2},{n:"Kenan Pirić",p:"GAR",club:"Ferencváros",caps:10,g:0},{n:"Jusuf Gazibegović",p:"DEF",club:"Sturm Graz",caps:15,g:0},{n:"Izet Hajrović",p:"MIL",club:"Dinamo Zagreb",caps:40,g:5},{n:"Marko Menalo",p:"ATT",club:"Dinamo Zagreb",caps:10,g:2},{n:"Sead Kolasinac",p:"DEF",club:"Atalanta",caps:45,g:3},{n:"Armin Gigović",p:"MIL",club:"Fribourg",caps:8,g:1},{n:"Esmir Hasić",p:"ATT",club:"Brugge",caps:10,g:2}]},
+{id:"QAT",name:"Qatar",flag:"🇶🇦",group:"B",rank:42,titles:"0",coach:"Barman",players:[{n:"Almoez Ali",p:"ATT",club:"Al Duhail",caps:95,g:48},{n:"Akram Afif",p:"ATT",club:"Al Sadd",caps:80,g:25},{n:"Karim Boudiaf",p:"MIL",club:"Al Duhail",caps:110,g:5},{n:"Al Sheeb",p:"GAR",club:"Al Arabi",caps:65,g:0},{n:"Akram Afif",p:"ATT",club:"Al Sadd",caps:80,g:25},{n:"Hassan Al-Haydos",p:"ATT",club:"Al Sadd",caps:175,g:35},{n:"Ali Assadalla",p:"MIL",club:"Al Sadd",caps:60,g:5},{n:"Karim Boudiaf",p:"MIL",club:"Al Duhail",caps:110,g:5},{n:"Abdelkarim Hassan",p:"DEF",club:"Al Sadd",caps:120,g:10},{n:"Bassam Al-Rawi",p:"DEF",club:"Al Duhail",caps:45,g:3},{n:"Homam Al-Amin",p:"DEF",club:"Al Gharafa",caps:55,g:2},{n:"Pedro Miguel",p:"DEF",club:"Al Sadd",caps:65,g:3},{n:"Tarek Salman",p:"DEF",club:"Al Sadd",caps:40,g:1},{n:"Meshaal Barsham",p:"GAR",club:"Al Sadd",caps:30,g:0},{n:"Yusuf Abdurisag",p:"GAR",club:"Al Gharafa",caps:15,g:0},{n:"Mohammed Muntari",p:"ATT",club:"Al Duhail",caps:55,g:12},{n:"Ismaeel Mohammad",p:"MIL",club:"Al Duhail",caps:65,g:5},{n:"Assim Madabo",p:"MIL",club:"Al Sadd",caps:25,g:2},{n:"Ahmed Fathi",p:"MIL",club:"Al Rayyan",caps:20,g:1},{n:"Sultan Al-Brake",p:"DEF",club:"Al Duhail",caps:15,g:0},{n:"Jassem Gaber",p:"MIL",club:"Al Sadd",caps:30,g:2}]},
+{id:"SUI",name:"Suisse",flag:"🇨🇭",group:"B",rank:19,titles:"0",coach:"Yakin",players:[{n:"Breel Embolo",p:"ATT",club:"Monaco",caps:65,g:15},{n:"Dan Ndoye",p:"ATT",club:"Bologne",caps:15,g:4},{n:"Xherdan Shaqiri",p:"ATT",club:"Bâle",caps:120,g:32,wc:3},{n:"Granit Xhaka",p:"MIL",club:"Leverkusen",caps:130,g:15,wc:3},{n:"Remo Freuler",p:"MIL",club:"Bologne",caps:60,g:5},{n:"Manuel Akanji",p:"DEF",club:"Man City",caps:60,g:3},{n:"Ricardo Rodríguez",p:"DEF",club:"Betis",caps:110,g:10},{n:"Yann Sommer",p:"GAR",club:"Inter",caps:90,g:0},{n:"Breel Embolo",p:"ATT",club:"Monaco",caps:65,g:15},{n:"Noah Okafor",p:"ATT",club:"Milan",caps:20,g:5},{n:"Kwadwo Duah",p:"ATT",club:"Ludogorets",caps:8,g:2},{n:"Rubén Vargas",p:"ATT",club:"Parme",caps:45,g:10},{n:"Denis Zakaria",p:"MIL",club:"Monaco",caps:50,g:3},{n:"Silvan Widmer",p:"DEF",club:"Mayence",caps:35,g:3},{n:"Nico Elvedi",p:"DEF",club:"Mönchengladbach",caps:45,g:2},{n:"Fabian Schär",p:"DEF",club:"Newcastle",caps:80,g:10},{n:"Leonidas Stergiou",p:"DEF",club:"Stuttgart",caps:10,g:0},{n:"Yvon Mvogo",p:"GAR",club:"Lorient",caps:8,g:0},{n:"Gregor Kobel",p:"GAR",club:"Dortmund",caps:5,g:0},{n:"Dan Ndoye",p:"ATT",club:"Bologne",caps:15,g:4},{n:"Fabian Rieder",p:"MIL",club:"Stuttgart",caps:10,g:1},{n:"Ardon Jashari",p:"MIL",club:"Bruges",caps:5,g:0}]},
+{id:"HAI",name:"Haïti",flag:"🇭🇹",group:"C",rank:90,titles:"0",coach:"Ciquineau",players:[{n:"Josué Duverger",p:"ATT",club:"Le Havre",caps:15,g:5},{n:"Frantzdy Pierrot",p:"ATT",club:"Caen",caps:20,g:8},{n:"Johny Phéline",p:"MIL",club:"Guingamp",caps:10,g:1},{n:"Ronaldo Pétrus",p:"GAR",club:"Auxerre",caps:8,g:0},{n:"Duverger",p:"ATT",club:"Le Havre",caps:15,g:5},{n:"Pierrot",p:"ATT",club:"Auxerre",caps:20,g:8},{n:"Duckens Nazon",p:"ATT",club:"Académica",caps:50,g:15},{n:"Ricardo Adé",p:"DEF",club:"Toulouse",caps:15,g:1},{n:"Derrick Etienne",p:"ATT",club:"Columbus",caps:40,g:8},{n:"Leverton Pierre",p:"MIL",club:"Violette AC",caps:20,g:2},{n:"Steeven Saba",p:"MIL",club:"Grenoble",caps:12,g:1},{n:"Carlens Arcus",p:"DEF",club:"Auxerre",caps:10,g:0},{n:"Bryan Alceus",p:"MIL",club:"Dunkerque",caps:8,g:0},{n:"Josué Duverger",p:"GAR",club:"RWD Molenbeek",caps:10,g:0},{n:"Alexandre Balde",p:"DEF",club:"Racing Club",caps:15,g:1},{n:"Jeff Louis",p:"ATT",club:"RFC Liège",caps:30,g:10},{n:"Kevin Lafrance",p:"DEF",club:"Chicago",caps:35,g:2},{n:"Melchie Dumornay",p:"MIL",club:"Lyon F",caps:10,g:2},{n:"Frantzdy Pierrot",p:"ATT",club:"Auxerre",caps:20,g:8},{n:"Zachary Herivaux",p:"MIL",club:"Metz",caps:15,g:1},{n:"Danley Jean-Jacques",p:"DEF",club:"Violette",caps:20,g:0}]},
+{id:"SCO",name:"Écosse",flag:"🏴󠁧󠁢󠁳󠁣󠁴󠁿",group:"C",rank:38,titles:"0",coach:"Clarke",players:[{n:"Scott McTominay",p:"MIL",club:"Napoli",caps:55,g:10},{n:"Andrew Robertson",p:"DEF",club:"Liverpool",caps:75,g:5},{n:"Billy Gilmour",p:"MIL",club:"Napoli",caps:30,g:2},{n:"John McGinn",p:"MIL",club:"Aston Villa",caps:60,g:18},{n:"Tyler Adams",p:"ATT",club:"Torino",caps:25,g:8},{n:"Lyndon Dykes",p:"ATT",club:"QPR",caps:35,g:10},{n:"Kieran Tierney",p:"DEF",club:"Real Sociedad",caps:40,g:2},{n:"Angus Gunn",p:"GAR",club:"Norwich",caps:15,g:0},{n:"Che Adams",p:"ATT",club:"Torino",caps:25,g:8},{n:"Lawrence Shankland",p:"ATT",club:"Hearts",caps:15,g:5},{n:"Ryan Christie",p:"MIL",club:"Bournemouth",caps:35,g:5},{n:"Kenny McLean",p:"MIL",club:"Norwich",caps:40,g:5},{n:"Jack Hendry",p:"DEF",club:"Al Ettifaq",caps:20,g:1},{n:"Scott McKenna",p:"DEF",club:"Wolves",caps:30,g:2},{n:"Ryan Porteous",p:"DEF",club:"Watford",caps:15,g:1},{n:"Nathan Patterson",p:"DEF",club:"Everton",caps:15,g:0},{n:"Liam Kelly",p:"GAR",club:"Newcastle",caps:5,g:0},{n:"Zander Clark",p:"GAR",club:"Hearts",caps:3,g:0},{n:"Stuart Armstrong",p:"ATT",club:"Southampton",caps:40,g:8},{n:"Grant Hanley",p:"DEF",club:"Norwich",caps:40,g:2},{n:"Lewis Ferguson",p:"MIL",club:"Brighton",caps:15,g:2},{n:"Lewis Morgan",p:"MIL",club:"Nottingham",caps:12,g:1}]},
+{id:"PAR",name:"Paraguay",flag:"🇵🇾",group:"D",rank:50,titles:"0",coach:"Alfaro",players:[{n:"Julio Enciso",p:"ATT",club:"Brighton",caps:20,g:5},{n:"Antonio Sanabria",p:"ATT",club:"Torino",caps:40,g:12},{n:"Miguel Almirón",p:"MIL",club:"Newcastle",caps:55,g:15},{n:"Mathías Villasanti",p:"MIL",club:"Grêmio",caps:30,g:3},{n:"Gustavo Gómez",p:"DEF",club:"River Plate",caps:35,g:2},{n:"Antony Silva",p:"GAR",club:"Parme",caps:15,g:0},{n:"Romero Gamarra",p:"ATT",club:"Cruz Azul",caps:15,g:3},{n:"Adam Bareiro",p:"ATT",club:"River Plate",caps:10,g:4},{n:"Marcelo Pitta",p:"ATT",club:"Cerro",caps:20,g:5},{n:"Néstor Bobadilla",p:"MIL",club:"Peñarol",caps:15,g:1},{n:"R. Rojas",p:"MIL",club:"Inter Miami",caps:30,g:2},{n:"Andrés Cubas",p:"MIL",club:"Vancouver",caps:35,g:1},{n:"Santiago Arzamendia",p:"DEF",club:"Pachuca",caps:25,g:1},{n:"Omar Alderete",p:"DEF",club:"Getafe",caps:20,g:0},{n:"Fabián Balbuena",p:"DEF",club:"Corinthians",caps:55,g:5},{n:"Junior Alonso",p:"DEF",club:"Krasnodar",caps:25,g:2},{n:"Luis Fernández",p:"GAR",club:"Libertad",caps:10,g:0},{n:"Gatito Fernández",p:"GAR",club:"Botafogo",caps:30,g:0},{n:"Romero Gamarra",p:"ATT",club:"Cruz Azul",caps:15,g:3},{n:"O. Romero",p:"MIL",club:"Racing",caps:95,g:10},{n:"Junior Alonso",p:"DEF",club:"Atlético MG",caps:25,g:2},{n:"Cardozo Lucena",p:"MIL",club:"Racing",caps:15,g:2}]},
+{id:"AUS",name:"Australie",flag:"🇦🇺",group:"D",rank:28,titles:"0",coach:"Popovic",players:[{n:"Daniel Arzani",p:"ATT",club:"Macarthur",caps:15,g:3},{n:"Garang Kuol",p:"ATT",club:"Stuttgart",caps:10,g:2},{n:"Jamie Maclaren",p:"ATT",club:"Melbourne C.",caps:30,g:10},{n:"Aaron Mooy",p:"MIL",club:"Shanghai",caps:55,g:12},{n:"Jackson Irvine",p:"MIL",club:"St. Pauli",caps:45,g:5},{n:"Harry Souttar",p:"DEF",club:"Sheffield Utd",caps:15,g:2},{n:"Mathew Ryan",p:"GAR",club:"Roma",caps:75,g:0},{n:"Riley McGree",p:"MIL",club:"Middlesbrough",caps:20,g:3},{n:"Ajdin Hrustic",p:"MIL",club:"Al-Fayha",caps:30,g:4},{n:"Keanu Baccus",p:"MIL",club:"St. Mirren",caps:15,g:1},{n:"Aziz Behich",p:"DEF",club:"Dundee Utd",caps:25,g:1},{n:"Kye Rowles",p:"DEF",club:"Hearts",caps:15,g:0},{n:"Bailey Wright",p:"DEF",club:"Bristol City",caps:10,g:0},{n:"Thomas Deng",p:"DEF",club:"Urawa",caps:20,g:0},{n:"Danny Vukovic",p:"GAR",club:"NEC",caps:45,g:0},{n:"Joe Gauci",p:"GAR",club:"Aston Villa",caps:5,g:0},{n:"Mitchell Duke",p:"ATT",club:"OFI Crète",caps:20,g:5},{n:"Jason Cummings",p:"ATT",club:"Central Coast",caps:15,g:5},{n:"Marco Tilio",p:"ATT",club:"Man City",caps:5,g:1},{n:"Dion Bos",p:"DEF",club:"Feyenoord",caps:5,g:0},{n:"Denis Genreau",p:"MIL",club:"Toulouse",caps:10,g:0},{n:"Cammy Devlin",p:"MIL",club:"Hearts",caps:10,g:1},{n:"Connor Metcalfe",p:"MIL",club:"Real Salt Lake",caps:10,g:1}]},
+{id:"TUR",name:"Turquie",flag:"🇹🇷",group:"D",rank:30,titles:"0",coach:"Güneş",players:[{n:"Kenan Yıldız",p:"ATT",club:"Juventus",caps:20,g:4},{n:"Arda Güler",p:"MIL",club:"Real Madrid",caps:15,g:3},{n:"Cengiz Ünder",p:"ATT",club:"Fenerbahçe",caps:50,g:10},{n:"Hakan Çalhanoğlu",p:"MIL",club:"Inter",caps:85,g:20},{n:"Orkun Kökçü",p:"MIL",club:"Benfica",caps:35,g:5},{n:"Merih Demiral",p:"DEF",club:"Al-Ahli",caps:55,g:6},{n:"Mert Müldür",p:"DEF",club:"Fenerbahçe",caps:35,g:2},{n:"Mert Günok",p:"GAR",club:"Beşiktaş",caps:20,g:0},{n:"Kerem Aktürkoğlu",p:"ATT",club:"Benfica",caps:25,g:5},{n:"Cenk Tosun",p:"ATT",club:"Beşiktaş",caps:55,g:18},{n:"Kaan Ayhan",p:"DEF",club:"Galatasaray",caps:55,g:3},{n:"Abdülkerim Bardakcı",p:"DEF",club:"Galatasaray",caps:12,g:1},{n:"Ozan Kabak",p:"DEF",club:"Hoffenheim",caps:15,g:0},{n:"Salih Özcan",p:"MIL",club:"Dortmund",caps:20,g:2},{n:"Hakan Kahveci",p:"MIL",club:"Fenerbahçe",caps:30,g:5},{n:"Okay Yokuşlu",p:"MIL",club:"West Brom",caps:25,g:1},{n:"Altay Bayındır",p:"GAR",club:"Man Utd",caps:10,g:0},{n:"Uğurcan Çakır",p:"GAR",club:"Trabzonspor",caps:15,g:0},{n:"Ahmed Kutucu",p:"ATT",club:"Eyüpspor",caps:15,g:2},{n:"Baris Akgün",p:"ATT",club:"Galatasaray",caps:10,g:2},{n:"İsmail Yüksek",p:"MIL",club:"Fenerbahçe",caps:10,g:1},{n:"Caner Erkin",p:"DEF",club:"Retraité?",caps:65,g:3}]},
+{id:"CIV",name:"Côte d\'Ivoire",flag:"🇨🇮",group:"E",rank:45,titles:"0 (CAN 2024)",coach:"Faé",players:[{n:"Sébastien Haller",p:"ATT",club:"Dortmund",caps:40,g:15},{n:"Max Gradel",p:"ATT",club:"Sivasspor",caps:80,g:18},{n:"Willy Boly",p:"ATT",club:"Nottingham",caps:5,g:1},{n:"Franck Kessié",p:"MIL",club:"Al Ahli",caps:65,g:8},{n:"Jean-Michaël Seri",p:"MIL",club:"Hull",caps:50,g:5},{n:"Eric Bailly",p:"DEF",club:"Villarreal",caps:30,g:1},{n:"Serge Aurier",p:"DEF",club:"Galatasaray",caps:70,g:5},{n:"Ibrahim Sangaré",p:"GAR",club:"Lens",caps:10,g:0},{n:"Nicolas Pépé",p:"ATT",club:"Villarreal",caps:55,g:15},{n:"Maxwel Cornet",p:"ATT",club:"Southampton",caps:35,g:5},{n:"Boly",p:"DEF",club:"Nottingham",caps:30,g:1},{n:"Ghislain Kanon",p:"DEF",club:"Reims",caps:15,g:0},{n:"Sinaly Diomandé",p:"DEF",club:"Sporting",caps:10,g:1},{n:"Sangaré",p:"MIL",club:"Nottingham",caps:35,g:2},{n:"Pepe Bede",p:"ATT",club:"Al-Rayyan",caps:12,g:3},{n:"Ghislain Konan",p:"MIL",club:"Francfort",caps:10,g:1},{n:"Abdoulaye Diakité",p:"DEF",club:"Brest",caps:8,g:0},{n:"Jean-Philippe Gbamin",p:"MIL",club:"Everton",caps:15,g:0},{n:"Badra Ali Sangaré",p:"GAR",club:"Lens",caps:10,g:0},{n:"Youssouf Fofana",p:"GAR",club:"Lens",caps:5,g:0},{n:"Simon Adingra",p:"ATT",club:"Brighton",caps:12,g:4},{n:"Ousmane Diomandé",p:"DEF",club:"Sporting",caps:10,g:1}]},
+{id:"ECU",name:"Équateur",flag:"🇪🇨",group:"E",rank:33,titles:"0",coach:"Beccacece",players:[{n:"Enner Valencia",p:"ATT",club:"Inter Miami",caps:80,g:40},{n:"Jeremy Sarmiento",p:"ATT",club:"Brighton",caps:15,g:3},{n:"Moisés Caicedo",p:"MIL",club:"Chelsea",caps:40,g:5},{n:"Jhegson Franco",p:"MIL",club:"Atalanta",caps:20,g:2},{n:"Piero Hincapié",p:"DEF",club:"Leverkusen",caps:35,g:3},{n:"Hernán Galíndez",p:"GAR",club:"Aucas",caps:30,g:0},{n:"Michael Estrada",p:"ATT",club:"Cruz Azul",caps:45,g:8},{n:"José Cifuentes",p:"ATT",club:"Cruzeiro",caps:15,g:3},{n:"Carlos Gruezo",p:"MIL",club:"Augsbourg",caps:50,g:1},{n:"Jhon Méndez",p:"MIL",club:"Bordeaux",caps:30,g:3},{n:"Moisés Caicedo",p:"MIL",club:"Chelsea",caps:40,g:5},{n:"Nicolás Torres",p:"DEF",club:"Barcelona SC",caps:35,g:3},{n:"Xavier Arreaga",p:"DEF",club:"Seattle",caps:30,g:1},{n:"Willian Pacho",p:"DEF",club:"PSG",caps:15,g:1},{n:"Piero Porozo",p:"DEF",club:"Troyes",caps:20,g:0},{n:"Alexander Domínguez",p:"GAR",club:"Liga de Quito",caps:30,g:0},{n:"Angelo Ramírez",p:"GAR",club:"Nacional",caps:8,g:0},{n:"Sarmiento",p:"ATT",club:"Brighton",caps:15,g:3},{n:"Carlos Rodríguez",p:"MIL",club:"América MX",caps:10,g:1},{n:"Pervis Estupiñán",p:"DEF",club:"Brighton",caps:25,g:2},{n:"Kendry Páez",p:"MIL",club:"Independiente",caps:5,g:1},{n:"Djordje Yeboah",p:"ATT",club:"Racing",caps:15,g:4}]},
+{id:"CUR",name:"Curaçao",flag:"🇨🇼",group:"E",rank:80,titles:"0",coach:"Bicentini",players:[{n:"Leandro Bacuna",p:"MIL",club:"Rangers",caps:50,g:5},{n:"Rangelo Nepomuceno",p:"ATT",club:"Al-Fayha",caps:40,g:15},{n:"Eloy Comenencia",p:"GAR",club:"ADO",caps:20,g:0},{n:"Bacuna",p:"MIL",club:"Rangers",caps:50,g:5},{n:"Jay-Roy Grot",p:"ATT",club:"Almere",caps:15,g:5},{n:"Charlison Janga",p:"ATT",club:"Heerenveen",caps:30,g:8},{n:"Cuco Martina",p:"DEF",club:"Retraité?",caps:40,g:1},{n:"St. Juste",p:"DEF",club:"Sporting",caps:10,g:0},{n:"Van Anholt",p:"DEF",club:"PSV",caps:20,g:2},{n:"Shilton Hato",p:"DEF",club:"Ajax",caps:5,g:0},{n:"Delvigne",p:"MIL",club:"Volendam",caps:15,g:1},{n:"Quansah",p:"MIL",club:"Fortuna",caps:10,g:0},{n:"Michaël Vicario",p:"ATT",club:"NEC",caps:15,g:4},{n:"Gervane Palm",p:"MIL",club:"Zulte",caps:10,g:1},{n:"Van der Wiel",p:"DEF",club:"Curaçao FC",caps:20,g:0},{n:"Eloy Room",p:"GAR",club:"PSV",caps:25,g:0},{n:"Jarchinio Hooi",p:"ATT",club:"Jong PSV",caps:8,g:2},{n:"Jurien Cijntje",p:"MIL",club:"Almere",caps:10,g:1},{n:"Van Kessel",p:"ATT",club:"Breda",caps:10,g:3},{n:"Moritz Leitner",p:"MIL",club:"FC Curaçao",caps:5,g:0}]},
+{id:"SWE",name:"Suède",flag:"🇸🇪",group:"F",rank:24,titles:"0",coach:"Tomasson",players:[{n:"Alexander Isak",p:"ATT",club:"Newcastle",caps:55,g:20},{n:"Dejan Kulusevski",p:"ATT",club:"Tottenham",caps:35,g:8},{n:"Viktor Gyökeres",p:"ATT",club:"Sporting",caps:20,g:12},{n:"Kristoffer Olsson",p:"MIL",club:"Lecce",caps:60,g:5},{n:"Mattias Svanberg",p:"MIL",club:"Wolfsburg",caps:25,g:2},{n:"Victor Lindelöf",p:"DEF",club:"Man Utd",caps:55,g:3},{n:"Ludwig Augustinsson",p:"DEF",club:"Anderlecht",caps:40,g:2},{n:"Robin Olsen",p:"GAR",club:"Aston Villa",caps:50,g:0},{n:"Anthony Elanga",p:"ATT",club:"Nottingham",caps:15,g:3},{n:"Jesper Karlsson",p:"ATT",club:"Bologna",caps:10,g:2},{n:"Jens Cajuste",p:"MIL",club:"Ipswich",caps:20,g:1},{n:"Pontus Jansson",p:"DEF",club:"Malmö",caps:35,g:3},{n:"Pontus Danielson",p:"DEF",club:"Bologne",caps:10,g:0},{n:"Nilsson Lindelöf",p:"DEF",club:"Man Utd",caps:55,g:3},{n:"Emil Krafth",p:"DEF",club:"Newcastle",caps:15,g:0},{n:"Karl-Johan Johansson",p:"GAR",club:"Stoke",caps:15,g:0},{n:"Peter Dahlberg",p:"GAR",club:"Djurgården",caps:10,g:0},{n:"Emil Forsberg",p:"MIL",club:"New York RB",caps:60,g:15},{n:"Viktor Claesson",p:"MIL",club:"Elfsborg",caps:55,g:8},{n:"Isak Hien",p:"DEF",club:"Atalanta",caps:10,g:1},{n:"Emir Nanasi",p:"ATT",club:"Strasbourg",caps:8,g:2},{n:"Hugo Larsson",p:"MIL",club:"Francfort",caps:10,g:1}]},
+{id:"TUN",name:"Tunisie",flag:"🇹🇳",group:"F",rank:36,titles:"0",coach:"Kadri",players:[{n:"Wahbi Khazri",p:"ATT",club:"Montpellier",caps:75,g:25},{n:"Naïm Sliti",p:"ATT",club:"Ettifaq",caps:70,g:18},{n:"Seifeddine Jaziri",p:"ATT",club:"Espérance",caps:30,g:8},{n:"Ellyes Skhiri",p:"MIL",club:"Francfort",caps:55,g:5},{n:"Aïssa Laïdouni",p:"MIL",club:"Union Berlin",caps:25,g:3},{n:"Yassine Meriah",p:"DEF",club:"Espérance",caps:40,g:2},{n:"Aymen Dahmen",p:"GAR",club:"Montpellier",caps:30,g:0},{n:"Youssef Msakni",p:"ATT",club:"Al-Arabi",caps:85,g:20},{n:"Taha Khenissi",p:"ATT",club:"ES Tunis",caps:30,g:15},{n:"Bassem Bguir",p:"MIL",club:"Al-Fayha",caps:20,g:3},{n:"Ben Romdhane",p:"MIL",club:"Ferencváros",caps:25,g:3},{n:"Ferjani Sassi",p:"MIL",club:"Zamalek",caps:70,g:10},{n:"Montassar Talbi",p:"DEF",club:"Lorient",caps:30,g:2},{n:"Dylan Bronn",p:"DEF",club:"Salernitana",caps:50,g:3},{n:"Bilel Ghandri",p:"DEF",club:"Club Africain",caps:20,g:0},{n:"Mouez Hassen",p:"GAR",club:"Strasbourg",caps:15,g:0},{n:"Ben Said",p:"GAR",club:"US Monastir",caps:5,g:0},{n:"Mohamed Drager",p:"DEF",club:"Bâle",caps:30,g:1},{n:"Hannibal Mejbri",p:"MIL",club:"Burnley",caps:15,g:1},{n:"Hamza Rafia",p:"MIL",club:"Lecce",caps:8,g:1},{n:"Aïssa Laïdouni",p:"MIL",club:"Union Berlin",caps:25,g:3},{n:"Chemsdine Talbi",p:"DEF",club:"Lorient",caps:30,g:2}]},
+{id:"IRN",name:"Iran",flag:"🇮🇷",group:"G",rank:21,titles:"0",coach:"Ghalenoei",players:[{n:"Mehdi Taremi",p:"ATT",club:"Inter",caps:80,g:45,wc:3},{n:"Sardar Azmoun",p:"ATT",club:"Roma",caps:75,g:42},{n:"Alireza Jahanbakhsh",p:"ATT",club:"Feyenoord",caps:65,g:15},{n:"Saeid Ezatolahi",p:"MIL",club:"Vejle",caps:50,g:5},{n:"Omid Noorafkan",p:"MIL",club:"Persépolis",caps:25,g:2},{n:"Majid Hosseini",p:"DEF",club:"Kayserispor",caps:60,g:3},{n:"Alireza Beiranvand",p:"GAR",club:"Persépolis",caps:55,g:0},{n:"Saman Ghoddos",p:"ATT",club:"Brentford",caps:40,g:8},{n:"Karim Ansarifard",p:"ATT",club:"AEK",caps:100,g:30},{n:"Mehdi Torabi",p:"ATT",club:"Persépolis",caps:25,g:5},{n:"Vahid Amiri",p:"MIL",club:"Ferencváros",caps:25,g:3},{n:"Ahmad Nourollahi",p:"MIL",club:"Shabab Al-Ahli",caps:40,g:5},{n:"Sadegh Moharrami",p:"DEF",club:"Dinamo Zagreb",caps:35,g:3},{n:"Siavash Khalilzadeh",p:"DEF",club:"Al-Ahli",caps:30,g:2},{n:"Abolfazl Kanaani",p:"DEF",club:"Persépolis",caps:20,g:1},{n:"Amir Abedzadeh",p:"GAR",club:"Ponferradina",caps:20,g:0},{n:"Payam Mazaheri",p:"GAR",club:"Sepahan",caps:10,g:0},{n:"Ali Gholizadeh",p:"ATT",club:"Sporting",caps:30,g:8},{n:"Ehsan Hajsafi",p:"MIL",club:"AEK",caps:130,g:5},{n:"Milad Mohammadi",p:"DEF",club:"AEK",caps:95,g:5},{n:"Mehdi Yazdani",p:"MIL",club:"Persépolis",caps:15,g:1},{n:"Shoja Karimi",p:"DEF",club:"Kayserispor",caps:25,g:1}]},
+{id:"NZL",name:"Nouvelle-Zélande",flag:"🇳🇿",group:"G",rank:100,titles:"0",coach:"Darije",players:[{n:"Chris Wood",p:"ATT",club:"Nottingham",caps:70,g:35},{n:"Sarpreet Singh",p:"ATT",club:"Wellington",caps:20,g:5},{n:"Cam Bell",p:"MIL",club:"Viking",caps:15,g:2},{n:"Liberato Cacace",p:"DEF",club:"Empoli",caps:20,g:1},{n:"Stefan Marinovic",p:"GAR",club:"Wellington",caps:25,g:0},{n:"Cacace",p:"DEF",club:"Empoli",caps:25,g:2},{n:"Nando Payne",p:"ATT",club:"Inter Miami",caps:15,g:3},{n:"Ben Waine",p:"ATT",club:"Stevenage",caps:12,g:4},{n:"Joe Thomas",p:"MIL",club:"Groningen",caps:8,g:1},{n:"Matthew Stamenic",p:"MIL",club:"Lugano",caps:10,g:1},{n:"Bill Tuiloma",p:"DEF",club:"Vancouver",caps:30,g:1},{n:"Michael Boxall",p:"DEF",club:"Wellington",caps:20,g:0},{n:"Alex Sail",p:"GAR",club:"Melbourne City",caps:8,g:0},{n:"Alex Paulsen",p:"MIL",club:"Heerenveen",caps:12,g:1},{n:"Rico Lewis",p:"MIL",club:"LA Galaxy",caps:15,g:2},{n:"Jesse Garbett",p:"MIL",club:"Torino",caps:10,g:1},{n:"Andrew Surman",p:"MIL",club:"Bournemouth R",caps:25,g:1},{n:"Nikolas Sotirio",p:"ATT",club:"A-League",caps:15,g:3},{n:"Sam Bindon",p:"DEF",club:"Dundee Utd",caps:10,g:0},{n:"Callum McCowatt",p:"ATT",club:"Wellington",caps:8,g:2},{n:"Van Hattum",p:"GAR",club:"Team Wellington",caps:5,g:0}]},
+{id:"EGY",name:"Égypte",flag:"🇪🇬",group:"G",rank:34,titles:"0",coach:"Vitória",players:[{n:"Mohamed Salah",p:"ATT",club:"Liverpool",caps:95,g:55,wc:2},{n:"Mahmoud Trezeguet",p:"ATT",club:"Trabzonspor",caps:65,g:12},{n:"Omar Marmoush",p:"ATT",club:"Man City",caps:20,g:6},{n:"Mohamed Elneny",p:"MIL",club:"Al-Jazira",caps:105,g:10},{n:"Ahmed Fathi",p:"DEF",club:"Al Ahly",caps:45,g:3},{n:"El Shenawy",p:"GAR",club:"Al Ahly",caps:50,g:0},{n:"Mostafa Mohamed",p:"ATT",club:"Nantes",caps:30,g:10},{n:"Ahmed Sayed Zizo",p:"ATT",club:"Zamalek",caps:40,g:12},{n:"Mahmoud Trézéguet",p:"ATT",club:"Trabzonspor",caps:65,g:12},{n:"Emam Ashour",p:"MIL",club:"Ahly",caps:15,g:2},{n:"El Sulya",p:"MIL",club:"Pyramids",caps:25,g:3},{n:"Hamdi Fathi",p:"MIL",club:"Al Ahly",caps:30,g:1},{n:"Ahmed Hegazy",p:"DEF",club:"Al-Ittihad",caps:85,g:5},{n:"Mohamed Abdelmonem",p:"DEF",club:"Galatasaray",caps:25,g:2},{n:"Mohamed Ashraf",p:"DEF",club:"Ahly",caps:15,g:0},{n:"Mohamed Farouk",p:"DEF",club:"Zamalek",caps:10,g:1},{n:"Mohamed Gabaski",p:"GAR",club:"Zamalek",caps:20,g:0},{n:"Ramadan Sobhi",p:"GAR",club:"Al Ahly",caps:5,g:0},{n:"Ibrahim Adel",p:"ATT",club:"Ahly",caps:15,g:3},{n:"Ahmed Hamdy",p:"ATT",club:"Jeddah",caps:20,g:5},{n:"Tarek Hamed",p:"MIL",club:"Al-Ittifaq",caps:85,g:3},{n:"Mohamed Hany",p:"DEF",club:"Ahly",caps:20,g:0}]},
+{id:"KSA",name:"Arabie Saoudite",flag:"🇸🇦",group:"H",rank:56,titles:"0",coach:"Mancini",players:[{n:"Salem Al-Dawsari",p:"ATT",club:"Al-Hilal",caps:80,g:20},{n:"Feras Al-Buraikan",p:"ATT",club:"Al-Hilal",caps:45,g:12},{n:"Mohamed Kanno",p:"MIL",club:"Al-Hilal",caps:75,g:5},{n:"Abdulellah Al-Malki",p:"MIL",club:"Al-Hilal",caps:55,g:3},{n:"Abdulelah Al-Amri",p:"DEF",club:"Al-Nassr",caps:35,g:1},{n:"Mohammed Al-Owais",p:"GAR",club:"Al-Hilal",caps:60,g:0},{n:"Saleh Al-Shehri",p:"ATT",club:"Al-Hilal",caps:20,g:8},{n:"Feras Al-Brikan",p:"ATT",club:"Al-Fateh",caps:35,g:10},{n:"Salman Al-Faraj",p:"MIL",club:"Al-Hilal",caps:70,g:8},{n:"Mohamed Kanno",p:"MIL",club:"Al-Hilal",caps:75,g:5},{n:"Abdulellah Al-Malki",p:"MIL",club:"Al-Hilal",caps:55,g:3},{n:"Yasser Al-Shahrani",p:"DEF",club:"Al-Hilal",caps:65,g:5},{n:"Ali Al-Boleahi",p:"DEF",club:"Al-Hilal",caps:35,g:1},{n:"Sultan Al-Ghannam",p:"DEF",club:"Al-Nassr",caps:35,g:1},{n:"Hassan Tambakti",p:"DEF",club:"Al-Shabab",caps:15,g:0},{n:"Mohammed Al-Rubaie",p:"GAR",club:"Al-Ahli",caps:10,g:0},{n:"Nawaf Al-Aqidi",p:"GAR",club:"Al-Nassr",caps:8,g:0},{n:"Abdulrahman Al-Hamdan",p:"ATT",club:"Al-Shabab",caps:25,g:10},{n:"Ayman Al-Najei",p:"MIL",club:"Al-Hilal",caps:15,g:1},{n:"Sultan Al-Ghannam",p:"DEF",club:"Al-Nassr",caps:35,g:1},{n:"Abdullah Otayf",p:"MIL",club:"Al-Hilal",caps:55,g:5},{n:"Hattan Al-Abid",p:"MIL",club:"Al-Hilal",caps:30,g:5}]},
+{id:"CPV",name:"Cabo Verde",flag:"🇨🇻",group:"H",rank:65,titles:"0",coach:"Brito",players:[{n:"Ryan Mendes",p:"ATT",club:"Vitória Guimarães",caps:60,g:15},{n:"Garry Rodrigues",p:"ATT",club:"Olympiakos",caps:45,g:12},{n:"Nuno Borges",p:"MIL",club:"Boavista",caps:20,g:2},{n:"Vozinha",p:"GAR",club:"Gil Vicente",caps:50,g:0},{n:"Djaniny Semedo",p:"ATT",club:"Arouca",caps:40,g:15},{n:"Julio Tavares",p:"ATT",club:"Dijon",caps:50,g:20},{n:"Nené",p:"MIL",club:"Moreirense",caps:20,g:3},{n:"Kenny Rocha",p:"MIL",club:"Arouca",caps:30,g:2},{n:"Jeffry Fortes",p:"DEF",club:"Moreirense",caps:25,g:1},{n:"Steven Fortes",p:"DEF",club:"Lens",caps:35,g:2},{n:"Roberto Lopes",p:"DEF",club:"Benfica B",caps:8,g:0},{n:"Logan Costa",p:"DEF",club:"Toulouse",caps:15,g:1},{n:"Dylan Tavares",p:"MIL",club:"Lech Poznan",caps:10,g:1},{n:"Pelé",p:"MIL",club:"Vizela",caps:15,g:1},{n:"Gilson Benchimol",p:"GAR",club:"Académica",caps:8,g:0},{n:"Stopira",p:"DEF",club:"Ajaccio",caps:60,g:3},{n:"Willis",p:"MIL",club:"Santa Clara",caps:10,g:0},{n:"Jamiro Monteiro",p:"MIL",club:"San Jose",caps:30,g:3},{n:"Lisandro Semedo",p:"ATT",club:"Santa Clara",caps:15,g:3},{n:"Weslley Patrickson",p:"ATT",club:"Arouca",caps:8,g:2}]},
+{id:"IRQ",name:"Irak",flag:"🇮🇶",group:"I",rank:58,titles:"0",coach:"Casillas",players:[{n:"Mohannad Ali",p:"ATT",club:"Sharjah",caps:40,g:12},{n:"Aymen Hussein",p:"ATT",club:"Persépolis",caps:50,g:20},{n:"Ibrahim Bayesh",p:"MIL",club:"Al-Quwa Al-Jawiya",caps:35,g:3},{n:"Alaa Abbas",p:"MIL",club:"Air Force Club",caps:30,g:5},{n:"Ali Adnan",p:"DEF",club:"Vancouver",caps:55,g:5},{n:"Jalal Hassan",p:"GAR",club:"Air Force Club",caps:35,g:0},{n:"Mohannad Ali",p:"ATT",club:"Sharjah",caps:40,g:12},{n:"Aymen Hussein",p:"ATT",club:"Persépolis",caps:50,g:20},{n:"Amjed Attwan",p:"ATT",club:"Al-Quwa",caps:20,g:5},{n:"Ibrahim Bayesh",p:"MIL",club:"Al-Quwa",caps:35,g:3},{n:"Alaa Abbas",p:"MIL",club:"Air Force",caps:30,g:5},{n:"Safaa Hadi",p:"MIL",club:"Al-Zawraa",caps:25,g:2},{n:"Hussein Ali",p:"MIL",club:"Al-Shorta",caps:20,g:1},{n:"Ali Adnan",p:"DEF",club:"Vancouver",caps:55,g:5},{n:"Ahmed Ibrahim",p:"DEF",club:"Al-Quwa",caps:30,g:2},{n:"Rebin Sulaka",p:"DEF",club:"Apoel",caps:35,g:1},{n:"Saad Natiq",p:"DEF",club:"Al-Zawraa",caps:20,g:1},{n:"Jalal Hassan",p:"GAR",club:"Air Force",caps:35,g:0},{n:"Fahad Talib",p:"GAR",club:"Al-Zawraa",caps:10,g:0},{n:"Manaf Younis",p:"ATT",club:"Al-Quwa",caps:15,g:4},{n:"Yaser Kasim",p:"MIL",club:"Al-Shorta",caps:20,g:2},{n:"Dhurgham Ismail",p:"DEF",club:"Al-Quwa",caps:25,g:1}]},
+{id:"AUT",name:"Autriche",flag:"🇦🇹",group:"J",rank:26,titles:"0",coach:"Rangnick",players:[{n:"Marko Arnautović",p:"ATT",club:"Inter",caps:110,g:38},{n:"Michael Gregoritsch",p:"ATT",club:"Fribourg",caps:50,g:15},{n:"Marcel Sabitzer",p:"MIL",club:"Dortmund",caps:80,g:15},{n:"Konrad Laimer",p:"MIL",club:"Bayern",caps:45,g:5},{n:"Nicolas Seiwald",p:"MIL",club:"Leipzig",caps:25,g:2},{n:"David Alaba",p:"DEF",club:"Real Madrid",caps:105,g:15},{n:"Kevin Danso",p:"DEF",club:"Lens",caps:25,g:1},{n:"Patrick Pentz",p:"GAR",club:"Bröndby",caps:10,g:0},{n:"Christoph Baumgartner",p:"MIL",club:"Leipzig",caps:40,g:12},{n:"Patrick Wimmer",p:"ATT",club:"Wolfsburg",caps:15,g:3},{n:"Junior Adamu",p:"ATT",club:"Augsbourg",caps:10,g:2},{n:"Andreas Weimann",p:"ATT",club:"Bristol City",caps:30,g:5},{n:"Stefan Posch",p:"DEF",club:"Bologne",caps:35,g:1},{n:"Maximilian Wöber",p:"DEF",club:"Leeds",caps:15,g:0},{n:"Gernot Trauner",p:"DEF",club:"Feyenoord",caps:15,g:0},{n:"Philipp Lienhart",p:"DEF",club:"Fribourg",caps:15,g:0},{n:"Heinz Lindner",p:"GAR",club:"Union Berlin",caps:5,g:0},{n:"Niklas Hedl",p:"GAR",club:"Rapid Vienne",caps:3,g:0},{n:"Florian Grillitsch",p:"MIL",club:"Hoffenheim",caps:30,g:2},{n:"Romano Schmid",p:"MIL",club:"Werder",caps:15,g:1},{n:"Alexander Prass",p:"MIL",club:"Freiburg",caps:10,g:1},{n:"Maximilian Entrup",p:"ATT",club:"Fribourg",caps:5,g:2}]},
+{id:"JOR",name:"Jordanie",flag:"🇯🇴",group:"J",rank:68,titles:"0 (Finale CAN 2023)",coach:"Ammouta",players:[{n:"Musa Al-Tamari",p:"ATT",club:"Montpellier",caps:60,g:15},{n:"Baha Faisal",p:"ATT",club:"Al-Wehdat",caps:45,g:20},{n:"Yazan Al-Naimat",p:"MIL",club:"Go Ahead Eagles",caps:30,g:5},{n:"Muath Abu Jhaish",p:"DEF",club:"Al-Faisaly",caps:25,g:1},{n:"Yazeed Ababneh",p:"GAR",club:"Al-Ramtha",caps:20,g:0},{n:"Hamza Al-Dardour",p:"ATT",club:"Al-Faisaly",caps:50,g:18},{n:"Baha Faisal",p:"ATT",club:"Al-Wehdat",caps:45,g:20},{n:"Musa Al-Taamari",p:"ATT",club:"Montpellier",caps:60,g:15},{n:"Mousa Tamari",p:"ATT",club:"Montpellier",caps:60,g:15},{n:"Yazan Al-Naimat",p:"MIL",club:"Go Ahead",caps:30,g:5},{n:"Nasser Al-Dawiri",p:"MIL",club:"Al-Faisaly",caps:25,g:1},{n:"Baha Abdel-Rahman",p:"MIL",club:"Al-Faisaly",caps:35,g:3},{n:"Ehsan Haddad",p:"MIL",club:"Shabab Al-Ordon",caps:20,g:2},{n:"Anas Bani Yaseen",p:"DEF",club:"Al-Ittifaq",caps:55,g:3},{n:"Abdallah Nasib",p:"DEF",club:"Al-Wehdat",caps:30,g:1},{n:"Salem Al-Ajalin",p:"DEF",club:"Al-Ahli",caps:25,g:0},{n:"Muath Abu Jhaish",p:"DEF",club:"Al-Faisaly",caps:25,g:1},{n:"Yazeed Ababneh",p:"GAR",club:"Al-Ramtha",caps:20,g:0},{n:"Ahmad Abu Nahia",p:"GAR",club:"Al-Faisaly",caps:10,g:0},{n:"Hamza Al-Dardour",p:"ATT",club:"Al-Faisaly",caps:50,g:18},{n:"Mohannad Abu Taha",p:"MIL",club:"Al-Faisaly",caps:15,g:1}]},
+{id:"ALG",name:"Algérie",flag:"🇩🇿",group:"J",rank:32,titles:"0 (CAN 2019)",coach:"Petkovic",players:[{n:"Riyad Mahrez",p:"ATT",club:"Al-Ahli",caps:90,g:30,wc:1},{n:"Baghdad Bounedjah",p:"ATT",club:"Al-Sadd",caps:55,g:20},{n:"Saïd Benrahma",p:"ATT",club:"Lyon",caps:35,g:10},{n:"Ismaël Bennacer",p:"MIL",club:"Milan",caps:55,g:5},{n:"Ramiz Zerrouki",p:"MIL",club:"Feyenoord",caps:20,g:3},{n:"Aïssa Mandi",p:"DEF",club:"Al-Shabab",caps:75,g:5},{n:"Ramy Bensebaïni",p:"DEF",club:"Dortmund",caps:45,g:4},{n:"Alexandre Mandréa",p:"GAR",club:"Nice",caps:10,g:0},{n:"Youcef Atal",p:"DEF",club:"Nice",caps:20,g:2},{n:"Yacine Brahimi",p:"ATT",club:"Al-Rayyan",caps:70,g:15},{n:"Youcef Belaïli",p:"ATT",club:"ES Tunis",caps:45,g:8},{n:"Islam Slimani",p:"ATT",club:"Crotone",caps:85,g:30},{n:"Hicham Boudaoui",p:"MIL",club:"Nice",caps:30,g:2},{n:"Nabil Bentaleb",p:"MIL",club:"Lille",caps:20,g:1},{n:"Adem Zorgane",p:"MIL",club:"Burnley",caps:15,g:1},{n:"Abdel Touba",p:"DEF",club:"RB Salzbourg",caps:10,g:0},{n:"Mohamed Tougai",p:"DEF",club:"USM Alger",caps:15,g:1},{n:"Mehdi Tahrat",p:"DEF",club:"Montpellier",caps:30,g:0},{n:"Raïs M'Bolhi",p:"GAR",club:"ES Tunis",caps:75,g:0},{n:"Farid Zeghba",p:"GAR",club:"CR Belouizdad",caps:5,g:0},{n:"Mohamed Amoura",p:"ATT",club:"Wolfsbourg",caps:10,g:3},{n:"Amine Gouiri",p:"ATT",club:"Rennes",caps:15,g:4},{n:"Amine Gouiri",p:"ATT",club:"Rennes",caps:15,g:4}]},
+{id:"UZB",name:"Ouzbékistan",flag:"🇺🇿",group:"K",rank:62,titles:"0",coach:"Srecko",players:[{n:"Eldor Shomurodov",p:"ATT",club:"Roma",caps:60,g:20},{n:"Jaloliddin Masharipov",p:"ATT",club:"Al-Shabab",caps:55,g:12},{n:"Husniddin Abdixoliqov",p:"MIL",club:"Pakhtakor",caps:30,g:3},{n:"Islom Komilov",p:"GAR",club:"Pakhtakor",caps:20,g:0},{n:"Eldor Shomurodov",p:"ATT",club:"Roma",caps:60,g:20},{n:"Jaloliddin Masharipov",p:"ATT",club:"Al-Shabab",caps:55,g:12},{n:"Oston Urunov",p:"ATT",club:"Lens",caps:15,g:5},{n:"Abbosbek Fayzullayev",p:"ATT",club:"CSKA Moscú",caps:20,g:8},{n:"Jaloliddin Babajonov",p:"MIL",club:"Lokomotiv Tashkent",caps:25,g:2},{n:"Otabek Shukurov",p:"MIL",club:"Al-Ahli",caps:35,g:3},{n:"Jamshid Iskanderov",p:"MIL",club:"Pakhtakor",caps:20,g:1},{n:"Dostonbek Khamdamov",p:"MIL",club:"Pakhtakor",caps:15,g:1},{n:"Husniddin Aliqulov",p:"DEF",club:"Pakhtakor",caps:30,g:1},{n:"Abdukodir Khusanov",p:"DEF",club:"Man City",caps:10,g:0},{n:"Rustam Ashurmatov",p:"DEF",club:"Bunyodkor",caps:25,g:1},{n:"Viktor Kuzma",p:"DEF",club:"Pakhtakor",caps:10,g:0},{n:"Eldorbek Suyunov",p:"GAR",club:"Nasaf",caps:15,g:0},{n:"Utkir Yusupov",p:"MIL",club:"Pakhtakor",caps:40,g:5},{n:"Komilov",p:"GAR",club:"Pakhtakor",caps:20,g:0},{n:"Zabikhillo Urinboev",p:"DEF",club:"Lokomotiv",caps:15,g:1}]},
+{id:"COL",name:"Colombie",flag:"🇨🇴",group:"K",rank:13,titles:"0",coach:"Lorenzo",players:[{n:"Luis Díaz",p:"ATT",club:"Liverpool",caps:50,g:12},{n:"Jhon Durán",p:"ATT",club:"Aston Villa",caps:15,g:5},{n:"Jhon Córdoba",p:"ATT",club:"Krasnodar",caps:20,g:8},{n:"James Rodríguez",p:"MIL",club:"León",caps:100,g:25,bo:"2014 (Golden Boot)",wc:3},{n:"Richard Ríos",p:"MIL",club:"Palmeiras",caps:25,g:3},{n:"Santiago Arias",p:"MIL",club:"Dinamo Moscú",caps:45,g:5},{n:"Davinson Sánchez",p:"DEF",club:"Galatasaray",caps:60,g:3},{n:"Johan Mojica",p:"DEF",club:"Majorque",caps:35,g:2},{n:"Camilo Vargas",p:"GAR",club:"Atlas",caps:30,g:0},{n:"Luis Muriel",p:"ATT",club:"Orlando City",caps:40,g:10},{n:"Rafael Santos Borré",p:"ATT",club:"Inter Miami",caps:35,g:8},{n:"Luis Sinisterra",p:"ATT",club:"Bournemouth",caps:20,g:5},{n:"Juan Cuadrado",p:"MIL",club:"Inter Miami",caps:120,g:12},{n:"Richard Ríos",p:"MIL",club:"Palmeiras",caps:25,g:3},{n:"Jefferson Lerma",p:"MIL",club:"Crystal Palace",caps:45,g:2},{n:"Mateus Uribe",p:"MIL",club:"Porto",caps:35,g:3},{n:"Daniel Muñoz",p:"DEF",club:"Crystal Palace",caps:20,g:1},{n:"Jhon Lucumí",p:"DEF",club:"Bologne",caps:20,g:1},{n:"Miguel Borja",p:"DEF",club:"Junior",caps:15,g:0},{n:"Álvarez Balanta",p:"GAR",club:"Bruges",caps:5,g:0},{n:"David Ospina",p:"GAR",club:"Al-Nassr",caps:120,g:0},{n:"Yerry Mina",p:"DEF",club:"Cagliari",caps:45,g:6},{n:"Carlos Cuesta",p:"DEF",club:"Genk",caps:20,g:1}]},
+{id:"COD",name:"RD Congo",flag:"🇨🇩",group:"K",rank:52,titles:"0",coach:"Ibenge",players:[{n:"Cédric Bakambu",p:"ATT",club:"Betis",caps:55,g:12},{n:"Silas Katompa",p:"ATT",club:"Stuttgart",caps:20,g:5},{n:"Chancel Mbemba",p:"DEF",club:"Marseille",caps:60,g:3},{n:"Jackson Muleka",p:"ATT",club:"Kasımpaşa",caps:25,g:6},{n:"Francis Kawaya",p:"MIL",club:"Charleroi",caps:15,g:2},{n:"Joël Kiassumbua",p:"GAR",club:"STVV",caps:10,g:0},{n:"Bakambu",p:"ATT",club:"Betis",caps:55,g:12},{n:"Silas",p:"ATT",club:"Stuttgart",caps:20,g:5},{n:"Dieumerci Mbokani",p:"ATT",club:"Retraité?",caps:55,g:15},{n:"Yoane Wissa",p:"ATT",club:"Brentford",caps:15,g:3},{n:"Gaël Kakuta",p:"MIL",club:"Lens",caps:35,g:5},{n:"Christian Luyindama",p:"DEF",club:"Galatasaray",caps:25,g:2},{n:"Chancel Mbemba",p:"DEF",club:"Marseille",caps:60,g:3},{n:"Paul-José Mpoku",p:"MIL",club:"Standard",caps:30,g:5},{n:"Edo Kayembe",p:"MIL",club:"Watford",caps:20,g:2},{n:"Rocky Bushiri",p:"DEF",club:"Norwich",caps:10,g:0},{n:"Joël Matampi",p:"GAR",club:"TP Mazembe",caps:25,g:0},{n:"Fiston Mundele",p:"ATT",club:"TP Mazembe",caps:20,g:5},{n:"Merveille Ngonda",p:"DEF",club:"Standard",caps:15,g:0},{n:"Amédée Bope",p:"MIL",club:"TP Mazembe",caps:10,g:1},{n:"Hervé Mbala",p:"GAR",club:"AS Vita",caps:8,g:0},{n:"Meschak Malango",p:"ATT",club:"Raja",caps:15,g:5}]},
+{id:"GHA",name:"Ghana",flag:"🇬🇭",group:"L",rank:48,titles:"0",coach:"Addo",players:[{n:"Iñaki Williams",p:"ATT",club:"Athletic",caps:30,g:5},{n:"Mohammed Kudus",p:"ATT",club:"West Ham",caps:20,g:6},{n:"Jordan Ayew",p:"ATT",club:"Le Havre",caps:110,g:24},{n:"Thomas Partey",p:"MIL",club:"Arsenal",caps:50,g:12},{n:"Salis Abdul Samed",p:"MIL",club:"Lens",caps:15,g:1},{n:"Mohammed Salisu",p:"DEF",club:"Monaco",caps:25,g:2},{n:"Daniel Amartey",p:"DEF",club:"Leicester",caps:45,g:1},{n:"Lawrence Ati-Zigi",p:"GAR",club:"St. Gallen",caps:25,g:0},{n:"J. Ayew",p:"ATT",club:"Le Havre",caps:110,g:24},{n:"Antoine Semenyo",p:"ATT",club:"Bournemouth",caps:15,g:4},{n:"Fatawu Issahaku",p:"ATT",club:"Leicester",caps:10,g:2},{n:"Kamaldeen Sulemana",p:"ATT",club:"Rennes",caps:20,g:3},{n:"Mohammed Kudus",p:"ATT",club:"West Ham",caps:20,g:6},{n:"Jonathan Ofori",p:"MIL",club:"LASK",caps:25,g:2},{n:"Baba Rahman",p:"DEF",club:"PAOK",caps:30,g:2},{n:"Alexander Djiku",p:"DEF",club:"Fenerbahçe",caps:30,g:1},{n:"Alidu Seidu",p:"DEF",club:"Lens",caps:8,g:0},{n:"Jonathan Mensah",p:"DEF",club:"Salzbourg",caps:25,g:1},{n:"Manaf Nurudeen",p:"GAR",club:"Eupen",caps:5,g:0},{n:"Ati-Zigi",p:"GAR",club:"St. Gallen",caps:25,g:0},{n:"Joseph Paintsil",p:"ATT",club:"Genk",caps:15,g:3},{n:"Daniel Sowah",p:"MIL",club:"Club Brugge",caps:10,g:1},{n:"Daniel-Kofi Kyereh",p:"MIL",club:"Fribourg",caps:20,g:4}]},
+{id:"PAN",name:"Panama",flag:"🇵🇦",group:"L",rank:44,titles:"0",coach:"Christiansen",players:[{n:"José Fajardo",p:"ATT",club:"Saprissa",caps:50,g:12},{n:"Abdiel Blackburn",p:"ATT",club:"Khor Fakkan",caps:40,g:8},{n:"Adalberto Godoy",p:"MIL",club:"San Lorenzo",caps:35,g:3},{n:"Nicolás Torres",p:"DEF",club:"Seattle",caps:55,g:5},{n:"Orlando Mosquera",p:"GAR",club:"Panamá FC",caps:25,g:0},{n:"Fajardo",p:"ATT",club:"Saprissa",caps:50,g:12},{n:"Blackburn",p:"ATT",club:"Khor Fakkan",caps:40,g:8},{n:"César Yanis",p:"ATT",club:"Santos Guápiles",caps:15,g:4},{n:"Adalberto Carrasquilla",p:"MIL",club:"Houston",caps:40,g:3},{n:"Godoy",p:"MIL",club:"San Lorenzo",caps:35,g:3},{n:"Alberto Quintero",p:"ATT",club:"Universitario",caps:55,g:10},{n:"Édgar Bárcenas",p:"ATT",club:"Real Oviedo",caps:50,g:10},{n:"Aníbal Godoy",p:"MIL",club:"Nashville",caps:85,g:5},{n:"Adalberto Carrasquilla",p:"MIL",club:"Houston",caps:40,g:3},{n:"Michael Murillo",p:"DEF",club:"Anderlecht",caps:55,g:5},{n:"Harold Cummings",p:"DEF",club:"San José",caps:80,g:3},{n:"Éric Davis",p:"DEF",club:"Retraité?",caps:70,g:3},{n:"Fidel Escobar",p:"DEF",club:"Saprissa",caps:55,g:1},{n:"Orlando Mosquera",p:"GAR",club:"Panamá FC",caps:25,g:0},{n:"José Guerra",p:"GAR",club:"Universitario",caps:15,g:0},{n:"César Yanis",p:"ATT",club:"Santos",caps:15,g:4},{n:"Freddy Gondola",p:"MIL",club:"Olimpia",caps:20,g:2}]}
+];
+var BALLONDOR=[
+{y:2025,p:"Ousmane Dembélé",c:"FRA",club:"PSG"},
+{y:2024,p:"Rodri",c:"ESP",club:"Man City"},
+{y:2023,p:"Lionel Messi",c:"ARG",club:"Inter Miami"},
+{y:2022,p:"Karim Benzema",c:"FRA",club:"Real Madrid"},
+{y:2021,p:"Lionel Messi",c:"ARG",club:"PSG"},
+{y:2019,p:"Lionel Messi",c:"ARG",club:"Barcelone"},
+{y:2018,p:"Luka Modrić",c:"CRO",club:"Real Madrid"},
+{y:2017,p:"Cristiano Ronaldo",c:"POR",club:"Real Madrid"},
+{y:2016,p:"Cristiano Ronaldo",c:"POR",club:"Real Madrid"},
+{y:2015,p:"Lionel Messi",c:"ARG",club:"Barcelone"},
+{y:2014,p:"Cristiano Ronaldo",c:"POR",club:"Real Madrid"},
+{y:2013,p:"Cristiano Ronaldo",c:"POR",club:"Real Madrid"},
+{y:2012,p:"Lionel Messi",c:"ARG",club:"Barcelone"},
+{y:2011,p:"Lionel Messi",c:"ARG",club:"Barcelone"},
+{y:2010,p:"Lionel Messi",c:"ARG",club:"Barcelone"},
+{y:2009,p:"Lionel Messi",c:"ARG",club:"Barcelone"},
+{y:2008,p:"Cristiano Ronaldo",c:"POR",club:"Man Utd"},
+{y:2007,p:"Kaká",c:"BRA",club:"Milan"},
+{y:2006,p:"Fabio Cannavaro",c:"ITA",club:"Real Madrid"},
+{y:2005,p:"Ronaldinho",c:"BRA",club:"Barcelone"},
+{y:2004,p:"Andriy Shevchenko",c:"UKR",club:"Milan"},
+{y:2003,p:"Pavel Nedvěd",c:"CZE",club:"Juventus"},
+{y:2002,p:"Ronaldo",c:"BRA",club:"Real Madrid"},
+{y:2001,p:"Michael Owen",c:"ENG",club:"Liverpool"},
+{y:2000,p:"Luís Figo",c:"POR",club:"Real Madrid"},
+{y:1999,p:"Rivaldo",c:"BRA",club:"Barcelone"},
+{y:1998,p:"Zinedine Zidane",c:"FRA",club:"Juventus"},
+{y:1997,p:"Ronaldo",c:"BRA",club:"Inter"},
+{y:1996,p:"Matthias Sammer",c:"GER",club:"Dortmund"},
+{y:1995,p:"George Weah",c:"LBR",club:"Milan"},
+{y:1994,p:"Hristo Stoichkov",c:"BGR",club:"Barcelone"},
+{y:1993,p:"Roberto Baggio",c:"ITA",club:"Juventus"},
+{y:1992,p:"Marco van Basten",c:"NED",club:"Milan"},
+{y:1991,p:"Jean-Pierre Papin",c:"FRA",club:"Marseille"},
+{y:1990,p:"Lothar Matthäus",c:"GER",club:"Inter"},
+{y:1989,p:"Marco van Basten",c:"NED",club:"Milan"},
+{y:1988,p:"Marco van Basten",c:"NED",club:"Milan"},
+{y:1987,p:"Ruud Gullit",c:"NED",club:"Milan"},
+{y:1986,p:"Igor Belanov",c:"URS",club:"Dynamo Kiev"},
+{y:1985,p:"Michel Platini",c:"FRA",club:"Juventus"},
+{y:1984,p:"Michel Platini",c:"FRA",club:"Juventus"},
+{y:1983,p:"Michel Platini",c:"FRA",club:"Juventus"},
+{y:1982,p:"Paolo Rossi",c:"ITA",club:"Juventus"},
+{y:1981,p:"Karl-Heinz Ruminegge",c:"GER",club:"Bayern"},
+{y:1980,p:"Karl-Heinz Ruminegge",c:"GER",club:"Bayern"},
+{y:1979,p:"Kevin Keegan",c:"ENG",club:"Hambourg"},
+{y:1978,p:"Kevin Keegan",c:"ENG",club:"Hambourg"},
+{y:1977,p:"Allan Simonsen",c:"DEN",club:"Mönchengladbach"},
+{y:1976,p:"Franz Beckenbauer",c:"GER",club:"Bayern"},
+{y:1975,p:"Oleg Blokhin",c:"URS",club:"Dynamo Kiev"},
+{y:1974,p:"Johan Cruyff",c:"NED",club:"Barcelone"},
+{y:1973,p:"Johan Cruyff",c:"NED",club:"Ajax"},
+{y:1972,p:"Franz Beckenbauer",c:"GER",club:"Bayern"},
+{y:1971,p:"Johan Cruyff",c:"NED",club:"Ajax"},
+{y:1970,p:"Gerd Müller",c:"GER",club:"Bayern"},
+{y:1969,p:"Gianni Rivera",c:"ITA",club:"Milan"},
+{y:1968,p:"George Best",c:"NIR",club:"Man Utd"},
+{y:1967,p:"Flórián Albert",c:"HUN",club:"Ferencváros"},
+{y:1966,p:"Bobby Charlton",c:"ENG",club:"Man Utd"},
+{y:1965,p:"Eusébio",c:"POR",club:"Benfica"},
+{y:1964,p:"Denis Law",c:"SCO",club:"Man Utd"},
+{y:1963,p:"Lev Yachine",c:"URS",club:"Dynamo Moscou"},
+{y:1962,p:"Josef Masopust",c:"CZE",club:"Dukla Prague"},
+{y:1961,p:"Omar Sívori",c:"ITA",club:"Juventus"},
+{y:1960,p:"Luis Suárez",c:"ESP",club:"Barcelone"},
+{y:1959,p:"Alfredo Di Stéfano",c:"ESP",club:"Real Madrid"},
+{y:1958,p:"Raymond Kopa",c:"FRA",club:"Real Madrid"},
+{y:1957,p:"Alfredo Di Stéfano",c:"ESP",club:"Real Madrid"},
+{y:1956,p:"Stanley Matthews",c:"ENG",club:"Blackpool"}
+];
+var MATCHES=[
+{id:1,d:"2026-06-11T19:00",t1:"MEX",t2:"KOR",st:"Groupe A",stad:"Estadio Azteca",city:"Mexico City",s1:null,s2:null},
+{id:2,d:"2026-06-11T22:00",t1:"RSA",t2:"CZE",st:"Groupe A",stad:"AT&T Stadium",city:"Dallas",s1:null,s2:null},
+{id:3,d:"2026-06-17T19:00",t1:"MEX",t2:"RSA",st:"Groupe A",stad:"MetLife Stadium",city:"New York",s1:null,s2:null},
+{id:4,d:"2026-06-17T22:00",t1:"CZE",t2:"KOR",st:"Groupe A",stad:"NRG Stadium",city:"Houston",s1:null,s2:null},
+{id:5,d:"2026-06-23T19:00",t1:"CZE",t2:"MEX",st:"Groupe A",stad:"SoFi Stadium",city:"Los Angeles",s1:null,s2:null},
+{id:6,d:"2026-06-23T19:00",t1:"KOR",t2:"RSA",st:"Groupe A",stad:"Hard Rock Stadium",city:"Miami",s1:null,s2:null},
+{id:7,d:"2026-06-12T19:00",t1:"CAN",t2:"BIH",st:"Groupe B",stad:"MetLife Stadium",city:"New York",s1:null,s2:null},
+{id:8,d:"2026-06-12T22:00",t1:"QAT",t2:"SUI",st:"Groupe B",stad:"NRG Stadium",city:"Houston",s1:null,s2:null},
+{id:9,d:"2026-06-17T19:00",t1:"CAN",t2:"QAT",st:"Groupe B",stad:"SoFi Stadium",city:"Los Angeles",s1:null,s2:null},
+{id:10,d:"2026-06-17T22:00",t1:"SUI",t2:"BIH",st:"Groupe B",stad:"Hard Rock Stadium",city:"Miami",s1:null,s2:null},
+{id:11,d:"2026-06-23T19:00",t1:"SUI",t2:"CAN",st:"Groupe B",stad:"Gillette Stadium",city:"Boston",s1:null,s2:null},
+{id:12,d:"2026-06-23T19:00",t1:"BIH",t2:"QAT",st:"Groupe B",stad:"Lincoln Financial",city:"Philadelphie",s1:null,s2:null},
+{id:13,d:"2026-06-12T19:00",t1:"BRA",t2:"MAR",st:"Groupe C",stad:"SoFi Stadium",city:"Los Angeles",s1:null,s2:null},
+{id:14,d:"2026-06-12T22:00",t1:"HAI",t2:"SCO",st:"Groupe C",stad:"Hard Rock Stadium",city:"Miami",s1:null,s2:null},
+{id:15,d:"2026-06-18T19:00",t1:"BRA",t2:"HAI",st:"Groupe C",stad:"Gillette Stadium",city:"Boston",s1:null,s2:null},
+{id:16,d:"2026-06-18T22:00",t1:"SCO",t2:"MAR",st:"Groupe C",stad:"Lincoln Financial",city:"Philadelphie",s1:null,s2:null},
+{id:17,d:"2026-06-24T19:00",t1:"SCO",t2:"BRA",st:"Groupe C",stad:"Lumen Field",city:"Seattle",s1:null,s2:null},
+{id:18,d:"2026-06-24T19:00",t1:"MAR",t2:"HAI",st:"Groupe C",stad:"Levi's Stadium",city:"San Francisco",s1:null,s2:null},
+{id:19,d:"2026-06-12T19:00",t1:"USA",t2:"PAR",st:"Groupe D",stad:"Gillette Stadium",city:"Boston",s1:null,s2:null},
+{id:20,d:"2026-06-12T22:00",t1:"AUS",t2:"TUR",st:"Groupe D",stad:"Lincoln Financial",city:"Philadelphie",s1:null,s2:null},
+{id:21,d:"2026-06-18T19:00",t1:"USA",t2:"AUS",st:"Groupe D",stad:"Lumen Field",city:"Seattle",s1:null,s2:null},
+{id:22,d:"2026-06-18T22:00",t1:"TUR",t2:"PAR",st:"Groupe D",stad:"Levi's Stadium",city:"San Francisco",s1:null,s2:null},
+{id:23,d:"2026-06-24T19:00",t1:"TUR",t2:"USA",st:"Groupe D",stad:"BMO Field",city:"Toronto",s1:null,s2:null},
+{id:24,d:"2026-06-24T19:00",t1:"PAR",t2:"AUS",st:"Groupe D",stad:"BC Place",city:"Vancouver",s1:null,s2:null},
+{id:25,d:"2026-06-13T19:00",t1:"GER",t2:"CIV",st:"Groupe E",stad:"Lumen Field",city:"Seattle",s1:null,s2:null},
+{id:26,d:"2026-06-13T22:00",t1:"ECU",t2:"CUR",st:"Groupe E",stad:"Levi's Stadium",city:"San Francisco",s1:null,s2:null},
+{id:27,d:"2026-06-19T19:00",t1:"GER",t2:"ECU",st:"Groupe E",stad:"BMO Field",city:"Toronto",s1:null,s2:null},
+{id:28,d:"2026-06-19T22:00",t1:"CUR",t2:"CIV",st:"Groupe E",stad:"BC Place",city:"Vancouver",s1:null,s2:null},
+{id:29,d:"2026-06-24T19:00",t1:"CUR",t2:"GER",st:"Groupe E",stad:"BBVA Stadium",city:"Monterrey",s1:null,s2:null},
+{id:30,d:"2026-06-24T19:00",t1:"CIV",t2:"ECU",st:"Groupe E",stad:"Arrowhead Stadium",city:"Kansas City",s1:null,s2:null},
+{id:31,d:"2026-06-13T19:00",t1:"NED",t2:"SWE",st:"Groupe F",stad:"BMO Field",city:"Toronto",s1:null,s2:null},
+{id:32,d:"2026-06-13T22:00",t1:"TUN",t2:"JPN",st:"Groupe F",stad:"BC Place",city:"Vancouver",s1:null,s2:null},
+{id:33,d:"2026-06-19T19:00",t1:"NED",t2:"TUN",st:"Groupe F",stad:"BBVA Stadium",city:"Monterrey",s1:null,s2:null},
+{id:34,d:"2026-06-19T22:00",t1:"JPN",t2:"SWE",st:"Groupe F",stad:"Arrowhead Stadium",city:"Kansas City",s1:null,s2:null},
+{id:35,d:"2026-06-25T19:00",t1:"JPN",t2:"NED",st:"Groupe F",stad:"Mercedes-Benz Stadium",city:"Atlanta",s1:null,s2:null},
+{id:36,d:"2026-06-25T19:00",t1:"SWE",t2:"TUN",st:"Groupe F",stad:"Akron Stadium",city:"Guadalajara",s1:null,s2:null},
+{id:37,d:"2026-06-13T19:00",t1:"BEL",t2:"IRN",st:"Groupe G",stad:"BBVA Stadium",city:"Monterrey",s1:null,s2:null},
+{id:38,d:"2026-06-13T22:00",t1:"NZL",t2:"EGY",st:"Groupe G",stad:"Arrowhead Stadium",city:"Kansas City",s1:null,s2:null},
+{id:39,d:"2026-06-19T19:00",t1:"BEL",t2:"NZL",st:"Groupe G",stad:"Mercedes-Benz Stadium",city:"Atlanta",s1:null,s2:null},
+{id:40,d:"2026-06-19T22:00",t1:"EGY",t2:"IRN",st:"Groupe G",stad:"Akron Stadium",city:"Guadalajara",s1:null,s2:null},
+{id:41,d:"2026-06-25T19:00",t1:"EGY",t2:"BEL",st:"Groupe G",stad:"Estadio Azteca",city:"Mexico City",s1:null,s2:null},
+{id:42,d:"2026-06-25T19:00",t1:"IRN",t2:"NZL",st:"Groupe G",stad:"AT&T Stadium",city:"Dallas",s1:null,s2:null},
+{id:43,d:"2026-06-14T19:00",t1:"ESP",t2:"KSA",st:"Groupe H",stad:"Mercedes-Benz Stadium",city:"Atlanta",s1:null,s2:null},
+{id:44,d:"2026-06-14T22:00",t1:"URU",t2:"CPV",st:"Groupe H",stad:"Akron Stadium",city:"Guadalajara",s1:null,s2:null},
+{id:45,d:"2026-06-20T19:00",t1:"ESP",t2:"URU",st:"Groupe H",stad:"Estadio Azteca",city:"Mexico City",s1:null,s2:null},
+{id:46,d:"2026-06-20T22:00",t1:"CPV",t2:"KSA",st:"Groupe H",stad:"AT&T Stadium",city:"Dallas",s1:null,s2:null},
+{id:47,d:"2026-06-25T19:00",t1:"CPV",t2:"ESP",st:"Groupe H",stad:"MetLife Stadium",city:"New York",s1:null,s2:null},
+{id:48,d:"2026-06-25T19:00",t1:"KSA",t2:"URU",st:"Groupe H",stad:"NRG Stadium",city:"Houston",s1:null,s2:null},
+{id:49,d:"2026-06-16T19:00",t1:"FRA",t2:"SEN",st:"Groupe I",stad:"MetLife Stadium",city:"New York",s1:null,s2:null},
+{id:50,d:"2026-06-16T22:00",t1:"IRQ",t2:"NOR",st:"Groupe I",stad:"MetLife Stadium",city:"New York",s1:null,s2:null},
+{id:51,d:"2026-06-22T21:00",t1:"FRA",t2:"IRQ",st:"Groupe I",stad:"Lincoln Financial",city:"Philadelphie",s1:null,s2:null},
+{id:52,d:"2026-06-22T21:00",t1:"NOR",t2:"SEN",st:"Groupe I",stad:"BMO Field",city:"Toronto",s1:null,s2:null},
+{id:53,d:"2026-06-26T19:00",t1:"NOR",t2:"FRA",st:"Groupe I",stad:"Gillette Stadium",city:"Boston",s1:null,s2:null},
+{id:54,d:"2026-06-26T19:00",t1:"SEN",t2:"IRQ",st:"Groupe I",stad:"BMO Field",city:"Toronto",s1:null,s2:null},
+{id:55,d:"2026-06-15T19:00",t1:"ARG",t2:"AUT",st:"Groupe J",stad:"MetLife Stadium",city:"New York",s1:null,s2:null},
+{id:56,d:"2026-06-15T22:00",t1:"JOR",t2:"ALG",st:"Groupe J",stad:"NRG Stadium",city:"Houston",s1:null,s2:null},
+{id:57,d:"2026-06-21T19:00",t1:"ARG",t2:"JOR",st:"Groupe J",stad:"SoFi Stadium",city:"Los Angeles",s1:null,s2:null},
+{id:58,d:"2026-06-21T22:00",t1:"ALG",t2:"AUT",st:"Groupe J",stad:"Hard Rock Stadium",city:"Miami",s1:null,s2:null},
+{id:59,d:"2026-06-26T19:00",t1:"ALG",t2:"ARG",st:"Groupe J",stad:"Gillette Stadium",city:"Boston",s1:null,s2:null},
+{id:60,d:"2026-06-26T19:00",t1:"AUT",t2:"JOR",st:"Groupe J",stad:"Lincoln Financial",city:"Philadelphie",s1:null,s2:null},
+{id:61,d:"2026-06-15T19:00",t1:"POR",t2:"UZB",st:"Groupe K",stad:"SoFi Stadium",city:"Los Angeles",s1:null,s2:null},
+{id:62,d:"2026-06-15T22:00",t1:"COL",t2:"COD",st:"Groupe K",stad:"Hard Rock Stadium",city:"Miami",s1:null,s2:null},
+{id:63,d:"2026-06-21T19:00",t1:"POR",t2:"COL",st:"Groupe K",stad:"Gillette Stadium",city:"Boston",s1:null,s2:null},
+{id:64,d:"2026-06-21T22:00",t1:"COD",t2:"UZB",st:"Groupe K",stad:"Lincoln Financial",city:"Philadelphie",s1:null,s2:null},
+{id:65,d:"2026-06-26T19:00",t1:"COD",t2:"POR",st:"Groupe K",stad:"Lumen Field",city:"Seattle",s1:null,s2:null},
+{id:66,d:"2026-06-26T19:00",t1:"UZB",t2:"COL",st:"Groupe K",stad:"Levi's Stadium",city:"San Francisco",s1:null,s2:null},
+{id:67,d:"2026-06-15T19:00",t1:"ENG",t2:"GHA",st:"Groupe L",stad:"Gillette Stadium",city:"Boston",s1:null,s2:null},
+{id:68,d:"2026-06-15T22:00",t1:"PAN",t2:"CRO",st:"Groupe L",stad:"Lincoln Financial",city:"Philadelphie",s1:null,s2:null},
+{id:69,d:"2026-06-22T19:00",t1:"ENG",t2:"PAN",st:"Groupe L",stad:"Lumen Field",city:"Seattle",s1:null,s2:null},
+{id:70,d:"2026-06-22T22:00",t1:"CRO",t2:"GHA",st:"Groupe L",stad:"Levi's Stadium",city:"San Francisco",s1:null,s2:null},
+{id:71,d:"2026-06-27T19:00",t1:"CRO",t2:"ENG",st:"Groupe L",stad:"BMO Field",city:"Toronto",s1:null,s2:null},
+{id:72,d:"2026-06-27T19:00",t1:"GHA",t2:"PAN",st:"Groupe L",stad:"BC Place",city:"Vancouver",s1:null,s2:null},
+{id:73,d:"2026-06-28T18:00",t1:"TBD",t2:"TBD",st:"16e de finale",stad:"Levi's Stadium",city:"San Francisco",s1:null,s2:null},
+{id:74,d:"2026-06-28T21:00",t1:"TBD",t2:"TBD",st:"16e de finale",stad:"BC Place",city:"Vancouver",s1:null,s2:null},
+{id:75,d:"2026-06-28T00:00",t1:"TBD",t2:"TBD",st:"16e de finale",stad:"Arrowhead Stadium",city:"Kansas City",s1:null,s2:null},
+{id:76,d:"2026-06-28T18:00",t1:"TBD",t2:"TBD",st:"16e de finale",stad:"Akron Stadium",city:"Guadalajara",s1:null,s2:null},
+{id:77,d:"2026-06-29T18:00",t1:"TBD",t2:"TBD",st:"16e de finale",stad:"AT&T Stadium",city:"Dallas",s1:null,s2:null},
+{id:78,d:"2026-06-29T21:00",t1:"TBD",t2:"TBD",st:"16e de finale",stad:"NRG Stadium",city:"Houston",s1:null,s2:null},
+{id:79,d:"2026-06-29T00:00",t1:"TBD",t2:"TBD",st:"16e de finale",stad:"Hard Rock Stadium",city:"Miami",s1:null,s2:null},
+{id:80,d:"2026-06-29T18:00",t1:"TBD",t2:"TBD",st:"16e de finale",stad:"Lincoln Financial",city:"Philadelphie",s1:null,s2:null},
+{id:81,d:"2026-06-30T18:00",t1:"TBD",t2:"TBD",st:"16e de finale",stad:"Levi's Stadium",city:"San Francisco",s1:null,s2:null},
+{id:82,d:"2026-06-30T21:00",t1:"TBD",t2:"TBD",st:"16e de finale",stad:"BC Place",city:"Vancouver",s1:null,s2:null},
+{id:83,d:"2026-06-30T00:00",t1:"TBD",t2:"TBD",st:"16e de finale",stad:"Arrowhead Stadium",city:"Kansas City",s1:null,s2:null},
+{id:84,d:"2026-06-30T18:00",t1:"TBD",t2:"TBD",st:"16e de finale",stad:"Akron Stadium",city:"Guadalajara",s1:null,s2:null},
+{id:85,d:"2026-07-01T18:00",t1:"TBD",t2:"TBD",st:"16e de finale",stad:"AT&T Stadium",city:"Dallas",s1:null,s2:null},
+{id:86,d:"2026-07-01T21:00",t1:"TBD",t2:"TBD",st:"16e de finale",stad:"NRG Stadium",city:"Houston",s1:null,s2:null},
+{id:87,d:"2026-07-01T00:00",t1:"TBD",t2:"TBD",st:"16e de finale",stad:"Hard Rock Stadium",city:"Miami",s1:null,s2:null},
+{id:88,d:"2026-07-01T18:00",t1:"TBD",t2:"TBD",st:"16e de finale",stad:"Lincoln Financial",city:"Philadelphie",s1:null,s2:null},
+{id:89,d:"2026-07-03T18:00",t1:"TBD",t2:"TBD",st:"8e de finale",stad:"Levi's Stadium",city:"San Francisco",s1:null,s2:null},
+{id:90,d:"2026-07-03T21:00",t1:"TBD",t2:"TBD",st:"8e de finale",stad:"BC Place",city:"Vancouver",s1:null,s2:null},
+{id:91,d:"2026-07-03T00:00",t1:"TBD",t2:"TBD",st:"8e de finale",stad:"Arrowhead Stadium",city:"Kansas City",s1:null,s2:null},
+{id:92,d:"2026-07-03T18:00",t1:"TBD",t2:"TBD",st:"8e de finale",stad:"Akron Stadium",city:"Guadalajara",s1:null,s2:null},
+{id:93,d:"2026-07-04T18:00",t1:"TBD",t2:"TBD",st:"8e de finale",stad:"AT&T Stadium",city:"Dallas",s1:null,s2:null},
+{id:94,d:"2026-07-04T21:00",t1:"TBD",t2:"TBD",st:"8e de finale",stad:"NRG Stadium",city:"Houston",s1:null,s2:null},
+{id:95,d:"2026-07-04T00:00",t1:"TBD",t2:"TBD",st:"8e de finale",stad:"Hard Rock Stadium",city:"Miami",s1:null,s2:null},
+{id:96,d:"2026-07-04T18:00",t1:"TBD",t2:"TBD",st:"8e de finale",stad:"Lincoln Financial",city:"Philadelphie",s1:null,s2:null},
+{id:97,d:"2026-07-07T18:00",t1:"TBD",t2:"TBD",st:"Quart de finale",stad:"AT&T Stadium",city:"Dallas",s1:null,s2:null},
+{id:98,d:"2026-07-07T21:00",t1:"TBD",t2:"TBD",st:"Quart de finale",stad:"NRG Stadium",city:"Houston",s1:null,s2:null},
+{id:99,d:"2026-07-08T18:00",t1:"TBD",t2:"TBD",st:"Quart de finale",stad:"Hard Rock Stadium",city:"Miami",s1:null,s2:null},
+{id:100,d:"2026-07-08T21:00",t1:"TBD",t2:"TBD",st:"Quart de finale",stad:"Lincoln Financial",city:"Philadelphie",s1:null,s2:null},
+{id:101,d:"2026-07-11T21:00",t1:"TBD",t2:"TBD",st:"Demi-finale",stad:"Hard Rock Stadium",city:"Miami",s1:null,s2:null},
+{id:102,d:"2026-07-12T21:00",t1:"TBD",t2:"TBD",st:"Demi-finale",stad:"Lincoln Financial",city:"Philadelphie",s1:null,s2:null},
+{id:103,d:"2026-07-18T21:00",t1:"TBD",t2:"TBD",st:"3e place",stad:"Lincoln Financial",city:"Philadelphie",s1:null,s2:null},
+{id:104,d:"2026-07-19T21:00",t1:"TBD",t2:"TBD",st:"FINALE",stad:"Lumen Field",city:"Seattle",s1:null,s2:null}
+];
+
+var TV={"FRA":{ch:"TF1 / beIN Sports"},"BEL":{ch:"RTBF / RTL-TVI"},"MAR":{ch:"SNRT / Arryadia"},"USA":{ch:"FOX / Telemundo"},"CAN":{ch:"TSN / RDS"},"GER":{ch:"ARD / ZDF / MagentaTV"},"ESP":{ch:"RTVE / Movistar+"},"ENG":{ch:"BBC / ITV"},"POR":{ch:"RTP / SportTV"},"NED":{ch:"NOS / Ziggo"},"BRA":{ch:"Globo / CazéTV"},"ARG":{ch:"TyC Sports / TV Publica"},"MEX":{ch:"Televisa / TV Azteca"},"JPN":{ch:"NHK / Fuji TV"},"KOR":{ch:"KBS / SBS / MBC"},"SEN":{ch:"RTS / Canal+ Afrique"},"CIV":{ch:"RTI / Canal+ Afrique"},"ALG":{ch:"ENTV / beIN Sports MENA"},"TUN":{ch:"Wataniya / beIN MENA"},"EGY":{ch:"ON Sport / beIN MENA"},"SUI":{ch:"SRG SSR / RTS"},"AUT":{ch:"ORF / ServusTV"},"TUR":{ch:"TRT Spor / beIN Turkey"},"AUS":{ch:"SBS / Optus Sport"},"SWE":{ch:"SVT / TV4"},"NOR":{ch:"NRK / TV2"},"CRO":{ch:"HRT"},"COL":{ch:"Caracol / RCN"},"URU":{ch:"Antel / Canal 10"},"IRN":{ch:"IRIB / Telewebion"},"GHA":{ch:"GTV / SuperSport"},"default":{ch:"FIFA+"}};
+
+var V={view:"cal",histTab:"wc",simPicks:{},simKO:{},simStep1:false,myTeam:"FRA",filter:"all",selTeam:null,tab:"matches"};
+var tz=Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+var FMAP={"FRA": "fr", "ARG": "ar", "MEX": "mx", "MAR": "ma", "BRA": "br", "GER": "de", "ESP": "es", "ENG": "gb-eng", "POR": "pt", "JPN": "jp", "SEN": "sn", "USA": "us", "CAN": "ca", "BEL": "be", "NED": "nl", "CRO": "hr", "URU": "uy", "KOR": "kr", "RSA": "za", "CZE": "cz", "BIH": "ba", "QAT": "qa", "SUI": "ch", "HAI": "ht", "SCO": "gb-sct", "PAR": "py", "AUS": "au", "TUR": "tr", "CIV": "ci", "ECU": "ec", "CUR": "cw", "SWE": "se", "TUN": "tn", "IRN": "ir", "NZL": "nz", "EGY": "eg", "KSA": "sa", "CPV": "cv", "NOR": "no", "IRQ": "iq", "AUT": "at", "JOR": "jo", "ALG": "dz", "UZB": "uz", "COL": "co", "COD": "cd", "GHA": "gh", "PAN": "pa"};
+var FEMOJI={"FRA":"🇫🇷","ARG":"🇦🇷","MEX":"🇲🇽","MAR":"🇲🇦","BRA":"🇧🇷","GER":"🇩🇪","ESP":"🇪🇸","ENG":"🏴󠁧󠁢󠁥󠁮󠁧󠁿","POR":"🇵🇹","JPN":"🇯🇵","SEN":"🇸🇳","USA":"🇺🇸","CAN":"🇨🇦","BEL":"🇧🇪","NED":"🇳🇱","CRO":"🇭🇷","URU":"🇺🇾","KOR":"🇰🇷","RSA":"🇿🇦","CZE":"🇨🇿","BIH":"🇧🇦","QAT":"🇶🇦","SUI":"🇨🇭","HAI":"🇭🇹","SCO":"🏴󠁧󠁢󠁳󠁣󠁴󠁿","PAR":"🇵🇾","AUS":"🇦🇺","TUR":"🇹🇷","CIV":"🇨🇮","ECU":"🇪🇨","CUR":"🇨🇼","SWE":"🇸🇪","TUN":"🇹🇳","IRN":"🇮🇷","NZL":"🇳🇿","EGY":"🇪🇬","KSA":"🇸🇦","CPV":"🇨🇻","NOR":"🇳🇴","IRQ":"🇮🇶","AUT":"🇦🇹","JOR":"🇯🇴","ALG":"🇩🇿","UZB":"🇺🇿","COL":"🇨🇴","COD":"🇨🇩","GHA":"🇬🇭","PAN":"🇵🇦","TBD":"🏳️"};
+function fe(id){return FEMOJI[id]||""}
+function flagImg(id,size){
+  var code=FMAP[id]||"xx";var s=size||32;var em=FEMOJI[id]||id;
+  return '<span style="display:inline-flex;align-items:center;min-width:'+s+'px;justify-content:center">'
+    +'<img src="https://flagcdn.com/w80/'+code+'.png" style="width:'+s+'px;height:auto;border-radius:3px" '
+    +'onerror="this.style.display=\'none\';this.nextSibling.style.display=\'inline\'">'
+    +'<span style="display:none;font-size:'+Math.round(s*0.6)+'px">'+em+'</span></span>';
+}
+function getTeam(id){return TEAMS.find(function(t){return t.id===id})||{name:id,flag:"🏳️",id:id}}
+function fmtTime(d){var dt=new Date(d);return dt.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit",timeZone:tz})}
+function fmtDate(d){var dt=new Date(d);return dt.toLocaleDateString("fr-FR",{weekday:"short",day:"numeric",month:"short",timeZone:tz})}
+function matchStatus(d){var now=Date.now(),mt=new Date(d).getTime();var diff=mt-now;if(diff<0&&diff>-7200000)return"live";if(diff>0&&diff<7200000)return"soon";if(diff<0)return"done";return"upcoming"}
+function toast(m){var e=document.createElement("div");e.className="toast";e.textContent=m;document.body.appendChild(e);setTimeout(function(){e.remove()},2600)}
+function go(v){V.view=v;V.selTeam=null;scrollTo(0,0);render()}
+function goTeam(id){if(!id||id==="TBD"||id.match(/^\d/))return;V.view="teams";V.selTeam=id;V.tab="players";scrollTo(0,0);render()}
+
+
+// === i18n MULTI-LANGUE ===
+var LANG=localStorage.getItem("ff26_lang")||"fr";
+var I18N={
+  fr:{
+    appTitle:"FOOT FLASH 2026",tapHome:"Tap ici = retour accueil",
+    myTeam:"Mon equipe",change:"Changer",addCal:"+Agenda",light:"Clair",dark:"Sombre",
+    search:"Rechercher un pays, joueur...",all:"Tous",
+    matchs:"Matchs",groupes:"Groupes",equipes:"Équipes",pronos:"Pronos",quiz:"Quiz",
+    tableau:"Tableau",simul:"Simul.",actus:"Actus",palmares:"Palmarès",
+    groupStage:"Phase de groupes",knockoutStage:"Phase eliminatoire",
+    r32:"16es de finale",r16:"8es de finale",qf:"Quarts de finale",sf:"Demi-finales",
+    final:"FINALE",thirdPlace:"3e place",
+    pts:"Pts",played:"J",won:"G",draw:"N",lost:"P",diff:"Diff",
+    team:"Equipe",coach:"Coach",rank:"Classement FIFA",
+    goals:"buts",caps:"selections",worldCups:"Coupes du Monde",
+    nextMatch:"Prochain match",days:"JOURS",hours:"HEURES",min:"MIN",sec:"SEC",
+    addToAgenda:"Ajouter a l'agenda",
+    qualified:"qualifies",remaining:"restants",
+    winner:"Vainqueur",loser:"Perdant",
+    best3rd:"Meilleur 3e",
+    leftSide:"Côté gauche (France/Espagne)",rightSide:"Côté droit (Argentine/Angleterre)",
+    rules:"Reglement FIFA",newRules:"Nouveautes 2026",
+    share:"Partager",reset:"Reinitialiser",
+    champion:"CHAMPION DU MONDE 2026",
+    newsTitle:"Actualites Football",loading:"Chargement...",
+    noResult:"Aucun resultat",
+    vs:"VS",or:"ou"
+  },
+  en:{
+    appTitle:"FOOT FLASH 2026",tapHome:"Tap here = home",
+    myTeam:"My team",change:"Change",addCal:"+Calendar",light:"Light",dark:"Dark",
+    search:"Search country, player...",all:"All",
+    matchs:"Matches",groupes:"Groups",equipes:"Teams",pronos:"Predictions",quiz:"Quiz",
+    tableau:"Bracket",simul:"Simul.",actus:"News",palmares:"Honours",
+    groupStage:"Group stage",knockoutStage:"Knockout stage",
+    r32:"Round of 32",r16:"Round of 16",qf:"Quarter-finals",sf:"Semi-finals",
+    final:"FINAL",thirdPlace:"3rd place",
+    pts:"Pts",played:"P",won:"W",draw:"D",lost:"L",diff:"GD",
+    team:"Team",coach:"Coach",rank:"FIFA ranking",
+    goals:"goals",caps:"caps",worldCups:"World Cups",
+    nextMatch:"Next match",days:"DAYS",hours:"HOURS",min:"MIN",sec:"SEC",
+    addToAgenda:"Add to calendar",
+    qualified:"qualified",remaining:"remaining",
+    winner:"Winner",loser:"Loser",
+    best3rd:"Best 3rd",
+    leftSide:"Left side (France/Spain)",rightSide:"Right side (Argentina/England)",
+    rules:"FIFA Rules",newRules:"2026 New rules",
+    share:"Share",reset:"Reset",
+    champion:"WORLD CHAMPION 2026",
+    newsTitle:"Football News",loading:"Loading...",
+    noResult:"No results",
+    vs:"VS",or:"or"
+  },
+  es:{
+    appTitle:"FOOT FLASH 2026",tapHome:"Toca aqui = inicio",
+    myTeam:"Mi equipo",change:"Cambiar",addCal:"+Agenda",light:"Claro",dark:"Oscuro",
+    search:"Buscar pais, jugador...",all:"Todos",
+    matchs:"Partidos",groupes:"Grupos",equipes:"Equipos",pronos:"Pronosticos",quiz:"Quiz",
+    tableau:"Cuadro",simul:"Simul.",actus:"Noticias",palmares:"Palmares",
+    groupStage:"Fase de grupos",knockoutStage:"Fase eliminatoria",
+    r32:"Dieciseisavos",r16:"Octavos",qf:"Cuartos",sf:"Semifinales",
+    final:"FINAL",thirdPlace:"3er puesto",
+    pts:"Pts",played:"J",won:"G",draw:"E",lost:"P",diff:"Dif",
+    team:"Equipo",coach:"Entrenador",rank:"Ranking FIFA",
+    goals:"goles",caps:"partidos",worldCups:"Mundiales",
+    nextMatch:"Proximo partido",days:"DIAS",hours:"HORAS",min:"MIN",sec:"SEG",
+    addToAgenda:"Agregar al calendario",
+    qualified:"clasificados",remaining:"restantes",
+    winner:"Ganador",loser:"Perdedor",
+    best3rd:"Mejor 3ro",
+    leftSide:"Lado izquierdo (Francia/Espana)",rightSide:"Lado derecho (Argentina/Inglaterra)",
+    rules:"Reglamento FIFA",newRules:"Novedades 2026",
+    share:"Compartir",reset:"Reiniciar",
+    champion:"CAMPEON DEL MUNDO 2026",
+    newsTitle:"Noticias de Futbol",loading:"Cargando...",
+    noResult:"Sin resultados",
+    vs:"VS",or:"o"
+  },
+  ar:{
+    appTitle:"فوت فلاش 2026",tapHome:"اضغط هنا = الرئيسية",
+    myTeam:"فريقي",change:"تغيير",addCal:"+تقويم",light:"فاتح",dark:"داكن",
+    search:"ابحث عن بلد، لاعب...",all:"الكل",
+    matchs:"مباريات",groupes:"مجموعات",equipes:"فرق",pronos:"توقعات",quiz:"اختبار",
+    tableau:"جدول",simul:"محاكاة",actus:"أخبار",palmares:"سجل",
+    nextMatch:"المباراة القادمة",days:"أيام",hours:"ساعات",min:"دقائق",sec:"ثواني",
+    goals:"أهداف",caps:"مباريات دولية",worldCups:"كأس العالم",
+    vs:"ضد",champion:"بطل العالم 2026",
+    share:"مشاركة",reset:"إعادة",
+    r32:"دور ال32",r16:"دور ال16",qf:"ربع النهائي",sf:"نصف النهائي",final:"النهائي",
+    qualified:"متأهلين",remaining:"متبقين",
+    winner:"الفائز",loser:"الخاسر",best3rd:"أفضل ثالث",
+    rules:"قوانين FIFA",newRules:"جديد 2026",
+    loading:"جاري التحميل...",noResult:"لا نتائج",
+    pts:"نقاط",played:"لعب",won:"فوز",draw:"تعادل",lost:"خسارة",diff:"فارق",
+    team:"فريق",coach:"مدرب",rank:"تصنيف FIFA",
+    groupStage:"دور المجموعات",knockoutStage:"الأدوار الإقصائية",
+    thirdPlace:"المركز الثالث",addToAgenda:"أضف للتقويم",
+    leftSide:"الجانب الأيسر",rightSide:"الجانب الأيمن",
+    newsTitle:"أخبار كرة القدم",light:"فاتح",dark:"داكن",all:"الكل",or:"أو"
+  }
+};
+function t(key){return(I18N[LANG]&&I18N[LANG][key])||I18N.fr[key]||key}
+function setLang(l){LANG=l;localStorage.setItem("ff26_lang",l);render()}
+
+function render(){
+  var a=document.getElementById("app"),h="";
+  h+='<div class="ticker" id="ticker-bar" onclick="go(\'news\')"><div class="ticker-wrap" id="ticker-content"><div class="ticker-item"><span>⚽ FOOT FLASH</span> Chargement des actus...</div></div></div>';
+  h+='<div class="hdr" onclick="go(\'cal\')" style="cursor:pointer"><h1>⚽ FOOT FLASH 2026</h1><div class="hdr-sub">Tap ici = retour accueil</div>';
+  h+='<div style="display:flex;gap:8px;justify-content:center;margin-top:8px" onclick="event.stopPropagation()">';
+  h+='<div class="my-team" onclick="goTeam(\''+V.myTeam+'\')">'+flagImg(V.myTeam,24)+" "+getTeam(V.myTeam).name+' →</div>';
+  h+='<div class="my-team" onclick="cycleTeam()" style="background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.15);color:var(--t2)">✏️ Changer</div>';
+  h+='<div class="my-team" onclick="exportCalendar(\''+V.myTeam+'\');event.stopPropagation()" style="background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.15);color:var(--t2)">📅 +Agenda</div>';
+  h+='</div></div>';
+  // Theme toggle
+  h+='<div style="display:flex;justify-content:center;gap:8px;margin-bottom:4px" onclick="event.stopPropagation()">';
+  h+='<button onclick="toggleTheme()" style="padding:4px 12px;background:var(--s1);border:1px solid var(--s3);border-radius:99px;color:var(--t2);font-size:11px;cursor:pointer;font-family:inherit">'+(document.body.classList.contains("light")?"🌙 "+t("dark"):"☀️ "+t("light"))+'</button>';
+  h+='<select onchange="setLang(this.value)" style="padding:4px 8px;background:var(--s1);border:1px solid var(--s3);border-radius:99px;color:var(--t2);font-size:11px;font-family:inherit;cursor:pointer">';
+  [{c:"fr",l:"🇫🇷 FR"},{c:"en",l:"🇬🇧 EN"},{c:"es",l:"🇪🇸 ES"},{c:"ar",l:"🇸🇦 AR"}].forEach(function(lg){
+    h+='<option value="'+lg.c+'"'+(LANG===lg.c?" selected":"")+'>'+lg.l+'</option>';
+  });
+  h+='</select></div>';
+  // Search bar
+  h+='<div style="padding:0 4px;margin-bottom:8px"><div style="position:relative"><input id="srch" type="text" placeholder="🔍 Rechercher un pays, joueur..." oninput="doSearch(this.value)" style="width:100%;padding:12px 16px 12px 40px;background:var(--s1);border:1px solid var(--s3);border-radius:99px;color:var(--tx);font-size:14px;outline:none;font-family:inherit"><div id="srch-res"></div></div></div>';
+
+  if(V.selTeam){h+='<div style="display:flex;gap:8px;margin:8px 0"><button class="back" onclick="V.selTeam=null;render()">← Équipes</button><button class="back" onclick="go(\'cal\')">📅 Calendrier</button></div>'}
+
+  if(V.view==="cal")h+=rCal();
+  else if(V.view==="groups")h+=rGroups();
+  else if(V.view==="teams")h+=V.selTeam?rTeamDetail():rTeams();
+  else if(V.view==="prono")h+=rProno();
+  else if(V.view==="quiz")h+=rQuiz();
+  else if(V.view==="history")h+=rHistory();
+  else if(V.view==="bracket")h+=rBracket();
+  else if(V.view==="simul")h+=rSimul();
+  else if(V.view==="news")h+=rNews();
+
+  h+='<div class="nav"><div class="nav-i">';
+  h+=nb("cal","📅",t("matchs"))+nb("groups","🏆",t("groupes"))+nb("teams","👥",t("equipes"))+nb("prono","🎯",t("pronos"))+nb("quiz","🧠",t("quiz"))+nb("bracket","🏅",t("tableau"))+nb("simul","🎮",t("simul"))+nb("news","📰",t("actus"))+nb("history","📜",t("palmares"));
+  h+="</div></div>";
+  a.innerHTML=h;
+  if(window._tickerItems)setTimeout(updateTicker,50);
+}
+function nb(v,i,l){return'<button class="'+(V.view===v?"on":"")+'" onclick="go(\''+v+'\')"><span class="ic">'+i+"</span>"+l+"</button>"}
+
+function cycleTeam(){var ids=TEAMS.map(function(t){return t.id});var i=ids.indexOf(V.myTeam);V.myTeam=ids[(i+1)%ids.length];render()}
+
+// Calendar
+function rCal(){
+  // Countdown to next match
+  var now=Date.now();
+  var next=null;
+  var myMs=MATCHES.filter(function(m){return m.t1===V.myTeam||m.t2===V.myTeam});
+  var allMs=MATCHES.filter(function(m){return new Date(m.d).getTime()>now&&m.t1!=="TBD"});
+  var nextMy=myMs.filter(function(m){return new Date(m.d).getTime()>now})[0];
+  var nextAll=allMs[0];
+  next=nextMy||nextAll;
+  if(next){
+    var diff=new Date(next.d).getTime()-now;
+    var days=Math.floor(diff/86400000);
+    var hrs=Math.floor((diff%86400000)/3600000);
+    var mins=Math.floor((diff%3600000)/60000);
+    var secs=Math.floor((diff%60000)/1000);
+    var opp=next.t1===V.myTeam?getTeam(next.t2):next.t2===V.myTeam?getTeam(next.t1):getTeam(next.t2);
+    var oppId=next.t1===V.myTeam?next.t2:next.t2===V.myTeam?next.t1:next.t2;
+    var isMyMatch=next.t1===V.myTeam||next.t2===V.myTeam;
+    h+='<div style="background:'+(isMyMatch?'linear-gradient(135deg,rgba(0,230,118,.1),rgba(0,200,83,.05))':'var(--s1)')+';border:1px solid '+(isMyMatch?'var(--g)':'var(--s3)')+';border-radius:var(--r);padding:16px;margin-bottom:12px;text-align:center">';
+    h+='<div style="font-size:10px;font-weight:800;color:'+(isMyMatch?'var(--g)':'var(--t2)')+';letter-spacing:1px;text-transform:uppercase">'+(isMyMatch?"Prochain match "+getTeam(V.myTeam).name:"Prochain match")+'</div>';
+    h+='<div style="display:flex;align-items:center;justify-content:center;gap:12px;margin:10px 0">';
+    if(isMyMatch)h+=flagImg(V.myTeam,32);
+    h+='<div style="font-size:15px;font-weight:900;color:var(--tx)">'+getTeam(next.t1).name+' vs '+opp.name+'</div>';
+    h+=flagImg(oppId,32);
+    h+='</div>';
+    h+='<div style="display:flex;justify-content:center;gap:8px;margin:8px 0">';
+    h+='<div id="cd-timer" data-target="'+new Date(next.d).getTime()+'">';
+    [{v:days,l:"JOURS"},{v:hrs,l:"HEURES"},{v:mins,l:"MIN"},{v:secs,l:"SEC"}].forEach(function(u){
+      h+='<div style="background:var(--s2);border-radius:8px;padding:8px 6px;min-width:52px;text-align:center"><div style="font-size:22px;font-weight:900;color:var(--g)">'+u.v+'</div><div style="font-size:8px;color:var(--t2);font-weight:700">'+u.l+'</div></div>';
+    });
+    h+='</div>';
+    h+='</div>';
+    h+='<div style="font-size:11px;color:var(--t2)">'+fmtDate(next.d)+' · '+fmtTime(next.d)+' · 📍 '+next.city+'</div>';
+    h+='</div>';
+  }
+  var matches=MATCHES.slice();
+  if(V.filter==="mine")matches=matches.filter(function(m){return m.t1===V.myTeam||m.t2===V.myTeam});
+  matches.sort(function(a,b){return new Date(a.d)-new Date(b.d)});
+
+  var h='<div class="filters">';
+  h+='<button class="fil'+(V.filter==="all"?" on":"")+'" onclick="V.filter=\'all\';render()">Tous</button>';
+  h+='<button class="fil'+(V.filter==="mine"?" on":"")+'" onclick="V.filter=\'mine\';render()">'+flagImg(V.myTeam,16)+' Mon équipe</button>';
+  var allGroups={};TEAMS.forEach(function(t){allGroups[t.group]=true});
+  Object.keys(allGroups).sort().forEach(function(g){
+    h+='<button class="fil'+(V.filter==="G"+g?" on":"")+'" onclick="V.filter=\'G'+g+'\';render()">Gr.'+g+"</button>";
+  });
+  h+="</div>";
+
+  if(V.filter&&V.filter.startsWith("G"))matches=matches.filter(function(m){return m.st.indexOf("Groupe "+V.filter[1])>=0});
+
+  // Show group table when filtering by team or group
+  var showGroup=null;
+  if(V.filter==="mine"){var mt=getTeam(V.myTeam);if(mt.group)showGroup=mt.group}
+  if(V.filter&&V.filter.startsWith("G"))showGroup=V.filter[1];
+  if(showGroup){
+    var gTeams=TEAMS.filter(function(t){return t.group===showGroup});
+    h+='<div style="background:var(--s1);border:1px solid var(--s3);border-radius:var(--r);padding:12px;margin-bottom:12px">';
+    h+='<div style="font-size:12px;font-weight:900;color:var(--g);margin-bottom:8px">📊 CLASSEMENT GROUPE '+showGroup+'</div>';
+    h+='<table class="grp-t"><tr><th>Équipe</th><th>Pts</th><th>J</th><th>G</th><th>N</th><th>P</th><th>Diff</th></tr>';
+    gTeams.forEach(function(t,i){
+      h+='<tr class="'+(i<2?"qual":"")+'" style="cursor:pointer" onclick="goTeam(\''+t.id+'\')">';
+      h+='<td>'+flagImg(t.id,16)+' '+t.name+'</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>';
+    });
+    h+='</table>';
+    h+='<div style="font-size:10px;color:var(--t2);text-align:center">Top 2 qualifiés ✓ + 8 meilleurs 3es</div></div>';
+  }
+
+  if(!matches.length)return h+'<div class="empty"><div class="empty-i">📅</div>Aucun match</div>';
+
+  var lastDate="";
+  matches.forEach(function(m){
+    var dt=fmtDate(m.d);
+    if(dt!==lastDate){h+='<div class="sec">'+dt+"</div>";lastDate=dt}
+    var t1=getTeam(m.t1),t2=getTeam(m.t2);
+    var st=matchStatus(m.d);
+    h+='<div class="mc'+(st==="live"?" live":"")+(st==="soon"?" soon":"")+'">';
+    // Status
+    if(st==="live")h+='<div class="mc-status" style="color:var(--g)"><span class="dot" style="background:var(--g)"></span>EN COURS</div>';
+    else if(st==="soon")h+='<div class="mc-status" style="color:var(--am)">⏰ BIENTÔT — '+fmtTime(m.d)+"</div>";
+    else if(st==="done")h+='<div class="mc-status" style="color:var(--t2)">TERMINÉ</div>';
+    else h+='<div class="mc-status" style="color:var(--t2)">'+fmtTime(m.d)+" · "+m.st+"</div>";
+    // Teams
+    h+='<div class="mc-teams"><div class="mc-team" onclick="event.stopPropagation();goTeam(\''+m.t1+'\')"><div class="mc-flag">'+flagImg(m.t1,36)+'</div><div class="mc-name" style="text-decoration:underline;text-decoration-color:rgba(255,255,255,.2)">'+t1.name+"</div></div>";
+    if(m.s1!==null)h+='<div class="mc-score">'+m.s1+" - "+m.s2+"</div>";
+    else h+='<div class="mc-vs">VS</div>';
+    h+='<div class="mc-team" onclick="event.stopPropagation();goTeam(\''+m.t2+'\')"><div class="mc-flag">'+flagImg(m.t2,36)+'</div><div class="mc-name" style="text-decoration:underline;text-decoration-color:rgba(255,255,255,.2)">'+t2.name+"</div></div></div>";
+    // Info
+    h+='<div class="mc-info"><span>📍 '+m.city+"</span><span>🏟️ "+m.stad+"</span></div>";
+    // TV
+    var tv=TV[V.myTeam]?TV[V.myTeam].ch:(TV["default"].ch);
+    h+='<div class="mc-tv">📺 '+tv+"</div>";
+    h+='<div onclick="event.stopPropagation();exportMatch('+m.id+')" style="text-align:center;padding:6px;font-size:11px;color:var(--g);cursor:pointer;font-weight:700;margin-top:4px">📅 Ajouter a l\'agenda</div>';
+    h+="</div>";
+  });
+  return h;
+}
+
+// Groups
+function rGroups(){
+  var groups={};
+  TEAMS.forEach(function(t){if(!groups[t.group])groups[t.group]=[];groups[t.group].push(t)});
+  var h="";
+  Object.keys(groups).sort().forEach(function(g){
+    h+='<div class="sec">Groupe '+g+"</div>";
+    h+='<table class="grp-t"><tr><th>Équipe</th><th>Pts</th><th>J</th><th>G</th><th>N</th><th>P</th><th>Diff</th></tr>';
+    groups[g].forEach(function(t,i){
+      h+='<tr class="'+(i<2?"qual":"")+'" style="cursor:pointer" onclick="goTeam(\''+t.id+'\')" ><td>'+flagImg(t.id,20)+" "+t.name+"</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>";
+    });
+    h+="</table>";
+  });
+  h+='<button onclick="showRules()" style="display:block;width:100%;padding:10px;background:var(--s1);border:1px solid var(--s3);border-radius:10px;color:var(--g);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:12px;text-align:center">📜 Reglement : departage et classement</button>';
+  return h;
+}
+
+// Teams list
+function rTeams(){
+  var h="";
+  TEAMS.forEach(function(t){
+    h+='<div class="tc" onclick="goTeam(\''+t.id+'\')">';
+    h+='<div class="tc-flag">'+flagImg(t.id,40)+"</div>";
+    h+='<div class="tc-info"><div class="tc-name">'+t.name+"</div>";
+    h+='<div class="tc-meta">FIFA #'+t.rank+" · "+t.titles+" · "+t.coach+"</div></div>";
+    h+='<span class="tc-grp">'+t.group+"</span></div>";
+  });
+  return h;
+}
+
+// Team detail
+function rTeamDetail(){
+  var t=getTeam(V.selTeam);if(!t.players)return'Équipe non trouvée';
+  var h='';
+  h+='<div class="det-hero"><div class="det-flag">'+flagImg(t.id,80)+"</div>";
+  h+='<div class="det-name">'+t.name+"</div>";
+  h+='<div class="det-meta">Groupe '+t.group+" · FIFA #"+t.rank+" · "+t.titles+"</div>";
+  h+='<div class="det-meta">Coach: '+t.coach+"</div></div>";
+  // Team's own matches
+  var ms=MATCHES.filter(function(m){return (m.t1===V.selTeam||m.t2===V.selTeam)&&m.t1!=="TBD"});
+  if(ms.length){
+    h+='<div class="sec">📅 Matchs de '+t.name+'</div>';
+    ms.forEach(function(m){
+      var opp=m.t1===V.selTeam?getTeam(m.t2):getTeam(m.t1);
+      var oppId=m.t1===V.selTeam?m.t2:m.t1;
+      h+='<div style="background:var(--s1);border:1px solid var(--s3);border-radius:10px;padding:12px;margin-bottom:6px;display:flex;align-items:center;gap:10px;cursor:pointer" onclick="goTeam(\''+oppId+'\')">';
+      h+='<div style="min-width:75px"><div style="font-size:11px;font-weight:800;color:var(--g)">'+fmtDate(m.d)+'</div><div style="font-size:10px;color:var(--t2)">'+fmtTime(m.d)+'</div></div>';
+      h+='<div style="flex:1;display:flex;align-items:center;gap:8px">'+flagImg(V.selTeam,24)+'<span style="font-size:12px;font-weight:800;color:var(--t2)">VS</span>'+flagImg(oppId,24)+'<span style="font-weight:700;font-size:13px">'+opp.name+'</span></div>';
+      h+='<div style="text-align:right;font-size:10px;color:var(--t2)"><div>📍 '+m.city+'</div><div>🏟️ '+m.stad+'</div></div>';
+      h+='</div>';
+    });
+    h+='<button onclick="exportCalendar(\''+V.selTeam+'\')" style="width:100%;padding:14px;background:var(--gw);border:1px solid var(--g);border-radius:10px;color:var(--g);font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;margin-top:4px">📅 Ajouter les matchs a mon agenda</button>';
+  }
+  // Group standings
+  var grpTeams=TEAMS.filter(function(x){return x.group===t.group});
+  h+='<div class="sec">🏆 Classement Groupe '+t.group+'</div>';
+  h+='<table class="grp-t"><tr><th>Équipe</th><th>Pts</th><th>J</th><th>G</th><th>N</th><th>P</th><th>Diff</th></tr>';
+  grpTeams.forEach(function(gt,i){
+    var isCurrent=gt.id===V.selTeam;
+    h+='<tr class="'+(i<2?"qual":"")+'" style="cursor:pointer;'+(isCurrent?"background:var(--gw)":"")+'" onclick="goTeam(\''+gt.id+'\')">';
+    h+='<td>'+flagImg(gt.id,18)+" "+(isCurrent?"<strong>"+gt.name+"</strong>":gt.name)+"</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>";
+  });
+  h+="</table>";
+  // All group matches
+  var grpMs=MATCHES.filter(function(m){return m.st==="Groupe "+t.group});
+  if(grpMs.length){
+    h+='<div class="sec">📋 Tous les matchs Groupe '+t.group+'</div>';
+    grpMs.forEach(function(m){
+      var a=getTeam(m.t1),b=getTeam(m.t2);
+      var isMyMatch=m.t1===V.selTeam||m.t2===V.selTeam;
+      h+='<div style="background:var(--s1);border:1px solid '+(isMyMatch?"var(--g)":"var(--s3)")+';border-radius:10px;padding:10px 12px;margin-bottom:5px;display:flex;align-items:center;gap:8px">';
+      h+='<div style="min-width:70px;font-size:10px;color:var(--t2)"><div style="font-weight:800">'+fmtDate(m.d)+'</div><div>'+fmtTime(m.d)+'</div></div>';
+      h+='<div style="flex:1;display:flex;align-items:center;gap:6px;justify-content:center">'+flagImg(m.t1,20)+'<span style="font-size:12px;font-weight:700">'+a.name+'</span><span style="font-size:10px;color:var(--t2);font-weight:800">VS</span><span style="font-size:12px;font-weight:700">'+b.name+'</span>'+flagImg(m.t2,20)+'</div>';
+      h+='<div style="font-size:9px;color:var(--t2);text-align:right;min-width:55px">'+m.city+'</div></div>';
+    });
+  }
+  // Tabs
+  h+='<div class="det-tabs">';
+  h+='<button class="det-tab'+(V.tab==="matches"?" on":"")+'" onclick="V.tab=\'matches\';render()">Matchs</button>';
+  h+='<button class="det-tab'+(V.tab==="players"?" on":"")+'" onclick="V.tab=\'players\';render()">Effectif</button>';
+  h+="</div>";
+  if(V.tab==="matches"){
+    var ms=MATCHES.filter(function(m){return m.t1===V.selTeam||m.t2===V.selTeam});
+    if(!ms.length)h+='<div style="padding:20px;text-align:center;color:var(--t2)">Matchs à venir...</div>';
+    ms.forEach(function(m){
+      var opp=m.t1===V.selTeam?getTeam(m.t2):getTeam(m.t1);
+      h+='<div class="mc"><div class="mc-status" style="color:var(--t2)">'+fmtDate(m.d)+" · "+fmtTime(m.d)+"</div>";
+      h+='<div class="mc-teams"><div class="mc-team"><div class="mc-flag">'+flagImg(t.id,36)+'</div><div class="mc-name">'+t.name+'</div></div><div class="mc-vs">VS</div><div class="mc-team"><div class="mc-flag">'+flagImg(opp.id,36)+'</div><div class="mc-name">'+opp.name+"</div></div></div>";
+      h+='<div class="mc-info"><span>📍 '+m.city+"</span><span>🏟️ "+m.stad+"</span></div></div>";
+    });
+  } else {
+    var byPos={ATT:[],MIL:[],DEF:[],GAR:[]};
+    (t.players||[]).forEach(function(p){if(byPos[p.p])byPos[p.p].push(p);else byPos.ATT.push(p)});
+    [{k:"GAR",l:"Gardiens"},{k:"DEF",l:"Défenseurs"},{k:"MIL",l:"Milieux"},{k:"ATT",l:"Attaquants"}].forEach(function(pos){
+      if(!byPos[pos.k].length)return;
+      h+='<div class="sec">'+pos.l+"</div>";
+      byPos[pos.k].forEach(function(p){
+        var pid=encodeURIComponent(p.n);
+        h+='<div class="pc" onclick="showPlayer(\''+V.selTeam+'\',\''+pid+'\')" style="cursor:pointer">';
+        h+='<div class="pc-pos '+pos.k.toLowerCase()+'">'+pos.k+"</div>";
+        h+='<div class="pc-name">'+p.n+'<div style="font-size:10px;color:var(--t2)">'+p.club+"</div></div>";
+        h+='<div class="pc-stat">'+p.caps+" sel"+(p.g?" · "+p.g+" buts":"")+'</div><span style="color:var(--t2);font-size:14px">›</span></div>';
+      });
+    });
+  }
+  return h;
+}
+
+// Pronostics
+function rProno(){
+  var upcoming=MATCHES.filter(function(m){return matchStatus(m.d)==="upcoming"||matchStatus(m.d)==="soon"}).slice(0,5);
+  var h='<div class="sec">🎯 Pronostics</div>';
+  if(!upcoming.length)return h+'<div class="empty"><div class="empty-i">🎯</div>Pas de matchs à pronostiquer</div>';
+  upcoming.forEach(function(m){
+    var t1=getTeam(m.t1),t2=getTeam(m.t2);
+    h+='<div class="prono"><div style="text-align:center;font-size:11px;color:var(--t2);margin-bottom:8px">'+fmtDate(m.d)+" · "+fmtTime(m.d)+"</div>";
+    h+='<div class="prono-input"><span>'+flagImg(m.t1,28)+'</span><input type="number" min="0" max="20" placeholder="-" id="p'+m.id+'a"><span style="font-size:16px;color:var(--t2);font-weight:900">—</span><input type="number" min="0" max="20" placeholder="-" id="p'+m.id+'b"><span>'+flagImg(m.t2,28)+"</span></div>";
+    h+='<div style="text-align:center;font-size:12px;color:var(--t2)">'+t1.name+" vs "+t2.name+"</div>";
+    h+='<button class="btn" onclick="saveProno('+m.id+')" style="margin-top:8px;padding:10px;font-size:12px">Valider</button>';
+    h+="</div>";
+  });
+  return h;
+}
+
+// Quiz
+var QUIZ=[
+{q:"Quel pays a gagné le plus de Coupes du Monde ?",a:["Brésil (5)","Allemagne (4)","Italie (4)","Argentine (3)"],c:0},
+{q:"Qui est le meilleur buteur de l'histoire du Mondial ?",a:["Miroslav Klose (16)","Ronaldo (15)","Pelé (12)","Mbappé (12)"],c:0},
+{q:"En quelle année le Mondial a été organisé aux USA pour la dernière fois ?",a:["1994","1986","2002","1998"],c:0},
+{q:"Combien d'équipes participent au Mondial 2026 ?",a:["48","32","40","64"],c:0},
+{q:"Quel joueur a marqué un triplé en finale 2022 ?",a:["Mbappé","Messi","Di María","Dembélé"],c:0},
+{q:"Combien de villes hôtes pour 2026 ?",a:["16","12","10","20"],c:0},
+{q:"Quel pays accueille la finale 2026 ?",a:["USA","Canada","Mexique","Les 3"],c:0},
+{q:"Record de buts sur un seul Mondial ?",a:["Just Fontaine (13)","Ronaldo (8)","Mbappé (8)","Müller (10)"],c:0}
+];
+var qIdx=0,qScore=0,qDone=false;
+
+function rQuiz(){
+  if(qDone){
+    return'<div style="text-align:center;padding:40px"><div style="font-size:48px;margin-bottom:16px">'+(qScore>=6?"🏆":qScore>=4?"⭐":"💪")+'</div><div style="font-size:24px;font-weight:900;color:var(--g)">'+qScore+"/"+QUIZ.length+'</div><div style="font-size:14px;color:var(--t2);margin-top:8px">'+(qScore>=6?"Expert !":qScore>=4?"Pas mal !":"Tu feras mieux !")+'</div><button class="btn" onclick="qIdx=0;qScore=0;qDone=false;render()" style="margin-top:20px">Rejouer</button></div>';
+  }
+  var q=QUIZ[qIdx];
+  var h='<div class="sec">🧠 Quiz — Question '+(qIdx+1)+"/"+QUIZ.length+"</div>";
+  h+='<div style="background:var(--s1);border-radius:var(--r);padding:16px;border:1px solid var(--s3)">';
+  h+='<div style="font-size:16px;font-weight:700;margin-bottom:14px;line-height:1.5">'+q.q+"</div>";
+  var shuffled=q.a.map(function(a,i){return{t:a,orig:i}});
+  for(var si=shuffled.length-1;si>0;si--){var sj=Math.floor(Math.random()*(si+1));var tmp=shuffled[si];shuffled[si]=shuffled[sj];shuffled[sj]=tmp}
+  shuffled.forEach(function(item){
+    h+='<button onclick="answerQuiz('+item.orig+')" style="display:block;width:100%;padding:14px;margin-bottom:6px;background:var(--s2);border:1px solid var(--s3);border-radius:10px;color:var(--tx);font-size:14px;font-weight:600;text-align:left;cursor:pointer;font-family:inherit">'+item.t+"</button>";
+  });
+  h+="</div>";
+  return h;
+}
+function answerQuiz(i){if(i===QUIZ[qIdx].c)qScore++;qIdx++;if(qIdx>=QUIZ.length)qDone=true;render()}
+
+function saveProno(mid){
+  var a=document.getElementById("p"+mid+"a"),b=document.getElementById("p"+mid+"b");
+  if(!a||!b||a.value===""||b.value===""){toast("Entre les deux scores");return}
+  var pronos=JSON.parse(localStorage.getItem("ff26_pronos")||"{}");
+  pronos[mid]={a:parseInt(a.value),b:parseInt(b.value),t:Date.now()};
+  localStorage.setItem("ff26_pronos",JSON.stringify(pronos));
+  toast("✅ Prono enregistré !");
+}
+function loadProno(mid){
+  var pronos=JSON.parse(localStorage.getItem("ff26_pronos")||"{}");
+  return pronos[mid]||null;
+}
+
+// FIX: scroll to top on nav change
+var origGo=go;
+go=function(v){origGo(v);scrollTo(0,0)};
+
+
+function showRules(){
+  var el=document.createElement("div");el.className="pl-modal";el.id="rules-modal";
+  el.onclick=function(e){if(e.target===el)el.remove()};
+  var h='<div class="pl-card">';
+  h+='<button class="back" onclick="document.getElementById(\'rules-modal\').remove()">← Fermer</button>';
+  
+  h+='<div style="text-align:center;padding:16px 0"><div style="font-size:36px">📜</div>';
+  h+='<div style="font-size:20px;font-weight:900;margin-top:6px">Reglement FIFA 2026</div>';
+  h+='<div style="font-size:12px;color:var(--t2)">Classement, departage, qualification</div></div>';
+  
+  // FORMAT
+  h+='<div class="pl-info"><div style="font-size:12px;font-weight:800;color:var(--g);margin-bottom:8px">🏟️ FORMAT DU TOURNOI</div>';
+  h+='<div class="pl-info-r"><span class="pl-info-l">Equipes</span><span class="pl-info-v">48 (nouveau record)</span></div>';
+  h+='<div class="pl-info-r"><span class="pl-info-l">Groupes</span><span class="pl-info-v">12 groupes de 4</span></div>';
+  h+='<div class="pl-info-r"><span class="pl-info-l">Matchs phase groupes</span><span class="pl-info-v">3 par equipe</span></div>';
+  h+='<div class="pl-info-r"><span class="pl-info-l">Qualifies</span><span class="pl-info-v">Top 2 + 8 meilleurs 3es = 32</span></div>';
+  h+='<div class="pl-info-r"><span class="pl-info-l">Phase finale</span><span class="pl-info-v">16e → 8e → QF → SF → Finale</span></div>';
+  h+='<div class="pl-info-r"><span class="pl-info-l">Total matchs</span><span class="pl-info-v">104 matchs en 39 jours</span></div>';
+  h+='<div class="pl-info-r"><span class="pl-info-l">Points</span><span class="pl-info-v">Victoire 3 · Nul 1 · Defaite 0</span></div>';
+  h+='</div>';
+  
+  // DEPARTAGE DANS UN GROUPE
+  h+='<div class="pl-info"><div style="font-size:12px;font-weight:800;color:var(--am);margin-bottom:8px">⚖️ DEPARTAGE DANS UN GROUPE</div>';
+  h+='<div style="font-size:11px;color:var(--t2);margin-bottom:8px">Quand 2 ou 3 equipes sont a egalite de points :</div>';
+  var rules=[
+    ["1️⃣","Points entre les equipes concernees (face-a-face)"],
+    ["2️⃣","Difference de buts entre equipes concernees"],
+    ["3️⃣","Buts marques entre equipes concernees"],
+    ["","(Si toujours egal, on recommence 1-3 avec les equipes restantes)"],
+    ["4️⃣","Difference de buts sur TOUS les matchs du groupe"],
+    ["5️⃣","Buts marques sur TOUS les matchs du groupe"],
+    ["6️⃣","Score de conduite Fair-Play (cartons)"],
+    ["7️⃣","Classement FIFA au moment du tirage"]
+  ];
+  rules.forEach(function(r){
+    h+='<div style="display:flex;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.03);align-items:start">';
+    h+='<div style="font-size:12px;min-width:24px;font-weight:800">'+r[0]+'</div>';
+    h+='<div style="font-size:12px;color:var(--tx);line-height:1.4">'+r[1]+'</div></div>';
+  });
+  h+='<div style="margin-top:8px;font-size:10px;color:var(--t2);font-style:italic">⚠️ PAS de tirage au sort pour 2026 (nouveau reglement FIFA)</div>';
+  h+='</div>';
+  
+  // FAIR PLAY
+  h+='<div class="pl-info"><div style="font-size:12px;font-weight:800;color:var(--rd);margin-bottom:8px">🟨 SCORE FAIR-PLAY (conduite)</div>';
+  h+='<div style="font-size:11px;color:var(--t2);margin-bottom:8px">L\'equipe avec le MOINS de penalites est classee devant :</div>';
+  var cards=[
+    ["🟨","Carton jaune","−1 point"],
+    ["🟨🟨→🟥","2e jaune = rouge indirect","−3 points"],
+    ["🟥","Carton rouge direct","−4 points"],
+    ["🟨+🟥","Jaune + rouge direct (meme match)","−5 points"]
+  ];
+  cards.forEach(function(r){
+    h+='<div style="display:flex;align-items:center;gap:8px;padding:6px;margin-bottom:4px;background:var(--s2);border-radius:8px">';
+    h+='<div style="font-size:14px;min-width:45px;text-align:center">'+r[0]+'</div>';
+    h+='<div style="flex:1;font-size:11px;color:var(--tx)">'+r[1]+'</div>';
+    h+='<div style="font-size:12px;font-weight:900;color:var(--rd);min-width:55px;text-align:right">'+r[2]+'</div></div>';
+  });
+  h+='<div style="margin-top:8px;padding:8px;background:rgba(255,179,0,.08);border-radius:8px;font-size:11px;color:var(--am)">';
+  h+='💡 <strong>Precedent historique :</strong> En 2018, le Japon s\'est qualifie DEVANT le Senegal grace au Fair-Play (4 jaunes vs 6 jaunes). Un seul carton peut faire la difference !</div>';
+  h+='</div>';
+  
+  // MEILLEURS 3ES
+  h+='<div class="pl-info"><div style="font-size:12px;font-weight:800;color:var(--g);margin-bottom:8px">🥉 CLASSEMENT DES MEILLEURS 3ES</div>';
+  h+='<div style="font-size:11px;color:var(--t2);margin-bottom:8px">Les 12 troisiemes sont classes dans un tableau unique. Les 8 meilleurs passent :</div>';
+  var third_rules=[
+    ["1️⃣","Points obtenus sur tous les matchs de groupe"],
+    ["2️⃣","Difference de buts sur tous les matchs"],
+    ["3️⃣","Buts marques sur tous les matchs"],
+    ["4️⃣","Score de conduite Fair-Play"],
+    ["5️⃣","Classement FIFA"]
+  ];
+  third_rules.forEach(function(r){
+    h+='<div style="display:flex;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.03)">';
+    h+='<div style="font-size:12px;min-width:24px;font-weight:800">'+r[0]+'</div>';
+    h+='<div style="font-size:12px;color:var(--tx)">'+r[1]+'</div></div>';
+  });
+  h+='<div style="margin-top:8px;font-size:10px;color:var(--t2)">⚠️ Le face-a-face ne s\'applique PAS entre 3es de groupes differents</div>';
+  h+='<div style="margin-top:6px;padding:8px;background:rgba(0,230,118,.08);border-radius:8px;font-size:11px;color:var(--g)">';
+  h+='💡 <strong>Chaque but compte !</strong> Un 2-2 vaut mieux qu\'un 0-0 pour un 3e (meme points, meme diff, mais + de buts marques)</div>';
+  h+='</div>';
+  
+  // PHASE ELIMINATOIRE
+  h+='<div class="pl-info"><div style="font-size:12px;font-weight:800;color:var(--g);margin-bottom:8px">⚡ PHASE ELIMINATOIRE</div>';
+  h+='<div class="pl-info-r"><span class="pl-info-l">Egalite a 90 min</span><span class="pl-info-v">Prolongation 2×15 min</span></div>';
+  h+='<div class="pl-info-r"><span class="pl-info-l">Toujours egal</span><span class="pl-info-v">Tirs au but</span></div>';
+  h+='<div class="pl-info-r"><span class="pl-info-l">Buts en or / argent</span><span class="pl-info-v">NON (abolis)</span></div>';
+  h+='<div class="pl-info-r"><span class="pl-info-l">Buts a l\'exterieur</span><span class="pl-info-v">NON (matchs neutres)</span></div>';
+  h+='<div class="pl-info-r"><span class="pl-info-l">Remplacements</span><span class="pl-info-v">5 max (+ 1 en prolongation)</span></div>';
+  h+='</div>';
+  
+  
+  // NOUVEAUTES 2026
+  h+='<div class="pl-info"><div style="font-size:12px;font-weight:800;color:var(--g);margin-bottom:8px">🆕 NOUVEAUTES REGLEMENTAIRES 2026</div>';
+  h+='<div style="font-size:11px;color:var(--t2);margin-bottom:8px">5 nouvelles regles approuvees par l\'IFAB (140e assemblee, mars 2026)</div>';
+  
+  h+='<div style="background:var(--s2);border-radius:10px;padding:10px;margin-bottom:8px;border-left:3px solid var(--g)">';
+  h+='<div style="font-size:12px;font-weight:800;color:var(--g)">1. ⏱️ Remplacement en 10 secondes</div>';
+  h+='<div style="font-size:11px;color:var(--tx);margin-top:4px;line-height:1.4">Le joueur remplace doit quitter le terrain en <strong>10 secondes</strong> apres l\'affichage du panneau.</div>';
+  h+='<div style="font-size:11px;color:var(--rd);margin-top:4px;font-weight:700">⚠️ Sanction : le remplacant attend <strong>1 minute</strong> avant d\'entrer → l\'equipe joue a 10 pendant 60 secondes !</div></div>';
+  
+  h+='<div style="background:var(--s2);border-radius:10px;padding:10px;margin-bottom:8px;border-left:3px solid var(--g)">';
+  h+='<div style="font-size:12px;font-weight:800;color:var(--g)">2. ⚡ Touches et coups de pied de but en 5 secondes</div>';
+  h+='<div style="font-size:11px;color:var(--tx);margin-top:4px;line-height:1.4">L\'arbitre peut declencher un <strong>compte a rebours visuel de 5 secondes</strong> si le joueur tarde.</div>';
+  h+='<div style="font-size:11px;color:var(--rd);margin-top:4px;font-weight:700">⚠️ Touche : possession inversee a l\'adversaire</div>';
+  h+='<div style="font-size:11px;color:var(--rd);font-weight:700">⚠️ Coup de pied de but : corner accorde a l\'adversaire !</div></div>';
+  
+  h+='<div style="background:var(--s2);border-radius:10px;padding:10px;margin-bottom:8px;border-left:3px solid var(--g)">';
+  h+='<div style="font-size:12px;font-weight:800;color:var(--g)">3. 🏥 Soins medicaux = sortie obligatoire</div>';
+  h+='<div style="font-size:11px;color:var(--tx);margin-top:4px;line-height:1.4">Un joueur soigne sur le terrain doit <strong>sortir et attendre 1 minute</strong> (temps de jeu) avant de revenir.</div>';
+  h+='<div style="font-size:11px;color:var(--am);margin-top:4px">💡 Exception : si la blessure est causee par une faute sanctionnee d\'un carton, le joueur peut rester.</div>';
+  h+='<div style="font-size:11px;color:var(--t2);margin-top:4px;font-style:italic">⚠️ Faille : les gardiens restent exemptes de cette regle (essais prevus par l\'IFAB).</div></div>';
+  
+  h+='<div style="background:var(--s2);border-radius:10px;padding:10px;margin-bottom:8px;border-left:3px solid var(--bl)">';
+  h+='<div style="font-size:12px;font-weight:800;color:var(--bl)">4. 📺 VAR elargi — nouvelles interventions</div>';
+  h+='<div style="font-size:11px;color:var(--tx);margin-top:4px;line-height:1.4">Le VAR peut desormais intervenir sur :</div>';
+  h+='<div style="font-size:11px;color:var(--tx);margin-top:4px">🟨🟨→🟥 <strong>2e jaune errone</strong> menant a un rouge (nouveau !)</div>';
+  h+='<div style="font-size:11px;color:var(--tx)">🔄 <strong>Erreur d\'identite</strong> : mauvais joueur sanctionne</div>';
+  h+='<div style="font-size:11px;color:var(--tx)">🚩 <strong>Corner mal attribue</strong> (si la revision ne retarde pas le jeu)</div></div>';
+  
+  h+='<div style="background:var(--s2);border-radius:10px;padding:10px;margin-bottom:8px;border-left:3px solid var(--am)">';
+  h+='<div style="font-size:12px;font-weight:800;color:var(--am)">5. 🫡 Seul le capitaine parle a l\'arbitre</div>';
+  h+='<div style="font-size:11px;color:var(--tx);margin-top:4px;line-height:1.4">Seul le capitaine peut s\'approcher de l\'arbitre pour demander des explications.</div>';
+  h+='<div style="font-size:11px;color:var(--rd);margin-top:4px;font-weight:700">⚠️ Tout autre joueur qui entoure l\'arbitre risque un carton jaune immediat.</div>';
+  h+='<div style="font-size:11px;color:var(--t2);margin-top:4px;font-style:italic">Deja en vigueur en UEFA, applique pour la 1ere fois en Coupe du Monde.</div></div>';
+  
+  h+='<div style="padding:10px;background:rgba(0,230,118,.08);border-radius:10px;margin-top:8px">';
+  h+='<div style="font-size:11px;color:var(--g);font-weight:700">💡 OBJECTIF FIFA : passer de 58 a 64 minutes de temps de jeu effectif par match. Ces regles visent a eliminer les "arts sombres" du football (perte de temps, simulation, pression sur l\'arbitre).</div></div>';
+  h+='</div>';
+
+  h+='</div>';
+  el.innerHTML=h;
+  document.body.appendChild(el);
+}
+
+
+function rSimul(){
+  var h='<div class="sec">🎮 Simulateur — Tableau officiel FIFA</div>';
+  var groups={};
+  TEAMS.forEach(function(t){if(!groups[t.group])groups[t.group]=[];groups[t.group].push(t)});
+  if(!V.simKO)V.simKO={};
+
+  // STEP 1: Pick top 2 per group
+  var totalPicked=0;
+  Object.keys(groups).forEach(function(g){totalPicked+=(V.simPicks[g]||[]).length});
+  var allDone=totalPicked>=24;
+
+  h+='<div onclick="V.simStep1=!V.simStep1;render()" style="padding:12px;background:var(--s1);border:1px solid '+(allDone?'var(--g)':'var(--s3)')+';border-radius:12px;margin-bottom:8px;cursor:pointer;display:flex;justify-content:space-between;align-items:center">';
+  h+='<span style="font-size:13px;font-weight:800">'+(allDone?'✅':'1️⃣')+' Groupes — qualifies</span>';
+  h+='<span style="font-size:11px;color:'+(allDone?'var(--g)':'var(--am)')+';font-weight:700">'+totalPicked+'/24</span></div>';
+
+  if(!allDone||V.simStep1){
+    Object.keys(groups).sort().forEach(function(g){
+      var pk=V.simPicks[g]||[];
+      h+='<div style="background:var(--s1);border:1px solid var(--s3);border-radius:10px;padding:8px;margin-bottom:5px">';
+      h+='<div style="font-size:10px;font-weight:900;color:var(--g);margin-bottom:5px">GROUPE '+g+'</div>';
+      h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">';
+      groups[g].forEach(function(t){
+        var sel=pk.indexOf(t.id)>=0;var rk=pk.indexOf(t.id);
+        h+='<div onclick="event.stopPropagation();toggleSimPick(\''+g+'\',\''+t.id+'\')" style="display:flex;align-items:center;gap:5px;padding:7px;background:'+(sel?'var(--gw)':'var(--s2)')+';border:1.5px solid '+(sel?'var(--g)':'transparent')+';border-radius:8px;cursor:pointer">';
+        h+=flagImg(t.id,14)+'<span style="font-size:11px;font-weight:'+(sel?'800':'500')+';flex:1">'+t.name+'</span>';
+        if(sel)h+='<span style="font-size:9px;font-weight:900;color:var(--g)">'+(rk===0?"1er":"2e")+'</span>';
+        h+='</div>';
+      });
+      h+='</div></div>';
+    });
+  }
+  if(!allDone){h+='<div style="text-align:center;padding:12px;color:var(--t2);font-size:11px">'+(24-totalPicked)+' restants</div>';h+=simReset();return h}
+
+  // Build team assignments: 1st, 2nd, 3rd per group
+  var W={},R={},T={};
+  Object.keys(groups).sort().forEach(function(g){
+    var pk=V.simPicks[g]||[];
+    W[g]=pk[0];R[g]=pk[1];
+    // 3rd = highest-ranked unpicked
+    var thirds=groups[g].filter(function(t){return pk.indexOf(t.id)<0}).sort(function(a,b){return a.rank-b.rank});
+    T[g]=thirds[0]?thirds[0].id:"TBD";
+  });
+
+  // Pick best 8 third-place teams (by FIFA rank)
+  var allThirds=Object.keys(T).map(function(g){return{g:g,id:T[g],rank:getTeam(T[g]).rank||99}});
+  allThirds.sort(function(a,b){return a.rank-b.rank});
+  var best8=allThirds.slice(0,8);
+  var b8ids=best8.map(function(x){return x.id});
+  // Simple 3rd-place assignment to matches (simplified from FIFA's 495 scenarios)
+  var t3pool=b8ids.slice();
+
+  function pick3(options){
+    for(var i=0;i<options.length;i++){
+      var idx=t3pool.indexOf(T[options[i]]);
+      if(idx>=0){t3pool.splice(idx,1);return T[options[i]]}
+    }
+    return t3pool.length?t3pool.shift():"TBD";
+  }
+
+  // === REAL FIFA R32 BRACKET (from ESPN schedule) ===
+  // LEFT SIDE (France/Spain pathway)
+  var bracket=[
+    // R32 - Left
+    {id:"r1",a:R["A"],b:R["B"],label:"2A vs 2B",round:"R32"},
+    {id:"r2",a:W["C"],b:R["F"],label:"1C vs 2F",round:"R32"},
+    {id:"r3",a:W["E"],b:pick3(["A","B","C","D","F"]),label:"1E vs 3e",round:"R32"},
+    {id:"r4",a:W["F"],b:R["C"],label:"1F vs 2C",round:"R32"},
+    {id:"r5",a:R["E"],b:R["I"],label:"2E vs 2I",round:"R32"},
+    {id:"r6",a:W["I"],b:pick3(["C","D","F","G","H"]),label:"1I vs 3e",round:"R32"},
+    {id:"r7",a:W["A"],b:pick3(["C","E","F","H","I"]),label:"1A vs 3e",round:"R32"},
+    {id:"r8",a:W["L"],b:pick3(["E","H","I","J","K"]),label:"1L vs 3e",round:"R32"},
+    // R32 - Right
+    {id:"r9",a:W["H"],b:R["J"],label:"1H vs 2J",round:"R32"},
+    {id:"r10",a:R["K"],b:R["L"],label:"2K vs 2L",round:"R32"},
+    {id:"r11",a:W["B"],b:pick3(["E","F","G","I","J"]),label:"1B vs 3e",round:"R32"},
+    {id:"r12",a:R["D"],b:R["G"],label:"2D vs 2G",round:"R32"},
+    {id:"r13",a:W["J"],b:R["H"],label:"1J vs 2H",round:"R32"},
+    {id:"r14",a:W["K"],b:pick3(["D","E","I","J","L"]),label:"1K vs 3e",round:"R32"},
+    {id:"r15",a:W["G"],b:pick3(["A","E","H","I","J"]),label:"1G vs 3e",round:"R32"},
+    {id:"r16",a:W["D"],b:pick3(["B","E","F","I","J"]),label:"1D vs 3e",round:"R32"}
+  ];
+
+  // R16 pairings (winners of adjacent R32 matches)
+  var r16pairs=[[0,1],[2,3],[4,5],[6,7],[8,9],[10,11],[12,13],[14,15]];
+  // QF pairings
+  var qfpairs=[[0,1],[2,3],[4,5],[6,7]];
+  // SF pairings
+  var sfpairs=[[0,1],[2,3]];
+
+  // Render R32
+  var r32done=bracket.every(function(m){return V.simKO[m.id]});
+  h+='<div style="padding:10px 12px;background:var(--s1);border:1px solid '+(r32done?'var(--g)':'var(--s3)')+';border-radius:10px;margin:8px 0 6px;font-size:13px;font-weight:800">'+(r32done?'✅':'')+' 16es de finale — 16 matchs</div>';
+
+  h+='<div style="font-size:11px;font-weight:800;color:var(--am);padding:4px 0">🏟️ Côté gauche du tableau</div>';
+  for(var i=0;i<8;i++)h+=simMatch(bracket[i]);
+  h+='<div style="font-size:11px;font-weight:800;color:var(--am);padding:8px 0 4px">🏟️ Côté droit du tableau</div>';
+  for(var i=8;i<16;i++)h+=simMatch(bracket[i]);
+
+  if(!r32done){h+=simReset();return h}
+
+  // R16
+  var r16=[];
+  r16pairs.forEach(function(p,i){
+    r16.push({id:"h"+i,a:V.simKO[bracket[p[0]].id],b:V.simKO[bracket[p[1]].id],label:"8e "+(i+1),round:"R16"});
+  });
+  var r16done=r16.every(function(m){return V.simKO[m.id]});
+  h+='<div style="padding:10px 12px;background:var(--s1);border:1px solid '+(r16done?'var(--g)':'var(--s3)')+';border-radius:10px;margin:8px 0 6px;font-size:13px;font-weight:800">'+(r16done?'✅':'')+' 8es de finale — 8 matchs</div>';
+  r16.forEach(function(m){h+=simMatch(m)});
+  if(!r16done){h+=simReset();return h}
+
+  // QF
+  var qf=[];
+  qfpairs.forEach(function(p,i){
+    qf.push({id:"q"+i,a:V.simKO[r16[p[0]].id],b:V.simKO[r16[p[1]].id],label:"Quart "+(i+1),round:"QF"});
+  });
+  var qfdone=qf.every(function(m){return V.simKO[m.id]});
+  h+='<div style="padding:10px 12px;background:var(--s1);border:1px solid '+(qfdone?'var(--g)':'var(--s3)')+';border-radius:10px;margin:8px 0 6px;font-size:13px;font-weight:800">'+(qfdone?'✅':'')+' Quarts — 4 matchs</div>';
+  qf.forEach(function(m){h+=simMatch(m)});
+  if(!qfdone){h+=simReset();return h}
+
+  // SF
+  var sf=[];
+  sfpairs.forEach(function(p,i){
+    sf.push({id:"s"+i,a:V.simKO[qf[p[0]].id],b:V.simKO[qf[p[1]].id],label:"Demi "+(i+1),round:"SF"});
+  });
+  var sfdone=sf.every(function(m){return V.simKO[m.id]});
+  h+='<div style="padding:10px 12px;background:var(--s1);border:1px solid '+(sfdone?'var(--g)':'var(--s3)')+';border-radius:10px;margin:8px 0 6px;font-size:13px;font-weight:800">'+(sfdone?'✅':'')+' Demi-finales</div>';
+  sf.forEach(function(m){h+=simMatch(m)});
+  if(!sfdone){h+=simReset();return h}
+
+  // FINAL
+  var fin={id:"final",a:V.simKO[sf[0].id],b:V.simKO[sf[1].id],label:"FINALE",round:"F"};
+  var champ=V.simKO["final"];
+  h+='<div style="background:linear-gradient(135deg,rgba(255,215,0,.15),rgba(255,160,0,.08));border:2px solid #FFD700;border-radius:16px;padding:20px;text-align:center;margin:10px 0">';
+  h+='<div style="font-size:36px">🏆</div><div style="font-size:11px;font-weight:900;color:#FFD700;letter-spacing:3px">FINALE</div>';
+  h+=simMatch(fin);
+  if(champ){
+    h+='<div style="padding:14px;background:rgba(255,215,0,.15);border-radius:12px;margin-top:8px">';
+    h+='<div style="font-size:32px">'+flagImg(champ,48)+'</div>';
+    h+='<div style="font-size:16px;font-weight:900;color:#FFD700">'+getTeam(champ).name+'</div>';
+    h+='<div style="font-size:11px;color:#FFD700">CHAMPION DU MONDE 2026</div></div>';
+  }
+  h+='</div>';
+  if(champ)h+='<button onclick="shareSimul()" style="width:100%;padding:14px;background:var(--g);color:#000;border:none;border-radius:12px;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;margin-bottom:8px">📤 Partager</button>';
+  h+=simReset();return h;
+}
+
+function simMatch(m){
+  var w=V.simKO[m.id];
+  var h='<div style="display:flex;align-items:center;gap:5px;background:var(--s1);border:1px solid var(--s3);border-radius:10px;padding:6px;margin-bottom:4px">';
+  h+='<div onclick="event.stopPropagation();pickKO(\''+m.id+'\',\''+m.a+'\')" style="flex:1;display:flex;align-items:center;gap:5px;padding:7px;background:'+(w===m.a?'var(--gw)':'var(--s2)')+';border:1.5px solid '+(w===m.a?'var(--g)':'transparent')+';border-radius:8px;cursor:pointer">';
+  h+=flagImg(m.a,16)+'<span style="font-size:11px;font-weight:'+(w===m.a?'900':'600')+'">'+getTeam(m.a).name+'</span>';
+  if(w===m.a)h+='<span style="font-size:9px;color:var(--g);margin-left:auto">✓</span>';
+  h+='</div><div style="font-size:9px;color:var(--t2);font-weight:900">VS</div>';
+  h+='<div onclick="event.stopPropagation();pickKO(\''+m.id+'\',\''+m.b+'\')" style="flex:1;display:flex;align-items:center;gap:5px;padding:7px;background:'+(w===m.b?'var(--gw)':'var(--s2)')+';border:1.5px solid '+(w===m.b?'var(--g)':'transparent')+';border-radius:8px;cursor:pointer">';
+  h+=flagImg(m.b,16)+'<span style="font-size:11px;font-weight:'+(w===m.b?'900':'600')+'">'+getTeam(m.b).name+'</span>';
+  if(w===m.b)h+='<span style="font-size:9px;color:var(--g);margin-left:auto">✓</span>';
+  h+='</div></div>';
+  return h;
+}
+
+function simReset(){
+  return'<button onclick="V.simPicks={};V.simKO={};V.simStep1=false;render()" style="width:100%;padding:10px;background:var(--s1);border:1px solid var(--s3);color:var(--rd);border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:8px">🔄 Reinitialiser</button>';
+}
+
+function toggleSimPick(g,tid){
+  if(!V.simPicks[g])V.simPicks[g]=[];
+  var idx=V.simPicks[g].indexOf(tid);
+  if(idx>=0)V.simPicks[g].splice(idx,1);
+  else if(V.simPicks[g].length<2)V.simPicks[g].push(tid);
+  else V.simPicks[g]=[tid];
+  V.simKO={};render();
+}
+
+function pickKO(mid,tid){
+  if(!V.simKO)V.simKO={};
+  var old=V.simKO[mid];
+  V.simKO[mid]=tid;
+  if(old&&old!==tid){
+    // Clear all rounds after this one
+    var order=["r","h","q","s","f"];
+    var myPrefix=mid[0];
+    var myIdx=order.indexOf(myPrefix);
+    Object.keys(V.simKO).forEach(function(k){
+      var kIdx=order.indexOf(k[0]);
+      if(kIdx>myIdx)delete V.simKO[k];
+    });
+  }
+  render();
+}
+
+function shareSimul(){
+  var t="🏆 MON TABLEAU MONDIAL 2026\n\n";
+  Object.keys(V.simPicks).sort().forEach(function(g){
+    var p=V.simPicks[g]||[];
+    t+="Gr."+g+": "+p.map(function(id){return getTeam(id).name}).join(" / ")+"\n";
+  });
+  if(V.simKO.final)t+="\n🏆 Champion: "+getTeam(V.simKO.final).name+"\n";
+  t+="\nFoot Flash 2026 ⚽";
+  if(navigator.share)navigator.share({title:"Mon Tableau",text:t});
+  else window.open("https://wa.me/?text="+encodeURIComponent(t),"_blank");
+}
+
+
+function rBracket(){
+  var h='<div class="sec">🏆 Tableau Final — Mondial 2026</div>';
+  h+='<button onclick="showRules()" style="display:block;width:100%;padding:10px;background:var(--s1);border:1px solid var(--s3);border-radius:10px;color:var(--g);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:8px;text-align:center">📜 Reglement FIFA : departage, Fair-Play, meilleurs 3es</button>';
+  h+='<div style="font-size:11px;color:var(--t2);margin-bottom:12px">32 equipes qualifiees → 31 matchs a elimination directe</div>';
+
+  // REAL FIFA BRACKET (ESPN official schedule)
+  var R32=[
+    {n:"M73",a:"2e Gr.A",b:"2e Gr.B",d:"28 juin",v:"Inglewood"},
+    {n:"M74",a:"1er Gr.C",b:"2e Gr.F",d:"29 juin",v:"Houston"},
+    {n:"M75",a:"1er Gr.E",b:"Meilleur 3e",d:"29 juin",v:"Foxborough"},
+    {n:"M76",a:"1er Gr.F",b:"2e Gr.C",d:"29 juin",v:"Monterrey"},
+    {n:"M77",a:"2e Gr.E",b:"2e Gr.I",d:"30 juin",v:"Arlington"},
+    {n:"M78",a:"1er Gr.I",b:"Meilleur 3e",d:"30 juin",v:"New York"},
+    {n:"M79",a:"1er Gr.A",b:"Meilleur 3e",d:"30 juin",v:"Mexico"},
+    {n:"M80",a:"1er Gr.L",b:"Meilleur 3e",d:"1 juil.",v:"Atlanta"},
+    {n:"M81",a:"1er Gr.H",b:"2e Gr.J",d:"2 juil.",v:"Inglewood"},
+    {n:"M82",a:"2e Gr.K",b:"2e Gr.L",d:"2 juil.",v:"Toronto"},
+    {n:"M83",a:"1er Gr.B",b:"Meilleur 3e",d:"2 juil.",v:"Vancouver"},
+    {n:"M84",a:"2e Gr.D",b:"2e Gr.G",d:"3 juil.",v:"Arlington"},
+    {n:"M85",a:"1er Gr.J",b:"2e Gr.H",d:"3 juil.",v:"Miami"},
+    {n:"M86",a:"1er Gr.K",b:"Meilleur 3e",d:"3 juil.",v:"Kansas City"},
+    {n:"M87",a:"1er Gr.G",b:"Meilleur 3e",d:"1 juil.",v:"Seattle"},
+    {n:"M88",a:"1er Gr.D",b:"Meilleur 3e",d:"1 juil.",v:"Santa Clara"}
+  ];
+  var R16=[
+    {n:"8e-1",a:"Vainqueur M73",b:"Vainqueur M74",d:"4 juil.",v:"Houston"},
+    {n:"8e-2",a:"Vainqueur M75",b:"Vainqueur M76",d:"4 juil.",v:"Philadelphie"},
+    {n:"8e-3",a:"Vainqueur M77",b:"Vainqueur M78",d:"5 juil.",v:"New York"},
+    {n:"8e-4",a:"Vainqueur M79",b:"Vainqueur M80",d:"5 juil.",v:"Mexico"},
+    {n:"8e-5",a:"Vainqueur M81",b:"Vainqueur M82",d:"6 juil.",v:"Arlington"},
+    {n:"8e-6",a:"Vainqueur M83",b:"Vainqueur M84",d:"6 juil.",v:"Seattle"},
+    {n:"8e-7",a:"Vainqueur M85",b:"Vainqueur M86",d:"7 juil.",v:"Atlanta"},
+    {n:"8e-8",a:"Vainqueur M87",b:"Vainqueur M88",d:"7 juil.",v:"Vancouver"}
+  ];
+  var QF=[
+    {n:"QF1",a:"Vainqueur 8e-1",b:"Vainqueur 8e-2",d:"9 juil.",v:"Foxborough"},
+    {n:"QF2",a:"Vainqueur 8e-3",b:"Vainqueur 8e-4",d:"10 juil.",v:"Inglewood"},
+    {n:"QF3",a:"Vainqueur 8e-5",b:"Vainqueur 8e-6",d:"11 juil.",v:"Houston"},
+    {n:"QF4",a:"Vainqueur 8e-7",b:"Vainqueur 8e-8",d:"11 juil.",v:"Kansas City"}
+  ];
+  var SF=[
+    {n:"SF1",a:"Vainqueur QF1",b:"Vainqueur QF2",d:"13 juil.",v:"New York"},
+    {n:"SF2",a:"Vainqueur QF3",b:"Vainqueur QF4",d:"14 juil.",v:"Arlington"}
+  ];
+
+  // FINALE
+  h+='<div style="background:linear-gradient(135deg,rgba(255,215,0,.15),rgba(255,160,0,.08));border:2px solid #FFD700;border-radius:16px;padding:20px;text-align:center;margin-bottom:4px">';
+  h+='<div style="font-size:36px">🏆</div><div style="font-size:12px;font-weight:900;color:#FFD700;letter-spacing:3px;margin-top:4px">FINALE</div>';
+  h+='<div style="display:flex;align-items:center;justify-content:center;gap:16px;margin:12px 0">';
+  h+='<div style="flex:1;text-align:center;font-size:12px;font-weight:700;color:var(--tx)">Vainqueur SF1</div>';
+  h+='<div style="font-size:18px;font-weight:900;color:#FFD700">VS</div>';
+  h+='<div style="flex:1;text-align:center;font-size:12px;font-weight:700;color:var(--tx)">Vainqueur SF2</div></div>';
+  h+='<div style="font-size:11px;color:var(--t2)">19 juillet · 📍 New York · 🏟️ MetLife Stadium</div></div>';
+  h+=bConn();
+
+  // 3E PLACE
+  h+='<div style="background:var(--s1);border:1px solid var(--s3);border-radius:10px;padding:10px;text-align:center;margin-bottom:4px;border-top:3px solid #CD7F32">';
+  h+='<div style="font-size:10px;font-weight:900;color:#CD7F32;letter-spacing:1px">🥉 3E PLACE</div>';
+  h+='<div style="font-size:12px;font-weight:700;margin-top:4px">Perdant SF1 vs Perdant SF2</div>';
+  h+='<div style="font-size:10px;color:var(--t2)">18 juillet · Miami</div></div>';
+  h+=bConn();
+
+  // SF
+  h+=bRoundH("🔥 DEMI-FINALES","2 matchs");
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:4px">';
+  SF.forEach(function(m){h+=bSlot(m,"var(--am)")});h+='</div>';h+=bConn();
+
+  // QF
+  h+=bRoundH("⚡ QUARTS DE FINALE","4 matchs");
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:4px">';
+  QF.forEach(function(m){h+=bSlot(m,"var(--g)")});h+='</div>';h+=bConn();
+
+  // R16
+  h+=bRoundH("🎯 HUITIEMES DE FINALE","8 matchs");
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:4px">';
+  R16.forEach(function(m){h+=bSlot(m,"var(--g)")});h+='</div>';h+=bConn();
+
+  // R32
+  h+=bRoundH("🏟️ SEIZIEMES DE FINALE","16 matchs");
+  h+='<div style="font-size:10px;font-weight:700;color:var(--am);margin-bottom:4px">Côté gauche (France/Espagne)</div>';
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:6px">';
+  R32.slice(0,8).forEach(function(m){h+=bSlot(m,"var(--g)")});h+='</div>';
+  h+='<div style="font-size:10px;font-weight:700;color:var(--am);margin-bottom:4px">Côté droit (Argentine/Angleterre)</div>';
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:4px">';
+  R32.slice(8).forEach(function(m){h+=bSlot(m,"var(--g)")});h+='</div>';
+  h+=bConn();
+
+  // GROUPES
+  h+='<div class="sec">📊 Phase de groupes — 12 groupes</div>';
+  h+='<div style="font-size:11px;color:var(--t2);margin-bottom:8px">Top 2 ✓ + 8 meilleurs 3es → 32 qualifies</div>';
+  var groups={};TEAMS.forEach(function(t){if(!groups[t.group])groups[t.group]=[];groups[t.group].push(t)});
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px">';
+  Object.keys(groups).sort().forEach(function(g){
+    h+='<div style="background:var(--s1);border:1px solid var(--s3);border-radius:8px;padding:6px;cursor:pointer" onclick="V.view=\'groups\';render()">';
+    h+='<div style="font-size:9px;font-weight:900;color:var(--g);margin-bottom:3px">GR.'+g+'</div>';
+    groups[g].forEach(function(t,i){h+='<div style="display:flex;align-items:center;gap:3px;padding:1px 0;opacity:'+(i<2?'1':'.35')+'">'+flagImg(t.id,12)+'<span style="font-size:8px;font-weight:'+(i<2?'800':'400')+'">'+t.name+'</span></div>'});
+    h+='</div>'});
+  h+='</div>';
+  return h;
+}
+
+function bSlot(m,color){
+  var h='<div style="background:var(--s1);border:1px solid var(--s3);border-radius:8px;padding:7px;border-left:3px solid '+color+'">';
+  h+='<div style="font-size:9px;font-weight:900;color:'+color+';letter-spacing:.5px;margin-bottom:4px">'+m.n+'</div>';
+  h+='<div style="font-size:10px;font-weight:700;color:var(--tx);line-height:1.5">'+m.a+'</div>';
+  h+='<div style="font-size:9px;color:var(--t2);font-weight:800;margin:2px 0">VS</div>';
+  h+='<div style="font-size:10px;font-weight:700;color:var(--tx);line-height:1.5">'+m.b+'</div>';
+  h+='<div style="font-size:8px;color:var(--t2);margin-top:4px">'+m.d+' · '+m.v+'</div>';
+  h+='</div>';return h;
+}
+function bRoundH(t,s){return'<div style="display:flex;align-items:center;justify-content:space-between;margin:6px 0"><div style="font-size:13px;font-weight:900;color:var(--tx)">'+t+'</div><div style="font-size:10px;color:var(--t2);background:var(--s1);padding:3px 10px;border-radius:99px">'+s+'</div></div>'}
+function bConn(){return'<div style="display:flex;justify-content:center;margin:2px 0"><div style="width:2px;height:12px;background:var(--s3)"></div></div><div style="display:flex;justify-content:center;margin-bottom:2px"><div style="font-size:10px;color:var(--t2)">▲</div></div>'}
+
+// WORLD CUP HISTORY DATA
+var WC_WINNERS=[
+{y:2022,w:"Argentine",r:"FRA",s:"3-3 (4-2 tab)",h:"Qatar",g:"🏆"},
+{y:2018,w:"France",r:"Croatie",s:"4-2",h:"Russie",g:"🏆"},
+{y:2014,w:"Allemagne",r:"Argentine",s:"1-0 ap",h:"Brésil",g:"🏆"},
+{y:2010,w:"Espagne",r:"Pays-Bas",s:"1-0 ap",h:"Afrique du Sud",g:"🏆"},
+{y:2006,w:"Italie",r:"France",s:"1-1 (5-3 tab)",h:"Allemagne",g:"🏆"},
+{y:2002,w:"Brésil",r:"Allemagne",s:"2-0",h:"Coree/Japon",g:"🏆"},
+{y:1998,w:"France",r:"Brésil",s:"3-0",h:"France",g:"🏆"},
+{y:1994,w:"Brésil",r:"Italie",s:"0-0 (3-2 tab)",h:"USA",g:"🏆"},
+{y:1990,w:"Allemagne",r:"Argentine",s:"1-0",h:"Italie",g:"🏆"},
+{y:1986,w:"Argentine",r:"Allemagne",s:"3-2",h:"Mexique",g:"🏆"},
+{y:1982,w:"Italie",r:"Allemagne",s:"3-1",h:"Espagne",g:"🏆"},
+{y:1978,w:"Argentine",r:"Pays-Bas",s:"3-1 ap",h:"Argentine",g:"🏆"},
+{y:1974,w:"Allemagne",r:"Pays-Bas",s:"2-1",h:"Allemagne",g:"🏆"},
+{y:1970,w:"Brésil",r:"Italie",s:"4-1",h:"Mexique",g:"🏆"},
+{y:1966,w:"Angleterre",r:"Allemagne",s:"4-2 ap",h:"Angleterre",g:"🏆"},
+{y:1962,w:"Brésil",r:"Tchecoslovaquie",s:"3-1",h:"Chili",g:"🏆"},
+{y:1958,w:"Brésil",r:"Suede",s:"5-2",h:"Suede",g:"🏆"},
+{y:1954,w:"Allemagne",r:"Hongrie",s:"3-2",h:"Suisse",g:"🏆"},
+{y:1950,w:"Uruguay",r:"Brésil",s:"2-1",h:"Brésil",g:"🏆"},
+{y:1938,w:"Italie",r:"Hongrie",s:"4-2",h:"France",g:"🏆"},
+{y:1934,w:"Italie",r:"Tchecoslovaquie",s:"2-1 ap",h:"Italie",g:"🏆"},
+{y:1930,w:"Uruguay",r:"Argentine",s:"4-2",h:"Uruguay",g:"🏆"}
+];
+var WC_SCORERS=[
+{n:"Miroslav Klose",c:"GER",g:16,wc:"2002-14",t:24},{n:"Ronaldo",c:"BRA",g:15,wc:"1998-06",t:19},
+{n:"Gerd Muller",c:"GER",g:14,wc:"1970-74",t:13},{n:"Just Fontaine",c:"FRA",g:13,wc:"1958",t:6},
+{n:"Pele",c:"BRA",g:12,wc:"1958-70",t:14},{n:"Kylian Mbappe",c:"FRA",g:12,wc:"2018-22",t:11},
+{n:"Sandor Kocsis",c:"HUN",g:11,wc:"1954",t:5},{n:"Jurgen Klinsmann",c:"GER",g:11,wc:"1990-98",t:17},
+{n:"Helmut Rahn",c:"GER",g:10,wc:"1954-58",t:10},{n:"Thomas Muller",c:"GER",g:10,wc:"2010-18",t:16},
+{n:"Lionel Messi",c:"ARG",g:13,wc:"2006-22",t:26},{n:"Teofilo Cubillas",c:"PER",g:10,wc:"1970-82",t:13},
+{n:"Grzegorz Lato",c:"POL",g:10,wc:"1974-82",t:20},{n:"Gary Lineker",c:"ENG",g:10,wc:"1986-90",t:12},
+{n:"Gabriel Batistuta",c:"ARG",g:10,wc:"1994-02",t:12}
+];
+var WC_GOLDEN_BALL=[
+{y:2022,n:"Lionel Messi",c:"ARG"},{y:2018,n:"Luka Modric",c:"CRO"},
+{y:2014,n:"Lionel Messi",c:"ARG"},{y:2010,n:"Diego Forlan",c:"URU"},
+{y:2006,n:"Zinedine Zidane",c:"FRA"},{y:2002,n:"Oliver Kahn",c:"GER"},
+{y:1998,n:"Ronaldo",c:"BRA"},{y:1994,n:"Romario",c:"BRA"},
+{y:1990,n:"Salvatore Schillaci",c:"ITA"},{y:1986,n:"Diego Maradona",c:"ARG"},
+{y:1982,n:"Paolo Rossi",c:"ITA"},{y:1978,n:"Mario Kempes",c:"ARG"}
+];
+var WC_GOLDEN_BOOT=[
+{y:2022,n:"Kylian Mbappe",c:"FRA",g:8},{y:2018,n:"Harry Kane",c:"ENG",g:6},
+{y:2014,n:"James Rodriguez",c:"COL",g:6},{y:2010,n:"Thomas Muller",c:"GER",g:5},
+{y:2006,n:"Miroslav Klose",c:"GER",g:5},{y:2002,n:"Ronaldo",c:"BRA",g:8},
+{y:1998,n:"Davor Suker",c:"CRO",g:6},{y:1994,n:"Oleg Salenko/H.Stoichkov",c:"RUS/BUL",g:6},
+{y:1990,n:"Salvatore Schillaci",c:"ITA",g:6},{y:1986,n:"Gary Lineker",c:"ENG",g:6}
+];
+
+function rHistory(){
+  var h='';
+  // Tab selector
+  if(!V.histTab)V.histTab="wc";
+  h+='<div style="display:flex;gap:4px;margin:8px 0;background:var(--s1);border-radius:10px;padding:3px">';
+  [{k:"wc",l:"🏆 Mondial"},{k:"bo",l:"🏅 Ballon d\'Or"}].forEach(function(tab){
+    h+='<button onclick="V.histTab=\''+tab.k+'\';render()" style="flex:1;padding:10px;border:none;border-radius:8px;background:'+(V.histTab===tab.k?'var(--gw)':'transparent')+';color:'+(V.histTab===tab.k?'var(--g)':'var(--t2)')+';font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">'+tab.l+'</button>';
+  });
+  h+='</div>';
+
+  if(V.histTab==="wc"){
+    // === WORLD CUP TAB ===
+    // Titles count
+    h+='<div class="sec">🏆 Palmares Coupe du Monde</div>';
+    var titles={};WC_WINNERS.forEach(function(w){titles[w.w]=(titles[w.w]||0)+1});
+    var sorted=Object.keys(titles).sort(function(a,b){return titles[b]-titles[a]});
+    h+='<div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap">';
+    sorted.forEach(function(t){
+      h+='<div style="background:var(--s1);border:1px solid var(--s3);border-radius:8px;padding:8px 10px;text-align:center;flex:1;min-width:70px">';
+      h+='<div style="font-size:18px;font-weight:900;color:var(--g)">'+titles[t]+'</div>';
+      h+='<div style="font-size:10px;color:var(--t2)">'+t+'</div></div>';
+    });
+    h+='</div>';
+
+    // All finals
+    h+='<div class="sec">📜 Toutes les finales (1930-2022)</div>';
+    WC_WINNERS.forEach(function(w){
+      h+='<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.03)">';
+      h+='<div style="font-size:14px;font-weight:900;color:var(--g);min-width:40px">'+w.y+'</div>';
+      h+='<div style="flex:1"><div style="font-weight:700;font-size:13px">'+w.g+' '+w.w+'</div>';
+      h+='<div style="font-size:11px;color:var(--t2)">vs '+w.r+' ('+w.s+') · '+w.h+'</div></div></div>';
+    });
+
+    // Top scorers
+    h+='<div class="sec">⚽ Meilleurs buteurs de l\'histoire</div>';
+    WC_SCORERS.sort(function(a,b){return b.g-a.g}).slice(0,12).forEach(function(s,i){
+      var medal=i===0?"🥇":i===1?"🥈":i===2?"🥉":"";
+      h+='<div style="display:flex;align-items:center;gap:8px;padding:8px;margin-bottom:4px;background:var(--s1);border:1px solid var(--s3);border-radius:8px">';
+      h+='<div style="font-size:16px;font-weight:900;color:'+(i<3?'var(--g)':'var(--t2)')+';min-width:24px">'+(medal||(i+1))+'</div>';
+      h+='<div style="flex:1"><div style="font-weight:700;font-size:13px">'+s.n+'</div>';
+      h+='<div style="font-size:10px;color:var(--t2)">'+s.c+' · '+s.wc+' · '+s.t+' matchs</div></div>';
+      h+='<div style="font-size:18px;font-weight:900;color:var(--g)">'+s.g+'</div>';
+      h+='<div style="font-size:9px;color:var(--t2)">buts</div></div>';
+    });
+
+    // Golden Ball
+    h+='<div class="sec">🌟 Meilleur joueur (Ballon d\'Or du Mondial)</div>';
+    WC_GOLDEN_BALL.forEach(function(g){
+      h+='<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.03)">';
+      h+='<div style="font-size:13px;font-weight:900;color:var(--am);min-width:40px">'+g.y+'</div>';
+      h+='<div style="font-weight:700;font-size:13px;flex:1">'+g.n+'</div>';
+      h+='<div style="font-size:11px;color:var(--t2)">'+g.c+'</div></div>';
+    });
+
+    // Golden Boot
+    h+='<div class="sec">👟 Soulier d\'Or (meilleur buteur du tournoi)</div>';
+    WC_GOLDEN_BOOT.forEach(function(g){
+      h+='<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.03)">';
+      h+='<div style="font-size:13px;font-weight:900;color:var(--am);min-width:40px">'+g.y+'</div>';
+      h+='<div style="font-weight:700;font-size:13px;flex:1">'+g.n+'</div>';
+      h+='<div style="font-size:14px;font-weight:900;color:var(--g)">'+g.g+'</div>';
+      h+='<div style="font-size:9px;color:var(--t2)">'+g.c+'</div></div>';
+    });
+
+    // Records
+    h+='<div class="sec">📊 Records Coupe du Monde</div>';
+    var records=[
+      ["Plus de titres","Brésil (5)"],["Plus de finales","Allemagne (8)"],
+      ["Plus de matchs joues","Allemagne (114)"],["Plus de buts marques","Allemagne (232)"],
+      ["Plus gros score","Hongrie 10-1 Salvador (1982)"],["Finale la plus prolifique","1958: Bresil 5-2 Suede"],
+      ["Plus jeune buteur","Pele (17 ans, 1958)"],["Plus vieux buteur","Roger Milla (42 ans, 1994)"],
+      ["Plus de selections en Coupe du Monde","Lothar Matthaus (25 matchs)"],["Hat-trick le plus rapide","Laszlo Kiss (7 min, 1982)"],
+      ["Plus de buts en 1 edition","Just Fontaine (13 buts, 1958)"],["Penalty le plus tardif","2022 finale 120+3e min"],
+      ["Mbappe buts en finale","4 buts en finales (2022+2018)"],["Dembele Ballon d'Or","2025 (PSG, treble+37 buts)"]
+    ];
+    h+='<div style="background:var(--s1);border:1px solid var(--s3);border-radius:10px;padding:12px">';
+    records.forEach(function(r){
+      h+='<div class="pl-info-r"><span class="pl-info-l">'+r[0]+'</span><span class="pl-info-v">'+r[1]+'</span></div>';
+    });
+    h+='</div>';
+
+  } else {
+    // === BALLON D'OR TAB ===
+    h+='<div class="sec">🏆 Ballon d\'Or — Tous les laureats</div>';
+    var byC={};BALLONDOR.forEach(function(b){byC[b.c]=(byC[b.c]||0)+1});
+    var top=Object.keys(byC).sort(function(a,b){return byC[b]-byC[a]}).slice(0,5);
+    h+='<div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap">';
+    top.forEach(function(cc){h+='<div style="background:var(--s1);border:1px solid var(--s3);border-radius:8px;padding:8px 12px;text-align:center;flex:1;min-width:60px"><div style="font-size:18px;font-weight:900;color:var(--g)">'+byC[cc]+'</div><div style="font-size:10px;color:var(--t2)">'+cc+'</div></div>'});
+    h+='</div>';
+    var byP={};BALLONDOR.forEach(function(b){byP[b.p]=(byP[b.p]||0)+1});
+    var topP=Object.keys(byP).sort(function(a,b){return byP[b]-byP[a]}).slice(0,5);
+    h+='<div class="sec">👑 Record de victoires</div>';
+    topP.forEach(function(p,i){
+      var b=BALLONDOR.find(function(x){return x.p===p});
+      h+='<div style="background:var(--s1);border:1px solid var(--s3);border-radius:10px;padding:12px;margin-bottom:6px;display:flex;align-items:center;gap:12px">';
+      h+='<div style="font-size:20px;font-weight:900;color:'+(i===0?'var(--g)':i===1?'var(--am)':'var(--t2)')+'">'+byP[p]+'x</div>';
+      h+='<div style="flex:1"><div style="font-weight:800;font-size:14px">'+p+'</div><div style="font-size:11px;color:var(--t2)">'+b.c+'</div></div></div>';
+    });
+    h+='<div class="sec">📜 Tous les laureats (1956-2025)</div>';
+    var decade="";
+    BALLONDOR.forEach(function(b){
+      var d=Math.floor(b.y/10)*10+"s";
+      if(d!==decade){h+='<div style="font-size:11px;font-weight:800;color:var(--g);margin:12px 0 6px;padding:4px 10px;background:var(--gw);border-radius:6px;display:inline-block">'+d+'</div>';decade=d}
+      h+='<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.03)">';
+      h+='<div style="font-size:14px;font-weight:900;color:var(--g);min-width:40px">'+b.y+'</div>';
+      h+='<div style="flex:1"><div style="font-weight:700;font-size:13px">'+b.p+'</div><div style="font-size:11px;color:var(--t2)">'+b.c+' · '+b.club+'</div></div></div>';
+    });
+    h+='<div class="sec">🇫🇷 Ballons d\'Or francais</div>';
+    BALLONDOR.filter(function(b){return b.c==="FRA"}).forEach(function(b){
+      h+='<div style="background:var(--gw);border-radius:10px;padding:12px;margin-bottom:6px;display:flex;align-items:center;gap:10px">';
+      h+='<div style="font-size:16px;font-weight:900;color:var(--g)">'+b.y+'</div>';
+      h+='<div><div style="font-weight:800">'+b.p+'</div><div style="font-size:11px;color:var(--t2)">'+b.club+'</div></div></div>';
+    });
+  }
+  return h;
+}
+
+function showPlayer(teamId,pid){
+  var t=getTeam(teamId);if(!t||!t.players)return;
+  var pname=decodeURIComponent(pid);
+  var p=t.players.find(function(x){return x.n===pname});if(!p)return;
+  
+  var posLabels={ATT:"Attaquant",MIL:"Milieu de terrain",DEF:"Defenseur",GAR:"Gardien de but"};
+  var posEmoji={ATT:"⚽",MIL:"🎯",DEF:"🛡️",GAR:"🧤"};
+  var posColors={ATT:"rgba(255,23,68,.15)",MIL:"rgba(0,230,118,.15)",DEF:"rgba(33,150,243,.15)",GAR:"rgba(255,179,0,.15)"};
+  var posTxt={ATT:"var(--rd)",MIL:"var(--g)",DEF:"#2196F3",GAR:"var(--am)"};
+  var ratio=p.caps>0?Math.round(p.g/p.caps*100)/100:0;
+  var level=p.bo?"Ballon d'Or":p.caps>=100?"Legendaire":p.caps>=50?"Experimente":p.caps>=20?"Confirme":p.caps>=10?"International":"Espoir";
+  var levelColor=p.bo?"var(--am)":p.caps>=100?"#FFD700":p.caps>=50?"var(--g)":p.caps>=20?"#2196F3":"var(--t2)";
+  
+  // Generate initials for avatar
+  var parts=p.n.split(" ");
+  var initials=parts.length>1?parts[0][0]+parts[parts.length-1][0]:p.n.substring(0,2);
+  
+  // Estimate stats based on position and goals/caps
+  var attScore,defScore,pasScore,phyScore,speScore;
+  if(p.p==="ATT"){attScore=70+Math.min(25,p.g);defScore=25+Math.random()*15|0;pasScore=55+Math.random()*20|0;phyScore=60+Math.random()*20|0;speScore=70+Math.random()*20|0}
+  else if(p.p==="MIL"){attScore=40+Math.min(20,p.g*2);defScore=55+Math.random()*20|0;pasScore=70+Math.random()*20|0;phyScore=65+Math.random()*15|0;speScore=55+Math.random()*20|0}
+  else if(p.p==="DEF"){attScore=20+Math.min(15,p.g*3);defScore=75+Math.random()*20|0;pasScore=55+Math.random()*15|0;phyScore=75+Math.random()*15|0;speScore=50+Math.random()*20|0}
+  else{attScore=5;defScore=40+Math.random()*10|0;pasScore=45+Math.random()*15|0;phyScore=65+Math.random()*15|0;speScore=35+Math.random()*15|0}
+  // Cap at 99
+  attScore=Math.min(99,attScore|0);defScore=Math.min(99,defScore|0);pasScore=Math.min(99,pasScore|0);phyScore=Math.min(99,phyScore|0);speScore=Math.min(99,speScore|0);
+  var overall=Math.round((attScore+defScore+pasScore+phyScore+speScore)/5);
+  if(p.bo)overall=Math.max(92,overall);
+  if(p.caps>=100)overall=Math.max(85,overall);
+  
+  // Team matches for context
+  var teamMs=MATCHES.filter(function(m){return (m.t1===teamId||m.t2===teamId)&&m.t1!=="TBD"});
+  
+  var el=document.createElement("div");
+  el.className="pl-modal";el.id="pl-modal";
+  el.onclick=function(e){if(e.target===el)el.remove()};
+  
+  var h='<div class="pl-card">';
+  h+='<button class="back" onclick="document.getElementById(\'pl-modal\').remove()">← Retour a l\'effectif</button>';
+  
+  // HERO with big initials avatar
+  h+='<div style="text-align:center;padding:20px 0;background:linear-gradient(180deg,var(--s2),transparent);border-radius:var(--r);margin-bottom:12px">';
+  h+='<div style="width:80px;height:80px;border-radius:50%;background:'+posColors[p.p]+';border:3px solid '+posTxt[p.p]+';display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:28px;font-weight:900;color:'+posTxt[p.p]+'">'+initials+'</div>';
+  h+='<div style="font-size:24px;font-weight:900;margin-top:10px;color:#fff">'+p.n+'</div>';
+  h+='<div style="font-size:14px;color:var(--g);font-weight:700;margin-top:4px">'+p.club+'</div>';
+  h+='<div style="display:flex;gap:12px;justify-content:center;margin-top:10px">';
+  h+='<div style="background:var(--s2);padding:4px 12px;border-radius:8px;font-size:12px"><span style="font-weight:900;color:var(--g)">'+p.caps+'</span> <span style="color:var(--t2)">selections</span></div>';
+  h+='<div style="background:var(--s2);padding:4px 12px;border-radius:8px;font-size:12px"><span style="font-weight:900;color:var(--g)">'+p.g+'</span> <span style="color:var(--t2)">buts</span></div>';
+  if(p.wc)h+='<div style="background:var(--s2);padding:4px 12px;border-radius:8px;font-size:12px"><span style="font-weight:900;color:var(--g)">'+p.wc+'</span> <span style="color:var(--t2)">Coupes du Monde</span></div>';
+  h+='</div>';
+  h+='<div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px">';
+  h+=flagImg(teamId,24)+'<span style="font-size:13px;color:var(--t2)">'+t.name+'</span>';
+  h+='<span style="background:'+posColors[p.p]+';color:'+posTxt[p.p]+';padding:3px 10px;border-radius:6px;font-size:11px;font-weight:800">'+posEmoji[p.p]+' '+posLabels[p.p]+'</span>';
+  h+='</div>';
+  // Ballon d'Or badge
+  if(p.bo)h+='<div style="margin-top:10px;display:inline-block;background:linear-gradient(135deg,#FFD700,#FFA000);padding:5px 16px;border-radius:99px;font-size:12px;font-weight:900;color:#000">🏆 Ballon d\'Or '+p.bo+'</div>';
+  h+='</div>';
+  
+  // OVERALL RATING
+  h+='<div style="display:flex;gap:8px;margin-bottom:12px">';
+  h+='<div style="flex:1;background:var(--s1);border:1px solid var(--s3);border-radius:12px;padding:14px;text-align:center"><div style="font-size:36px;font-weight:900;color:'+levelColor+'">'+overall+'</div><div style="font-size:10px;color:var(--t2);font-weight:700">NOTE GLOBALE</div></div>';
+  h+='<div style="flex:1;background:var(--s1);border:1px solid var(--s3);border-radius:12px;padding:14px;text-align:center"><div style="font-size:12px;font-weight:800;color:'+levelColor+';margin-bottom:4px">'+level+'</div><div style="font-size:10px;color:var(--t2)">'+p.caps+' selections</div><div style="font-size:10px;color:var(--t2)">'+p.g+' buts</div></div>';
+  h+='</div>';
+  
+  // STATS EN SELECTION
+  h+='<div class="pl-info"><div style="font-size:12px;font-weight:800;color:var(--g);margin-bottom:10px">📊 STATS EN SELECTION</div>';
+  var stats=[
+    {l:"Selections",v:p.caps,icon:"🏟️"},
+    {l:"Buts",v:p.g,icon:"⚽"},
+    {l:"Ratio buts/match",v:ratio,icon:"📈"},
+    {l:"Coupes du Monde",v:p.wc||"1re",icon:"🌍"},
+  ];
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">';
+  stats.forEach(function(s){
+    h+='<div style="background:var(--s2);border-radius:8px;padding:10px;text-align:center">';
+    h+='<div style="font-size:10px;color:var(--t2)">'+s.icon+' '+s.l+'</div>';
+    h+='<div style="font-size:20px;font-weight:900;color:var(--g)">'+s.v+'</div></div>';
+  });
+  h+='</div></div>';
+  
+  // ATTRIBUTS (FIFA-style bars)
+  h+='<div class="pl-info"><div style="font-size:12px;font-weight:800;color:var(--g);margin-bottom:10px">🎮 ATTRIBUTS</div>';
+  var attrs=[
+    {l:"Attaque",v:attScore,c:"var(--rd)"},
+    {l:"Defense",v:defScore,c:"#2196F3"},
+    {l:"Passe",v:pasScore,c:"var(--g)"},
+    {l:"Physique",v:phyScore,c:"var(--am)"},
+    {l:"Vitesse",v:speScore,c:"#E040FB"}
+  ];
+  attrs.forEach(function(a){
+    var barColor=a.v>=80?a.c:a.v>=60?"var(--am)":"var(--t2)";
+    h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">';
+    h+='<div style="width:65px;font-size:11px;color:var(--t2);font-weight:700">'+a.l+'</div>';
+    h+='<div style="flex:1;height:6px;background:var(--s3);border-radius:3px;overflow:hidden"><div style="width:'+a.v+'%;height:100%;background:'+barColor+';border-radius:3px"></div></div>';
+    h+='<div style="width:28px;text-align:right;font-size:13px;font-weight:900;color:'+(a.v>=80?a.c:"var(--tx)")+'">'+a.v+'</div>';
+    h+='</div>';
+  });
+  h+='</div>';
+  
+  // INFOS DETAILLEES
+  h+='<div class="pl-info"><div style="font-size:12px;font-weight:800;color:var(--g);margin-bottom:10px">📋 INFORMATIONS</div>';
+  var infos=[
+    ["Nom complet",p.n],
+    ["Poste",posEmoji[p.p]+" "+posLabels[p.p]],
+    ["Club actuel",p.club],
+    ["Selection",t.name],
+    ["Selectionneur",t.coach],
+    ["Groupe Mondial 2026","Groupe "+t.group],
+    ["Classement FIFA","#"+t.rank],
+    ["Titres "+t.name,t.titles]
+  ];
+  if(p.wc)infos.push(["Coupes du Monde jouees",p.wc+" (dont 2026)"]);
+  if(p.bo)infos.push(["🏆 Ballon d'Or",p.bo]);
+  infos.forEach(function(r){
+    h+='<div class="pl-info-r"><span class="pl-info-l">'+r[0]+'</span><span class="pl-info-v">'+r[1]+'</span></div>';
+  });
+  h+='</div>';
+  
+  // NIVEAU INTERNATIONAL (progress bar)
+  var perf=Math.min(100,Math.round((p.caps*1.5+p.g*3)/2));
+  if(p.bo)perf=100;
+  h+='<div class="pl-info"><div style="font-size:12px;font-weight:800;color:var(--g);margin-bottom:8px">🌟 CARRIERE INTERNATIONALE</div>';
+  h+='<div style="height:10px;background:var(--s3);border-radius:5px;overflow:hidden"><div style="width:'+perf+'%;height:100%;background:linear-gradient(90deg,#2196F3,var(--g),#FFD700);border-radius:5px"></div></div>';
+  h+='<div style="display:flex;justify-content:space-between;margin-top:4px;font-size:10px;color:var(--t2)"><span>Debutant</span><span>Confirme</span><span>Legendaire</span></div></div>';
+  
+  // MATCHS A VENIR (World Cup context)
+  if(teamMs.length){
+    h+='<div class="pl-info"><div style="font-size:12px;font-weight:800;color:var(--g);margin-bottom:10px">📅 MONDIAL 2026 — PROCHAINS MATCHS</div>';
+    teamMs.forEach(function(m){
+      var opp=m.t1===teamId?getTeam(m.t2):getTeam(m.t1);
+      var oppId=m.t1===teamId?m.t2:m.t1;
+      h+='<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04)">';
+      h+='<div style="font-size:10px;color:var(--t2);min-width:65px;font-weight:700">'+fmtDate(m.d)+'</div>';
+      h+='<div style="display:flex;align-items:center;gap:6px;flex:1">'+flagImg(teamId,16)+' <span style="font-size:11px;font-weight:700">VS</span> '+flagImg(oppId,16)+' <span style="font-size:12px;font-weight:700">'+opp.name+'</span></div>';
+      h+='<div style="font-size:9px;color:var(--t2)">'+m.city+'</div></div>';
+    });
+    h+='</div>';
+  }
+  
+  
+  // NOUVEAUTES 2026
+  h+='<div class="pl-info"><div style="font-size:12px;font-weight:800;color:var(--g);margin-bottom:8px">🆕 NOUVEAUTES REGLEMENTAIRES 2026</div>';
+  h+='<div style="font-size:11px;color:var(--t2);margin-bottom:8px">5 nouvelles regles approuvees par l\'IFAB (140e assemblee, mars 2026)</div>';
+  
+  h+='<div style="background:var(--s2);border-radius:10px;padding:10px;margin-bottom:8px;border-left:3px solid var(--g)">';
+  h+='<div style="font-size:12px;font-weight:800;color:var(--g)">1. ⏱️ Remplacement en 10 secondes</div>';
+  h+='<div style="font-size:11px;color:var(--tx);margin-top:4px;line-height:1.4">Le joueur remplace doit quitter le terrain en <strong>10 secondes</strong> apres l\'affichage du panneau.</div>';
+  h+='<div style="font-size:11px;color:var(--rd);margin-top:4px;font-weight:700">⚠️ Sanction : le remplacant attend <strong>1 minute</strong> avant d\'entrer → l\'equipe joue a 10 pendant 60 secondes !</div></div>';
+  
+  h+='<div style="background:var(--s2);border-radius:10px;padding:10px;margin-bottom:8px;border-left:3px solid var(--g)">';
+  h+='<div style="font-size:12px;font-weight:800;color:var(--g)">2. ⚡ Touches et coups de pied de but en 5 secondes</div>';
+  h+='<div style="font-size:11px;color:var(--tx);margin-top:4px;line-height:1.4">L\'arbitre peut declencher un <strong>compte a rebours visuel de 5 secondes</strong> si le joueur tarde.</div>';
+  h+='<div style="font-size:11px;color:var(--rd);margin-top:4px;font-weight:700">⚠️ Touche : possession inversee a l\'adversaire</div>';
+  h+='<div style="font-size:11px;color:var(--rd);font-weight:700">⚠️ Coup de pied de but : corner accorde a l\'adversaire !</div></div>';
+  
+  h+='<div style="background:var(--s2);border-radius:10px;padding:10px;margin-bottom:8px;border-left:3px solid var(--g)">';
+  h+='<div style="font-size:12px;font-weight:800;color:var(--g)">3. 🏥 Soins medicaux = sortie obligatoire</div>';
+  h+='<div style="font-size:11px;color:var(--tx);margin-top:4px;line-height:1.4">Un joueur soigne sur le terrain doit <strong>sortir et attendre 1 minute</strong> (temps de jeu) avant de revenir.</div>';
+  h+='<div style="font-size:11px;color:var(--am);margin-top:4px">💡 Exception : si la blessure est causee par une faute sanctionnee d\'un carton, le joueur peut rester.</div>';
+  h+='<div style="font-size:11px;color:var(--t2);margin-top:4px;font-style:italic">⚠️ Faille : les gardiens restent exemptes de cette regle (essais prevus par l\'IFAB).</div></div>';
+  
+  h+='<div style="background:var(--s2);border-radius:10px;padding:10px;margin-bottom:8px;border-left:3px solid var(--bl)">';
+  h+='<div style="font-size:12px;font-weight:800;color:var(--bl)">4. 📺 VAR elargi — nouvelles interventions</div>';
+  h+='<div style="font-size:11px;color:var(--tx);margin-top:4px;line-height:1.4">Le VAR peut desormais intervenir sur :</div>';
+  h+='<div style="font-size:11px;color:var(--tx);margin-top:4px">🟨🟨→🟥 <strong>2e jaune errone</strong> menant a un rouge (nouveau !)</div>';
+  h+='<div style="font-size:11px;color:var(--tx)">🔄 <strong>Erreur d\'identite</strong> : mauvais joueur sanctionne</div>';
+  h+='<div style="font-size:11px;color:var(--tx)">🚩 <strong>Corner mal attribue</strong> (si la revision ne retarde pas le jeu)</div></div>';
+  
+  h+='<div style="background:var(--s2);border-radius:10px;padding:10px;margin-bottom:8px;border-left:3px solid var(--am)">';
+  h+='<div style="font-size:12px;font-weight:800;color:var(--am)">5. 🫡 Seul le capitaine parle a l\'arbitre</div>';
+  h+='<div style="font-size:11px;color:var(--tx);margin-top:4px;line-height:1.4">Seul le capitaine peut s\'approcher de l\'arbitre pour demander des explications.</div>';
+  h+='<div style="font-size:11px;color:var(--rd);margin-top:4px;font-weight:700">⚠️ Tout autre joueur qui entoure l\'arbitre risque un carton jaune immediat.</div>';
+  h+='<div style="font-size:11px;color:var(--t2);margin-top:4px;font-style:italic">Deja en vigueur en UEFA, applique pour la 1ere fois en Coupe du Monde.</div></div>';
+  
+  h+='<div style="padding:10px;background:rgba(0,230,118,.08);border-radius:10px;margin-top:8px">';
+  h+='<div style="font-size:11px;color:var(--g);font-weight:700">💡 OBJECTIF FIFA : passer de 58 a 64 minutes de temps de jeu effectif par match. Ces regles visent a eliminer les "arts sombres" du football (perte de temps, simulation, pression sur l\'arbitre).</div></div>';
+  h+='</div>';
+
+  h+='</div>';
+  el.innerHTML=h;
+  document.body.appendChild(el);
+}
+
+
+function doSearch(q){
+  var box=document.getElementById("srch-res");if(!box)return;
+  if(!q||q.length<2){box.innerHTML="";return}
+  q=q.toLowerCase();
+  var results=[];
+  // Search teams
+  TEAMS.forEach(function(t){
+    if(t.name.toLowerCase().indexOf(q)>-1||t.id.toLowerCase().indexOf(q)>-1||t.coach.toLowerCase().indexOf(q)>-1||("groupe "+t.group).toLowerCase().indexOf(q)>-1){
+      results.push({type:"team",id:t.id,name:t.name,sub:"Groupe "+t.group+" · FIFA #"+t.rank+" · "+t.coach});
+    }
+    // Search players
+    (t.players||[]).forEach(function(p){
+      if(p.n.toLowerCase().indexOf(q)>-1||p.club.toLowerCase().indexOf(q)>-1){
+        results.push({type:"player",id:t.id,pn:p.n,name:p.n,sub:t.name+" · "+p.club+" · "+p.p});
+      }
+    });
+  });
+  if(!results.length){box.innerHTML='<div style="position:absolute;top:4px;left:0;right:0;background:var(--s1);border:1px solid var(--s3);border-radius:12px;padding:16px;text-align:center;z-index:50;color:var(--t2);font-size:13px">Aucun resultat pour "'+q+'"</div>';return}
+  var h='<div style="position:absolute;top:4px;left:0;right:0;background:var(--s1);border:1px solid var(--s3);border-radius:12px;max-height:300px;overflow-y:auto;z-index:50">';
+  results.slice(0,10).forEach(function(r){
+    var onclick=r.type==="team"?'goTeam(\''+r.id+'\')':'showPlayer(\''+r.id+'\',\''+encodeURIComponent(r.pn)+'\')';
+    h+='<div onclick="document.getElementById(\'srch\').value=\'\';document.getElementById(\'srch-res\').innerHTML=\'\';'+onclick+'" style="padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer;display:flex;align-items:center;gap:10px">';
+    h+=flagImg(r.id,20);
+    h+='<div style="flex:1"><div style="font-weight:700;font-size:13px">'+r.name+'</div><div style="font-size:11px;color:var(--t2)">'+r.sub+'</div></div>';
+    h+='<span style="font-size:10px;color:var(--t2);background:var(--s2);padding:2px 8px;border-radius:6px">'+(r.type==="team"?"Equipe":"Joueur")+'</span>';
+    h+='</div>';
+  });
+  if(results.length>10)h+='<div style="padding:10px;text-align:center;font-size:11px;color:var(--t2)">+'+(results.length-10)+' autres resultats</div>';
+  h+='</div>';
+  box.innerHTML=h;
+}
+
+// Close search on click outside
+document.addEventListener("click",function(e){if(!e.target.closest("#srch")&&!e.target.closest("#srch-res")){var b=document.getElementById("srch-res");if(b)b.innerHTML=""}});
+
+
+var RSS_FEEDS=[
+  {name:"L'Equipe",url:"https://dwh.lequipe.fr/api/edito/rss?path=/Football/",icon:"📰"},
+  {name:"Maxifoot",url:"https://www.maxifoot.fr/rss/football.xml",icon:"⚽"},
+  {name:"BBC Football",url:"https://feeds.bbci.co.uk/sport/football/rss.xml",icon:"🌍"},
+  {name:"Guardian",url:"https://www.theguardian.com/football/world-cup-2026/rss",icon:"📋"},
+  {name:"MadeInFoot",url:"https://www.madeinfoot.com/rss/flux-rss-infos-foot.xml",icon:"🇫🇷"}
+];
+
+function rNews(){
+  var h='<div class="sec">📰 Actualites Football</div>';
+  h+='<div style="display:flex;gap:6px;margin-bottom:12px;overflow-x:auto">';
+  RSS_FEEDS.forEach(function(f,i){
+    h+='<button onclick="loadFeed('+i+')" style="padding:8px 14px;background:var(--s1);border:1px solid var(--s3);border-radius:99px;color:var(--tx);font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:inherit">'+f.icon+' '+f.name+'</button>';
+  });
+  h+='</div>';
+  h+='<div id="news-feed"><div style="text-align:center;padding:30px;color:var(--t2)"><div style="font-size:40px;margin-bottom:10px">📰</div>Clique sur une source pour charger les actus</div></div>';
+  return h;
+}
+
+
+function showStaticNews(box){
+  var news=[
+    {t:"Mondial 2026 : le calendrier complet des 104 matchs devoile par la FIFA",d:"Avril 2026",cat:"CALENDRIER"},
+    {t:"France dans le Groupe I : Senegal, Irak et Norvege au programme des Bleus",d:"Avril 2026",cat:"BLEUS"},
+    {t:"Ousmane Dembele, Ballon d'Or 2025 : 37 buts et un treble historique avec le PSG",d:"Sept 2025",cat:"BALLON D'OR"},
+    {t:"Kylian Mbappe au Real Madrid : premiere saison mitigee avant le Mondial",d:"Avril 2026",cat:"TRANSFERT"},
+    {t:"Erling Haaland et la Norvege : le danger numero 1 du groupe de la France",d:"Avril 2026",cat:"ADVERSAIRE"},
+    {t:"Lamine Yamal (18 ans) : la pepite espagnole qui affole les compteurs",d:"Avril 2026",cat:"REVELATION"},
+    {t:"Lionel Messi a 39 ans : derniere Coupe du Monde pour la legende argentine ?",d:"Avril 2026",cat:"LEGENDE"},
+    {t:"Carlo Ancelotti a la tete du Bresil : revolution tactique pour la Selecao",d:"Mars 2026",cat:"SELECTIONNEUR"},
+    {t:"Alphonso Davies et le Canada : le pays hote veut creer la surprise",d:"Avril 2026",cat:"HOTE"},
+    {t:"48 equipes, 16 villes, 3 pays : tout savoir sur le format inedit du Mondial 2026",d:"Avril 2026",cat:"FORMAT"},
+    {t:"Mohamed Salah quitte Liverpool : quel impact pour l'Egypte au Mondial ?",d:"Mars 2026",cat:"TRANSFERT"},
+    {t:"Achraf Hakimi et le Maroc : les Lions de l'Atlas visent la finale apres 2022",d:"Avril 2026",cat:"AMBITION"},
+    {t:"Les stades du Mondial 2026 : MetLife, Azteca, SoFi... visite guidee",d:"Avril 2026",cat:"STADES"},
+    {t:"Thomas Tuchel selectionneur de l'Angleterre : objectif titre pour les Three Lions",d:"Mars 2026",cat:"SELECTIONNEUR"},
+    {t:"Sadio Mane et le Senegal face a la France : le choc du Groupe I",d:"Avril 2026",cat:"CHOC"}
+  ];
+  var h='<div style="font-size:12px;font-weight:700;color:var(--g);margin-bottom:8px">📰 Actualites Mondial 2026</div>';
+  news.forEach(function(n){
+    h+='<div style="background:var(--s1);border:1px solid var(--s3);border-radius:10px;padding:12px;margin-bottom:6px">';
+    h+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px"><span style="font-size:9px;font-weight:800;color:#000;background:var(--g);padding:2px 6px;border-radius:4px">'+n.cat+'</span><span style="font-size:10px;color:var(--t2)">'+n.d+'</span></div>';
+    h+='<div style="font-size:13px;font-weight:700;line-height:1.4">'+n.t+'</div>';
+    h+='</div>';
+  });
+  box.innerHTML=h;
+}
+
+function loadFeed(idx){
+  var feed=RSS_FEEDS[idx];
+  var box=document.getElementById("news-feed");
+  if(!box)return;
+  box.innerHTML='<div style="text-align:center;padding:30px;color:var(--g)">Chargement '+feed.name+'...</div>';
+  var proxy="https://api.rss2json.com/v1/api.json?rss_url="+encodeURIComponent(feed.url);
+  fetch(proxy).then(function(r){return r.json()}).then(function(data){
+    if(!data.items||!data.items.length){showStaticNews(box);return}
+    var h='<div style="font-size:13px;font-weight:800;color:var(--g);margin-bottom:8px">'+feed.icon+' '+feed.name+' — '+(data.items.length)+' articles</div>';
+    data.items.slice(0,15).forEach(function(item){
+      var date=item.pubDate?new Date(item.pubDate).toLocaleDateString("fr-FR",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}):"";
+      var desc=(item.description||"").replace(/<[^>]+>/g,"").slice(0,120);
+      h+='<a href="'+item.link+'" target="_blank" style="display:block;background:var(--s1);border:1px solid var(--s3);border-radius:10px;padding:12px;margin-bottom:6px;text-decoration:none;color:var(--tx)">';
+      if(item.thumbnail||item.enclosure&&item.enclosure.link){
+        var img=item.thumbnail||item.enclosure.link;
+        h+='<div style="display:flex;gap:10px;align-items:start">';
+        h+='<img src="'+img+'" style="width:70px;height:50px;object-fit:cover;border-radius:6px;flex-shrink:0" onerror="this.style.display=\'none\'">';
+        h+='<div style="flex:1">';
+      }else{
+        h+='<div>';
+      }
+      h+='<div style="font-size:13px;font-weight:700;line-height:1.4">'+item.title+'</div>';
+      if(desc)h+='<div style="font-size:11px;color:var(--t2);margin-top:4px;line-height:1.3">'+desc+'...</div>';
+      if(date)h+='<div style="font-size:10px;color:var(--t3);margin-top:4px">'+date+'</div>';
+      h+='</div>';
+      if(item.thumbnail||item.enclosure&&item.enclosure.link)h+='</div>';
+      h+='</a>';
+    });
+    box.innerHTML=h;
+  }).catch(function(err){
+    showStaticNews(box);
+  });
+}
+
+function exportMatch(mid){
+  var m=MATCHES.find(function(x){return x.id===mid});if(!m)return;
+  var t1=getTeam(m.t1),t2=getTeam(m.t2);
+  var dt=new Date(m.d);
+  var pad=function(n){return n<10?"0"+n:""+n};
+  var dtS=dt.getUTCFullYear()+pad(dt.getUTCMonth()+1)+pad(dt.getUTCDate())+"T"+pad(dt.getUTCHours())+pad(dt.getUTCMinutes())+"00Z";
+  var dtE=new Date(dt.getTime()+7200000);
+  var dtES=dtE.getUTCFullYear()+pad(dtE.getUTCMonth()+1)+pad(dtE.getUTCDate())+"T"+pad(dtE.getUTCHours())+pad(dtE.getUTCMinutes())+"00Z";
+  var now=new Date();var stamp=now.getUTCFullYear()+pad(now.getUTCMonth()+1)+pad(now.getUTCDate())+"T"+pad(now.getUTCHours())+pad(now.getUTCMinutes())+pad(now.getUTCSeconds())+"Z";
+  var ics="BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Foot Flash 2026//FR\r\nBEGIN:VEVENT\r\nDTSTART:"+dtS+"\r\nDTEND:"+dtES+"\r\nDTSTAMP:"+stamp+"\r\nUID:ff26-"+m.id+"@footflash.app\r\nSUMMARY:"+fe(m.t1)+" "+t1.name+" vs "+fe(m.t2)+" "+t2.name+" ⚽ Mondial 2026\r\nLOCATION:"+m.stad+", "+m.city+"\r\nDESCRIPTION:⚽ "+m.st+" - Mondial 2026\\n🏟️ "+m.stad+", "+m.city+"\r\nBEGIN:VALARM\r\nTRIGGER:-PT30M\r\nACTION:DISPLAY\r\nDESCRIPTION:⚽ Match dans 30min !\r\nEND:VALARM\r\nEND:VEVENT\r\nEND:VCALENDAR";
+  var blob=new Blob([ics],{type:"text/calendar"});var url=URL.createObjectURL(blob);
+  var a=document.createElement("a");a.href=url;a.download="match-"+t1.name+"-vs-"+t2.name+".ics";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+  toast("📅 Match ajoute !");
+}
+
+function exportCalendar(teamId){
+  var t=getTeam(teamId);
+  var ms=MATCHES.filter(function(m){return (m.t1===teamId||m.t2===teamId)&&m.t1!=="TBD"});
+  if(!ms.length){toast("Pas de matchs");return}
+  
+  var ics="BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Foot Flash 2026//FR\r\nCALSCALE:GREGORIAN\r\nX-WR-CALNAME:Mondial 2026 - "+t.name+"\r\n";
+  
+  ms.forEach(function(m){
+    var opp=m.t1===teamId?getTeam(m.t2):getTeam(m.t1);
+    var dt=new Date(m.d);
+    var pad=function(n){return n<10?"0"+n:""+n};
+    var dtStart=dt.getUTCFullYear()+pad(dt.getUTCMonth()+1)+pad(dt.getUTCDate())+"T"+pad(dt.getUTCHours())+pad(dt.getUTCMinutes())+"00Z";
+    var dtEnd=new Date(dt.getTime()+7200000);
+    var dtEndStr=dtEnd.getUTCFullYear()+pad(dtEnd.getUTCMonth()+1)+pad(dtEnd.getUTCDate())+"T"+pad(dtEnd.getUTCHours())+pad(dtEnd.getUTCMinutes())+"00Z";
+    var now=new Date();
+    var stamp=now.getUTCFullYear()+pad(now.getUTCMonth()+1)+pad(now.getUTCDate())+"T"+pad(now.getUTCHours())+pad(now.getUTCMinutes())+pad(now.getUTCSeconds())+"Z";
+    
+    ics+="BEGIN:VEVENT\r\n";
+    ics+="DTSTART:"+dtStart+"\r\n";
+    ics+="DTEND:"+dtEndStr+"\r\n";
+    ics+="DTSTAMP:"+stamp+"\r\n";
+    ics+="UID:footflash2026-"+m.id+"@footflash.app\r\n";
+    ics+="SUMMARY:"+fe(teamId)+" "+t.name+" vs "+fe(m.t1===teamId?m.t2:m.t1)+" "+opp.name+" - Mondial 2026\r\n";
+    ics+="LOCATION:"+m.stad+", "+m.city+"\r\n";
+    ics+="DESCRIPTION:⚽ "+m.st+" - Coupe du Monde FIFA 2026\\n🏟️ "+m.stad+", "+m.city+"\\n📺 A ne pas manquer !\\n\\nGenere par Foot Flash 2026\r\n";
+    ics+="BEGIN:VALARM\r\nTRIGGER:-PT30M\r\nACTION:DISPLAY\r\nDESCRIPTION:"+t.name+" vs "+opp.name+" dans 30 minutes !\r\nEND:VALARM\r\n";
+    ics+="END:VEVENT\r\n";
+  });
+  ics+="END:VCALENDAR";
+  
+  var blob=new Blob([ics],{type:"text/calendar;charset=utf-8"});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement("a");
+  a.href=url;
+  a.download="mondial-2026-"+teamId.toLowerCase()+".ics";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  toast("📅 "+ms.length+" matchs exportes !");
+}
+
+// News ticker
+var tickerLoaded=false;
+function loadTicker(){
+  if(tickerLoaded)return;
+  var feeds=[
+    "https://www.maxifoot.fr/rss/football.xml",
+    "https://feeds.bbci.co.uk/sport/football/rss.xml",
+    "https://www.madeinfoot.com/rss/flux-rss-infos-foot.xml"
+  ];
+  var tried=0;
+  function tryFeed(){
+    if(tried>=feeds.length){
+      // Fallback: static headlines about World Cup 2026
+      window._tickerItems=[
+        {title:"Mondial 2026 : 48 equipes, 104 matchs, 16 villes - du 11 juin au 19 juillet"},
+        {title:"France dans le Groupe I avec Senegal, Irak et Norvege"},
+        {title:"Ousmane Dembele Ballon d'Or 2025 - 37 buts, treble PSG"},
+        {title:"Match d'ouverture : Mexique vs Afrique du Sud le 11 juin a Mexico"},
+        {title:"Finale au MetLife Stadium de New York le 19 juillet 2026"},
+        {title:"Erling Haaland et la Norvege dans le groupe de la France"},
+        {title:"Lamine Yamal (18 ans) plus jeune star du Mondial 2026"},
+        {title:"Lionel Messi : derniere Coupe du Monde a 39 ans ?"}
+      ];
+      tickerLoaded=true;
+      updateTicker();
+      return;
+    }
+    var url="https://api.rss2json.com/v1/api.json?rss_url="+encodeURIComponent(feeds[tried]);
+    tried++;
+    fetch(url,{signal:AbortSignal.timeout(5000)}).then(function(r){return r.json()}).then(function(data){
+      if(data.items&&data.items.length){
+        tickerLoaded=true;
+        window._tickerItems=data.items.slice(0,10);
+        updateTicker();
+      }else{tryFeed()}
+    }).catch(function(){tryFeed()});
+  }
+  tryFeed();
+}
+function updateTicker(){
+  var el=document.getElementById("ticker-content");
+  if(!el||!window._tickerItems)return;
+  var items=window._tickerItems;
+  var h="";
+  for(var r=0;r<2;r++){
+    items.forEach(function(item){
+      var title=item.title;
+      if(item.link){
+        h+='<a href="'+item.link+'" target="_blank" class="ticker-item" onclick="event.stopPropagation()" style="text-decoration:none;color:var(--tx)"><div class="ticker-dot"></div><span>FLASH</span> '+title+'</a>';
+      }else{
+        h+='<div class="ticker-item"><div class="ticker-dot"></div><span>FLASH</span> '+title+'</div>';
+      }
+    });
+  }
+  el.innerHTML=h;
+  var w=el.scrollWidth/2;
+  el.style.animationDuration=Math.max(8,w/80)+"s";
+}
+
+// Load ticker after page renders
+setTimeout(loadTicker,1000);
+// Refresh ticker every 5 minutes
+setInterval(function(){tickerLoaded=false;loadTicker()},300000);
+
+
+function toggleTheme(){document.body.classList.toggle("light");localStorage.setItem("ff26_theme",document.body.classList.contains("light")?"light":"dark");render()}
+// Restore theme
+if(localStorage.getItem("ff26_theme")==="light")document.body.classList.add("light");
+
+// Offline: cache data
+try{localStorage.setItem("ff26_teams",JSON.stringify(TEAMS.map(function(t){return{id:t.id,name:t.name,group:t.group,rank:t.rank}})));
+localStorage.setItem("ff26_version","2.0")}catch(e){}
+
+render();
+// Countdown: update only the timer digits, not the whole page
+setInterval(function(){
+  var el=document.getElementById("cd-timer");
+  if(!el)return;
+  var target=parseInt(el.dataset.target);
+  if(!target)return;
+  var diff=target-Date.now();
+  if(diff<0){el.textContent="EN COURS";return}
+  var d=Math.floor(diff/86400000);
+  var h=Math.floor((diff%86400000)/3600000);
+  var m=Math.floor((diff%3600000)/60000);
+  var s=Math.floor((diff%60000)/1000);
+  el.innerHTML='<div style="display:flex;justify-content:center;gap:8px">'
+    +cdBox(d,"JOURS")+cdBox(h,"HEURES")+cdBox(m,"MIN")+cdBox(s,"SEC")+'</div>';
+},1000);
+function cdBox(v,l){return'<div style="background:var(--s2);border-radius:8px;padding:8px 6px;min-width:52px;text-align:center"><div style="font-size:22px;font-weight:900;color:var(--g)">'+v+'</div><div style="font-size:8px;color:var(--t2);font-weight:700">'+l+'</div></div>'}
+</script>
+<script>
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('/sw.js').then(function(r){
+    console.log('SW registered');
+  }).catch(function(e){console.log('SW error',e)});
+}
+</script>
+</body>
+</html>
