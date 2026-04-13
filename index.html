@@ -1302,6 +1302,25 @@ function rTeamDetail(){
   h+='<div class="det-name">'+t.name+"</div>";
   h+='<div class="det-meta">Groupe '+t.group+" · FIFA #"+t.rank+" · "+t.titles+"</div>";
   h+='<div class="det-meta">Coach: '+t.coach+"</div></div>";
+  // Team enrichment
+  var ti=typeof TEAM_INFO!=="undefined"&&TEAM_INFO[V.selTeam];
+  if(ti){
+    h+='<div style="background:var(--s1);border:1px solid var(--s3);border-radius:10px;padding:10px;margin-bottom:8px">';
+    h+='<div style="font-size:11px;font-weight:900;color:var(--g);margin-bottom:6px">🏛️ IDENTITE</div>';
+    h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;font-size:10px">';
+    h+='<div>🏙️ <span style="color:var(--t2)">Capitale:</span> <b>'+ti.cap+'</b></div>';
+    h+='<div>📣 <span style="color:var(--t2)">Surnom:</span> <b>'+ti.sup+'</b></div>';
+    if(ti.embl)h+='<div>🦁 <span style="color:var(--t2)">Embleme:</span> '+ti.embl+'</div>';
+    if(ti.lic)h+='<div>⚽ <span style="color:var(--t2)">Licencies:</span> '+ti.lic+'</div>';
+    h+='</div>';
+    h+='<div style="font-size:11px;font-weight:900;color:var(--g);margin:8px 0 4px">🏆 PALMARES MONDIAL</div>';
+    h+='<div style="font-size:10px;line-height:1.6">';
+    h+='<div>🥇 <b>'+ti.wc_best+'</b></div>';
+    h+='<div>📊 '+ti.wc_count+' participation'+(ti.wc_count>1?'s':'')+' en Coupe du Monde</div>';
+    if(ti.wc_consec)h+='<div>🔥 '+ti.wc_consec+' qualification'+(ti.wc_consec>1?'s':'')+' consecutives</div>';
+    if(ti.palmares)h+='<div style="margin-top:4px;color:var(--t2);font-style:italic">'+ti.palmares+'</div>';
+    h+='</div></div>';
+  }
     var ms=MATCHES.filter(function(m){return (m.t1===V.selTeam||m.t2===V.selTeam)&&m.t1!=="TBD"});
   if(ms.length){
     h+='<div class="sec">📅 Matchs de '+t.name+'</div>';
@@ -1436,15 +1455,34 @@ function rProno(){
     h+='</div>';
     h+='</div>';
   });
+  h+='<div style="margin-top:8px"><button onclick="saveAllPronos()" style="width:100%;padding:14px;background:var(--g);color:#000;border:none;border-radius:12px;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">✅ Valider tous mes pronostics</button></div>';
   return h;
 }
 function saveProno(mid){
   var a=document.getElementById("p"+mid+"a"),b=document.getElementById("p"+mid+"b");
-  if(!a||!b||a.value===""||b.value==="")return;
+  if(!a||!b||a.value===""||b.value===""){toast("⚠️ Saisis les 2 scores");return}
   if(!V.pronos)V.pronos={};
   V.pronos[mid]={a:parseInt(a.value),b:parseInt(b.value)};
   try{localStorage.setItem("ff26_pronos",JSON.stringify(V.pronos))}catch(e){}
   toast("✅ Prono enregistre !");
+  render();
+}
+function saveAllPronos(){
+  var count=0;
+  document.querySelectorAll("[id^=p][id$=a]").forEach(function(el){
+    var mid=el.id.replace("p","").replace("a","");
+    var a=el,b=document.getElementById("p"+mid+"b");
+    if(a&&b&&a.value!==""&&b.value!==""){
+      if(!V.pronos)V.pronos={};
+      V.pronos[mid]={a:parseInt(a.value),b:parseInt(b.value)};
+      count++;
+    }
+  });
+  if(count){
+    try{localStorage.setItem("ff26_pronos",JSON.stringify(V.pronos))}catch(e){}
+    toast("✅ "+count+" pronostics enregistres !");
+    render();
+  }else{toast("⚠️ Aucun score a valider")}
 }
 
 
@@ -2371,7 +2409,7 @@ h+='<div class="sec" style="font-size:13px;margin-top:8px">⚔️ 16es de finale
   if(hasAnyKO){
     h+='<div style="margin-top:12px;display:flex;flex-direction:column;gap:6px">';
     h+='<button onclick="shareSimul()" style="width:100%;padding:14px;background:var(--g);color:#000;border:none;border-radius:12px;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">📄 Exporter mon tableau</button>';
-    h+='<button onclick="exportBracketPDF()" style="width:100%;padding:14px;background:#FFD700;color:#000;border:none;border-radius:12px;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">🖨️ Imprimer (paysage)</button>';
+    
     h+='</div>';
   }
   h+=simReset();return h;
@@ -3536,6 +3574,37 @@ function winCredits(matchId,multiplier){
     toast("🎉 +"+gain+" credits gagnes ! (Solde: "+V.credits+")");
   }
 }
+
+var TEAM_INFO={
+"FRA":{cap:"Paris",sup:"Les Bleus",hymne:"La Marseillaise",lic:"2.4M",embl:"Coq gaulois",wc_best:"Vainqueur (1998, 2018)",wc_count:16,wc_consec:7,palmares:"2x Champion du Monde (1998, 2018), 2x Champion d Europe (1984, 2000)"},
+"BRA":{cap:"Brasilia",sup:"A Torcida / Selecao",hymne:"Hino Nacional Brasileiro",lic:"11.2M",embl:"CBF / Perroquet Ara",wc_best:"Vainqueur (1958,62,70,94,2002)",wc_count:22,wc_consec:22,palmares:"5x Champion du Monde, 9x Copa America"},
+"ARG":{cap:"Buenos Aires",sup:"La Hinchada / Albiceleste",hymne:"Himno Nacional Argentino",lic:"3.1M",embl:"AFA / Soleil de Mai",wc_best:"Vainqueur (1978, 1986, 2022)",wc_count:18,wc_consec:13,palmares:"3x Champion du Monde, 16x Copa America"},
+"GER":{cap:"Berlin",sup:"Die Mannschaft",hymne:"Deutschlandlied",lic:"7.2M",embl:"Aigle federal",wc_best:"Vainqueur (1954,74,90,2014)",wc_count:20,wc_consec:18,palmares:"4x Champion du Monde, 3x Champion d Europe"},
+"ESP":{cap:"Madrid",sup:"La Roja / La Furia",hymne:"Marcha Real",lic:"4.2M",embl:"Taureau",wc_best:"Vainqueur (2010)",wc_count:16,wc_consec:12,palmares:"1x Champion du Monde, 4x Champion d Europe (1964,2008,2012,2024)"},
+"ENG":{cap:"Londres",sup:"Three Lions / Barmy Army",hymne:"God Save the King",lic:"11.5M",embl:"Trois Lions",wc_best:"Vainqueur (1966)",wc_count:16,wc_consec:7,palmares:"1x Champion du Monde (1966)"},
+"POR":{cap:"Lisbonne",sup:"A Seleccao / Navegadores",hymne:"A Portuguesa",lic:"635K",embl:"Quina / Croix de l Ordre",wc_best:"3e place (1966,2006)",wc_count:8,wc_consec:6,palmares:"1x Euro 2016, 1x Ligue des Nations 2019"},
+"NED":{cap:"Amsterdam",sup:"Oranje / Het Legioen",hymne:"Wilhelmus",lic:"1.2M",embl:"Lion neerlandais",wc_best:"Finaliste (1974,1978,2010)",wc_count:11,wc_consec:4,palmares:"3x Finaliste Mondial, 1x Euro 1988"},
+"BEL":{cap:"Bruxelles",sup:"Les Diables Rouges",hymne:"La Brabanconne",lic:"650K",embl:"Diable rouge",wc_best:"3e place (2018)",wc_count:14,wc_consec:8,palmares:"3e Mondial 2018, 4e Euro 1980"},
+"CRO":{cap:"Zagreb",sup:"Vatreni (Les Ardents)",hymne:"Lijepa nasa domovino",lic:"130K",embl:"Damier croate",wc_best:"Finaliste (2018,2022), 3e (1998,2022)",wc_count:6,wc_consec:6,palmares:"2x Finaliste Mondial, 2x 3e place"},
+"MEX":{cap:"Mexico",sup:"El Tri / La Ola Verde",hymne:"Himno Nacional Mexicano",lic:"8.5M",embl:"Aigle et serpent",wc_best:"Quarts de finale (1970,1986)",wc_count:17,wc_consec:9,palmares:"Quarts 1970 et 1986 (hote)"},
+"USA":{cap:"Washington D.C.",sup:"Yanks / Sam s Army",hymne:"The Star-Spangled Banner",lic:"4.5M",embl:"Etoiles et bandes",wc_best:"Demi-finales (1930)",wc_count:11,wc_consec:4,palmares:"3e place 1930, 8es 2022"},
+"JPN":{cap:"Tokyo",sup:"Samurai Blue",hymne:"Kimigayo",lic:"4.8M",embl:"Yatagarasu (corbeau a 3 pattes)",wc_best:"8es de finale (2002,2010,2018,2022)",wc_count:7,wc_consec:7,palmares:"4x 8es de finale, 4x Champion d Asie"},
+"KOR":{cap:"Seoul",sup:"Red Devils / Taegeuk Warriors",hymne:"Aegukga",lic:"1.8M",embl:"Tigre",wc_best:"4e place (2002)",wc_count:11,wc_consec:10,palmares:"4e place 2002 (hote), 2x Champion d Asie"},
+"MAR":{cap:"Rabat",sup:"Lions de l Atlas",hymne:"Hymne Cherifien",lic:"450K",embl:"Lion de l Atlas",wc_best:"Demi-finales (2022)",wc_count:6,wc_consec:3,palmares:"4e place 2022, 1x CAN 1976"},
+"SEN":{cap:"Dakar",sup:"Lions de la Teranga",hymne:"Pincez Tous vos Koras",lic:"350K",embl:"Lion",wc_best:"Quarts de finale (2002)",wc_count:3,wc_consec:2,palmares:"Quarts 2002, 1x CAN 2022"},
+"URU":{cap:"Montevideo",sup:"La Celeste",hymne:"Orientales la Patria o la Tumba",lic:"180K",embl:"Soleil de Mai",wc_best:"Vainqueur (1930, 1950)",wc_count:14,wc_consec:4,palmares:"2x Champion du Monde, 15x Copa America"},
+"COL":{cap:"Bogota",sup:"Los Cafeteros",hymne:"Himno Nacional",lic:"1.2M",embl:"Condor des Andes",wc_best:"Quarts de finale (2014,2024)",wc_count:6,wc_consec:3,palmares:"1x Copa America 2001"},
+"NOR":{cap:"Oslo",sup:"Drillo s Army / Vikingene",hymne:"Ja vi elsker",lic:"380K",embl:"Lion norvegien",wc_best:"8es de finale (1998)",wc_count:3,wc_consec:1,palmares:"8es 1998, absent depuis 1998"},
+"SUI":{cap:"Berne",sup:"Nati / Hopp Schwiiz",hymne:"Cantique suisse",lic:"290K",embl:"Croix suisse",wc_best:"Quarts de finale (1934,38,54,2022)",wc_count:12,wc_consec:5,palmares:"4x Quarts de finale"},
+"AUT":{cap:"Vienne",sup:"Das Team / Wunderteam",hymne:"Land der Berge",lic:"610K",embl:"Aigle autrichien",wc_best:"3e place (1954)",wc_count:8,wc_consec:2,palmares:"3e 1954, 7e 1978"},
+"TUR":{cap:"Ankara",sup:"Ay-Yildizlilar (Etoile-Croissant)",hymne:"Istiklal Marsi",lic:"6.5M",embl:"Croissant et etoile",wc_best:"3e place (2002)",wc_count:3,wc_consec:1,palmares:"3e place 2002"},
+"ALG":{cap:"Alger",sup:"Les Fennecs / Les Verts",hymne:"Kassaman",lic:"250K",embl:"Fennec",wc_best:"8es de finale (2014)",wc_count:5,wc_consec:1,palmares:"2x CAN (1990, 2019)"},
+"SWE":{cap:"Stockholm",sup:"Blagult / Blue-Yellow",hymne:"Du gamla Du fria",lic:"1M",embl:"Trois Couronnes",wc_best:"Finaliste (1958), 3e (1950,94)",wc_count:12,wc_consec:1,palmares:"Finaliste 1958, 3e 1994"},
+"CAN":{cap:"Ottawa",sup:"Les Rouges / Voyageurs",hymne:"O Canada",lic:"1.1M",embl:"Feuille d erable",wc_best:"Phase de groupes (1986,2022)",wc_count:2,wc_consec:2,palmares:"1x Gold Cup 2000"},
+"SCO":{cap:"Edimbourg",sup:"Tartan Army",hymne:"Flower of Scotland",lic:"130K",embl:"Chardon",wc_best:"Phase de groupes (8 participations)",wc_count:8,wc_consec:1,palmares:"8 participations, jamais passe les groupes"},
+"IRN":{cap:"Teheran",sup:"Team Melli",hymne:"Soroud-e Jomhouri-ye Eslami",lic:"4.5M",embl:"Guepard asiatique",wc_best:"Phase de groupes",wc_count:6,wc_consec:3,palmares:"3x Champion d Asie"},
+"EGY":{cap:"Le Caire",sup:"Les Pharaons",hymne:"Bilady Bilady",lic:"3.8M",embl:"Pharaon / Sphinx",wc_best:"Phase de groupes (1934,1990,2018)",wc_count:3,wc_consec:1,palmares:"7x CAN (record)"}
+};
 
 render();
 setInterval(function(){
