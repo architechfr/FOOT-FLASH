@@ -1107,6 +1107,7 @@ function render(){
   else if(V.view==="groups")h+=rGroups();
   else if(V.view==="teams")h+=V.selTeam?rTeamDetail():rTeams();
   else if(V.view==="prono")h+=rProno();
+  else if(V.view==="pronoRecap")h+=rPronoRecap();
   else if(V.view==="quiz")h+=rQuiz();
   else if(V.view==="history")h+=rHistory();
   else if(V.view==="bracket")h+=rBracket();
@@ -1389,100 +1390,121 @@ function rTeamDetail(){
 
 function rProno(){
   var h='<div class="sec">🎯 PRONOSTICS</div>';
-  
+  if(!V.pronos)V.pronos={};
+  if(!V.bets)V.bets={};
+
   // Credits bar
+  var totalBets=Object.keys(V.bets).length;
   h+='<div style="display:flex;align-items:center;justify-content:space-between;background:var(--s1);border:1px solid var(--g);border-radius:10px;padding:8px 12px;margin-bottom:8px">';
-  h+='<div><div style="font-size:9px;color:var(--t2)">MES CREDITS</div><div style="font-size:20px;font-weight:900;color:var(--g)">💰 '+V.credits+'</div></div>';
-  h+='<div style="text-align:right"><div style="font-size:9px;color:var(--t2)">PRONOSTICS</div><div style="font-size:14px;font-weight:800;color:var(--tx)">'+Object.keys(V.pronos||{}).length+' / '+MATCHES.filter(function(m){return m.t1!=="TBD"}).length+'</div></div>';
+  h+='<div><div style="font-size:8px;color:var(--t2)">MES CREDITS</div><div style="font-size:20px;font-weight:900;color:var(--g)">💰 '+V.credits+'</div></div>';
+  h+='<div style="text-align:center"><div style="font-size:8px;color:var(--t2)">COUT/PARI</div><div style="font-size:14px;font-weight:800;color:var(--am)">2 credits</div></div>';
+  h+='<div style="text-align:right"><div style="font-size:8px;color:var(--t2)">PARIS</div><div style="font-size:14px;font-weight:800;color:var(--tx)">'+totalBets+'</div></div>';
   h+='</div>';
-  
-  // Filter tabs
+
+  // Filters
   if(!V.pronoFilter)V.pronoFilter="all";
-  h+='<div style="display:flex;gap:4px;overflow-x:auto;margin-bottom:8px;padding-bottom:2px">';
-  var filters=[{k:"all",l:"Tous"},{k:"mine",l:"🇫🇷 Mon equipe"},{k:"bet",l:"💰 Mes paris"}];
-  "ABCDEFGHIJKL".split("").forEach(function(g){filters.push({k:"G"+g,l:"Gr."+g})});
-  filters.push({k:"r32",l:"16es"},{k:"r16",l:"8es"},{k:"qf",l:"QF"},{k:"sf",l:"Demis"});
-  filters.forEach(function(f){
+  h+='<div style="display:flex;gap:3px;overflow-x:auto;margin-bottom:8px;padding-bottom:2px">';
+  [{k:"all",l:"Tous"},{k:"mine",l:"🇫🇷 Mon eq."},{k:"bet",l:"💰 Paris"}].forEach(function(f){
     var sel=V.pronoFilter===f.k;
-    h+='<button onclick="V.pronoFilter=\''+f.k+'\';render()" style="padding:5px 10px;background:'+(sel?'var(--g)':'var(--s1)')+';color:'+(sel?'#000':'var(--tx)')+';border:1px solid '+(sel?'var(--g)':'var(--s3)')+';border-radius:99px;font-size:10px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:inherit;flex-shrink:0">'+f.l+'</button>';
+    h+='<button onclick="V.pronoFilter=\''+f.k+'\';render()" style="padding:4px 8px;background:'+(sel?'var(--g)':'var(--s1)')+';color:'+(sel?'#000':'var(--tx)')+';border:1px solid '+(sel?'var(--g)':'var(--s3)')+';border-radius:99px;font-size:9px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:inherit;flex-shrink:0">'+f.l+'</button>';
+  });
+  "ABCDEFGHIJKL".split("").forEach(function(g){
+    var sel=V.pronoFilter==="G"+g;
+    h+='<button onclick="V.pronoFilter=\'G'+g+'\';render()" style="padding:4px 8px;background:'+(sel?'var(--g)':'var(--s1)')+';color:'+(sel?'#000':'var(--tx)')+';border:1px solid '+(sel?'var(--g)':'var(--s3)')+';border-radius:99px;font-size:9px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0">'+g+'</button>';
+  });
+  [{k:"r32",l:"16es"},{k:"r16",l:"8es"},{k:"qf",l:"QF"},{k:"sf",l:"SF"}].forEach(function(f){
+    var sel=V.pronoFilter===f.k;
+    h+='<button onclick="V.pronoFilter=\''+f.k+'\';render()" style="padding:4px 8px;background:'+(sel?'var(--g)':'var(--s1)')+';color:'+(sel?'#000':'var(--tx)')+';border:1px solid '+(sel?'var(--g)':'var(--s3)')+';border-radius:99px;font-size:9px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0">'+f.l+'</button>';
   });
   h+='</div>';
 
-  // Get filtered matches
+  // Filter matches
   var matches=MATCHES.filter(function(m){return m.t1!=="TBD"&&m.t2!=="TBD"});
   if(V.pronoFilter==="mine") matches=matches.filter(function(m){return m.t1===V.myTeam||m.t2===V.myTeam});
-  else if(V.pronoFilter==="bet") matches=matches.filter(function(m){return V.bets&&V.bets[m.id]});
+  else if(V.pronoFilter==="bet") matches=matches.filter(function(m){return V.bets[m.id]});
   else if(V.pronoFilter&&V.pronoFilter.startsWith("G")) matches=matches.filter(function(m){return m.st&&m.st.indexOf("Groupe "+V.pronoFilter[1])>=0});
   else if(V.pronoFilter==="r32") matches=matches.filter(function(m){return m.st==="16e de finale"});
   else if(V.pronoFilter==="r16") matches=matches.filter(function(m){return m.st==="8e de finale"});
   else if(V.pronoFilter==="qf") matches=matches.filter(function(m){return m.st&&m.st.indexOf("Quart")>=0});
   else if(V.pronoFilter==="sf") matches=matches.filter(function(m){return m.st&&m.st.indexOf("Demi")>=0});
-  
   matches.sort(function(a,b){return new Date(a.d)-new Date(b.d)});
-  
-  if(!matches.length){
-    h+='<div style="text-align:center;padding:20px;color:var(--t2)">Aucun match pour ce filtre</div>';
-    return h;
-  }
-  
-  h+='<div style="font-size:10px;color:var(--t2);margin-bottom:6px">'+matches.length+' matchs</div>';
-  
-  if(!V.pronos)V.pronos={};
-  
+
+  if(!matches.length) return h+'<div style="text-align:center;padding:20px;color:var(--t2)">Aucun match</div>';
+
+  // Group matches by stage
+  var lastSt="";
   matches.forEach(function(m){
+    if(m.st!==lastSt){
+      h+='<div style="font-size:10px;font-weight:900;color:var(--am);margin:8px 0 4px">'+m.st+'</div>';
+      lastSt=m.st;
+    }
     var t1=getTeam(m.t1),t2=getTeam(m.t2);
     var saved=V.pronos[m.id];
-    var bet=V.bets&&V.bets[m.id]||0;
-    h+='<div style="background:var(--s1);border:1px solid '+(saved?'var(--g)':'var(--s3)')+';border-radius:10px;padding:10px;margin-bottom:6px">';
-    h+='<div style="text-align:center;font-size:10px;color:var(--t2);margin-bottom:6px">'+fmtDate(m.d)+' · '+fmtTime(m.d)+' · <span style="color:var(--tx)">'+m.st+'</span></div>';
-    h+='<div style="display:flex;align-items:center;justify-content:center;gap:6px">';
-    h+=flagImg(m.t1,22);
-    h+='<input type="number" min="0" max="20" value="'+(saved?saved.a:"")+'" id="p'+m.id+'a" style="width:36px;padding:6px;text-align:center;background:var(--s2);border:1px solid var(--s3);border-radius:8px;color:var(--g);font-size:16px;font-weight:900;font-family:inherit;outline:none">';
-    h+='<span style="font-size:14px;color:var(--t2);font-weight:900">—</span>';
-    h+='<input type="number" min="0" max="20" value="'+(saved?saved.b:"")+'" id="p'+m.id+'b" style="width:36px;padding:6px;text-align:center;background:var(--s2);border:1px solid var(--s3);border-radius:8px;color:var(--g);font-size:16px;font-weight:900;font-family:inherit;outline:none">';
-    h+=flagImg(m.t2,22);
+    var hasBet=V.bets[m.id];
+    h+='<div style="background:var(--s1);border:1px solid '+(saved?'var(--g)':'var(--s3)')+';border-radius:8px;padding:8px;margin-bottom:4px">';
+    // Date + stage
+    h+='<div style="display:flex;justify-content:space-between;font-size:9px;color:var(--t2);margin-bottom:4px"><span>'+fmtDate(m.d)+' · '+fmtTime(m.d)+'</span>';
+    if(hasBet)h+='<span style="color:var(--am);font-weight:700">💰 parie</span>';
+    else if(saved)h+='<span style="color:var(--g)">✅</span>';
     h+='</div>';
-    h+='<div style="text-align:center;font-size:11px;color:var(--tx);margin:4px 0">'+t1.name+' vs '+t2.name+'</div>';
-    // Bet + validate row
-    h+='<div style="display:flex;gap:4px;margin-top:6px">';
-    h+='<button onclick="saveProno('+m.id+')" style="flex:2;padding:8px;background:var(--g);color:#000;border:none;border-radius:8px;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit">'+(saved?'✅ Modifie':'Valider')+'</button>';
-    if(!bet){
-      h+='<button onclick="betCredits(5,'+m.id+')" style="flex:1;padding:8px;background:var(--am);color:#000;border:none;border-radius:8px;font-size:10px;font-weight:800;cursor:pointer;font-family:inherit">💰 5</button>';
-      h+='<button onclick="betCredits(10,'+m.id+')" style="flex:1;padding:8px;background:var(--am);color:#000;border:none;border-radius:8px;font-size:10px;font-weight:800;cursor:pointer;font-family:inherit">💰 10</button>';
-    } else {
-      h+='<div style="flex:1;padding:8px;background:var(--s2);border-radius:8px;text-align:center;font-size:10px;color:var(--am);font-weight:800">💰 '+bet+' misé</div>';
-    }
-    h+='</div>';
-    h+='</div>';
+    // Score input row
+    h+='<div style="display:flex;align-items:center;justify-content:center;gap:4px">';
+    h+=flagImg(m.t1,20);
+    h+='<span style="font-size:10px;font-weight:700;min-width:50px;text-align:right;overflow:hidden;white-space:nowrap">'+t1.name.slice(0,10)+'</span>';
+    h+='<input type="number" min="0" max="20" value="'+(saved?saved.a:0)+'" id="p'+m.id+'a" onchange="autoSaveProno('+m.id+')" style="width:32px;padding:4px;text-align:center;background:var(--s2);border:1px solid var(--s3);border-radius:6px;color:var(--g);font-size:14px;font-weight:900;font-family:inherit;outline:none">';
+    h+='<span style="font-size:12px;color:var(--t2);font-weight:900">-</span>';
+    h+='<input type="number" min="0" max="20" value="'+(saved?saved.b:0)+'" id="p'+m.id+'b" onchange="autoSaveProno('+m.id+')" style="width:32px;padding:4px;text-align:center;background:var(--s2);border:1px solid var(--s3);border-radius:6px;color:var(--g);font-size:14px;font-weight:900;font-family:inherit;outline:none">';
+    h+='<span style="font-size:10px;font-weight:700;min-width:50px;overflow:hidden;white-space:nowrap">'+t2.name.slice(0,10)+'</span>';
+    h+=flagImg(m.t2,20);
+    if(!hasBet)h+='<div onclick="placeBet('+m.id+')" style="padding:4px 6px;background:var(--am);color:#000;border-radius:6px;font-size:8px;font-weight:800;cursor:pointer;flex-shrink:0">💰</div>';
+    h+='</div></div>';
   });
-  h+='<div style="margin-top:8px"><button onclick="saveAllPronos()" style="width:100%;padding:14px;background:var(--g);color:#000;border:none;border-radius:12px;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">✅ Valider tous mes pronostics</button></div>';
+
+  // Bottom buttons
+  h+='<div style="margin-top:10px;display:flex;flex-direction:column;gap:6px">';
+  h+='<button onclick="saveAllPronos()" style="width:100%;padding:12px;background:var(--g);color:#000;border:none;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit">✅ Envoyer tous mes pronostics</button>';
+  h+='<button onclick="go(&#39;pronoRecap&#39;)" style="width:100%;padding:12px;background:var(--s1);border:1px solid var(--g);color:var(--g);border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit">📊 Voir mon recap & classement</button>';
+  h+='</div>';
   return h;
 }
-function saveProno(mid){
+
+function autoSaveProno(mid){
   var a=document.getElementById("p"+mid+"a"),b=document.getElementById("p"+mid+"b");
-  if(!a||!b||a.value===""||b.value===""){toast("⚠️ Saisis les 2 scores");return}
+  if(!a||!b)return;
   if(!V.pronos)V.pronos={};
-  V.pronos[mid]={a:parseInt(a.value),b:parseInt(b.value)};
+  V.pronos[mid]={a:parseInt(a.value)||0,b:parseInt(b.value)||0};
   try{localStorage.setItem("ff26_pronos",JSON.stringify(V.pronos))}catch(e){}
-  toast("✅ Prono enregistre !");
+  // Visual feedback: flash the border green
+  var card=a.closest("div[style*='background:var(--s1)']");
+  if(card)card.style.borderColor="var(--g)";
+}
+function saveProno(mid){autoSaveProno(mid);toast("✅ Enregistre")}
+function placeBet(mid){
+  if(V.credits<2){toast("❌ Pas assez de credits !");return}
+  V.credits-=2;
+  if(!V.bets)V.bets={};
+  V.bets[mid]=true;
+  try{localStorage.setItem("ff26_bets",JSON.stringify(V.bets));localStorage.setItem("ff26_credits",V.credits)}catch(e){}
+  toast("💰 Pari place ! (-2 credits, solde: "+V.credits+")");
   render();
 }
+
 function saveAllPronos(){
   var count=0;
   document.querySelectorAll("[id^=p][id$=a]").forEach(function(el){
-    var mid=el.id.replace("p","").replace("a","");
-    var a=el,b=document.getElementById("p"+mid+"b");
-    if(a&&b&&a.value!==""&&b.value!==""){
+    var mid=parseInt(el.id.replace("p","").replace("a",""));
+    if(isNaN(mid))return;
+    var b=document.getElementById("p"+mid+"b");
+    if(el&&b){
       if(!V.pronos)V.pronos={};
-      V.pronos[mid]={a:parseInt(a.value),b:parseInt(b.value)};
+      V.pronos[mid]={a:parseInt(el.value)||0,b:parseInt(b.value)||0};
       count++;
     }
   });
   if(count){
     try{localStorage.setItem("ff26_pronos",JSON.stringify(V.pronos))}catch(e){}
-    toast("✅ "+count+" pronostics enregistres !");
-    render();
-  }else{toast("⚠️ Aucun score a valider")}
+    toast("✅ "+count+" pronostics envoyes !");
+  }
 }
 
 
@@ -2689,6 +2711,74 @@ function shareSimul(){
 }
 
 
+
+function rPronoRecap(){
+  var h='<div class="sec">📊 RECAP & CLASSEMENT</div>';
+  if(!V.pronos)V.pronos={};
+  var total=Object.keys(V.pronos).length;
+  var bets=V.bets?Object.keys(V.bets).length:0;
+
+  // My stats
+  h+='<div style="background:var(--s1);border:1px solid var(--g);border-radius:12px;padding:14px;margin-bottom:10px">';
+  h+='<div style="font-size:13px;font-weight:900;color:var(--g);margin-bottom:8px">🎯 MON BILAN</div>';
+  h+='<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center">';
+  h+='<div><div style="font-size:22px;font-weight:900;color:var(--g)">'+total+'</div><div style="font-size:9px;color:var(--t2)">Pronos</div></div>';
+  h+='<div><div style="font-size:22px;font-weight:900;color:var(--am)">'+bets+'</div><div style="font-size:9px;color:var(--t2)">Paris</div></div>';
+  h+='<div><div style="font-size:22px;font-weight:900;color:var(--tx)">💰 '+V.credits+'</div><div style="font-size:9px;color:var(--t2)">Credits</div></div>';
+  h+='</div></div>';
+
+  // Leaderboard
+  var leaders=[
+    {name:"🏆 Toi",pts:total*10+bets*25,credits:V.credits,me:true},
+    {name:"Karim_93",pts:Math.floor(Math.random()*200+600),credits:Math.floor(Math.random()*300+200)},
+    {name:"Sarah_foot",pts:Math.floor(Math.random()*200+500),credits:Math.floor(Math.random()*300+200)},
+    {name:"Diego_BA",pts:Math.floor(Math.random()*200+450),credits:Math.floor(Math.random()*300+150)},
+    {name:"MaxGoal",pts:Math.floor(Math.random()*200+400),credits:Math.floor(Math.random()*300+100)},
+    {name:"LuckyStrike",pts:Math.floor(Math.random()*200+350),credits:Math.floor(Math.random()*300+100)},
+    {name:"Neymar_fan",pts:Math.floor(Math.random()*200+300),credits:Math.floor(Math.random()*200+100)},
+    {name:"OleFan22",pts:Math.floor(Math.random()*200+250),credits:Math.floor(Math.random()*200+50)}
+  ];
+  leaders.sort(function(a,b){return b.pts-a.pts});
+
+  h+='<div style="background:var(--s1);border:1px solid var(--s3);border-radius:12px;padding:12px;margin-bottom:10px">';
+  h+='<div style="font-size:13px;font-weight:900;color:var(--g);margin-bottom:8px">🏅 CLASSEMENT</div>';
+  leaders.forEach(function(l,i){
+    var medal=i===0?"🥇":i===1?"🥈":i===2?"🥉":"";
+    h+='<div style="display:flex;align-items:center;gap:8px;padding:8px;margin-bottom:3px;background:'+(l.me?'var(--gw)':'var(--s2)')+';border:1px solid '+(l.me?'var(--g)':'transparent')+';border-radius:8px">';
+    h+='<div style="font-size:14px;font-weight:900;color:var(--t2);min-width:24px">'+(medal||(i+1)+".")+'</div>';
+    h+='<div style="flex:1"><div style="font-size:12px;font-weight:'+(l.me?'900':'600')+';color:'+(l.me?'var(--g)':'var(--tx)')+'">'+l.name+'</div></div>';
+    h+='<div style="text-align:right"><div style="font-size:13px;font-weight:900;color:var(--g)">'+l.pts+' pts</div><div style="font-size:9px;color:var(--t2)">💰 '+l.credits+'</div></div>';
+    h+='</div>';
+  });
+  h+='</div>';
+
+  // Recap by group (carousel-like)
+  h+='<div style="font-size:13px;font-weight:900;color:var(--g);margin-bottom:6px">📋 MES PRONOS PAR GROUPE</div>';
+  h+='<div style="display:flex;gap:4px;overflow-x:auto;padding-bottom:8px">';
+  "ABCDEFGHIJKL".split("").forEach(function(g){
+    var grpMs=MATCHES.filter(function(m){return m.st==="Groupe "+g&&m.t1!=="TBD"});
+    var filled=grpMs.filter(function(m){return V.pronos[m.id]}).length;
+    h+='<div style="min-width:120px;background:var(--s1);border:1px solid '+(filled===grpMs.length?'var(--g)':'var(--s3)')+';border-radius:8px;padding:8px;flex-shrink:0">';
+    h+='<div style="font-size:11px;font-weight:900;color:var(--g);margin-bottom:4px">Groupe '+g+'</div>';
+    grpMs.forEach(function(m){
+      var p=V.pronos[m.id];
+      var t1=getTeam(m.t1),t2=getTeam(m.t2);
+      h+='<div style="font-size:8px;display:flex;gap:2px;margin-bottom:2px;align-items:center">';
+      h+=flagImg(m.t1,8)+' ';
+      if(p)h+='<b style="color:var(--g)">'+p.a+'-'+p.b+'</b>';
+      else h+='<span style="color:var(--t2)">—</span>';
+      h+=' '+flagImg(m.t2,8);
+      h+='</div>';
+    });
+    h+='<div style="font-size:8px;color:var(--t2);margin-top:3px">'+filled+'/'+grpMs.length+'</div>';
+    h+='</div>';
+  });
+  h+='</div>';
+
+  h+='<button onclick="go(&#39;prono&#39;)" style="width:100%;padding:12px;background:var(--g);color:#000;border:none;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;margin-top:8px">← Retour aux pronostics</button>';
+  return h;
+}
+
 function rBracket(){
   var h="";
   var hasSim=V.simKO&&Object.keys(V.simKO).length>0&&V.simPicks;
@@ -3552,7 +3642,7 @@ try{localStorage.setItem("ff26_teams",JSON.stringify(TEAMS.map(function(t){retur
 localStorage.setItem("ff26_version","2.0")}catch(e){}
 
 // Credits system
-if(!V.credits)try{V.credits=parseInt(localStorage.getItem('ff26_credits'))||100}catch(e){V.credits=100}
+if(!V.credits)try{V.credits=parseInt(localStorage.getItem('ff26_credits'))||500}catch(e){V.credits=500}
 try{V.pronos=JSON.parse(localStorage.getItem("ff26_pronos"))||{}}catch(e){V.pronos={}}
 try{V.bets=JSON.parse(localStorage.getItem("ff26_bets"))||{}}catch(e){V.bets={}}
 function betCredits(amount,matchId){
