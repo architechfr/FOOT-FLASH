@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "lastUpdated": "2026-05-29T23:45:00Z",
+  "lastUpdated": "2026-05-30T01:45:00Z",
   "data": [
     {
       "id": "MEX",
@@ -209,20 +209,116 @@
       "captain": "Son Heung-min",
       "players": [
         {
-          "n": "Son Heung-min",
-          "p": "ATT",
-          "club": "LAFC",
-          "caps": 137,
-          "g": 51,
-          "wc": 3,
-          "cap": true
+          "n": "Kim Seung-gyu",
+          "p": "GAR",
+          "club": "FC Tokyo",
+          "caps": 60,
+          "g": 0
+        },
+        {
+          "n": "Jo Hyeon-woo",
+          "p": "GAR",
+          "club": "Ulsan HD",
+          "caps": 0,
+          "g": 0
+        },
+        {
+          "n": "Song Bum-keun",
+          "p": "GAR",
+          "club": "Jeonbuk Hyundai Motors",
+          "caps": 10,
+          "g": 0
+        },
+        {
+          "n": "Kim Min-jae",
+          "p": "DEF",
+          "club": "Bayern Munich",
+          "caps": 75,
+          "g": 3
+        },
+        {
+          "n": "Kim Moon-hwan",
+          "p": "DEF",
+          "club": "Daejeon Hana Citizen",
+          "caps": 0,
+          "g": 0
+        },
+        {
+          "n": "Seol Young-woo",
+          "p": "DEF",
+          "club": "Étoile Rouge Belgrade",
+          "caps": 0,
+          "g": 0
+        },
+        {
+          "n": "Cho Yu-min",
+          "p": "DEF",
+          "club": "Sharjah",
+          "caps": 0,
+          "g": 0
+        },
+        {
+          "n": "Lee Tae-seok",
+          "p": "DEF",
+          "club": "Austria Vienne",
+          "caps": 0,
+          "g": 0
+        },
+        {
+          "n": "Park Jin-seob",
+          "p": "DEF",
+          "club": "Zhejiang FC",
+          "caps": 0,
+          "g": 0
+        },
+        {
+          "n": "Kim Tae-hyeon",
+          "p": "DEF",
+          "club": "Kashima Antlers",
+          "caps": 0,
+          "g": 0
+        },
+        {
+          "n": "Lee Han-beom",
+          "p": "DEF",
+          "club": "Midtjylland",
+          "caps": 0,
+          "g": 0
+        },
+        {
+          "n": "Jens Castrop",
+          "p": "DEF",
+          "club": "Mönchengladbach",
+          "caps": 0,
+          "g": 0
+        },
+        {
+          "n": "Lee Ki-hyuk",
+          "p": "DEF",
+          "club": "Gangwon FC",
+          "caps": 0,
+          "g": 0
+        },
+        {
+          "n": "Lee Jae-sung",
+          "p": "MIL",
+          "club": "Mainz",
+          "caps": 45,
+          "g": 5
         },
         {
           "n": "Hwang Hee-chan",
-          "p": "ATT",
-          "club": "Wolves",
+          "p": "MIL",
+          "club": "Wolverhampton",
           "caps": 55,
           "g": 12
+        },
+        {
+          "n": "Hwang In-beom",
+          "p": "MIL",
+          "club": "Feyenoord",
+          "caps": 55,
+          "g": 5
         },
         {
           "n": "Lee Kang-in",
@@ -232,32 +328,55 @@
           "g": 8
         },
         {
-          "n": "Jung Woo-young",
+          "n": "Paik Seung-ho",
           "p": "MIL",
-          "club": "Al Sadd",
-          "caps": 110,
-          "g": 5
+          "club": "Birmingham City",
+          "caps": 0,
+          "g": 0
         },
         {
-          "n": "Kim Min-jae",
-          "p": "DEF",
-          "club": "Bayern",
-          "caps": 75,
+          "n": "Kim Jin-gyu",
+          "p": "MIL",
+          "club": "Jeonbuk Hyundai Motors",
+          "caps": 0,
+          "g": 0
+        },
+        {
+          "n": "Lee Dong-gyeong",
+          "p": "MIL",
+          "club": "Ulsan HD",
+          "caps": 20,
           "g": 3
         },
         {
-          "n": "Kim Jin-su",
-          "p": "DEF",
-          "club": "Jeonbuk",
-          "caps": 70,
-          "g": 5
+          "n": "Bae Jun-ho",
+          "p": "MIL",
+          "club": "Stoke City",
+          "caps": 0,
+          "g": 0
         },
         {
-          "n": "Kim Seung-gyu",
-          "p": "GAR",
-          "club": "Al Shabab",
-          "caps": 60,
+          "n": "Eom Ji-sung",
+          "p": "MIL",
+          "club": "Swansea City",
+          "caps": 0,
           "g": 0
+        },
+        {
+          "n": "Yang Hyun-jun",
+          "p": "MIL",
+          "club": "Celtic",
+          "caps": 0,
+          "g": 0
+        },
+        {
+          "n": "Son Heung-min",
+          "p": "ATT",
+          "club": "Los Angeles FC",
+          "caps": 137,
+          "g": 51,
+          "cap": true,
+          "wc": 4
         },
         {
           "n": "Cho Gue-sung",
@@ -269,99 +388,8 @@
         {
           "n": "Oh Hyeon-gyu",
           "p": "ATT",
-          "club": "Celtic",
+          "club": "Beşiktaş",
           "caps": 10,
-          "g": 3
-        },
-        {
-          "n": "Jeong Woo-yeong",
-          "p": "MIL",
-          "club": "Fribourg",
-          "caps": 30,
-          "g": 5
-        },
-        {
-          "n": "Hwang In-beom",
-          "p": "MIL",
-          "club": "Feyenoord",
-          "caps": 55,
-          "g": 5
-        },
-        {
-          "n": "Park Yong-woo",
-          "p": "MIL",
-          "club": "Al Ain",
-          "caps": 20,
-          "g": 1
-        },
-        {
-          "n": "Lee Jae-sung",
-          "p": "MIL",
-          "club": "Mainz",
-          "caps": 45,
-          "g": 5
-        },
-        {
-          "n": "Kim Young-gwon",
-          "p": "DEF",
-          "club": "Ulsan",
-          "caps": 110,
-          "g": 5
-        },
-        {
-          "n": "Park Ji-su",
-          "p": "DEF",
-          "club": "Suwon",
-          "caps": 15,
-          "g": 0
-        },
-        {
-          "n": "Hong Chul",
-          "p": "DEF",
-          "club": "Daegu",
-          "caps": 50,
-          "g": 2
-        },
-        {
-          "n": "Lee Ki-je",
-          "p": "DEF",
-          "club": "Jeonbuk",
-          "caps": 40,
-          "g": 1
-        },
-        {
-          "n": "Song Bum-keun",
-          "p": "GAR",
-          "club": "Jeonbuk",
-          "caps": 10,
-          "g": 0
-        },
-        {
-          "n": "Cho Hyun-woo",
-          "p": "GAR",
-          "club": "Ulsan",
-          "caps": 15,
-          "g": 0
-        },
-        {
-          "n": "Kim Tae-hwan",
-          "p": "DEF",
-          "club": "Ulsan",
-          "caps": 35,
-          "g": 2
-        },
-        {
-          "n": "Na Sang-ho",
-          "p": "ATT",
-          "club": "FC Seoul",
-          "caps": 25,
-          "g": 8
-        },
-        {
-          "n": "Lee Dong-gyeong",
-          "p": "MIL",
-          "club": "Ulsan",
-          "caps": 20,
           "g": 3
         }
       ]
@@ -1478,39 +1506,89 @@
       "captain": "Wataru Endō",
       "players": [
         {
-          "n": "Takefusa Kubo",
-          "p": "ATT",
-          "club": "Real Sociedad",
-          "caps": 40,
-          "g": 7
+          "n": "Tomoki Hayakawa",
+          "p": "GAR",
+          "club": "Nagoya Grampus",
+          "caps": 0,
+          "g": 0
         },
         {
-          "n": "Kaoru Mitoma",
-          "p": "ATT",
-          "club": "Brighton",
-          "caps": 35,
-          "g": 10
+          "n": "Keisuke Osako",
+          "p": "GAR",
+          "club": "Sanfrecce Hiroshima",
+          "caps": 0,
+          "g": 0
         },
         {
-          "n": "Ritsu Doan",
-          "p": "ATT",
-          "club": "Fribourg",
-          "caps": 40,
-          "g": 8
+          "n": "Zion Suzuki",
+          "p": "GAR",
+          "club": "Parme",
+          "caps": 12,
+          "g": 0
         },
         {
-          "n": "Ayase Ueda",
-          "p": "ATT",
+          "n": "Yuto Nagatomo",
+          "p": "DEF",
+          "club": "FC Tokyo",
+          "caps": 142,
+          "g": 4,
+          "wc": 5
+        },
+        {
+          "n": "Shogo Taniguchi",
+          "p": "DEF",
+          "club": "Sint-Truiden",
+          "caps": 25,
+          "g": 2
+        },
+        {
+          "n": "Ko Itakura",
+          "p": "DEF",
+          "club": "Ajax",
+          "caps": 0,
+          "g": 0
+        },
+        {
+          "n": "Tsuyoshi Watanabe",
+          "p": "DEF",
           "club": "Feyenoord",
-          "caps": 20,
-          "g": 8
+          "caps": 0,
+          "g": 0
         },
         {
-          "n": "Daichi Kamada",
-          "p": "MIL",
-          "club": "Crystal Palace",
-          "caps": 30,
-          "g": 6
+          "n": "Takehiro Tomiyasu",
+          "p": "DEF",
+          "club": "Arsenal",
+          "caps": 35,
+          "g": 1
+        },
+        {
+          "n": "Hiroki Ito",
+          "p": "DEF",
+          "club": "Bayern Munich",
+          "caps": 20,
+          "g": 1
+        },
+        {
+          "n": "Ayumu Seko",
+          "p": "DEF",
+          "club": "Le Havre",
+          "caps": 0,
+          "g": 0
+        },
+        {
+          "n": "Yukinari Sugawara",
+          "p": "DEF",
+          "club": "Southampton",
+          "caps": 0,
+          "g": 0
+        },
+        {
+          "n": "Junnosuke Suzuki",
+          "p": "DEF",
+          "club": "Stade Brestois",
+          "caps": 0,
+          "g": 0
         },
         {
           "n": "Wataru Endo",
@@ -1521,6 +1599,20 @@
           "cap": true
         },
         {
+          "n": "Daichi Kamada",
+          "p": "MIL",
+          "club": "Crystal Palace",
+          "caps": 30,
+          "g": 6
+        },
+        {
+          "n": "Ritsu Doan",
+          "p": "MIL",
+          "club": "Eintracht Francfort",
+          "caps": 40,
+          "g": 8
+        },
+        {
           "n": "Ao Tanaka",
           "p": "MIL",
           "club": "Leeds",
@@ -1528,87 +1620,73 @@
           "g": 5
         },
         {
-          "n": "Takehiro Tomiyasu",
-          "p": "DEF",
-          "club": "Arsenal",
-          "caps": 35,
-          "g": 1
+          "n": "Keito Nakamura",
+          "p": "MIL",
+          "club": "Stade de Reims",
+          "caps": 0,
+          "g": 0
         },
         {
-          "n": "Kou Itakura",
-          "p": "DEF",
-          "club": "B. Mönchengladbach",
-          "caps": 25,
-          "g": 2
+          "n": "Kaishu Sano",
+          "p": "MIL",
+          "club": "Mainz",
+          "caps": 0,
+          "g": 0
         },
         {
-          "n": "Yuto Nagatomo",
-          "p": "DEF",
-          "club": "FC Tokyo",
-          "caps": 142,
-          "g": 4
+          "n": "Takefusa Kubo",
+          "p": "MIL",
+          "club": "Real Sociedad",
+          "caps": 40,
+          "g": 7
         },
         {
-          "n": "Kyogo Maeda",
+          "n": "Yuito Suzuki",
+          "p": "MIL",
+          "club": "Bröndby",
+          "caps": 0,
+          "g": 0
+        },
+        {
+          "n": "Kento Shiogai",
+          "p": "MIL",
+          "club": "Yokohama F. Marinos",
+          "caps": 0,
+          "g": 0
+        },
+        {
+          "n": "Junya Ito",
+          "p": "MIL",
+          "club": "Reims",
+          "caps": 0,
+          "g": 0
+        },
+        {
+          "n": "Koki Ogawa",
+          "p": "ATT",
+          "club": "NEC Nimègue",
+          "caps": 0,
+          "g": 0
+        },
+        {
+          "n": "Daizen Maeda",
           "p": "ATT",
           "club": "Celtic",
-          "caps": 20,
-          "g": 5
-        },
-        {
-          "n": "Kyogo Furuhashi",
-          "p": "ATT",
-          "club": "Rennes",
-          "caps": 10,
-          "g": 3
-        },
-        {
-          "n": "Hidemasa Morita",
-          "p": "MIL",
-          "club": "Sporting",
-          "caps": 20,
-          "g": 2
-        },
-        {
-          "n": "Hayao Kawabe",
-          "p": "MIL",
-          "club": "Lazio",
-          "caps": 12,
-          "g": 1
-        },
-        {
-          "n": "Koki Machida",
-          "p": "DEF",
-          "club": "Hoffenheim",
-          "caps": 12,
+          "caps": 0,
           "g": 0
         },
         {
-          "n": "Hiroki Ito",
-          "p": "DEF",
-          "club": "Bayern",
-          "caps": 20,
-          "g": 1
-        },
-        {
-          "n": "Shogo Taniguchi",
-          "p": "DEF",
-          "club": "Vissel",
-          "caps": 25,
-          "g": 2
-        },
-        {
-          "n": "Zion Suzuki",
-          "p": "GAR",
-          "club": "Parme",
-          "caps": 12,
-          "g": 0
-        },
-        {
-          "n": "Yuya Osako",
+          "n": "Ayase Ueda",
           "p": "ATT",
-          "club": "Vissel",
-          "caps": 5,
+          "club": "Feyenoord",
+          "caps": 20,
+          "g": 8
+        },
+        {
+          "n": "Keisuke Goto",
+          "p": "ATT",
+          "club": "Sint-Truiden",
+          "caps": 0,
           "g": 0
         }
       ]
@@ -2542,47 +2620,39 @@
       "captain": "Kalidou Koulibaly",
       "players": [
         {
-          "n": "Sadio Mané",
-          "p": "ATT",
-          "club": "Al-Nassr",
-          "caps": 105,
-          "g": 36,
-          "wc": 3
+          "n": "Edouard Mendy",
+          "p": "GAR",
+          "club": "Al-Ahli",
+          "caps": 35,
+          "g": 0
         },
         {
-          "n": "Ismaïla Sarr",
-          "p": "ATT",
-          "club": "Crystal Palace",
-          "caps": 55,
-          "g": 12
+          "n": "Mory Diaw",
+          "p": "GAR",
+          "club": "Clermont",
+          "caps": 0,
+          "g": 0
         },
         {
-          "n": "Boulaye Dia",
-          "p": "ATT",
-          "club": "Lazio",
+          "n": "Yehvann Diouf",
+          "p": "GAR",
+          "club": "Stade de Reims",
+          "caps": 0,
+          "g": 0
+        },
+        {
+          "n": "Krepin Diatta",
+          "p": "DEF",
+          "club": "AS Monaco",
           "caps": 25,
-          "g": 8
-        },
-        {
-          "n": "Pape Gueye",
-          "p": "MIL",
-          "club": "Villarreal",
-          "caps": 20,
-          "g": 2
-        },
-        {
-          "n": "Idrissa Gana Gueye",
-          "p": "MIL",
-          "club": "Everton",
-          "caps": 100,
           "g": 5
         },
         {
-          "n": "N. Mendy",
-          "p": "MIL",
-          "club": "Leicester",
-          "caps": 30,
-          "g": 1
+          "n": "Antoine Mendy",
+          "p": "DEF",
+          "club": "Le Havre",
+          "caps": 0,
+          "g": 0
         },
         {
           "n": "Kalidou Koulibaly",
@@ -2593,80 +2663,31 @@
           "cap": true
         },
         {
-          "n": "Abdou Diallo",
+          "n": "El Hadji Malick Diouf",
           "p": "DEF",
-          "club": "Al-Arabi",
-          "caps": 20,
+          "club": "West Ham",
+          "caps": 0,
           "g": 0
         },
         {
-          "n": "Édouard Mendy",
-          "p": "GAR",
-          "club": "Al-Ahli",
-          "caps": 35,
+          "n": "Mamadou Sarr",
+          "p": "DEF",
+          "club": "Strasbourg",
+          "caps": 0,
           "g": 0
         },
         {
-          "n": "Iliman Ndiaye",
-          "p": "ATT",
-          "club": "Everton",
-          "caps": 20,
-          "g": 5
-        },
-        {
-          "n": "Habib Diallo",
-          "p": "ATT",
-          "club": "Damac",
-          "caps": 15,
-          "g": 5
-        },
-        {
-          "n": "Krepin Diatta",
-          "p": "ATT",
-          "club": "Monaco",
-          "caps": 25,
-          "g": 5
-        },
-        {
-          "n": "Pape Matar Sarr",
-          "p": "MIL",
-          "club": "Tottenham",
-          "caps": 15,
-          "g": 2
-        },
-        {
-          "n": "Nampalys Mendy",
-          "p": "MIL",
-          "club": "Leicester",
-          "caps": 30,
-          "g": 1
-        },
-        {
-          "n": "Formose Mendy",
+          "n": "Moussa Niakhate",
           "p": "DEF",
-          "club": "Lens",
-          "caps": 8,
+          "club": "Olympique Lyonnais",
+          "caps": 0,
           "g": 0
         },
         {
-          "n": "Youssouf Sabaly",
+          "n": "Moustapha Mbow",
           "p": "DEF",
-          "club": "Betis",
-          "caps": 30,
-          "g": 1
-        },
-        {
-          "n": "Ismail Jakobs",
-          "p": "DEF",
-          "club": "Galatasaray",
-          "caps": 15,
-          "g": 0
-        },
-        {
-          "n": "Seny Dieng",
-          "p": "GAR",
-          "club": "Middlesbrough",
-          "caps": 10,
+          "club": "Le Havre",
+          "caps": 0,
           "g": 0
         },
         {
@@ -2677,31 +2698,109 @@
           "g": 1
         },
         {
+          "n": "Ismail Jakobs",
+          "p": "DEF",
+          "club": "Galatasaray",
+          "caps": 15,
+          "g": 0
+        },
+        {
+          "n": "Ilay Camara",
+          "p": "DEF",
+          "club": "Standard de Liège",
+          "caps": 0,
+          "g": 0
+        },
+        {
+          "n": "Idrissa Gana Gueye",
+          "p": "MIL",
+          "club": "Everton",
+          "caps": 100,
+          "g": 5
+        },
+        {
+          "n": "Pape Gueye",
+          "p": "MIL",
+          "club": "Villarreal",
+          "caps": 20,
+          "g": 2
+        },
+        {
           "n": "Lamine Camara",
           "p": "MIL",
-          "club": "Monaco",
+          "club": "AS Monaco",
           "caps": 10,
           "g": 1
         },
         {
-          "n": "Cheikhou Kouyaté",
+          "n": "Habib Diarra",
           "p": "MIL",
-          "club": "Retraité",
-          "caps": 90,
-          "g": 4
+          "club": "Sunderland",
+          "caps": 0,
+          "g": 0
+        },
+        {
+          "n": "Pathe Ciss",
+          "p": "MIL",
+          "club": "Rayo Vallecano",
+          "caps": 0,
+          "g": 0
+        },
+        {
+          "n": "Pape Matar Sarr",
+          "p": "MIL",
+          "club": "Tottenham",
+          "caps": 15,
+          "g": 2
+        },
+        {
+          "n": "Bara Sapoko Ndiaye",
+          "p": "MIL",
+          "club": "Génération Foot",
+          "caps": 0,
+          "g": 0
+        },
+        {
+          "n": "Sadio Mane",
+          "p": "ATT",
+          "club": "Al-Nassr",
+          "caps": 105,
+          "g": 36,
+          "wc": 3
+        },
+        {
+          "n": "Ismaila Sarr",
+          "p": "ATT",
+          "club": "Crystal Palace",
+          "caps": 55,
+          "g": 12
+        },
+        {
+          "n": "Iliman Ndiaye",
+          "p": "ATT",
+          "club": "Everton",
+          "caps": 20,
+          "g": 5
+        },
+        {
+          "n": "Assane Diao",
+          "p": "ATT",
+          "club": "Côme",
+          "caps": 0,
+          "g": 0
         },
         {
           "n": "Nicolas Jackson",
           "p": "ATT",
-          "club": "Bayern",
+          "club": "Chelsea",
           "caps": 15,
           "g": 4
         },
         {
-          "n": "Mikayil Faye",
-          "p": "DEF",
-          "club": "Rennes",
-          "caps": 5,
+          "n": "Cherif Ndiaye",
+          "p": "ATT",
+          "club": "Étoile Rouge Belgrade",
+          "caps": 0,
           "g": 0
         }
       ]
@@ -3111,14 +3210,155 @@
       "captain": "Luka Modrić",
       "players": [
         {
-          "n": "Luka Modrić",
+          "n": "Dominik Livakovic",
+          "p": "GAR",
+          "club": "Dinamo Zagreb",
+          "caps": 50,
+          "g": 0
+        },
+        {
+          "n": "Dominik Kotarski",
+          "p": "GAR",
+          "club": "FC Copenhague",
+          "caps": 0,
+          "g": 0
+        },
+        {
+          "n": "Ivor Pandur",
+          "p": "GAR",
+          "club": "Hull City",
+          "caps": 0,
+          "g": 0
+        },
+        {
+          "n": "Josko Gvardiol",
+          "p": "DEF",
+          "club": "Manchester City",
+          "caps": 35,
+          "g": 3
+        },
+        {
+          "n": "Duje Caleta-Car",
+          "p": "DEF",
+          "club": "Real Sociedad",
+          "caps": 0,
+          "g": 0
+        },
+        {
+          "n": "Josip Sutalo",
+          "p": "DEF",
+          "club": "Ajax",
+          "caps": 12,
+          "g": 0
+        },
+        {
+          "n": "Josip Stanisic",
+          "p": "DEF",
+          "club": "Bayern Munich",
+          "caps": 10,
+          "g": 0
+        },
+        {
+          "n": "Marin Pongracic",
+          "p": "DEF",
+          "club": "Fiorentina",
+          "caps": 15,
+          "g": 1
+        },
+        {
+          "n": "Martin Erlic",
+          "p": "DEF",
+          "club": "Midtjylland",
+          "caps": 20,
+          "g": 1
+        },
+        {
+          "n": "Luka Vuskovic",
+          "p": "DEF",
+          "club": "Hambourg",
+          "caps": 0,
+          "g": 0
+        },
+        {
+          "n": "Luka Modric",
           "p": "MIL",
-          "club": "Milan",
+          "club": "Milan AC",
           "caps": 185,
           "g": 27,
-          "bo": "2018",
-          "wc": 4,
-          "cap": true
+          "cap": true,
+          "wc": 5
+        },
+        {
+          "n": "Mateo Kovacic",
+          "p": "MIL",
+          "club": "Manchester City",
+          "caps": 95,
+          "g": 5
+        },
+        {
+          "n": "Mario Pasalic",
+          "p": "MIL",
+          "club": "Atalanta",
+          "caps": 40,
+          "g": 8
+        },
+        {
+          "n": "Nikola Vlasic",
+          "p": "MIL",
+          "club": "Torino",
+          "caps": 35,
+          "g": 5
+        },
+        {
+          "n": "Luka Sucic",
+          "p": "MIL",
+          "club": "Real Sociedad",
+          "caps": 15,
+          "g": 3
+        },
+        {
+          "n": "Martin Baturina",
+          "p": "MIL",
+          "club": "Côme",
+          "caps": 8,
+          "g": 2
+        },
+        {
+          "n": "Kristijan Jakic",
+          "p": "MIL",
+          "club": "Augsbourg",
+          "caps": 0,
+          "g": 0
+        },
+        {
+          "n": "Petar Sucic",
+          "p": "MIL",
+          "club": "Inter Milan",
+          "caps": 0,
+          "g": 0
+        },
+        {
+          "n": "Nikola Moro",
+          "p": "MIL",
+          "club": "Bologne",
+          "caps": 0,
+          "g": 0
+        },
+        {
+          "n": "Toni Fruk",
+          "p": "MIL",
+          "club": "Rijeka",
+          "caps": 0,
+          "g": 0
+        },
+        {
+          "n": "Ivan Perišić",
+          "p": "ATT",
+          "club": "PSV Eindhoven",
+          "caps": 130,
+          "g": 35,
+          "cap": true,
+          "wc": 3
         },
         {
           "n": "Andrej Kramarić",
@@ -3128,14 +3368,6 @@
           "g": 30
         },
         {
-          "n": "Ivan Perišić",
-          "p": "ATT",
-          "club": "Hajduk",
-          "caps": 130,
-          "g": 35,
-          "wc": 3
-        },
-        {
           "n": "Ante Budimir",
           "p": "ATT",
           "club": "Osasuna",
@@ -3143,137 +3375,25 @@
           "g": 5
         },
         {
-          "n": "Mateo Kovačić",
-          "p": "MIL",
-          "club": "Man City",
-          "caps": 95,
-          "g": 5
-        },
-        {
-          "n": "Marcelo Brozović",
-          "p": "MIL",
-          "club": "Retraité int.",
-          "caps": 100,
-          "g": 8
-        },
-        {
-          "n": "Luka Sučić",
-          "p": "MIL",
-          "club": "Real Sociedad",
-          "caps": 15,
-          "g": 3
-        },
-        {
-          "n": "Joško Gvardiol",
-          "p": "DEF",
-          "club": "Man City",
-          "caps": 35,
-          "g": 3
-        },
-        {
-          "n": "Josip Šutalo",
-          "p": "DEF",
-          "club": "Ajax",
-          "caps": 12,
-          "g": 0
-        },
-        {
-          "n": "Dominik Livaković",
-          "p": "GAR",
-          "club": "Fenerbahçe",
-          "caps": 50,
-          "g": 0
-        },
-        {
-          "n": "Lovro Majer",
-          "p": "MIL",
-          "club": "Wolfsburg",
-          "caps": 30,
-          "g": 5
-        },
-        {
-          "n": "Mario Pašalić",
-          "p": "MIL",
-          "club": "Atalanta",
-          "caps": 40,
-          "g": 8
-        },
-        {
-          "n": "Nikola Vlašić",
-          "p": "MIL",
-          "club": "Torino",
-          "caps": 35,
-          "g": 5
-        },
-        {
-          "n": "Josip Juranović",
-          "p": "DEF",
-          "club": "Union Berlin",
-          "caps": 30,
-          "g": 2
-        },
-        {
-          "n": "Josip Stanišić",
-          "p": "DEF",
-          "club": "Leverkusen",
-          "caps": 10,
-          "g": 0
-        },
-        {
-          "n": "Marin Pongračić",
-          "p": "DEF",
-          "club": "Fiorentina",
-          "caps": 15,
-          "g": 1
-        },
-        {
-          "n": "Martin Erlić",
-          "p": "DEF",
-          "club": "Sassuolo",
-          "caps": 20,
-          "g": 1
-        },
-        {
-          "n": "Ivo Ivušić",
-          "p": "GAR",
-          "club": "Pafos",
-          "caps": 10,
-          "g": 0
-        },
-        {
-          "n": "Bruno Petković",
+          "n": "Marco Pašalić",
           "p": "ATT",
-          "club": "PAOK",
-          "caps": 20,
-          "g": 5
-        },
-        {
-          "n": "Martin Baturina",
-          "p": "MIL",
-          "club": "Dinamo Zagreb",
-          "caps": 8,
-          "g": 2
-        },
-        {
-          "n": "Luka Ivanušec",
-          "p": "MIL",
-          "club": "Feyenoord",
-          "caps": 15,
-          "g": 3
-        },
-        {
-          "n": "Duje Šimić",
-          "p": "DEF",
-          "club": "Anderlecht",
-          "caps": 12,
+          "club": "Orlando City",
+          "caps": 0,
           "g": 0
         },
         {
-          "n": "Domagoj Vida",
-          "p": "DEF",
-          "club": "Retraité int.",
-          "caps": 90,
-          "g": 3
+          "n": "Petar Musa",
+          "p": "ATT",
+          "club": "FC Dallas",
+          "caps": 0,
+          "g": 0
+        },
+        {
+          "n": "Igor Matanović",
+          "p": "ATT",
+          "club": "Eintracht Francfort",
+          "caps": 0,
+          "g": 0
         }
       ]
     },
