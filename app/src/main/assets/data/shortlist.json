@@ -1,0 +1,342 @@
+{
+  "schemaVersion": 1,
+  "lastUpdated": "2026-04-28T22:42:45.735Z",
+  "data": {
+    "FRA": [
+      {
+        "n": "Marcus Thuram",
+        "club": "Inter Milan",
+        "pos": "ATT",
+        "note": "Quasi-certain après forfait Ekitiké"
+      },
+      {
+        "n": "Randal Kolo Muani",
+        "club": "Juventus",
+        "pos": "ATT",
+        "note": "Option de relance"
+      },
+      {
+        "n": "Jean-Philippe Mateta",
+        "club": "Crystal Palace",
+        "pos": "ATT",
+        "note": "Forme en PL"
+      },
+      {
+        "n": "Benjamin Pavard",
+        "club": "Inter Milan",
+        "pos": "DEF",
+        "note": "Réserviste probable"
+      },
+      {
+        "n": "Alphonse Aréola",
+        "club": "West Ham",
+        "pos": "GAR",
+        "note": "3e gardien probable"
+      },
+      {
+        "n": "Kingsley Coman",
+        "club": "Al-Nassr",
+        "pos": "ATT",
+        "note": "Sur le fil, réserviste"
+      },
+      {
+        "n": "Pierre Kalulu",
+        "club": "Juventus",
+        "pos": "DEF",
+        "note": "Sacrifié si retour Koundé"
+      },
+      {
+        "n": "Corentin Tolisso",
+        "club": "Lyon",
+        "pos": "MIL",
+        "note": "Part de loin malgré forme"
+      }
+    ],
+    "ENG": [
+      {
+        "n": "Eberechi Eze",
+        "club": "Crystal Palace",
+        "pos": "MIL",
+        "note": "Créateur polyvalent"
+      },
+      {
+        "n": "Marcus Rashford",
+        "club": "Aston Villa",
+        "pos": "ATT",
+        "note": "Retour en sélection"
+      },
+      {
+        "n": "Marc Guéhi",
+        "club": "Crystal Palace",
+        "pos": "DEF",
+        "note": "Défenseur solide"
+      },
+      {
+        "n": "Reece James",
+        "club": "Chelsea",
+        "pos": "DEF",
+        "note": "Si fitness OK"
+      },
+      {
+        "n": "Jordan Pickford",
+        "club": "Everton",
+        "pos": "GAR",
+        "note": "N°1 attendu"
+      }
+    ],
+    "BRA": [
+      {
+        "n": "Savinho",
+        "club": "Manchester City",
+        "pos": "ATT",
+        "note": "Ailier droit émergent"
+      },
+      {
+        "n": "Endrick",
+        "club": "Real Madrid",
+        "pos": "ATT",
+        "note": "Jeune pépite"
+      },
+      {
+        "n": "Antony",
+        "club": "Real Betis",
+        "pos": "ATT",
+        "note": "Si forme maintenue"
+      },
+      {
+        "n": "Gabriel Martinelli",
+        "club": "Arsenal",
+        "pos": "ATT",
+        "note": "Option ailier"
+      },
+      {
+        "n": "Bruno Guimarães",
+        "club": "Newcastle",
+        "pos": "MIL",
+        "note": "Pivot essentiel"
+      }
+    ],
+    "ARG": [
+      {
+        "n": "Paulo Dybala",
+        "club": "AS Roma",
+        "pos": "ATT",
+        "note": "Si fitness au rdv"
+      },
+      {
+        "n": "Giovani Lo Celso",
+        "club": "Real Betis",
+        "pos": "MIL",
+        "note": "Profil créatif"
+      },
+      {
+        "n": "Nicolás González",
+        "club": "Juventus",
+        "pos": "ATT",
+        "note": "Option ailier"
+      },
+      {
+        "n": "Lisandro Martínez",
+        "club": "Manchester United",
+        "pos": "DEF",
+        "note": "Retour après blessure"
+      },
+      {
+        "n": "Alejandro Garnacho",
+        "club": "Chelsea",
+        "pos": "ATT",
+        "note": "Jeune option"
+      }
+    ],
+    "POR": [
+      {
+        "n": "João Félix",
+        "club": "Al-Nassr",
+        "pos": "ATT",
+        "note": "Pari Martínez ?"
+      },
+      {
+        "n": "Rúben Neves",
+        "club": "Al-Hilal",
+        "pos": "MIL",
+        "note": "Profil expérimenté"
+      },
+      {
+        "n": "Francisco Conceição",
+        "club": "Juventus",
+        "pos": "ATT",
+        "note": "Ailier en forme"
+      },
+      {
+        "n": "Gonçalo Ramos",
+        "club": "PSG",
+        "pos": "ATT",
+        "note": "Buteur axial"
+      }
+    ],
+    "GER": [
+      {
+        "n": "Leroy Sané",
+        "club": "Galatasaray",
+        "pos": "ATT",
+        "note": "Sur le fil"
+      },
+      {
+        "n": "Niclas Füllkrug",
+        "club": "West Ham",
+        "pos": "ATT",
+        "note": "Option buteur"
+      },
+      {
+        "n": "Pascal Groß",
+        "club": "Dortmund",
+        "pos": "MIL",
+        "note": "Réserviste possible"
+      },
+      {
+        "n": "Serge Gnabry",
+        "club": "Bayern Munich",
+        "pos": "ATT",
+        "note": "Si retour en forme"
+      }
+    ],
+    "NED": [
+      {
+        "n": "Noa Lang",
+        "club": "PSV",
+        "pos": "ATT",
+        "note": "Option ailier"
+      },
+      {
+        "n": "Wout Weghorst",
+        "club": "Ajax",
+        "pos": "ATT",
+        "note": "Pivot en réserve"
+      },
+      {
+        "n": "Joey Veerman",
+        "club": "PSV",
+        "pos": "MIL",
+        "note": "Créateur supplémentaire"
+      },
+      {
+        "n": "Mats Wieffer",
+        "club": "Brighton",
+        "pos": "MIL",
+        "note": "Milieu récupérateur"
+      }
+    ],
+    "ESP": [
+      {
+        "n": "Samu Aghehowa",
+        "club": "Porto",
+        "pos": "ATT",
+        "note": "Jeune buteur"
+      },
+      {
+        "n": "Bryan Zaragoza",
+        "club": "Osasuna",
+        "pos": "ATT",
+        "note": "Profil dribbleur"
+      },
+      {
+        "n": "Aymeric Laporte",
+        "club": "Athletic Bilbao",
+        "pos": "DEF",
+        "note": "Retour possible"
+      },
+      {
+        "n": "Ansu Fati",
+        "club": "Monaco",
+        "pos": "ATT",
+        "note": "Si forme retrouvée"
+      }
+    ],
+    "MAR": [
+      {
+        "n": "Azzedine Ounahi",
+        "club": "Girona",
+        "pos": "MIL",
+        "note": "Sur le fil"
+      },
+      {
+        "n": "Abde Ezzalzouli",
+        "club": "Betis",
+        "pos": "ATT",
+        "note": "Option ailier"
+      },
+      {
+        "n": "Ilias Chair",
+        "club": "QPR",
+        "pos": "MIL",
+        "note": "Jeune créateur"
+      },
+      {
+        "n": "Yahia Attiyat Allah",
+        "club": "Wydad",
+        "pos": "DEF",
+        "note": "Latéral gauche"
+      }
+    ],
+    "BEL": [
+      {
+        "n": "Yannick Carrasco",
+        "club": "Al-Shabab",
+        "pos": "ATT",
+        "note": "Expérience"
+      },
+      {
+        "n": "Leandro Trossard",
+        "club": "Arsenal",
+        "pos": "ATT",
+        "note": "Forme en PL"
+      },
+      {
+        "n": "Arthur Theate",
+        "club": "Eintracht Francfort",
+        "pos": "DEF",
+        "note": "Défenseur central"
+      }
+    ],
+    "URU": [
+      {
+        "n": "Manuel Ugarte",
+        "club": "Manchester United",
+        "pos": "MIL",
+        "note": "Si Valverde forfait"
+      },
+      {
+        "n": "Maximiliano Araújo",
+        "club": "Sporting CP",
+        "pos": "ATT",
+        "note": "Option ailier"
+      },
+      {
+        "n": "Nahitan Nández",
+        "club": "Al-Qadsiah",
+        "pos": "MIL",
+        "note": "Expérience CdM"
+      }
+    ],
+    "CRO": [
+      {
+        "n": "Lovro Majer",
+        "club": "Wolfsburg",
+        "pos": "MIL",
+        "note": "Créateur"
+      },
+      {
+        "n": "Petar Sučić",
+        "club": "Dinamo Zagreb",
+        "pos": "MIL",
+        "note": "Jeune pépite"
+      },
+      {
+        "n": "Martin Baturina",
+        "club": "Dinamo Zagreb",
+        "pos": "MIL",
+        "note": "Option offensive"
+      }
+    ]
+  }
+}

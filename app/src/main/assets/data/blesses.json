@@ -1,0 +1,867 @@
+{
+  "schemaVersion": 1,
+  "lastUpdated": "2026-05-30T00:30:00Z",
+  "data": [
+    {
+      "id": "inj-001",
+      "playerName": "Hugo Ekitiké",
+      "teamId": "FRA",
+      "club": "Liverpool",
+      "position": "ATT",
+      "status": "out",
+      "injury": "Rupture du tendon d'Achille",
+      "date": "2026-04-14",
+      "participationChance": 0,
+      "typicalRecovery": "6 à 12 mois (opération + rééducation)",
+      "estimatedReturn": "2026-11-01",
+      "note": "Blessé lors de PSG-Liverpool (1/4 aller LDC). Forfait officiellement confirmé par Didier Deschamps le 15 avril. Indisponible plusieurs mois.",
+      "source": "franceinfo · Blick · footmercato — 15-16/04/2026",
+      "timeline": [
+        {
+          "date": "2026-04-14",
+          "icon": "🚑",
+          "event": "Blessure",
+          "detail": "Évacué sur civière à la 28e minute de PSG-Liverpool (1/4 aller LDC). S'effondre seul en se tenant l'arrière de la cheville droite."
+        },
+        {
+          "date": "2026-04-15",
+          "icon": "🏥",
+          "event": "Diagnostic",
+          "detail": "Examens passés dans la nuit confirment une rupture complète du tendon d'Achille. Opération programmée."
+        },
+        {
+          "date": "2026-04-15",
+          "icon": "❌",
+          "event": "Forfait officiel",
+          "detail": "Didier Deschamps annonce officiellement le forfait pour le Mondial 2026. Liverpool communique le même jour."
+        },
+        {
+          "date": "2026-11-01",
+          "icon": "🏃",
+          "event": "Retour estimé (club)",
+          "detail": "Reprise club envisageable après 6-9 mois de rééducation, soit courant automne 2026."
+        }
+      ],
+      "replacements": [
+        {
+          "n": "Marcus Thuram",
+          "club": "Inter Milan",
+          "note": "Option privilégiée, complémentaire de Mbappé"
+        },
+        {
+          "n": "Randal Kolo Muani",
+          "club": "Juventus",
+          "note": "Profil buteur, déjà connu du groupe"
+        },
+        {
+          "n": "Jean-Philippe Mateta",
+          "club": "Crystal Palace",
+          "note": "Forme de la saison en Premier League"
+        }
+      ]
+    },
+    {
+      "id": "inj-002",
+      "playerName": "Jack Grealish",
+      "teamId": "ENG",
+      "club": "Manchester City",
+      "position": "MIL",
+      "status": "out",
+      "injury": "Fracture de fatigue",
+      "date": "2026-01-30",
+      "participationChance": 15,
+      "typicalRecovery": "8 à 14 semaines (selon localisation)",
+      "estimatedReturn": "2026-05-15",
+      "note": "Fracture de fatigue diagnostiquée fin janvier 2026. Absence prolongée. Devrait manquer la Coupe du Monde.",
+      "source": "footmercato — 01/04/2026",
+      "timeline": [
+        {
+          "date": "2026-01-30",
+          "icon": "🚑",
+          "event": "Blessure",
+          "detail": "Diagnostic de fracture de fatigue fin janvier."
+        },
+        {
+          "date": "2026-02-01",
+          "icon": "🏥",
+          "event": "Immobilisation",
+          "detail": "Repos complet puis réathlétisation progressive."
+        },
+        {
+          "date": "2026-04-01",
+          "icon": "⚠️",
+          "event": "Pronostic défavorable",
+          "detail": "Sources proches du staff Tuchel évoquent un forfait pour le Mondial."
+        },
+        {
+          "date": "2026-05-15",
+          "icon": "🏃",
+          "event": "Reprise possible",
+          "detail": "Reprise collective envisageable mi-mai, mais trop tard pour espérer la liste finale du 30 mai."
+        }
+      ],
+      "replacements": [
+        {
+          "n": "Eberechi Eze",
+          "club": "Crystal Palace",
+          "note": "Créateur polyvalent"
+        },
+        {
+          "n": "Phil Foden",
+          "club": "Manchester City",
+          "note": "Valeur sûre"
+        },
+        {
+          "n": "Marcus Rashford",
+          "club": "Aston Villa",
+          "note": "Retour en forme"
+        }
+      ]
+    },
+    {
+      "id": "inj-003",
+      "playerName": "Rodrygo",
+      "teamId": "BRA",
+      "club": "Real Madrid",
+      "position": "ATT",
+      "status": "out",
+      "injury": "Rupture du LCA + ménisque externe (genou droit)",
+      "date": "2026-04-21",
+      "participationChance": 0,
+      "typicalRecovery": "9 à 12 mois (opération + rééducation)",
+      "estimatedReturn": "2027-02-01",
+      "note": "Blessé lors de Real Madrid-Getafe (0-1) le 21 avril. Rupture du ligament croisé antérieur ET du ménisque externe du genou droit confirmée. Forfait officiel pour la fin de saison et la Coupe du Monde 2026 avec le Brésil. Coup dur pour Ancelotti après le forfait de Militão.",
+      "source": "footmercato · Eurosport · RTS · 90min — 22-23/04/2026",
+      "timeline": [
+        {
+          "date": "2026-01-15",
+          "icon": "🚑",
+          "event": "Pépins physiques",
+          "detail": "Blessure au tendon début janvier puis enchaînement de petits pépins musculaires."
+        },
+        {
+          "date": "2026-04-21",
+          "icon": "🚑",
+          "event": "Blessure grave",
+          "detail": "Sort sur blessure lors de Real Madrid-Getafe (0-1). Genou droit touché."
+        },
+        {
+          "date": "2026-04-22",
+          "icon": "🏥",
+          "event": "Diagnostic",
+          "detail": "Le Real annonce une rupture du LCA droit + ménisque externe. Opération programmée."
+        },
+        {
+          "date": "2026-04-23",
+          "icon": "❌",
+          "event": "Forfait Mondial",
+          "detail": "Forfait officiellement confirmé pour la Coupe du Monde 2026."
+        },
+        {
+          "date": "2027-02-01",
+          "icon": "🏃",
+          "event": "Retour estimé",
+          "detail": "Reprise envisageable après 9-10 mois de rééducation, soit début 2027."
+        }
+      ],
+      "replacements": [
+        {
+          "n": "Estêvão",
+          "club": "Chelsea",
+          "note": "Jeune ailier, pari Ancelotti"
+        },
+        {
+          "n": "Endrick",
+          "club": "Real Madrid",
+          "note": "Connaît bien Ancelotti"
+        },
+        {
+          "n": "Antony",
+          "club": "Real Betis",
+          "note": "En forme à Séville"
+        }
+      ]
+    },
+    {
+      "id": "inj-004",
+      "playerName": "Jules Koundé",
+      "teamId": "FRA",
+      "club": "Barcelone",
+      "position": "DEF",
+      "status": "return",
+      "injury": "Blessure cuisse gauche (trêve mars)",
+      "date": "2026-03-03",
+      "participationChance": 95,
+      "typicalRecovery": "3 à 5 semaines",
+      "estimatedReturn": "2026-04-15",
+      "note": "✅ Sélectionné par Deschamps dans la liste des 26 pour le Mondial (14 mai 2026). Revenu en bonne forme en fin de saison avec le Barça.",
+      "source": "FFF · footmercato · Eurosport — 14/05/2026",
+      "timeline": [
+        {
+          "date": "2026-03-01",
+          "icon": "🚑",
+          "event": "Forfait trêve",
+          "detail": "Déclare forfait pour les matchs amicaux face au Brésil et à la Colombie."
+        },
+        {
+          "date": "2026-04-01",
+          "icon": "🏃",
+          "event": "Reprise club",
+          "detail": "Reprise avec Barcelone, enchaîne à nouveau les matchs en Liga."
+        },
+        {
+          "date": "2026-05-13",
+          "icon": "✅",
+          "event": "Liste finale attendue",
+          "detail": "Quasi-certain d'être dans la liste finale du 13 mai (annonce TF1)."
+        }
+      ],
+      "replacements": [
+        {
+          "n": "Pierre Kalulu",
+          "club": "Juventus",
+          "note": "Réserviste en cas de rechute"
+        },
+        {
+          "n": "Malo Gusto",
+          "club": "Chelsea",
+          "note": "Doublure naturelle au poste d'arrière droit"
+        }
+      ]
+    },
+    {
+      "id": "inj-005",
+      "playerName": "William Saliba",
+      "teamId": "FRA",
+      "club": "Arsenal",
+      "position": "DEF",
+      "status": "return",
+      "injury": "Cheville gauche (gêne récurrente)",
+      "date": "2026-03-23",
+      "participationChance": 92,
+      "typicalRecovery": "2 à 4 semaines",
+      "estimatedReturn": "2026-04-10",
+      "note": "✅ Sélectionné par Deschamps dans la liste des 26 pour le Mondial (14 mai 2026). Charnière titulaire avec Konaté.",
+      "source": "FFF · footmercato · Eurosport — 14/05/2026",
+      "timeline": [
+        {
+          "date": "2026-03-01",
+          "icon": "🚑",
+          "event": "Forfait trêve",
+          "detail": "Déclare forfait pour la trêve internationale de mars avec l'équipe de France."
+        },
+        {
+          "date": "2026-04-10",
+          "icon": "🏃",
+          "event": "Reprise attendue",
+          "detail": "Reprise prévue avec Arsenal mais aucune communication officielle détaillée."
+        },
+        {
+          "date": "2026-05-13",
+          "icon": "⚠️",
+          "event": "À surveiller",
+          "detail": "Sa présence dans la liste des 26 de Deschamps dépendra de sa forme en fin de saison."
+        }
+      ],
+      "replacements": [
+        {
+          "n": "Ibrahima Konaté",
+          "club": "Liverpool",
+          "note": "Titulaire avec les Bleus, complémentaire de Saliba en charnière"
+        },
+        {
+          "n": "Dayot Upamecano",
+          "club": "Bayern Munich",
+          "note": "Valeur sûre en défense centrale"
+        },
+        {
+          "n": "Benjamin Pavard",
+          "club": "Inter Milan",
+          "note": "Option polyvalente, réserviste probable"
+        }
+      ]
+    },
+    {
+      "id": "inj-006",
+      "playerName": "Manu Koné",
+      "teamId": "FRA",
+      "club": "AS Roma",
+      "position": "MIL",
+      "status": "return",
+      "injury": "Blessure (trêve de mars)",
+      "date": "2026-03-20",
+      "participationChance": 96,
+      "typicalRecovery": "3 à 5 semaines",
+      "estimatedReturn": "2026-04-20",
+      "note": "✅ Sélectionné par Deschamps dans la liste des 26 pour le Mondial (14 mai 2026). Médaillé d'argent JO Paris 2024.",
+      "source": "FFF · footmercato · Eurosport — 14/05/2026",
+      "timeline": [
+        {
+          "date": "2026-03-20",
+          "icon": "🚑",
+          "event": "Blessure",
+          "detail": "Blessure déclarée au rassemblement de mars, ne participe pas aux amicaux Brésil/Colombie."
+        },
+        {
+          "date": "2026-04-15",
+          "icon": "🏃",
+          "event": "Retour progressif",
+          "detail": "Réintégration en Serie A avec la Roma."
+        },
+        {
+          "date": "2026-05-13",
+          "icon": "✅",
+          "event": "Liste attendue",
+          "detail": "Devrait figurer dans le groupe définitif si aucune rechute."
+        }
+      ],
+      "replacements": [
+        {
+          "n": "Aurélien Tchouaméni",
+          "club": "Real Madrid",
+          "note": "Indispensable"
+        },
+        {
+          "n": "Warren Zaïre-Emery",
+          "club": "PSG",
+          "note": "Option jeune"
+        }
+      ]
+    },
+    {
+      "id": "inj-007",
+      "playerName": "Federico Valverde",
+      "teamId": "URU",
+      "club": "Real Madrid",
+      "position": "MIL",
+      "status": "return",
+      "injury": "Lumbosciatique (lombaire + nerf sciatique)",
+      "date": "2026-05-25",
+      "participationChance": 80,
+      "typicalRecovery": "2 à 3 semaines (repos + rééducation)",
+      "estimatedReturn": "2026-06-11",
+      "note": "✅ Sélectionné CAPITAINE de la liste Uruguay par Bielsa (annonce 23 mai). MAIS deux pépins majeurs en mai : traumatisme crânien suite à altercation avec Tchouaméni début mai, puis diagnostic de lumbosciatique le 25 mai par le Real. Forfait pour les qualifs Uruguay vs Paraguay (5 juin) et Venezuela (10 juin), retour ciblé directement pour le Mondial le 11 juin. À surveiller jusqu'au coup d'envoi.",
+      "source": "footboom · tribuna.com · RTS · Infobae · Real Madrid officiel — 23-25/05/2026",
+      "timeline": [
+        {
+          "date": "2025-11-09",
+          "icon": "🚑",
+          "event": "Lésion ischio",
+          "detail": "Lésion semi-membraneux jambe droite face au Rayo. Forfait trêve internationale nov 2025."
+        },
+        {
+          "date": "2026-01-11",
+          "icon": "🚑",
+          "event": "Douleur mollet",
+          "detail": "Sort à la 68e minute de la finale Supercoupe Barça-Real, gêné au mollet."
+        },
+        {
+          "date": "2026-05-07",
+          "icon": "🤕",
+          "event": "Traumatisme crânien",
+          "detail": "Altercation avec son coéquipier Aurélien Tchouaméni au Real Madrid. Hospitalisé. Repos imposé 10 à 14 jours. Manque les matchs vs Barcelone, Oviedo et Séville."
+        },
+        {
+          "date": "2026-05-15",
+          "icon": "🏃",
+          "event": "Retour entraînement",
+          "detail": "Reprend les entraînements collectifs au Real Madrid."
+        },
+        {
+          "date": "2026-05-23",
+          "icon": "✅",
+          "event": "Sélectionné capitaine",
+          "detail": "Marcelo Bielsa intègre Valverde dans sa liste des 26 et lui confie le brassard de capitaine de la Céleste."
+        },
+        {
+          "date": "2026-05-25",
+          "icon": "🏥",
+          "event": "Lumbosciatique",
+          "detail": "Real Madrid annonce un diagnostic de lumbosciatique (douleur lombaire + nerf sciatique). Repos forcé."
+        },
+        {
+          "date": "2026-06-05",
+          "icon": "❌",
+          "event": "Forfait qualif Paraguay",
+          "detail": "Absent du match Uruguay-Paraguay des qualifs Mondial."
+        },
+        {
+          "date": "2026-06-10",
+          "icon": "❌",
+          "event": "Forfait qualif Venezuela",
+          "detail": "Absent du match Uruguay-Venezuela. Dernier test avant le Mondial raté."
+        },
+        {
+          "date": "2026-06-11",
+          "icon": "⚠️",
+          "event": "Retour pour le Mondial",
+          "detail": "Retour ciblé pour le coup d'envoi du Mondial. Forme physique incertaine."
+        }
+      ],
+      "replacements": [
+        {
+          "n": "Manuel Ugarte",
+          "club": "Manchester United",
+          "note": "Profil défensif"
+        },
+        {
+          "n": "Rodrigo Bentancur",
+          "club": "Tottenham",
+          "note": "Cadre du milieu uruguayen"
+        },
+        {
+          "n": "Giorgian de Arrascaeta",
+          "club": "Flamengo",
+          "note": "Option offensive si nécessaire"
+        }
+      ]
+    },
+    {
+      "id": "inj-008",
+      "playerName": "Xavi Simons",
+      "teamId": "NED",
+      "club": "Tottenham",
+      "position": "MIL",
+      "status": "out",
+      "injury": "Rupture du LCA (genou droit)",
+      "date": "2026-04-25",
+      "participationChance": 0,
+      "typicalRecovery": "8 à 10 mois (opération + rééducation)",
+      "estimatedReturn": "2027-01-15",
+      "note": "Blessé en seconde période de Tottenham-Wolverhampton (25/04). Tottenham a officialisé la rupture des ligaments croisés antérieurs du genou droit le 27 avril. Forfait pour la Coupe du Monde 2026 avec les Pays-Bas.",
+      "source": "Tottenham officiel · Goal.com · besoccer · footmercato — 27/04/2026",
+      "timeline": [
+        {
+          "date": "2026-04-25",
+          "icon": "🚑",
+          "event": "Blessure",
+          "detail": "Sort sur blessure en seconde période de Tottenham-Wolverhampton (Premier League)."
+        },
+        {
+          "date": "2026-04-27",
+          "icon": "🏥",
+          "event": "Diagnostic",
+          "detail": "Tottenham officialise la rupture du LCA droit. Opération à venir."
+        },
+        {
+          "date": "2026-04-27",
+          "icon": "❌",
+          "event": "Forfait Mondial",
+          "detail": "Saison terminée et forfait pour la Coupe du Monde 2026 avec les Pays-Bas."
+        },
+        {
+          "date": "2027-01-15",
+          "icon": "🏃",
+          "event": "Retour estimé",
+          "detail": "Pas de retour avant fin 2026 ou début 2027."
+        }
+      ],
+      "replacements": [
+        {
+          "n": "Tijjani Reijnders",
+          "club": "Manchester City",
+          "note": "Profil créatif au milieu"
+        },
+        {
+          "n": "Quinten Timber",
+          "club": "Feyenoord",
+          "note": "Polyvalent au milieu"
+        },
+        {
+          "n": "Cody Gakpo",
+          "club": "Liverpool",
+          "note": "Option offensive en relais"
+        }
+      ]
+    },
+    {
+      "id": "inj-009",
+      "playerName": "Éder Militão",
+      "teamId": "BRA",
+      "club": "Real Madrid",
+      "position": "DEF",
+      "status": "out",
+      "injury": "Rupture tendon proximal du biceps fémoral (cuisse gauche)",
+      "date": "2026-04-25",
+      "participationChance": 0,
+      "typicalRecovery": "5 à 6 mois (opération + rééducation)",
+      "estimatedReturn": "2026-10-15",
+      "note": "Sort sur blessure face à Alavés au Bernabéu, opéré dans la foulée par un spécialiste en Finlande. Forfait pour la Coupe du Monde 2026 avec le Brésil. Énième pépin majeur (déjà 2 ruptures de LCA en 2024 et 2025).",
+      "source": "Goal · DH · footballko · Eurosport — 28/04/2026",
+      "timeline": [
+        {
+          "date": "2026-04-25",
+          "icon": "🚑",
+          "event": "Blessure",
+          "detail": "Sort sur blessure lors de Real-Alavés. Suspicion confirmée à la mi-temps."
+        },
+        {
+          "date": "2026-04-27",
+          "icon": "🏥",
+          "event": "Diagnostic & opération",
+          "detail": "Rupture du tendon proximal du biceps fémoral cuisse gauche. Opéré par un spécialiste en Finlande."
+        },
+        {
+          "date": "2026-04-28",
+          "icon": "❌",
+          "event": "Forfait Mondial",
+          "detail": "Real Madrid et CBF confirment l'absence prolongée et le forfait pour le Mondial 2026."
+        },
+        {
+          "date": "2026-10-15",
+          "icon": "🏃",
+          "event": "Retour estimé",
+          "detail": "Reprise envisagée pour octobre 2026, après ~5-6 mois de rééducation."
+        }
+      ],
+      "replacements": [
+        {
+          "n": "Gabriel Magalhães",
+          "club": "Arsenal",
+          "note": "Charnière naturelle avec Marquinhos"
+        },
+        {
+          "n": "Lucas Beraldo",
+          "club": "PSG",
+          "note": "Option d'avenir"
+        },
+        {
+          "n": "Murillo",
+          "club": "Nottingham Forest",
+          "note": "Forme en Premier League"
+        }
+      ]
+    },
+    {
+      "id": "inj-010",
+      "playerName": "Lamine Yamal",
+      "teamId": "ESP",
+      "club": "FC Barcelone",
+      "position": "ATT",
+      "status": "return",
+      "injury": "Déchirure du biceps fémoral (cuisse gauche)",
+      "date": "2026-04-22",
+      "participationChance": 85,
+      "typicalRecovery": "4 à 6 semaines",
+      "estimatedReturn": "2026-06-01",
+      "note": "Blessé en marquant un penalty contre le Celta Vigo (1-0) le 22 avril. Forfait pour la fin de saison du Barça mais Hansi Flick a assuré qu'il sera bien présent au Mondial 2026 avec l'Espagne.",
+      "source": "footmercato · Eurosport · RTS · L'Avenir — 23-24/04/2026",
+      "timeline": [
+        {
+          "date": "2026-04-22",
+          "icon": "🚑",
+          "event": "Blessure",
+          "detail": "Sort sur blessure après avoir marqué un penalty face au Celta Vigo (Liga, 1-0)."
+        },
+        {
+          "date": "2026-04-23",
+          "icon": "🏥",
+          "event": "Diagnostic",
+          "detail": "Déchirure musculaire au biceps fémoral cuisse gauche. Forfait pour la fin de saison du Barça."
+        },
+        {
+          "date": "2026-04-24",
+          "icon": "💬",
+          "event": "Rassurance Flick",
+          "detail": "Hansi Flick assure que Lamine Yamal sera disponible pour le Mondial avec l'Espagne."
+        },
+        {
+          "date": "2026-06-01",
+          "icon": "✅",
+          "event": "Retour attendu",
+          "detail": "Devrait être prêt pour la liste finale et le rassemblement de la Roja."
+        }
+      ],
+      "replacements": [
+        {
+          "n": "Nico Williams",
+          "club": "Athletic Bilbao",
+          "note": "Ailier en cas de problème"
+        },
+        {
+          "n": "Ferran Torres",
+          "club": "FC Barcelone",
+          "note": "Polyvalent en attaque"
+        }
+      ]
+    },
+    {
+      "id": "inj-011",
+      "playerName": "Kylian Mbappé",
+      "teamId": "FRA",
+      "club": "Real Madrid",
+      "position": "ATT",
+      "status": "return",
+      "injury": "Lésion du semi-tendineux (cuisse gauche)",
+      "date": "2026-04-24",
+      "participationChance": 97,
+      "typicalRecovery": "3 à 4 semaines (jusqu'à 12 si grave)",
+      "estimatedReturn": "2026-05-25",
+      "note": "✅ CAPITAINE des Bleus. Sélectionné par Deschamps dans la liste des 26 le 14 mai. Retour effectif en fin de saison après lésion aux ischios. Prêt pour le Mondial.",
+      "source": "FFF · footmercato · franceinfo · L'Équipe — 14-29/05/2026",
+      "timeline": [
+        {
+          "date": "2026-04-24",
+          "icon": "🚑",
+          "event": "Blessure",
+          "detail": "Sort sur blessure lors de Real Madrid-Betis. Touché à la cuisse gauche."
+        },
+        {
+          "date": "2026-04-28",
+          "icon": "🏥",
+          "event": "Diagnostic",
+          "detail": "Le Real Madrid confirme une lésion musculaire au semi-tendineux (ischios) gauche."
+        },
+        {
+          "date": "2026-05-10",
+          "icon": "⚠️",
+          "event": "Forfait Clasico ?",
+          "detail": "Forfait Espanyol acté ; incertain pour le Clasico face au Barça."
+        },
+        {
+          "date": "2026-05-13",
+          "icon": "📋",
+          "event": "Liste Deschamps",
+          "detail": "Décision finale de Deschamps sur sa présence dans la liste des 26."
+        },
+        {
+          "date": "2026-05-25",
+          "icon": "🏃",
+          "event": "Retour estimé",
+          "detail": "Retour collectif envisageable pour le rassemblement des Bleus."
+        }
+      ],
+      "replacements": [
+        {
+          "n": "Marcus Thuram",
+          "club": "Inter Milan",
+          "note": "Pourrait dépanner en cas d'aggravation"
+        },
+        {
+          "n": "Ousmane Dembélé",
+          "club": "PSG",
+          "note": "Pilier offensif si Mbappé absent"
+        },
+        {
+          "n": "Bradley Barcola",
+          "club": "PSG",
+          "note": "Si forme retrouvée"
+        }
+      ]
+    },
+    {
+      "id": "inj-012",
+      "playerName": "Luca Zidane",
+      "teamId": "ALG",
+      "club": "Grenade",
+      "position": "GAR",
+      "status": "doubt",
+      "injury": "Fracture mâchoire + menton (post-opératoire)",
+      "date": "2026-04-25",
+      "participationChance": 20,
+      "typicalRecovery": "6 à 10 semaines (selon opération)",
+      "estimatedReturn": "2026-06-15",
+      "note": "Opéré début mai, porte désormais un casque protecteur spécialement conçu. Sa participation paraît compromise malgré une rééducation accélérée. La fédération algérienne dévoile sa liste fin mai — décision imminente.",
+      "source": "franceinfo · Eurosport · foot01 — 28/04-29/05/2026",
+      "timeline": [
+        {
+          "date": "2026-04-25",
+          "icon": "🚑",
+          "event": "Choc violent",
+          "detail": "Sortie aérienne avec Grenade contre Almeria. Commotion cérébrale, évacué."
+        },
+        {
+          "date": "2026-04-27",
+          "icon": "🏥",
+          "event": "Diagnostic",
+          "detail": "Fracture de la mâchoire et du menton confirmée par Grenade."
+        },
+        {
+          "date": "2026-04-28",
+          "icon": "⚠️",
+          "event": "Risque forfait",
+          "detail": "Une opération pourrait compromettre sa participation au Mondial 2026."
+        },
+        {
+          "date": "2026-06-10",
+          "icon": "📋",
+          "event": "Décision Petkovic",
+          "detail": "Le sélectionneur tranchera selon l'évolution post-opératoire."
+        }
+      ],
+      "replacements": [
+        {
+          "n": "Anthony Mandrea",
+          "club": "SM Caen",
+          "note": "Lui aussi blessé actuellement"
+        },
+        {
+          "n": "Melvin Mastil",
+          "club": "Stade Nyonnais",
+          "note": "Lui aussi blessé"
+        },
+        {
+          "n": "Oussama Benbot",
+          "club": "USM Alger",
+          "note": "Option locale en cas de cascade"
+        }
+      ]
+    },
+    {
+      "id": "inj-013",
+      "playerName": "Juan Foyth",
+      "teamId": "ARG",
+      "club": "Villarreal",
+      "position": "DEF",
+      "status": "out",
+      "injury": "Rupture du tendon d'Achille gauche",
+      "date": "2026-05-08",
+      "participationChance": 0,
+      "typicalRecovery": "6 à 12 mois (opération + rééducation)",
+      "estimatedReturn": "2026-12-01",
+      "note": "Polyvalent (latéral droit / défenseur central), pilier potentiel du roster Scaloni. Rupture confirmée début mai. Forfait pour le Mondial avec l'Argentine, qu'il défendait en tant que champion en titre.",
+      "source": "footmercato · Eurosport · L'Avenir — 09-10/05/2026",
+      "timeline": [
+        {
+          "date": "2026-05-08",
+          "icon": "🚑",
+          "event": "Blessure",
+          "detail": "Sort sur blessure lors d'un match de Liga avec Villarreal. Diagnostic immédiat : rupture du tendon d'Achille gauche."
+        },
+        {
+          "date": "2026-05-10",
+          "icon": "🏥",
+          "event": "Opération",
+          "detail": "Opéré dans la foulée. 6 à 12 mois d'indisponibilité estimés."
+        },
+        {
+          "date": "2026-05-12",
+          "icon": "❌",
+          "event": "Forfait Mondial",
+          "detail": "Lionel Scaloni acte officiellement le forfait. Coup dur pour la défense de l'Albiceleste."
+        }
+      ],
+      "replacements": [
+        {
+          "n": "Nahuel Molina",
+          "club": "Atlético Madrid",
+          "note": "Latéral droit titulaire"
+        },
+        {
+          "n": "Gonzalo Montiel",
+          "club": "River Plate",
+          "note": "Doublure naturelle"
+        },
+        {
+          "n": "Facundo Medina",
+          "club": "Marseille",
+          "note": "Polyvalent"
+        }
+      ]
+    },
+    {
+      "id": "inj-014",
+      "playerName": "Joaquín Panichelli",
+      "teamId": "ARG",
+      "club": "Strasbourg",
+      "position": "ATT",
+      "status": "out",
+      "injury": "Rupture des ligaments croisés (genou droit)",
+      "date": "2026-05-04",
+      "participationChance": 0,
+      "typicalRecovery": "8 à 10 mois (opération + rééducation)",
+      "estimatedReturn": "2027-02-01",
+      "note": "Jeune buteur révélation de Strasbourg en Ligue 1 (15 buts cette saison), il était pressenti pour intégrer le 26 argentin. Forfait pour le Mondial après une rupture du LCA droit.",
+      "source": "L'Équipe · footmercato · BeFoot — 05-06/05/2026",
+      "timeline": [
+        {
+          "date": "2026-05-04",
+          "icon": "🚑",
+          "event": "Blessure",
+          "detail": "Touché lors d'un match de fin de saison avec Strasbourg. Genou droit en hyperextension."
+        },
+        {
+          "date": "2026-05-05",
+          "icon": "🏥",
+          "event": "Diagnostic",
+          "detail": "IRM confirme rupture du LCA droit. Opération à venir."
+        },
+        {
+          "date": "2026-05-08",
+          "icon": "❌",
+          "event": "Forfait Mondial",
+          "detail": "Scaloni officialise le forfait. Première rupture LCA pour le jeune attaquant."
+        }
+      ],
+      "replacements": [
+        {
+          "n": "Julián Álvarez",
+          "club": "Atlético Madrid",
+          "note": "Titulaire en pointe"
+        },
+        {
+          "n": "Lautaro Martínez",
+          "club": "Inter Milan",
+          "note": "Buteur n°1"
+        },
+        {
+          "n": "José Manuel López",
+          "club": "Palmeiras",
+          "note": "Option de rotation"
+        }
+      ]
+    },
+    {
+      "id": "inj-015",
+      "playerName": "Valentin Carboni",
+      "teamId": "ARG",
+      "club": "Inter Milan",
+      "position": "MIL",
+      "status": "out",
+      "injury": "Lésion grave du genou",
+      "date": "2026-05-15",
+      "participationChance": 0,
+      "typicalRecovery": "6 à 9 mois (opération + rééducation)",
+      "estimatedReturn": "2026-12-15",
+      "note": "Jeune talent argentin de 21 ans, créatif au milieu offensif. Grave blessure au genou diagnostiquée mi-mai, contraint à un long arrêt et au forfait pour la Coupe du Monde.",
+      "source": "sport.le360 · Eurosport — 15-18/05/2026",
+      "timeline": [
+        {
+          "date": "2026-05-15",
+          "icon": "🚑",
+          "event": "Blessure",
+          "detail": "Genou gravement touché lors d'un match avec son club."
+        },
+        {
+          "date": "2026-05-16",
+          "icon": "🏥",
+          "event": "Diagnostic",
+          "detail": "Examens approfondis confirment l'étendue de la blessure."
+        },
+        {
+          "date": "2026-05-18",
+          "icon": "❌",
+          "event": "Forfait Mondial",
+          "detail": "Scaloni écarte Carboni de sa pré-liste."
+        }
+      ],
+      "replacements": [
+        {
+          "n": "Thiago Almada",
+          "club": "Atlético Madrid",
+          "note": "Profil créatif similaire"
+        },
+        {
+          "n": "Nico Paz",
+          "club": "Côme",
+          "note": "Jeune talent en relais"
+        },
+        {
+          "n": "Giuliano Simeone",
+          "club": "Atlético Madrid",
+          "note": "Profil dynamique"
+        }
+      ]
+    }
+  ]
+}

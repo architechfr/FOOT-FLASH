@@ -1,0 +1,44 @@
+# ─── Android Studio / Gradle ────────────────────────────────
+*.iml
+.gradle/
+.kotlin/
+local.properties
+/build
+**/build/
+/captures
+.externalNativeBuild
+.cxx
+
+# ─── IntelliJ / Android Studio (IDE config personnel) ───────
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+/.idea/deploymentTargetSelector.xml
+/.idea/deploymentTargetDropDown.xml
+/.idea/misc.xml
+/.idea/gradle.xml
+/.idea/jarRepositories.xml
+/.idea/runConfigurations.xml
+
+# ─── Logs / temp / OS ───────────────────────────────────────
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ─── APK builds / signature (NE JAMAIS COMMIT) ──────────────
+*.apk
+*.aab
+*.keystore
+*.jks
+key.properties
+
+# ─── Node (si on ajoute des outils JS) ──────────────────────
+node_modules/
+package-lock.json
+.npm/
