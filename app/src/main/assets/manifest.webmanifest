@@ -1,0 +1,17 @@
+{
+  "name": "Foot Flash 2026",
+  "short_name": "FootFlash",
+  "description": "App compagnon de la Coupe du Monde FIFA 2026 (USA · Canada · Mexique)",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#060d1f",
+  "theme_color": "#060d1f",
+  "lang": "fr",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
