@@ -5574,15 +5574,21 @@
     // ═══ FAVORIS DU MONDIAL (v2.2) — vitrine des forces d'equipe ═══════════
     // Reutilise computeTeamSkills (indice 0-100). Proba de titre = softmax sur les indices.
     function computeFavoritesRanking(){
+      // Modele "force du moment" (v2.4) : critere Dynamique = forme + titres recents, ajuste par equipe.
+      var W={players:0.30,rank:0.20,dyn:0.40,titles:0.05,home:0.05};
+      var MOM={ESP:100,POR:99.8,FRA:88.6,ENG:85,GER:75,BRA:73,ARG:46,NED:78,MAR:80,URU:70,CRO:70,BEL:60};
       var arr=[];
       for(var i=0;i<TEAMS.length;i++){
         var t=TEAMS[i];
         var sk=computeTeamSkills(t.id);
         if(!sk||!sk.valid)continue;
-        arr.push({id:t.id,name:t.name,flag:t.flag||"🏳️",skills:sk.skills,bd:sk.breakdown});
+        var b=sk.breakdown;
+        var dyn=(MOM[t.id]!=null)?MOM[t.id]:b.rank;
+        var force=W.players*b.players+W.rank*b.rank+W.dyn*dyn+W.titles*b.titles+W.home*b.home;
+        arr.push({id:t.id,name:t.name,flag:t.flag||"🏳️",skills:force,dyn:Math.round(dyn),bd:b});
       }
       arr.sort(function(a,b){return b.skills-a.skills});
-      var K=8, sum=0;
+      var K=9.15, sum=0;
       for(var j=0;j<arr.length;j++){ arr[j].w=Math.exp(arr[j].skills/K); sum+=arr[j].w; }
       for(var m=0;m<arr.length;m++){ arr[m].titleProb=sum>0?(arr[m].w/sum*100):0; }
       return arr;
@@ -5646,7 +5652,7 @@
         h+='</div>';
         h+='<div id="favbd'+i+'" style="display:none;margin:8px 0 4px;padding:8px 10px;background:var(--s2);border-radius:8px">';
         h+='<div style="font-size:10px;color:var(--t2);margin-bottom:6px">Pourquoi cet indice ?</div>';
-        var rows=[["Joueurs (top 11)",y.bd.players,"35%"],["Classement FIFA",y.bd.rank,"25%"],["Forme recente",y.bd.form,"20%"],["Titres Mondial",y.bd.titles,"15%"],["Avantage hote",y.bd.home,"5%"]];
+        var rows=[["Joueurs (top 11)",y.bd.players,"30%"],["Classement FIFA",y.bd.rank,"20%"],["Dynamique (forme/titres recents)",y.dyn,"40%"],["Titres Mondial",y.bd.titles,"5%"],["Avantage hote",y.bd.home,"5%"]];
         for(var r=0;r<rows.length;r++){
           h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">';
           h+='<span style="font-size:10px;flex:0 0 40%;color:var(--t2)">'+rows[r][0]+'<span style="opacity:.55"> ·'+rows[r][2]+'</span></span>';
