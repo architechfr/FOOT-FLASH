@@ -5514,6 +5514,97 @@
       go("simul");
     }
 
+    // ═══ FAVORIS DU MONDIAL (v2.2) — vitrine des forces d'equipe ═══════════
+    // Reutilise computeTeamSkills (indice 0-100). Proba de titre = softmax sur les indices.
+    function computeFavoritesRanking(){
+      var arr=[];
+      for(var i=0;i<TEAMS.length;i++){
+        var t=TEAMS[i];
+        var sk=computeTeamSkills(t.id);
+        if(!sk||!sk.valid)continue;
+        arr.push({id:t.id,name:t.name,flag:t.flag||"🏳️",skills:sk.skills,bd:sk.breakdown});
+      }
+      arr.sort(function(a,b){return b.skills-a.skills});
+      var K=8, sum=0;
+      for(var j=0;j<arr.length;j++){ arr[j].w=Math.exp(arr[j].skills/K); sum+=arr[j].w; }
+      for(var m=0;m<arr.length;m++){ arr[m].titleProb=sum>0?(arr[m].w/sum*100):0; }
+      return arr;
+    }
+    function favTier(s){
+      if(s>=78)return {label:"Pretendants au titre",icon:"🏆",col:"#FFD700"};
+      if(s>=65)return {label:"Serieux outsiders",icon:"⭐",col:"var(--g)"};
+      if(s>=52)return {label:"Outsiders",icon:"➡️",col:"#4FC3F7"};
+      return {label:"Petits poucets",icon:"🌱",col:"var(--t2)"};
+    }
+    function ffToggleFavList(){
+      var l=document.getElementById("favFullList"), c=document.getElementById("favChevron");
+      if(!l)return;
+      var open=l.style.display!=="none";
+      l.style.display=open?"none":"block";
+      if(c)c.textContent=open?"Voir le classement complet des 48 ▾":"Masquer le classement ▴";
+    }
+    function ffToggleFavRow(idx){
+      var e=document.getElementById("favbd"+idx);
+      if(e)e.style.display=(e.style.display==="none"||!e.style.display)?"block":"none";
+    }
+    function favBar(val,col){
+      return '<div style="flex:1;height:7px;background:var(--s3);border-radius:4px;overflow:hidden"><div style="height:100%;width:'+Math.round(val)+'%;background:'+col+';border-radius:4px"></div></div>';
+    }
+    function rFavoritesPanel(){
+      var arr=computeFavoritesRanking();
+      if(!arr.length)return "";
+      var h='<div style="background:var(--s1);border:1px solid var(--g);border-radius:12px;padding:14px;margin-bottom:12px">';
+      h+='<div style="font-size:14px;font-weight:900;color:var(--g);margin-bottom:2px">🏆 Favoris du Mondial</div>';
+      h+='<div style="font-size:10px;color:var(--t2);margin-bottom:12px">Indice de force 0-100 · probabilite de titre estimee</div>';
+      var medals=["🥇","🥈","🥉"];
+      h+='<div style="display:flex;gap:6px;margin-bottom:10px">';
+      for(var p=0;p<3&&p<arr.length;p++){
+        var x=arr[p];
+        h+='<div style="flex:1;text-align:center;background:var(--s2);border-radius:10px;padding:10px 4px">';
+        h+='<div style="font-size:18px">'+medals[p]+'</div>';
+        h+='<div style="font-size:22px;line-height:1.1;margin:2px 0">'+x.flag+'</div>';
+        h+='<div style="font-size:10px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+x.name+'</div>';
+        h+='<div style="font-size:13px;font-weight:900;color:var(--g);margin-top:2px">'+x.titleProb.toFixed(1)+'%</div>';
+        h+='<div style="font-size:9px;color:var(--t2)">force '+Math.round(x.skills)+'</div>';
+        h+='</div>';
+      }
+      h+='</div>';
+      h+='<div id="favChevron" onclick="ffToggleFavList()" style="text-align:center;font-size:11px;font-weight:700;color:var(--g);cursor:pointer;padding:8px;background:var(--s2);border-radius:8px">Voir le classement complet des 48 ▾</div>';
+      h+='<div id="favFullList" style="display:none;margin-top:10px">';
+      var curTier=null;
+      for(var i=0;i<arr.length;i++){
+        var y=arr[i], tier=favTier(y.skills);
+        if(tier.label!==curTier){
+          curTier=tier.label;
+          h+='<div style="font-size:11px;font-weight:800;color:'+tier.col+';margin:12px 0 6px">'+tier.icon+' '+tier.label+'</div>';
+        }
+        h+='<div onclick="ffToggleFavRow('+i+')" style="cursor:pointer;padding:7px 0;border-bottom:1px solid var(--s3)">';
+        h+='<div style="display:flex;align-items:center;gap:8px">';
+        h+='<span style="font-size:11px;color:var(--t2);min-width:20px;text-align:right">'+(i+1)+'</span>';
+        h+='<span style="font-size:18px">'+y.flag+'</span>';
+        h+='<span style="font-size:12px;font-weight:700;min-width:0;flex:0 0 30%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+y.name+'</span>';
+        h+=favBar(y.skills, tier.col);
+        h+='<span style="font-size:12px;font-weight:900;color:var(--tx);min-width:26px;text-align:right">'+Math.round(y.skills)+'</span>';
+        h+='<span style="font-size:11px;font-weight:700;color:var(--g);min-width:42px;text-align:right">'+y.titleProb.toFixed(1)+'%</span>';
+        h+='</div>';
+        h+='<div id="favbd'+i+'" style="display:none;margin:8px 0 4px;padding:8px 10px;background:var(--s2);border-radius:8px">';
+        h+='<div style="font-size:10px;color:var(--t2);margin-bottom:6px">Pourquoi cet indice ?</div>';
+        var rows=[["Joueurs (top 11)",y.bd.players,"35%"],["Classement FIFA",y.bd.rank,"25%"],["Forme recente",y.bd.form,"20%"],["Titres Mondial",y.bd.titles,"15%"],["Avantage hote",y.bd.home,"5%"]];
+        for(var r=0;r<rows.length;r++){
+          h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">';
+          h+='<span style="font-size:10px;flex:0 0 40%;color:var(--t2)">'+rows[r][0]+'<span style="opacity:.55"> ·'+rows[r][2]+'</span></span>';
+          h+=favBar(rows[r][1],"var(--g)");
+          h+='<span style="font-size:10px;font-weight:700;min-width:24px;text-align:right">'+rows[r][1]+'</span>';
+          h+='</div>';
+        }
+        if(y.bd.fifaRank)h+='<div style="font-size:9px;color:var(--t2);margin-top:4px">Rang FIFA #'+y.bd.fifaRank+' · note moyenne '+y.bd.avgRating+' · '+y.bd.titlesCount+' titre(s)</div>';
+        h+='</div>';
+        h+='</div>';
+      }
+      h+='</div></div>';
+      return h;
+    }
+
     function rPronoHub(){
       loadPredictions();
       if(!V.bets)V.bets={};
@@ -5522,6 +5613,7 @@
       var pct=stats.available>0?Math.round(stats.filled/stats.available*100):0;
       var totalBets=Object.keys(V.bets).length;
       var h='<div class="sec">🎯 PRONOSTICS</div>';
+      h+=rFavoritesPanel();
       // Bandeau crédits
       h+='<div style="background:var(--s1);border:1px solid var(--g);border-radius:12px;padding:10px 14px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between">';
       h+='<div style="display:flex;align-items:center;gap:8px"><div style="font-size:22px;font-weight:900;color:var(--g)">💰 '+V.credits+'</div><div style="font-size:9px;color:var(--t2);line-height:1.3">Crédits<br>disponibles</div></div>';
