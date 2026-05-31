@@ -5591,7 +5591,7 @@
         var x=arr[p];
         h+='<div style="flex:1;text-align:center;background:var(--s2);border-radius:10px;padding:10px 4px">';
         h+='<div style="font-size:18px">'+medals[p]+'</div>';
-        h+='<div style="font-size:22px;line-height:1.1;margin:2px 0">'+x.flag+'</div>';
+        h+='<div style="margin:4px 0">'+flagImg(x.id,42)+'</div>';
         h+='<div style="font-size:10px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+x.name+'</div>';
         h+='<div style="font-size:13px;font-weight:900;color:var(--g);margin-top:2px">'+x.titleProb.toFixed(1)+'%</div>';
         h+='<div style="font-size:9px;color:var(--t2)">force '+Math.round(x.skills)+'</div>';
@@ -5610,7 +5610,7 @@
         h+='<div onclick="ffToggleFavRow('+i+')" style="cursor:pointer;padding:7px 0;border-bottom:1px solid var(--s3)">';
         h+='<div style="display:flex;align-items:center;gap:8px">';
         h+='<span style="font-size:11px;color:var(--t2);min-width:20px;text-align:right">'+(i+1)+'</span>';
-        h+='<span style="font-size:18px">'+y.flag+'</span>';
+        h+='<span style="display:inline-flex;align-items:center">'+flagImg(y.id,24)+'</span>';
         h+='<span style="font-size:12px;font-weight:700;min-width:0;flex:0 0 30%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+y.name+'</span>';
         h+=favBar(y.skills, tier.col);
         h+='<span style="font-size:12px;font-weight:900;color:var(--tx);min-width:26px;text-align:right">'+Math.round(y.skills)+'</span>';
