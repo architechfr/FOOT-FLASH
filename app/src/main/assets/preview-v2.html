@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Foot Flash 2026 — Preview v2 Premium Broadcast</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   FOOT FLASH 2026 — DESIGN SYSTEM v2
+   Direction : Premium Broadcast (BeIN / Canal+ inspired)
+   ========================================================= */
+:root {
+  /* ===== PALETTE ===== */
+  --bg-deep:        #060A12;
+  --bg-primary:     #0A1020;
+  --bg-secondary:   #0E1525;
+  --bg-elevated:    #131C2E;
+  --bg-card-grad:   linear-gradient(155deg, #16213A 0%, #0E1525 100%);
+  --bg-card-hover:  linear-gradient(155deg, #1B2942 0%, #131C2E 100%);
+
+  /* OR signature */
+  --gold:           #D4A24C;
+  --gold-bright:    #E5B855;
+  --gold-dark:      #8B6E3F;
+  --gold-grad:      linear-gradient(135deg, #E5B855 0%, #D4A24C 55%, #B8893A 100%);
+  --gold-grad-text: linear-gradient(135deg, #F4D27A 0%, #D4A24C 100%);
+  --gold-glow-sm:   0 0 12px rgba(212,162,76,.35);
+  --gold-glow-md:   0 0 28px rgba(212,162,76,.45);
+  --gold-glow-lg:   0 4px 36px rgba(212,162,76,.55);
+
+  /* Bordures */
+  --border-subtle:  rgba(255,255,255,.06);
+  --border-medium:  rgba(255,255,255,.10);
+  --border-strong:  rgba(255,255,255,.16);
+  --border-gold:    rgba(212,162,76,.35);
+  --border-gold-on: rgba(212,162,76,.85);
+
+  /* Texte */
+  --text-1:         #FFFFFF;
+  --text-2:         #B8C0CC;
+  --text-3:         #6B7689;
+  --text-4:         #4A5364;
+  --text-gold:      #D4A24C;
+
+  /* Status */
+  --live:           #FF3B47;
+  --success:        #4ADE80;
+  --warn:           #FF8C42;
+
+  /* Typo */
+  --f-display:      'Bebas Neue', 'Inter', system-ui, sans-serif;
+  --f-body:         'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Spacing */
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:20px; --s-6:24px; --s-8:32px; --s-10:40px;
+
+  /* Radius */
+  --r-sm:8px; --r-md:12px; --r-lg:16px; --r-xl:20px; --r-2xl:24px; --r-full:9999px;
+
+  /* Shadows */
+  --sh-card:        0 4px 24px rgba(0,0,0,.4);
+  --sh-card-hov:    0 8px 32px rgba(0,0,0,.55);
+  --sh-gold:        0 6px 24px rgba(212,162,76,.30);
+}
+
+/* ===== RESET ===== */
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html,body { background:var(--bg-deep); color:var(--text-1); font-family:var(--f-body); font-size:14px; line-height:1.45; -webkit-font-smoothing:antialiased; }
+
+/* ===== UTILITAIRES ===== */
+.display { font-family:var(--f-display); letter-spacing:.04em; text-transform:uppercase; }
+.text-gold { color:var(--text-gold); }
+.text-2 { color:var(--text-2); }
+.text-3 { color:var(--text-3); }
+.uppercase { text-transform:uppercase; letter-spacing:.08em; }
+.gold-text-grad { background:var(--gold-grad-text); -webkit-background-clip:text; background-clip:text; color:transparent; }
+
+/* ===== LAYOUT DÉMO ===== */
+.preview-shell {
+  min-height:100vh;
+  background: radial-gradient(ellipse at top, #1A2440 0%, var(--bg-deep) 60%);
+  padding:48px 24px 80px;
+}
+.preview-header {
+  max-width:1400px; margin:0 auto 48px; text-align:center;
+}
+.preview-header h1 { font-family:var(--f-display); font-size:48px; letter-spacing:.06em; }
+.preview-header h1 .gold-text-grad { display:inline-block; }
+.preview-header p { color:var(--text-3); margin-top:8px; font-size:14px; }
+
+.phones-row {
+  max-width:1400px; margin:0 auto;
+  display:grid; grid-template-columns:repeat(3,1fr); gap:32px;
+}
+@media (max-width:1100px) { .phones-row { grid-template-columns:1fr; max-width:420px; } }
+
+.phone {
+  background:var(--bg-primary);
+  border-radius:42px;
+  padding:14px;
+  border:1px solid var(--border-medium);
+  box-shadow:0 20px 60px rgba(0,0,0,.6), inset 0 0 0 1px rgba(255,255,255,.03);
+  position:relative;
+}
+.phone-screen {
+  background:var(--bg-deep);
+  border-radius:30px;
+  overflow:hidden;
+  position:relative;
+  height:780px;
+  display:flex; flex-direction:column;
+}
+.status-bar {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:14px 24px 8px; font-size:13px; font-weight:600;
+}
+.status-bar .icons { display:flex; gap:6px; align-items:center; opacity:.9; }
+.app-scroll {
+  flex:1; overflow-y:auto; padding-bottom:88px;
+  scrollbar-width:none;
+}
+.app-scroll::-webkit-scrollbar { display:none; }
+
+/* ===== HERO COUNTDOWN ===== */
+.hero {
+  position:relative;
+  padding:32px 20px 28px;
+  overflow:hidden;
+  border-radius:0 0 24px 24px;
+  isolation:isolate;
+}
+.hero::before {
+  content:""; position:absolute; inset:0; z-index:-2;
+  background:
+    radial-gradient(ellipse at 50% 20%, rgba(229,184,85,.18) 0%, transparent 60%),
+    linear-gradient(180deg, #1A2440 0%, #0A1020 100%);
+}
+.hero::after {
+  content:""; position:absolute; inset:0; z-index:-1;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(229,184,85,.08), transparent 40%),
+    radial-gradient(circle at 80% 90%, rgba(229,184,85,.06), transparent 35%);
+  opacity:.9;
+}
+.hero h1 {
+  font-family:var(--f-display);
+  font-size:42px; letter-spacing:.04em; line-height:.95;
+  text-align:center; text-transform:uppercase;
+}
+.hero h1 .year {
+  display:block;
+  background:var(--gold-grad-text);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  font-size:48px; margin-top:2px;
+}
+.hero .dates {
+  text-align:center; color:var(--text-2); font-size:12px;
+  margin:10px 0 22px; letter-spacing:.12em;
+}
+.countdown {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:8px;
+  max-width:340px; margin:0 auto;
+}
+.cd-cell {
+  background:rgba(13,20,38,.6);
+  border:1px solid var(--border-gold);
+  border-radius:var(--r-md);
+  padding:10px 4px 8px;
+  text-align:center;
+  backdrop-filter:blur(8px);
+}
+.cd-cell .n { font-family:var(--f-display); font-size:30px; line-height:1; color:var(--text-1); }
+.cd-cell .l { font-size:9px; color:var(--text-gold); letter-spacing:.16em; margin-top:6px; }
+.trophy-img {
+  display:block; margin:20px auto 0; width:88px; height:88px;
+  background: radial-gradient(circle at 50% 30%, rgba(229,184,85,.4), transparent 65%);
+  border-radius:50%;
+  position:relative;
+}
+.trophy-img::before {
+  content:"🏆"; position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  font-size:56px;
+  filter: drop-shadow(0 4px 12px rgba(229,184,85,.5));
+}
+
+/* ===== SECTION TITLE ===== */
+.section { padding:20px 16px 8px; }
+.section-title {
+  display:flex; justify-content:space-between; align-items:baseline;
+  margin-bottom:12px;
+}
+.section-title h2 {
+  font-family:var(--f-display); font-size:13px; letter-spacing:.18em;
+  color:var(--text-1);
+}
+.section-title .see-all {
+  font-size:11px; color:var(--text-3); letter-spacing:.08em;
+}
+.section-title .icon-star { color:var(--gold); }
+
+/* ===== CARD MATCH (Panini) ===== */
+.match-card {
+  background:var(--bg-card-grad);
+  border:1px solid var(--border-medium);
+  border-radius:var(--r-lg);
+  overflow:hidden;
+  box-shadow:var(--sh-card);
+  position:relative;
+}
+.match-card-header {
+  display:flex; justify-content:center; padding:10px 12px 6px;
+  font-size:10px; color:var(--text-gold); letter-spacing:.18em; font-weight:600;
+}
+.match-card-body {
+  padding:8px 12px 16px;
+  position:relative;
+  background:
+    radial-gradient(ellipse at 25% 60%, rgba(255,255,255,.04), transparent 50%),
+    radial-gradient(ellipse at 75% 60%, rgba(255,255,255,.04), transparent 50%);
+}
+.match-teams {
+  display:grid; grid-template-columns:1fr auto 1fr;
+  align-items:center; gap:10px;
+}
+.team-side { text-align:center; position:relative; }
+.team-photo {
+  width:88px; height:88px; margin:0 auto 8px;
+  border-radius:50%;
+  background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+  border:2px solid var(--border-medium);
+  display:flex; align-items:center; justify-content:center;
+  font-size:42px;
+  position:relative; overflow:hidden;
+}
+.team-photo::after {
+  content:""; position:absolute; bottom:-2px; left:-2px; right:-2px;
+  height:30%; background:linear-gradient(180deg, transparent, rgba(0,0,0,.5));
+}
+.team-flag-badge {
+  position:absolute; bottom:8px; right:50%; transform:translateX(50%);
+  width:22px; height:22px; border-radius:50%;
+  background:var(--bg-deep); border:2px solid var(--gold);
+  display:flex; align-items:center; justify-content:center; font-size:13px;
+  z-index:2;
+}
+.team-name {
+  font-family:var(--f-display); font-size:16px; letter-spacing:.06em;
+  color:var(--text-1);
+}
+.vs-pill {
+  background:transparent; color:var(--text-gold);
+  font-family:var(--f-display); font-size:24px; letter-spacing:.1em;
+  padding:0 4px;
+}
+.match-meta {
+  display:flex; justify-content:center; align-items:center; gap:10px;
+  margin-top:14px; font-size:11px; color:var(--text-2);
+  letter-spacing:.04em;
+}
+.match-meta .dot { width:3px; height:3px; background:var(--text-3); border-radius:50%; }
+.btn-gold {
+  display:block; width:calc(100% - 24px); margin:14px 12px 12px;
+  padding:13px;
+  background:var(--gold-grad);
+  border:none; border-radius:var(--r-md);
+  font-family:var(--f-display); font-size:14px; letter-spacing:.14em;
+  color:#1A1306; cursor:pointer; box-shadow:var(--sh-gold);
+  text-align:center;
+}
+
+/* ===== LISTE MATCH ===== */
+.day-strip {
+  display:grid; grid-template-columns:repeat(7,1fr); gap:6px;
+  padding:12px 16px;
+}
+.day-cell {
+  text-align:center; padding:8px 4px;
+  border-radius:var(--r-md);
+  background:transparent;
+  border:1px solid transparent;
+}
+.day-cell.active {
+  background:rgba(212,162,76,.08);
+  border-color:var(--border-gold-on);
+  box-shadow:var(--gold-glow-sm);
+}
+.day-cell .dl { font-size:9px; color:var(--text-3); letter-spacing:.14em; text-transform:uppercase; }
+.day-cell .dn { font-family:var(--f-display); font-size:20px; color:var(--text-1); margin-top:2px; }
+.day-cell.active .dl { color:var(--gold); }
+.day-cell.active .dn { color:var(--gold); }
+
+.day-header {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:8px 16px; font-size:11px; letter-spacing:.18em;
+  color:var(--text-2); text-transform:uppercase;
+}
+.day-header .ico-cal { color:var(--gold); }
+
+.match-row {
+  display:grid; grid-template-columns:72px 1fr auto;
+  align-items:center; gap:12px;
+  padding:14px 16px;
+  background:var(--bg-secondary);
+  border:1px solid var(--border-subtle);
+  border-radius:var(--r-md);
+  margin:0 16px 10px;
+  position:relative;
+}
+.match-row.live {
+  border-color:var(--border-gold-on);
+  box-shadow:var(--gold-glow-sm);
+}
+.match-row .time {
+  font-family:var(--f-display); font-size:16px; color:var(--text-1);
+  letter-spacing:.05em;
+}
+.match-row .group {
+  font-size:9px; color:var(--text-3); letter-spacing:.14em; margin-top:2px;
+}
+.match-row .teams-mini { display:flex; flex-direction:column; gap:6px; }
+.match-row .team-mini { display:flex; align-items:center; gap:8px; font-size:13px; }
+.match-row .team-mini .fl { width:18px; height:14px; border-radius:2px; background:var(--bg-elevated); display:inline-flex; align-items:center; justify-content:center; font-size:11px; overflow:hidden; }
+.match-row .venue { font-size:10px; color:var(--text-3); margin-top:4px; }
+.match-row .actions { display:flex; flex-direction:column; gap:8px; align-items:flex-end; }
+.match-row .actions svg, .match-row .actions .icn { width:18px; height:18px; color:var(--text-3); }
+.live-badge {
+  background:var(--live); color:#fff;
+  font-size:9px; font-weight:800; letter-spacing:.12em;
+  padding:2px 6px; border-radius:4px;
+}
+
+/* ===== ÉCRAN ÉQUIPE ===== */
+.team-hero {
+  position:relative; height:240px; overflow:hidden;
+  background: radial-gradient(ellipse at 50% 100%, #1F3060 0%, #0A1020 70%);
+}
+.team-hero::before {
+  content:""; position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse at 50% 80%, rgba(73,123,255,.25), transparent 60%),
+    linear-gradient(180deg, transparent 50%, var(--bg-deep) 100%);
+}
+.team-hero .silhouettes {
+  position:absolute; bottom:0; left:0; right:0; display:flex; justify-content:center; gap:-20px;
+  font-size:120px; line-height:1; opacity:.9;
+}
+.team-hero .crest {
+  position:absolute; top:80px; right:20px;
+  width:74px; height:74px; border-radius:50%;
+  background:linear-gradient(135deg, #FFFFFF, #C7C7C7);
+  display:flex; align-items:center; justify-content:center;
+  border:3px solid var(--gold);
+  font-size:30px;
+  box-shadow:var(--sh-gold);
+}
+.team-hero .crest-text {
+  position:absolute; top:158px; right:20px;
+  font-family:var(--f-display); font-size:11px; color:var(--gold); letter-spacing:.18em;
+  text-align:center; width:74px;
+}
+.screen-top-bar {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 18px 8px; position:relative; z-index:2;
+}
+.screen-top-bar .back, .screen-top-bar .star { color:var(--text-1); font-size:18px; }
+.screen-top-bar h2 { font-family:var(--f-display); font-size:14px; letter-spacing:.18em; }
+
+.stats-grid {
+  display:grid; grid-template-columns:repeat(4,1fr);
+  background:var(--bg-card-grad);
+  border:1px solid var(--border-medium);
+  border-radius:var(--r-lg);
+  margin:16px;
+  overflow:hidden;
+}
+.stat-cell {
+  padding:14px 4px; text-align:center;
+  border-right:1px solid var(--border-subtle);
+}
+.stat-cell:last-child { border-right:none; }
+.stat-cell .v { font-family:var(--f-display); font-size:24px; color:var(--text-1); }
+.stat-cell .l { font-size:9px; color:var(--text-3); letter-spacing:.14em; margin-top:4px; text-transform:uppercase; }
+
+/* PLAYER CARDS (style FUT) */
+.players-row {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:8px;
+  padding:0 16px;
+}
+.player-card {
+  background:var(--bg-card-grad);
+  border:1px solid var(--border-medium);
+  border-radius:var(--r-md);
+  overflow:hidden;
+  position:relative;
+}
+.player-card .rating {
+  position:absolute; top:6px; right:6px;
+  background:var(--gold-grad); color:#1A1306;
+  font-family:var(--f-display); font-size:14px;
+  padding:2px 6px; border-radius:6px;
+  box-shadow:var(--gold-glow-sm);
+  z-index:2;
+}
+.player-card .photo {
+  height:84px;
+  background:linear-gradient(180deg, rgba(73,123,255,.25), rgba(10,16,32,1));
+  display:flex; align-items:flex-end; justify-content:center;
+  font-size:56px; line-height:1;
+}
+.player-card .info {
+  padding:8px 6px 10px; text-align:center;
+}
+.player-card .name {
+  font-family:var(--f-display); font-size:11px; letter-spacing:.06em;
+  color:var(--text-1);
+}
+.player-card .pos { font-size:9px; color:var(--text-gold); letter-spacing:.14em; margin-top:2px; }
+
+.btn-outline-gold {
+  display:block; width:calc(100% - 32px); margin:14px 16px;
+  padding:13px;
+  background:transparent;
+  border:1px solid var(--border-gold-on);
+  border-radius:var(--r-md);
+  font-family:var(--f-display); font-size:12px; letter-spacing:.16em;
+  color:var(--gold); cursor:pointer; text-align:center;
+}
+
+/* ===== BOTTOM NAV ===== */
+.bottom-nav {
+  position:absolute; bottom:0; left:0; right:0;
+  background:linear-gradient(180deg, rgba(10,16,32,.7), rgba(6,10,18,.98) 50%);
+  backdrop-filter:blur(20px);
+  border-top:1px solid var(--border-subtle);
+  display:grid; grid-template-columns:repeat(5,1fr);
+  padding:10px 0 18px;
+  z-index:10;
+}
+.nav-item {
+  display:flex; flex-direction:column; align-items:center; gap:4px;
+  color:var(--text-3); font-size:10px; letter-spacing:.06em;
+}
+.nav-item .ic { font-size:18px; }
+.nav-item.active { color:var(--gold); }
+.nav-item.center-trophy {
+  position:relative;
+  transform:translateY(-22px);
+}
+.nav-item.center-trophy .trophy-pill {
+  width:54px; height:54px; border-radius:50%;
+  background:radial-gradient(circle at 50% 30%, #1B2942, #0A1020);
+  border:1px solid var(--border-gold-on);
+  box-shadow: var(--gold-glow-md), inset 0 0 12px rgba(212,162,76,.2);
+  display:flex; align-items:center; justify-content:center;
+  font-size:28px;
+}
+.nav-item.center-trophy .lbl { color:var(--gold); margin-top:6px; }
+
+/* ===== DESKTOP COMPONENT BOARD ===== */
+.components-board {
+  max-width:1400px; margin:64px auto 0;
+  display:grid; grid-template-columns:repeat(3,1fr); gap:24px;
+}
+@media (max-width:1100px) { .components-board { grid-template-columns:1fr; max-width:420px; } }
+.comp-box {
+  background:var(--bg-card-grad);
+  border:1px solid var(--border-medium);
+  border-radius:var(--r-xl);
+  padding:20px;
+}
+.comp-box h3 {
+  font-family:var(--f-display); font-size:12px; letter-spacing:.18em;
+  color:var(--gold); margin-bottom:16px;
+}
+
+/* ===== CLASSEMENT TABLE ===== */
+.standings { width:100%; border-collapse:collapse; }
+.standings th, .standings td {
+  padding:10px 6px; font-size:11px; text-align:center;
+  border-bottom:1px solid var(--border-subtle);
+}
+.standings th { color:var(--text-3); letter-spacing:.14em; font-weight:600; text-transform:uppercase; }
+.standings td.team { text-align:left; font-family:var(--f-display); letter-spacing:.06em; }
+.standings td.rank { color:var(--text-3); font-family:var(--f-display); }
+.standings td.pts { color:var(--gold); font-family:var(--f-display); font-size:14px; }
+
+/* ===== HERO BANNER (landscape card) ===== */
+.banner-hero {
+  background:
+    radial-gradient(ellipse at 50% 100%, rgba(229,184,85,.15), transparent 60%),
+    linear-gradient(180deg, #1A2440 0%, #0A1020 100%);
+  border:1px solid var(--border-gold);
+  border-radius:var(--r-xl);
+  padding:32px 24px;
+  text-align:center;
+  position:relative; overflow:hidden;
+}
+.banner-hero::before {
+  content:"🏟️"; position:absolute; top:8px; left:50%; transform:translateX(-50%);
+  font-size:80px; opacity:.12; z-index:0;
+}
+.banner-hero h2 {
+  font-family:var(--f-display); font-size:30px; letter-spacing:.04em;
+  position:relative; z-index:1;
+}
+.banner-hero h2 .gold-text-grad { display:block; font-size:28px; }
+.banner-hero p { color:var(--text-2); font-size:12px; margin:12px 0 18px; letter-spacing:.04em; position:relative; z-index:1; }
+.banner-hero .btn-gold { width:auto; min-width:180px; display:inline-block; margin:0; }
+
+/* ===== PRONOSTICS / XP ===== */
+.pronos-box .row { display:flex; justify-content:space-between; align-items:center; padding:8px 0; }
+.pronos-box .credits {
+  display:flex; align-items:center; gap:12px;
+}
+.pronos-box .credits .coin {
+  width:32px; height:32px; border-radius:50%; background:var(--gold-grad);
+  display:flex; align-items:center; justify-content:center; color:#1A1306; font-weight:900;
+}
+.pronos-box .credits-amount { font-family:var(--f-display); font-size:24px; color:var(--text-1); }
+.btn-gold-sm {
+  padding:8px 14px; background:var(--gold-grad); border:none; border-radius:8px;
+  font-family:var(--f-display); font-size:11px; letter-spacing:.12em; color:#1A1306;
+}
+.xp-bar {
+  height:6px; background:var(--bg-deep); border-radius:99px; overflow:hidden; margin-top:8px;
+}
+.xp-bar .fill { height:100%; width:62%; background:var(--gold-grad); border-radius:99px; box-shadow:var(--gold-glow-sm); }
+.divider { height:1px; background:var(--border-subtle); margin:14px 0; }
+.label-mini { font-size:10px; color:var(--text-3); letter-spacing:.18em; text-transform:uppercase; }
+
+/* ===== HORIZONTAL CARDS (Matchs à ne pas manquer) ===== */
+.horiz-cards {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:16px;
+  margin-top:16px;
+}
+.horiz-card {
+  background: linear-gradient(155deg, #16213A 0%, #0E1525 100%);
+  border:1px solid var(--border-medium);
+  border-radius:var(--r-lg);
+  padding:16px 12px 18px;
+  text-align:center;
+  position:relative; overflow:hidden;
+}
+.horiz-card .country { font-family:var(--f-display); font-size:20px; letter-spacing:.04em; margin-bottom:10px; }
+.horiz-card .duo {
+  display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:6px;
+  margin-bottom:12px;
+}
+.horiz-card .duo .ph {
+  width:60px; height:60px; border-radius:50%;
+  background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+  border:2px solid var(--border-medium);
+  display:flex; align-items:center; justify-content:center; font-size:30px;
+  margin:0 auto;
+}
+.horiz-card .vs { font-family:var(--f-display); font-size:18px; color:var(--gold); }
+.horiz-card .meta { font-size:11px; color:var(--text-2); }
+.horiz-card .venue { font-size:10px; color:var(--text-3); margin-top:4px; }
+
+/* News */
+.news-item {
+  display:flex; gap:12px; padding:12px 0;
+  border-bottom:1px solid var(--border-subtle);
+}
+.news-item:last-child { border-bottom:none; }
+.news-item .thumb {
+  width:60px; height:48px; border-radius:8px; background:var(--bg-elevated);
+  display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0;
+}
+.news-item h4 { font-size:12px; line-height:1.35; color:var(--text-1); font-weight:600; }
+.news-item .time { font-size:10px; color:var(--text-3); margin-top:4px; letter-spacing:.04em; }
+
+.live-feed-item {
+  display:flex; align-items:flex-start; gap:10px; padding:10px 0;
+  border-bottom:1px solid var(--border-subtle);
+}
+.live-feed-item:last-child { border-bottom:none; }
+.live-feed-item .badge-live { background:var(--live); color:#fff; padding:3px 6px; border-radius:4px; font-size:9px; letter-spacing:.1em; font-weight:800; }
+.live-feed-item .score { font-family:var(--f-display); font-size:14px; color:var(--text-1); }
+.live-feed-item .detail { font-size:11px; color:var(--text-2); margin-top:2px; }
+
+/* Big bottom nav (for desktop demo) */
+.bottom-nav-big {
+  max-width:1100px; margin:48px auto 0;
+  background:linear-gradient(180deg, rgba(10,16,32,.7), rgba(6,10,18,.98) 50%);
+  backdrop-filter:blur(20px);
+  border:1px solid var(--border-subtle);
+  border-radius:24px;
+  display:grid; grid-template-columns:repeat(5,1fr);
+  padding:18px 0 22px;
+  position:relative;
+}
+.bottom-nav-big .nav-item { font-size:12px; }
+.bottom-nav-big .nav-item .ic { font-size:22px; }
+.bottom-nav-big .nav-item.center-trophy .trophy-pill {
+  width:74px; height:74px; font-size:36px;
+}
+
+.footer-note {
+  text-align:center; color:var(--text-3); font-size:12px;
+  margin-top:60px; line-height:1.6;
+}
+.footer-note strong { color:var(--gold); }
+</style>
+</head>
+<body>
+
+<div class="preview-shell">
+
+  <!-- HEADER PREVIEW -->
+  <div class="preview-header">
+    <h1>FOOT FLASH <span class="gold-text-grad">2026</span></h1>
+    <p>Preview Design System v2 — Premium Broadcast · BeIN / Canal+ inspired</p>
+  </div>
+
+  <!-- ============= 3 ÉCRANS PHONE ============= -->
+  <div class="phones-row">
+
+    <!-- ÉCRAN 1 : ACCUEIL -->
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="status-bar">
+          <span>9:41</span>
+          <span class="icons">📶 🛜 🔋</span>
+        </div>
+        <div class="app-scroll">
+          <!-- Hero -->
+          <div class="hero">
+            <h1>Coupe du Monde<span class="year">2026</span></h1>
+            <div class="dates">11 JUIN — 19 JUILLET 2026</div>
+            <div class="countdown">
+              <div class="cd-cell"><div class="n">11</div><div class="l">Jours</div></div>
+              <div class="cd-cell"><div class="n">22</div><div class="l">Heures</div></div>
+              <div class="cd-cell"><div class="n">33</div><div class="l">Min</div></div>
+              <div class="cd-cell"><div class="n">16</div><div class="l">Sec</div></div>
+            </div>
+            <div class="trophy-img"></div>
+          </div>
+
+          <!-- Prochain match -->
+          <div class="section">
+            <div class="section-title">
+              <h2>Prochain match</h2>
+              <span class="icon-star">⭐</span>
+            </div>
+            <div class="match-card">
+              <div class="match-card-header">GROUPE I · J1</div>
+              <div class="match-card-body">
+                <div class="match-teams">
+                  <div class="team-side">
+                    <div class="team-photo" style="background:linear-gradient(180deg, rgba(0,40,140,.4), rgba(10,16,32,1));">⚽</div>
+                    <div class="team-name">France</div>
+                  </div>
+                  <div class="vs-pill">VS</div>
+                  <div class="team-side">
+                    <div class="team-photo" style="background:linear-gradient(180deg, rgba(0,100,60,.4), rgba(10,16,32,1));">⚽</div>
+                    <div class="team-name">Sénégal</div>
+                  </div>
+                </div>
+                <div class="match-meta">
+                  <span>16 juin · 15:00</span>
+                  <span class="dot"></span>
+                  <span>📍 East Rutherford</span>
+                </div>
+              </div>
+              <button class="btn-gold">PRONOSTIQUER</button>
+            </div>
+          </div>
+
+          <!-- Matchs du jour -->
+          <div class="section">
+            <div class="section-title">
+              <h2>Matchs du jour</h2>
+              <span class="see-all">Voir tout ›</span>
+            </div>
+            <div class="match-row">
+              <div>
+                <div class="time">12:00</div>
+                <div class="group">Groupe A</div>
+              </div>
+              <div>
+                <div class="team-mini"><span class="fl">🇦🇷</span> Argentine</div>
+                <div class="team-mini"><span class="fl">🇸🇦</span> Arabie Saoudite</div>
+              </div>
+              <div class="time">›</div>
+            </div>
+          </div>
+
+        </div>
+        <!-- Bottom nav -->
+        <div class="bottom-nav">
+          <div class="nav-item active"><div class="ic">🏠</div><div>Accueil</div></div>
+          <div class="nav-item"><div class="ic">📅</div><div>Matchs</div></div>
+          <div class="nav-item center-trophy">
+            <div class="trophy-pill">🏆</div>
+            <div class="lbl">Pronos</div>
+          </div>
+          <div class="nav-item"><div class="ic">📊</div><div>Classements</div></div>
+          <div class="nav-item"><div class="ic">👤</div><div>Profil</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ÉCRAN 2 : MATCHS -->
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="status-bar">
+          <span>9:41</span>
+          <span class="icons">📶 🛜 🔋</span>
+        </div>
+        <div class="app-scroll">
+          <div class="screen-top-bar" style="padding-bottom:16px;">
+            <span></span>
+            <h2>MATCHS</h2>
+            <span></span>
+          </div>
+          <!-- Filter tabs -->
+          <div style="display:flex; gap:8px; padding:0 16px 16px;">
+            <button style="padding:8px 16px; background:var(--gold-grad); color:#1A1306; border:none; border-radius:99px; font-family:var(--f-display); font-size:11px; letter-spacing:.12em;">Tous</button>
+            <button style="padding:8px 16px; background:transparent; color:var(--text-2); border:1px solid var(--border-medium); border-radius:99px; font-family:var(--f-display); font-size:11px; letter-spacing:.12em; position:relative;">En direct <span style="background:var(--live); color:#fff; font-size:8px; padding:1px 5px; border-radius:99px; margin-left:4px;">3</span></button>
+            <button style="padding:8px 16px; background:transparent; color:var(--text-2); border:1px solid var(--border-medium); border-radius:99px; font-family:var(--f-display); font-size:11px; letter-spacing:.12em;">À venir</button>
+            <button style="padding:8px 16px; background:transparent; color:var(--text-2); border:1px solid var(--border-medium); border-radius:99px; font-family:var(--f-display); font-size:11px; letter-spacing:.12em;">Terminés</button>
+          </div>
+
+          <div class="day-header">
+            <span>JUIN 2026</span>
+            <span class="ico-cal">🗓️</span>
+          </div>
+
+          <div class="day-strip">
+            <div class="day-cell"><div class="dl">Lun</div><div class="dn">14</div></div>
+            <div class="day-cell"><div class="dl">Mar</div><div class="dn">15</div></div>
+            <div class="day-cell active"><div class="dl">Mer</div><div class="dn">16</div></div>
+            <div class="day-cell"><div class="dl">Jeu</div><div class="dn">17</div></div>
+            <div class="day-cell"><div class="dl">Ven</div><div class="dn">18</div></div>
+            <div class="day-cell"><div class="dl">Sam</div><div class="dn">19</div></div>
+            <div class="day-cell"><div class="dl">Dim</div><div class="dn">20</div></div>
+          </div>
+
+          <div class="match-row">
+            <div>
+              <div class="time">12:00</div>
+              <div class="group">Groupe A</div>
+            </div>
+            <div>
+              <div class="team-mini"><span class="fl">🇦🇷</span> Argentine</div>
+              <div class="team-mini"><span class="fl">🇸🇦</span> Arabie Saoudite</div>
+              <div class="venue">📍 Stade Lusail, Qatar</div>
+            </div>
+            <div class="actions">
+              <span class="icn">⭐</span>
+              <span class="icn">🔔</span>
+            </div>
+          </div>
+
+          <div class="match-row live">
+            <div>
+              <div class="time">15:00</div>
+              <div class="group">Groupe I</div>
+            </div>
+            <div>
+              <div class="team-mini"><span class="fl">🇫🇷</span> France</div>
+              <div class="team-mini"><span class="fl">🇸🇳</span> Sénégal</div>
+              <div class="venue">📍 MetLife Stadium, USA</div>
+            </div>
+            <div class="actions">
+              <span class="live-badge">LIVE</span>
+              <span class="icn">🔔</span>
+            </div>
+          </div>
+
+          <div class="match-row">
+            <div>
+              <div class="time">18:00</div>
+              <div class="group">Groupe B</div>
+            </div>
+            <div>
+              <div class="team-mini"><span class="fl">🇪🇸</span> Espagne</div>
+              <div class="team-mini"><span class="fl">🇭🇷</span> Croatie</div>
+              <div class="venue">📍 Stade Khalifa, Qatar</div>
+            </div>
+            <div class="actions">
+              <span class="icn">⭐</span>
+              <span class="icn">🔔</span>
+            </div>
+          </div>
+
+          <div class="match-row">
+            <div>
+              <div class="time">21:00</div>
+              <div class="group">Groupe C</div>
+            </div>
+            <div>
+              <div class="team-mini"><span class="fl">🇧🇷</span> Brésil</div>
+              <div class="team-mini"><span class="fl">🇷🇸</span> Serbie</div>
+              <div class="venue">📍 Stade 974, Qatar</div>
+            </div>
+            <div class="actions">
+              <span class="icn">⭐</span>
+              <span class="icn">🔔</span>
+            </div>
+          </div>
+
+        </div>
+        <div class="bottom-nav">
+          <div class="nav-item"><div class="ic">🏠</div><div>Accueil</div></div>
+          <div class="nav-item active"><div class="ic">📅</div><div>Matchs</div></div>
+          <div class="nav-item center-trophy">
+            <div class="trophy-pill">🏆</div>
+            <div class="lbl">Pronos</div>
+          </div>
+          <div class="nav-item"><div class="ic">📊</div><div>Classements</div></div>
+          <div class="nav-item"><div class="ic">👤</div><div>Profil</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ÉCRAN 3 : ÉQUIPE -->
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="status-bar">
+          <span>9:41</span>
+          <span class="icons">📶 🛜 🔋</span>
+        </div>
+        <div class="app-scroll">
+          <div class="team-hero">
+            <div class="screen-top-bar">
+              <span class="back">←</span>
+              <h2>ÉQUIPE FRANCE</h2>
+              <span class="star">⭐</span>
+            </div>
+            <div class="silhouettes">🧍‍♂️🧍‍♂️🧍‍♂️</div>
+            <div class="crest">⚽</div>
+            <div class="crest-text">FRANCE · FFF</div>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-cell"><div class="v">4<sup>e</sup></div><div class="l">FIFA Rank</div></div>
+            <div class="stat-cell"><div class="v">16</div><div class="l">Participations</div></div>
+            <div class="stat-cell"><div class="v">2</div><div class="l">Titres</div></div>
+            <div class="stat-cell"><div class="v">28</div><div class="l">Victoires</div></div>
+          </div>
+
+          <div class="section">
+            <div class="section-title">
+              <h2>Prochain match</h2>
+            </div>
+            <div class="match-card" style="padding:14px;">
+              <div style="display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:10px;">
+                <div style="text-align:center;">
+                  <div style="font-size:28px;">🇫🇷</div>
+                  <div class="team-name" style="font-size:14px; margin-top:4px;">France</div>
+                </div>
+                <div style="text-align:center;">
+                  <div style="font-family:var(--f-display); font-size:12px; color:var(--gold); letter-spacing:.08em;">16 JUIN — 15:00</div>
+                  <div style="font-size:10px; color:var(--text-3); margin-top:2px;">MetLife Stadium</div>
+                </div>
+                <div style="text-align:center;">
+                  <div style="font-size:28px;">🇸🇳</div>
+                  <div class="team-name" style="font-size:14px; margin-top:4px;">Sénégal</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title">
+              <h2>Joueurs clés</h2>
+            </div>
+            <div class="players-row">
+              <div class="player-card">
+                <div class="rating">91</div>
+                <div class="photo">⚽</div>
+                <div class="info">
+                  <div class="name">Mbappé</div>
+                  <div class="pos">Attaquant</div>
+                </div>
+              </div>
+              <div class="player-card">
+                <div class="rating">87</div>
+                <div class="photo">⚽</div>
+                <div class="info">
+                  <div class="name">Griezmann</div>
+                  <div class="pos">Milieu</div>
+                </div>
+              </div>
+              <div class="player-card">
+                <div class="rating">84</div>
+                <div class="photo">⚽</div>
+                <div class="info">
+                  <div class="name">T. Hernandez</div>
+                  <div class="pos">Défenseur</div>
+                </div>
+              </div>
+            </div>
+            <button class="btn-outline-gold">VOIR L'ÉQUIPE COMPLÈTE</button>
+          </div>
+
+        </div>
+        <div class="bottom-nav">
+          <div class="nav-item"><div class="ic">🏠</div><div>Accueil</div></div>
+          <div class="nav-item"><div class="ic">📅</div><div>Matchs</div></div>
+          <div class="nav-item center-trophy">
+            <div class="trophy-pill">🏆</div>
+            <div class="lbl">Pronos</div>
+          </div>
+          <div class="nav-item active"><div class="ic">📊</div><div>Équipes</div></div>
+          <div class="nav-item"><div class="ic">👤</div><div>Profil</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============= COMPONENT BOARD (Desktop) ============= -->
+  <div class="components-board">
+
+    <!-- Pronos / XP -->
+    <div class="comp-box pronos-box">
+      <h3>PRONOSTICS</h3>
+      <div class="row">
+        <div class="credits">
+          <div class="coin">$</div>
+          <div>
+            <div class="label-mini">Crédits disponibles</div>
+            <div class="credits-amount">500</div>
+          </div>
+        </div>
+        <button class="btn-gold-sm">OBTENIR PLUS</button>
+      </div>
+      <div class="divider"></div>
+      <div class="row">
+        <span class="label-mini">Ma progression</span>
+        <span style="font-family:var(--f-display); font-size:12px; color:var(--gold);">NIVEAU 3 ›</span>
+      </div>
+      <div style="font-size:11px; color:var(--text-3); margin-top:4px;">620 / 1000 XP</div>
+      <div class="xp-bar"><div class="fill"></div></div>
+      <div class="divider"></div>
+      <div class="row">
+        <div>
+          <div class="label-mini">Classement mondial</div>
+          <div style="font-family:var(--f-display); font-size:18px; color:var(--success); margin-top:2px;">Top 12%</div>
+        </div>
+        <button style="padding:8px 14px; background:transparent; color:var(--text-2); border:1px solid var(--border-medium); border-radius:8px; font-size:11px; letter-spacing:.06em;">Voir classement</button>
+      </div>
+    </div>
+
+    <!-- Banner hero -->
+    <div class="banner-hero">
+      <h2>VIVEZ LA LÉGENDE<span class="gold-text-grad">COUPE DU MONDE 2026</span></h2>
+      <p>48 ÉQUIPES · 104 MATCHS · UN SEUL RÊVE.</p>
+      <button class="btn-gold">DÉCOUVRIR</button>
+    </div>
+
+    <!-- Classement -->
+    <div class="comp-box">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <h3 style="margin:0;">CLASSEMENT — GROUPE I</h3>
+        <span style="color:var(--text-3);">›</span>
+      </div>
+      <table class="standings">
+        <thead>
+          <tr><th>#</th><th style="text-align:left;">Équipe</th><th>MJ</th><th>G</th><th>N</th><th>P</th><th>Pts</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="rank">1</td><td class="team">🇫🇷 France</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts">0</td></tr>
+          <tr><td class="rank">2</td><td class="team">🇸🇳 Sénégal</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts">0</td></tr>
+          <tr><td class="rank">3</td><td class="team">🇳🇴 Norvège</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts">0</td></tr>
+          <tr><td class="rank">4</td><td class="team">🇮🇶 Irak</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts">0</td></tr>
+        </tbody>
+      </table>
+      <button class="btn-outline-gold" style="margin:14px 0 0; width:100%;">VOIR LE GROUPE COMPLET</button>
+    </div>
+  </div>
+
+  <!-- Matchs à ne pas manquer -->
+  <div class="components-board" style="margin-top:24px;">
+    <div style="grid-column:1 / -1;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <h3 style="font-family:var(--f-display); font-size:13px; letter-spacing:.18em; color:var(--text-1);">MATCHS À NE PAS MANQUER</h3>
+        <span style="font-size:11px; color:var(--gold); letter-spacing:.14em;">VOIR TOUT ›</span>
+      </div>
+      <div class="horiz-cards">
+        <div class="horiz-card">
+          <div class="country">FRANCE</div>
+          <div class="duo">
+            <div class="ph" style="background:linear-gradient(180deg, rgba(0,40,140,.4), rgba(10,16,32,1));">🇫🇷</div>
+            <div class="vs">VS</div>
+            <div class="ph" style="background:linear-gradient(180deg, rgba(0,100,60,.4), rgba(10,16,32,1));">🇸🇳</div>
+          </div>
+          <div class="meta">16 JUIN · 15:00</div>
+          <div class="venue">MetLife Stadium</div>
+        </div>
+        <div class="horiz-card">
+          <div class="country">BRÉSIL</div>
+          <div class="duo">
+            <div class="ph" style="background:linear-gradient(180deg, rgba(255,210,0,.3), rgba(10,16,32,1));">🇧🇷</div>
+            <div class="vs">VS</div>
+            <div class="ph" style="background:linear-gradient(180deg, rgba(110,170,255,.3), rgba(10,16,32,1));">🇦🇷</div>
+          </div>
+          <div class="meta">17 JUIN · 20:00</div>
+          <div class="venue">Hard Rock Stadium</div>
+        </div>
+        <div class="horiz-card">
+          <div class="country">ANGLETERRE</div>
+          <div class="duo">
+            <div class="ph" style="background:linear-gradient(180deg, rgba(255,255,255,.15), rgba(10,16,32,1));">🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+            <div class="vs">VS</div>
+            <div class="ph" style="background:linear-gradient(180deg, rgba(0,0,0,.4), rgba(10,16,32,1));">🇩🇪</div>
+          </div>
+          <div class="meta">18 JUIN · 17:00</div>
+          <div class="venue">Wembley Stadium</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- News / Live feed -->
+  <div class="components-board" style="margin-top:24px;">
+    <div class="comp-box">
+      <h3>JOUEURS À SUIVRE</h3>
+      <div class="players-row" style="padding:0;">
+        <div class="player-card"><div class="rating">88</div><div class="photo">⚽</div><div class="info"><div class="name">Bellingham</div><div class="pos">Angleterre</div></div></div>
+        <div class="player-card"><div class="rating">79</div><div class="photo">⚽</div><div class="info"><div class="name">Vinicius Jr.</div><div class="pos">Brésil</div></div></div>
+        <div class="player-card"><div class="rating">89</div><div class="photo">⚽</div><div class="info"><div class="name">Haaland</div><div class="pos">Norvège</div></div></div>
+      </div>
+    </div>
+
+    <div class="comp-box">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <h3 style="margin:0;">DERNIÈRES ACTUS</h3>
+        <span style="font-size:11px; color:var(--gold); letter-spacing:.14em;">VOIR TOUT ›</span>
+      </div>
+      <div class="news-item">
+        <div class="thumb">📰</div>
+        <div>
+          <h4>Les 26 joueurs de l'équipe de France dévoilés</h4>
+          <div class="time">Il y a 2h</div>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="thumb">🏟️</div>
+        <div>
+          <h4>Les stades de la Coupe du Monde 2026</h4>
+          <div class="time">Il y a 5h</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="comp-box">
+      <h3>FIL D'ACTUALITÉS</h3>
+      <div class="live-feed-item">
+        <span class="badge-live">EN DIRECT</span>
+        <div>
+          <div class="score">France 2 — 1 Sénégal</div>
+          <div class="detail">78' Mbappé</div>
+        </div>
+      </div>
+      <div class="live-feed-item">
+        <span style="font-size:18px;">⚽</span>
+        <div>
+          <div class="score" style="color:var(--gold);">But pour le Brésil !</div>
+          <div class="detail">Neymar transforme le penalty · 56'</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom nav (desktop showcase) -->
+  <div class="bottom-nav-big">
+    <div class="nav-item active"><div class="ic">🏠</div><div>Accueil</div></div>
+    <div class="nav-item"><div class="ic">📅</div><div>Matchs</div></div>
+    <div class="nav-item center-trophy">
+      <div class="trophy-pill">🏆</div>
+      <div class="lbl">Pronostics</div>
+    </div>
+    <div class="nav-item"><div class="ic">📊</div><div>Classements</div></div>
+    <div class="nav-item"><div class="ic">👤</div><div>Profil</div></div>
+  </div>
+
+  <div class="footer-note">
+    <strong>FOOT FLASH 2026 · DESIGN SYSTEM v2</strong><br>
+    Premium Broadcast direction · OR signature #D4A24C · Bleu nuit #0A1020<br>
+    <span style="color:var(--text-3); font-size:11px;">Preview standalone — non intégrée à index.html. À valider avant propagation.</span>
+  </div>
+
+</div>
+</body>
+</html>
