@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.WindowManager
 import android.widget.FrameLayout
+import android.widget.TextView
 import android.widget.VideoView
 
 class IntroActivity : Activity() {
@@ -68,7 +69,7 @@ class IntroActivity : Activity() {
             mp.start()
         }
 
-        videoView.setOnCompletionListener { goToMain() }
+        videoView.setOnCompletionListener { showCreditThenMain(root, videoView) }
 
         videoView.setOnErrorListener { _, _, _ ->
             goToMain()
@@ -76,6 +77,26 @@ class IntroActivity : Activity() {
         }
 
         root.setOnClickListener { goToMain() }
+    }
+
+    // Affiche "Offert par CADENCE Architectes Associés" ~1,8 s après la vidéo, puis lance l'app.
+    private fun showCreditThenMain(root: FrameLayout, videoView: VideoView) {
+        if (finished) return
+        videoView.visibility = android.view.View.GONE
+        val tv = TextView(this).apply {
+            text = "✨ OFFERT PAR\nCADENCE Architectes Associés"
+            setTextColor(Color.parseColor("#E8C45C"))
+            textSize = 18f
+            gravity = Gravity.CENTER
+            val p = FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT
+            )
+            p.gravity = Gravity.CENTER
+            layoutParams = p
+        }
+        root.addView(tv)
+        root.postDelayed({ goToMain() }, 1800)
     }
 
     private fun goToMain() {

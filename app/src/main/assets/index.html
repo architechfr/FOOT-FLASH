@@ -1096,14 +1096,19 @@
     <img src="icon-192.png" alt="" style="width:120px;height:120px;border-radius:26px;animation:ffPulse 1.4s ease-in-out infinite">
     <div style="margin-top:18px;color:#e8c45c;font:800 22px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;letter-spacing:1px">FOOT FLASH 2026</div>
   </div>
+  <div id="ffIntroCredit" style="display:none;text-align:center;animation:ffFade .5s ease">
+    <div style="font-size:11px;letter-spacing:3px;color:#8fa6cb;margin-bottom:10px">✨ OFFERT PAR</div>
+    <div style="font-size:21px;font-weight:800;color:#e8c45c;letter-spacing:1px;line-height:1.35">CADENCE<br>Architectes Associés</div>
+  </div>
 </div>
-<style>@keyframes ffPulse{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.08);opacity:1}}</style>
+<style>@keyframes ffPulse{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.08);opacity:1}}@keyframes ffFade{from{opacity:0}to{opacity:1}}</style>
 <script>
 (function(){
   if (window.AndroidBridge) return;                 // app native : le splash IntroActivity a deja joue
   try { if (sessionStorage.getItem("ff26_intro_seen")) return; } catch(e){}
   var ov=document.getElementById("ffIntro"); if(!ov) return;
   var vid=document.getElementById("ffIntroVid"), fb=document.getElementById("ffIntroFallback");
+  var credit=document.getElementById("ffIntroCredit");
   var done=false, timers=[];
   function clearAll(){ timers.forEach(clearTimeout); timers=[]; }
   function end(){ if(done) return; done=true; clearAll();
@@ -1112,16 +1117,17 @@
     timers.push(setTimeout(function(){ if(ov&&ov.parentNode) ov.parentNode.removeChild(ov); },650));
     try{ vid.pause(); }catch(e){}
   }
-  function fallback(){ if(done) return; try{ vid.style.display="none"; }catch(e){} fb.style.display="block"; timers.push(setTimeout(end,2400)); }
+  function showCredit(){ if(done) return; try{ vid.pause(); vid.style.display="none"; }catch(e){} fb.style.display="none"; if(credit) credit.style.display="block"; timers.push(setTimeout(end,2200)); }
+  function fallback(){ if(done) return; try{ vid.style.display="none"; }catch(e){} fb.style.display="block"; timers.push(setTimeout(showCredit,1600)); }
   ov.style.display="flex";
   ov.addEventListener("click", end);
-  vid.addEventListener("ended", end);
+  vid.addEventListener("ended", showCredit);
   vid.addEventListener("error", fallback);
   var s=document.createElement("source"); s.src="intro.mp4"; s.type="video/mp4"; vid.appendChild(s);
   try{ vid.load(); }catch(e){}
   var pr = vid.play && vid.play(); if(pr && pr.catch) pr.catch(fallback);
   timers.push(setTimeout(function(){ if(!done && (!vid.currentTime || vid.currentTime===0)) fallback(); },1400));
-  timers.push(setTimeout(end,7000));                // garde-fou : duree max 7s
+  timers.push(setTimeout(end,9000));                // garde-fou : duree max 9s
 })();
 </script>
 <script>
@@ -3602,7 +3608,7 @@
       h+='<div onclick="adminTap()" style="font-weight:800;color:var(--g);letter-spacing:1px;margin-bottom:3px;cursor:pointer;user-select:none">⚽ FOOT FLASH 2026</div>';
       h+='<div>'+APP_VERSION+' · <span onclick="showChangelog()" style="color:var(--g);cursor:pointer;text-decoration:underline">Changelog</span></div>';
       h+='<div style="font-size:9px;margin-top:2px;opacity:.7">Made with ⚽ par Florian · Dernière mise à jour : 29 mai 2026</div>';
-      h+='<div style="font-size:9px;margin-top:6px;padding-top:6px;border-top:1px dotted var(--s3);opacity:.85;color:var(--am)">✨ Offert par <b>Cadence Architectes Associés</b></div>';
+      h+='<div style="font-size:9px;margin-top:6px;padding-top:6px;border-top:1px dotted var(--s3);opacity:.85;color:var(--am);cursor:pointer" onclick="event.stopPropagation();ffOpenCadence()">✨ Offert par <b style="text-decoration:underline">Cadence Architectes Associés</b></div>';
       h+='</div>';
 
       h+='<div class="nav"><div class="nav-i">';
@@ -3760,6 +3766,55 @@
     // v1.046 — PAGE PARAMÈTRES (5 sections)
     // ═══════════════════════════════════════════════════════════════════
     function renderSettingsPage(){return rSettings()}
+    // ═══ PARTAGE DE L'APP + lien Cadence (v2.3) ═══════════════════════════
+    var FF_SHARE_URL = "https://architechfr.github.io/FOOT-FLASH/";
+    function ffOpenCadence(){
+      var url="https://www.cadence-architectes.fr/";
+      try{ if(typeof AndroidBridge!=="undefined"&&AndroidBridge.openExternal){ AndroidBridge.openExternal(url); } else { window.open(url,"_blank"); } }
+      catch(e){ try{ window.open(url,"_blank"); }catch(_){} }
+    }
+    function ffCopyShareLink(){
+      try{
+        if(navigator.clipboard&&navigator.clipboard.writeText){
+          navigator.clipboard.writeText(FF_SHARE_URL).then(function(){ if(typeof toast==="function") toast("✓ Lien copié"); }).catch(function(){ if(typeof toast==="function") toast(FF_SHARE_URL); });
+        } else if(typeof toast==="function"){ toast(FF_SHARE_URL); }
+      }catch(e){ if(typeof toast==="function") toast(FF_SHARE_URL); }
+    }
+    function ffShareApp(){
+      var data={title:"Foot Flash 2026",text:"Foot Flash 2026 — l'app compagnon de la Coupe du Monde 2026. Ouvre-la ou installe-la :",url:FF_SHARE_URL};
+      try{
+        if(navigator.share){ navigator.share(data).catch(function(){}); }
+        else { ffCopyShareLink(); }
+      }catch(e){ ffCopyShareLink(); }
+    }
+    function rShareApp(){
+      var enc=encodeURIComponent(FF_SHARE_URL);
+      var qr="https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=10&color=060d1f&bgcolor=ffffff&data="+enc;
+      var isStandalone=false;
+      try{ isStandalone=window.matchMedia("(display-mode:standalone)").matches||navigator.standalone===true; }catch(e){}
+      var h='<div class="set-sec"><div class="set-h">📲 Partager l\'application</div>';
+      h+='<div style="text-align:center;padding:14px;background:var(--s2);border-radius:10px;margin-bottom:8px">';
+      h+='<img src="'+qr+'" alt="QR code Foot Flash" width="200" height="200" style="background:#fff;border-radius:10px;padding:6px;width:60%;max-width:220px;height:auto">';
+      h+='<div style="font-size:10px;color:var(--t2);margin-top:8px">Fais scanner ce QR code pour ouvrir l\'app</div>';
+      h+='<div style="font-size:11px;color:var(--g);font-weight:700;margin-top:6px;word-break:break-all">'+FF_SHARE_URL+'</div>';
+      h+='</div>';
+      h+='<div class="set-row"><div class="set-lbl">Envoyer le lien<div class="set-hint">Partage natif ou copie</div></div>';
+      h+='<button class="set-btn" onclick="ffShareApp()">📤 Partager</button></div>';
+      h+='<div class="set-row"><div class="set-lbl">Copier le lien</div>';
+      h+='<button class="set-btn" onclick="ffCopyShareLink()">🔗 Copier</button></div>';
+      if(isStandalone){
+        h+='<div class="set-row"><div class="set-lbl">Installation<div class="set-hint">✓ App déjà installée</div></div></div>';
+      } else if(deferredPrompt){
+        h+='<div class="set-row"><div class="set-lbl">Installer sur le téléphone<div class="set-hint">Ajoute l\'icône à l\'écran d\'accueil</div></div>';
+        h+='<button class="set-btn" onclick="installPWA()">📲 Installer</button></div>';
+      } else {
+        h+='<div class="set-row" style="display:block"><div class="set-lbl" style="margin-bottom:6px">Installer sur le téléphone</div>';
+        h+='<div style="font-size:10px;color:var(--t2);line-height:1.7">📱 <b>iPhone (Safari)</b> : bouton Partager ⬆️ puis « Sur l\'écran d\'accueil ».<br>🤖 <b>Android (Chrome)</b> : menu ⋮ puis « Installer l\'application ».</div></div>';
+      }
+      h+='</div>';
+      return h;
+    }
+
     function rSettings(){
       // v2.1 — V.myTeam est la source fiable (SETTINGS.fav_team peut etre desynchro)
       var team=V.myTeam||SETTINGS.fav_team;
@@ -3775,6 +3830,7 @@
       h+='<div class="ff-arb-arrow">›</div>';
       h+='</div>';
       h+='<div class="sec">⚙️ Paramètres</div>';
+      h+=rShareApp();
       // PROFIL
       h+='<div class="set-sec"><div class="set-h">👤 Profil</div>';
       h+='<div class="set-row"><div class="set-lbl">Équipe favorite<div class="set-hint">Utilisée partout dans l\'app</div></div>';
@@ -3833,7 +3889,7 @@
       h+='<button class="set-btn" onclick="showChangelog()">📜 Changelog</button></div>';
       h+='<div class="set-row"><div class="set-lbl">Suggérer / Signaler<div class="set-hint">Feedback à l\'équipe</div></div>';
       h+='<button class="set-btn" onclick="openFeedback()">💬 Ouvrir</button></div>';
-      h+='<div class="set-row" style="padding:14px;background:var(--s2)"><div style="font-size:10px;color:var(--t2);text-align:center;width:100%;line-height:1.7">⚽ <b>Foot Flash 2026</b><br>Made with ⚽ par <b style="color:var(--g)">Florian</b><br><span style="color:var(--am);font-size:10px">✨ Offert par <b>Cadence Architectes Associés</b></span><br><a onclick="ffOpenAuthorContact()" style="color:var(--bl);cursor:pointer;text-decoration:underline">Besoin d\'une app sur mesure ? Contactez Florian</a></div></div></div>';
+      h+='<div class="set-row" style="padding:14px;background:var(--s2)"><div style="font-size:10px;color:var(--t2);text-align:center;width:100%;line-height:1.7">⚽ <b>Foot Flash 2026</b><br>Made with ⚽ par <b style="color:var(--g)">Florian</b><br><span style="color:var(--am);font-size:10px;cursor:pointer" onclick="ffOpenCadence()">✨ Offert par <b style="text-decoration:underline">Cadence Architectes Associés</b></span><br><a onclick="ffOpenAuthorContact()" style="color:var(--bl);cursor:pointer;text-decoration:underline">Besoin d\'une app sur mesure ? Contactez Florian</a></div></div></div>';
       return h;
     }
     function setToggleHtml(key){
