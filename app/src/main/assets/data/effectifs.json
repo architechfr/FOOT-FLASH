@@ -518,13 +518,6 @@
           "g": 1
         },
         {
-          "n": "Lyle Foster",
-          "p": "ATT",
-          "club": "Burnley",
-          "caps": 20,
-          "g": 4
-        },
-        {
           "n": "Relebohile Mofokeng",
           "p": "ATT",
           "club": "Orlando Pirates",
@@ -1065,25 +1058,11 @@
           "g": 1
         },
         {
-          "n": "El Kajoui",
-          "p": "GAR",
-          "club": "Hatayspor",
-          "caps": 20,
-          "g": 0
-        },
-        {
           "n": "Yunis Benoun",
           "p": "DEF",
           "club": "Wydad",
           "caps": 25,
           "g": 1
-        },
-        {
-          "n": "Abde Ezzalzouli",
-          "p": "ATT",
-          "club": "Betis",
-          "caps": 10,
-          "g": 3
         },
         {
           "n": "Abdelsamid Sabiri",
@@ -2273,10 +2252,10 @@
           "g": 0
         },
         {
-          "n": "Lucas Chevalier",
+          "n": "Robin Risser",
           "p": "GAR",
-          "club": "Lille",
-          "caps": 4,
+          "club": "RC Lens",
+          "caps": 0,
           "g": 0
         },
         {
@@ -4191,13 +4170,6 @@
           "g": 0
         },
         {
-          "n": "Akram Afif",
-          "p": "ATT",
-          "club": "Al Sadd",
-          "caps": 80,
-          "g": 25
-        },
-        {
           "n": "Hassan Al-Haydos",
           "p": "ATT",
           "club": "Al Sadd",
@@ -4210,13 +4182,6 @@
           "p": "MIL",
           "club": "Al Sadd",
           "caps": 60,
-          "g": 5
-        },
-        {
-          "n": "Karim Boudiaf",
-          "p": "MIL",
-          "club": "Al Duhail",
-          "caps": 110,
           "g": 5
         },
         {
@@ -4382,13 +4347,6 @@
           "g": 0
         },
         {
-          "n": "Breel Embolo",
-          "p": "ATT",
-          "club": "Monaco",
-          "caps": 65,
-          "g": 15
-        },
-        {
           "n": "Noah Okafor",
           "p": "ATT",
           "club": "Leeds",
@@ -4459,13 +4417,6 @@
           "g": 0
         },
         {
-          "n": "Dan Ndoye",
-          "p": "ATT",
-          "club": "Nottingham",
-          "caps": 15,
-          "g": 4
-        },
-        {
           "n": "Fabian Rieder",
           "p": "MIL",
           "club": "Stuttgart",
@@ -4525,13 +4476,6 @@
           "club": "Le Havre",
           "caps": 15,
           "g": 5
-        },
-        {
-          "n": "Frantzdy Pierrot",
-          "p": "ATT",
-          "club": "Auxerre",
-          "caps": 20,
-          "g": 8
         },
         {
           "n": "Duckens Nazon",
@@ -4616,13 +4560,6 @@
           "club": "Lyon F",
           "caps": 10,
           "g": 2
-        },
-        {
-          "n": "Frantzdy Pierrot",
-          "p": "ATT",
-          "club": "Auxerre",
-          "caps": 20,
-          "g": 8
         },
         {
           "n": "Zachary Herivaux",
@@ -4944,25 +4881,11 @@
           "g": 0
         },
         {
-          "n": "Romero Gamarra",
-          "p": "ATT",
-          "club": "Cruz Azul",
-          "caps": 15,
-          "g": 3
-        },
-        {
           "n": "O. Romero",
           "p": "MIL",
           "club": "Racing",
           "caps": 95,
           "g": 10
-        },
-        {
-          "n": "Junior Alonso",
-          "p": "DEF",
-          "club": "Atlético MG",
-          "caps": 25,
-          "g": 2
         },
         {
           "n": "Cardozo Lucena",
@@ -5556,13 +5479,6 @@
           "g": 3
         },
         {
-          "n": "Moisés Caicedo",
-          "p": "MIL",
-          "club": "Chelsea",
-          "caps": 40,
-          "g": 5
-        },
-        {
           "n": "Nicolás Torres",
           "p": "DEF",
           "club": "Barcelona SC",
@@ -5603,13 +5519,6 @@
           "club": "Nacional",
           "caps": 8,
           "g": 0
-        },
-        {
-          "n": "Jeremy Sarmiento",
-          "p": "ATT",
-          "club": "Brighton",
-          "caps": 15,
-          "g": 3
         },
         {
           "n": "Carlos Rodríguez",
@@ -5672,14 +5581,6 @@
           "club": "ADO",
           "caps": 20,
           "g": 0
-        },
-        {
-          "n": "Leandro Bacuna",
-          "p": "MIL",
-          "club": "Rangers",
-          "caps": 50,
-          "g": 5,
-          "cap": true
         },
         {
           "n": "Jay-Roy Grot",
@@ -7968,7 +7869,6 @@
           "caps": 25,
           "g": 0
         },
-        null,
         {
           "n": "Antoine Semenyo",
           "p": "ATT",
