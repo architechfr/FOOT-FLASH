@@ -3186,7 +3186,7 @@
       return null;
     }
     function getShortlistByTeam(teamId){
-      return SHORTLIST[teamId]||[];
+      return []; // short-list retirée (listes définitives disponibles)
     }
     function getSortedInjuries(filter){
       var list=INJURIES.slice();
@@ -3302,7 +3302,7 @@
       h+='<div style="font-size:32px">🏥</div>';
       h+='<div>';
       h+='<div style="font-size:16px;font-weight:900;color:var(--rd);letter-spacing:1px">INFIRMERIE</div>';
-      h+='<div style="font-size:11px;color:var(--t2);margin-top:2px">Blessures, incertains & réservistes potentiels — Mondial 2026</div>';
+      h+='<div style="font-size:11px;color:var(--t2);margin-top:2px">Blessures & incertains — Mondial 2026</div>';
       h+='</div></div>';
       h+='<div style="font-size:10px;color:var(--t2);margin-top:8px;padding-top:8px;border-top:1px dashed var(--s3);line-height:1.5">';
       h+='Les statuts évoluent rapidement. Données sourcées mais à vérifier auprès des fédérations.';
@@ -3314,23 +3314,6 @@
 
       // Bandeau deadline
       h+=rDeadlineBanner();
-
-      // Tabs principaux : Cas / Short-list
-      var mainTabs=[
-        {k:"cases",l:"🩹 Cas ("+INJURIES.length+")"},
-        {k:"shortlist",l:"📋 Short-list"}
-      ];
-      h+='<div class="inf-tabs">';
-      mainTabs.forEach(function(tb){
-        var on=V.infTab===tb.k?" on":"";
-        h+='<button class="inf-tab'+on+'" onclick="V.infTab=\''+tb.k+'\';render()">'+tb.l+'</button>';
-      });
-      h+='</div>';
-
-      if(V.infTab==="shortlist"){
-        h+=rShortlistView();
-        return h;
-      }
 
       // Compteurs
       var counts={all:INJURIES.length,out:0,doubt:0,return:0};
@@ -3477,23 +3460,6 @@
           h+='</div>';
           if(inj.note)h+='<div class="inf-card-note" style="margin-left:28px">'+inj.note+'</div>';
           if(inj.source)h+='<div class="inf-card-source" style="margin-left:28px">📰 '+inj.source+'</div>';
-          h+='</div>';
-        });
-        h+='</div>';
-      }
-
-      // Bloc short-list (si présente)
-      if(shortlist.length){
-        var posColors={ATT:"var(--rd)",MIL:"var(--g)",DEF:"#2196F3",GAR:"var(--am)"};
-        h+='<div style="background:linear-gradient(135deg,rgba(231,196,92,.08),var(--s1));border:1px solid rgba(231,196,92,.3);border-radius:12px;padding:12px;margin-bottom:10px">';
-        h+='<div style="font-size:11px;font-weight:900;color:var(--g);letter-spacing:1px;margin-bottom:8px;display:flex;align-items:center;gap:6px"><span style="font-size:16px">📋</span> SHORT-LIST · '+shortlist.length+' JOUEURS À SURVEILLER</div>';
-        shortlist.forEach(function(pl){
-          h+='<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-top:1px solid var(--s3);font-size:11px">';
-          h+='<span style="font-size:9px;font-weight:900;padding:2px 5px;border-radius:4px;background:rgba(255,255,255,.06);color:'+(posColors[pl.pos]||"var(--t2)")+';min-width:28px;text-align:center">'+pl.pos+'</span>';
-          h+='<div style="flex:1;min-width:0">';
-          h+='<div style="font-weight:800;color:var(--tx)">'+pl.n+'</div>';
-          h+='<div style="font-size:10px;color:var(--t2)">'+pl.club+(pl.note?' — <i>'+pl.note+'</i>':'')+'</div>';
-          h+='</div>';
           h+='</div>';
         });
         h+='</div>';
