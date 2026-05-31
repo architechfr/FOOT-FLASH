@@ -3569,14 +3569,7 @@
       else if(V.view==="infirmerie"){ h+=rInfirmerie(); }  // v2.1 — vue restauree pour consultation depuis le widget
       else if(V.view==="settings")h+=rSettings();
 
-      // Footer version (en bas de chaque page, au-dessus de la nav)
-      h+='<div style="text-align:center;padding:14px 10px 8px;margin-top:16px;font-size:10px;color:var(--t2);border-top:1px solid var(--s3);opacity:.7">';
-      h+='<div onclick="adminTap()" style="font-weight:800;color:var(--g);letter-spacing:1px;margin-bottom:3px;cursor:pointer;user-select:none">⚽ FOOT FLASH 2026</div>';
-      h+='<div>'+APP_VERSION+' · <span onclick="showChangelog()" style="color:var(--g);cursor:pointer;text-decoration:underline">Changelog</span></div>';
-      h+='<div style="font-size:9px;margin-top:2px;opacity:.7">Made with ⚽ par Florian · Dernière mise à jour : 29 mai 2026</div>';
-      h+='<div style="font-size:9px;margin-top:6px;padding-top:6px;border-top:1px dotted var(--s3);opacity:.85;color:var(--am);cursor:pointer" onclick="event.stopPropagation();ffOpenCadence()">✨ Offert par <b style="text-decoration:underline">Cadence Architectes Associés</b></div>';
-      h+='<div style="font-size:8px;margin-top:4px;opacity:.55;color:var(--t2)">Application non officielle · non affiliée à la FIFA</div>';
-      h+='</div>';
+      // (footer global retiré — infos uniquement dans Réglages → À propos)
 
       h+='<div class="nav"><div class="nav-i">';
       h+=nb("cal","📅",t("matchs"))+nb("groups","🏆",t("groupes"))+nb("teams","👥",t("equipes"))+nb("bracket","🏅",t("tableau"))+nb("simul","🎮",t("simul"))+nb("prono","🎯",t("pronos"))+nb("game","🕹️","Jeu")+nb("news","📰",t("actus"))+nb("history","📜",t("palmares"))+nb("settings","⚙️","Réglages");
@@ -3856,7 +3849,7 @@
       h+='<button class="set-btn" onclick="showChangelog()">📜 Changelog</button></div>';
       h+='<div class="set-row"><div class="set-lbl">Suggérer / Signaler<div class="set-hint">Feedback à l\'équipe</div></div>';
       h+='<button class="set-btn" onclick="openFeedback()">💬 Ouvrir</button></div>';
-      h+='<div class="set-row" style="padding:14px;background:var(--s2)"><div style="font-size:10px;color:var(--t2);text-align:center;width:100%;line-height:1.7">⚽ <b>Foot Flash 2026</b><br>Made with ⚽ par <b style="color:var(--g)">Florian</b><br><span style="color:var(--am);font-size:10px;cursor:pointer" onclick="ffOpenCadence()">✨ Offert par <b style="text-decoration:underline">Cadence Architectes Associés</b></span><br><a onclick="ffOpenAuthorContact()" style="color:var(--bl);cursor:pointer;text-decoration:underline">Besoin d\'une app sur mesure ? Contactez Florian</a><br><span style="font-size:9px;color:var(--t2);opacity:.7;display:inline-block;margin-top:6px;line-height:1.5">Application non officielle, non affiliée à la FIFA ni aux organisateurs du tournoi. Marques citées à titre informatif.</span></div></div></div>';
+      h+='<div class="set-row" style="padding:14px;background:var(--s2)"><div style="font-size:10px;color:var(--t2);text-align:center;width:100%;line-height:1.7"><span onclick="adminTap()" style="cursor:pointer;user-select:none">⚽ <b>Foot Flash 2026</b></span><br>Made with ⚽ par <b style="color:var(--g)">Florian</b><br><span style="color:var(--am);font-size:10px;cursor:pointer" onclick="ffOpenCadence()">✨ Offert par <b style="text-decoration:underline">Cadence Architectes Associés</b></span><br><a onclick="ffOpenAuthorContact()" style="color:var(--bl);cursor:pointer;text-decoration:underline">Besoin d\'une app sur mesure ? Contactez Florian</a><br><span style="font-size:9px;color:var(--t2);opacity:.7;display:inline-block;margin-top:6px;line-height:1.5">Application non officielle, non affiliée à la FIFA ni aux organisateurs du tournoi. Marques citées à titre informatif.</span></div></div></div>';
       return h;
     }
     function setToggleHtml(key){
@@ -7817,9 +7810,9 @@
       h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:10px">';
       for(var i=0;i<16;i++){
         var b=bracket[i];
-        h+='<div style="background:var(--s1);border:1px solid var(--s3);border-radius:8px;padding:6px">';
+        h+='<div style="background:var(--s1);border:1px solid var(--s3);border-radius:8px;padding:6px;min-width:0;overflow:hidden">';
         h+='<div style="font-size:8px;color:var(--t2);margin-bottom:3px">Match '+(i+1)+'</div>';
-        h+='<div style="display:flex;gap:3px;align-items:center">'+brTeam(b.a,b.id,true)+'<div style="font-size:8px;color:var(--g);width:14px;text-align:center;font-weight:900">v</div>'+brTeam(b.b,b.id,true)+'</div></div>';
+        h+='<div style="display:flex;gap:3px;align-items:center;min-width:0">'+brTeam(b.a,b.id,true)+'<div style="font-size:8px;color:var(--g);width:14px;text-align:center;font-weight:900;flex-shrink:0">v</div>'+brTeam(b.b,b.id,true)+'</div></div>';
       }
       h+='</div>';
 
@@ -8591,19 +8584,12 @@
         if(V.bets[mid])myPts+=3; // bonus pari
       });
       var leaders=[
-        {name:"🏆 Toi",pts:myPts,credits:V.credits,me:true},
-        {name:"Karim_93",pts:Math.floor(Math.random()*200+600),credits:Math.floor(Math.random()*300+200)},
-        {name:"Sarah_foot",pts:Math.floor(Math.random()*200+500),credits:Math.floor(Math.random()*300+200)},
-        {name:"Diego_BA",pts:Math.floor(Math.random()*200+450),credits:Math.floor(Math.random()*300+150)},
-        {name:"MaxGoal",pts:Math.floor(Math.random()*200+400),credits:Math.floor(Math.random()*300+100)},
-        {name:"LuckyStrike",pts:Math.floor(Math.random()*200+350),credits:Math.floor(Math.random()*300+100)},
-        {name:"Neymar_fan",pts:Math.floor(Math.random()*200+300),credits:Math.floor(Math.random()*200+100)},
-        {name:"OleFan22",pts:Math.floor(Math.random()*200+250),credits:Math.floor(Math.random()*200+50)}
+        {name:"🏆 Toi",pts:myPts,credits:V.credits,me:true}
       ];
       leaders.sort(function(a,b){return b.pts-a.pts});
 
       h+='<div style="background:var(--s1);border:1px solid var(--s3);border-radius:12px;padding:12px;margin-bottom:10px">';
-      h+='<div style="font-size:13px;font-weight:900;color:var(--g);margin-bottom:8px">🏅 CLASSEMENT</div>';
+      h+='<div style="font-size:13px;font-weight:900;color:var(--g);margin-bottom:8px">🏅 TON SCORE</div>';
       leaders.forEach(function(l,i){
         var medal=i===0?"🥇":i===1?"🥈":i===2?"🥉":"";
         h+='<div style="display:flex;align-items:center;gap:8px;padding:8px;margin-bottom:3px;background:'+(l.me?'var(--gw)':'var(--s2)')+';border:1px solid '+(l.me?'var(--g)':'transparent')+';border-radius:8px">';
