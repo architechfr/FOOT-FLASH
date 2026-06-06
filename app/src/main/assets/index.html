@@ -2115,7 +2115,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.7.5 — Fix ticker chargement · 19 avril 2026";
+    var APP_VERSION="v1.8.0 — Amicaux de préparation + scores live auto-update · 6 juin 2026";
     var LANG=localStorage.getItem("ff26_lang")||"fr";
     var I18N={
       fr:{
@@ -2951,6 +2951,301 @@
       });
     }
 
+    // ══════════════════════════════════════════════════════════════════
+    // MODULE AMICAUX DE PRÉPARATION + LIVE AUTO-UPDATE (test pré-Mondial)
+    // ══════════════════════════════════════════════════════════════════
+    // Données embarquées (fallback ultime, identiques à data/friendlies.json).
+    // d = heure France (CEST) pour le compte à rebours ; utc = ISO UTC pour
+    // la fenêtre live (indépendante du fuseau de l'appareil).
+    var FRIENDLIES = [
+      {id:9001,fav:"FRA",d:"2026-06-08T21:10",utc:"2026-06-08T19:10:00Z",t1:"FRA",t2:"NIR",n1:"France",n2:"Irlande du Nord",st:"Amical de préparation",stad:"Stade Pierre-Mauroy",city:"Lille",tv:"BBC",s1:null,s2:null,status:"NS",minute:null,friendly:true,m1:["France"],m2:["Northern Ireland","N. Ireland"]},
+      {id:9002,fav:"ESP",d:"2026-06-09T04:00",utc:"2026-06-09T02:00:00Z",t1:"PER",t2:"ESP",n1:"Pérou",n2:"Espagne",st:"Amical de préparation",stad:"Estadio Cuauhtémoc",city:"Puebla",tv:"—",s1:null,s2:null,status:"NS",minute:null,friendly:true,m1:["Peru"],m2:["Spain"]},
+      {id:9003,fav:"ENG",d:"2026-06-06T22:00",utc:"2026-06-06T20:00:00Z",t1:"ENG",t2:"NZL",n1:"Angleterre",n2:"Nouvelle-Zélande",st:"Amical de préparation",stad:"Raymond James Stadium",city:"Tampa",tv:"ITV",s1:null,s2:null,status:"NS",minute:null,friendly:true,m1:["England"],m2:["New Zealand"]},
+      {id:9004,fav:"ENG",d:"2026-06-10T22:00",utc:"2026-06-10T20:00:00Z",t1:"ENG",t2:"CRC",n1:"Angleterre",n2:"Costa Rica",st:"Amical de préparation",stad:"Inter&Co Stadium",city:"Orlando",tv:"ITV",s1:null,s2:null,status:"NS",minute:null,friendly:true,m1:["England"],m2:["Costa Rica"]},
+      {id:9005,fav:"BRA",d:"2026-06-07T00:00",utc:"2026-06-06T22:00:00Z",t1:"BRA",t2:"EGY",n1:"Brésil",n2:"Égypte",st:"Amical de préparation",stad:"Huntington Bank Field",city:"Cleveland",tv:"ITV",s1:null,s2:null,status:"NS",minute:null,friendly:true,m1:["Brazil"],m2:["Egypt"]},
+      {id:9006,fav:"ARG",d:"2026-06-07T02:00",utc:"2026-06-07T00:00:00Z",t1:"ARG",t2:"HON",n1:"Argentine",n2:"Honduras",st:"Amical de préparation",stad:"Kyle Field",city:"College Station",tv:"—",s1:null,s2:null,status:"NS",minute:null,friendly:true,m1:["Argentina"],m2:["Honduras"]},
+      {id:9007,fav:"ARG",d:"2026-06-10T03:00",utc:"2026-06-10T01:00:00Z",t1:"ARG",t2:"ISL",n1:"Argentine",n2:"Islande",st:"Amical de préparation",stad:"Jordan-Hare Stadium",city:"Auburn",tv:"—",s1:null,s2:null,status:"NS",minute:null,friendly:true,m1:["Argentina"],m2:["Iceland"]},
+      {id:9008,fav:"POR",d:"2026-06-06T19:45",utc:"2026-06-06T17:45:00Z",t1:"POR",t2:"CHI",n1:"Portugal",n2:"Chili",st:"Amical de préparation",stad:"Estádio José Alvalade",city:"Lisbonne",tv:"Prime",s1:null,s2:null,status:"NS",minute:null,friendly:true,m1:["Portugal"],m2:["Chile"]},
+      {id:9009,fav:"POR",d:"2026-06-10T21:45",utc:"2026-06-10T19:45:00Z",t1:"POR",t2:"NGA",n1:"Portugal",n2:"Nigéria",st:"Amical de préparation",stad:"Estádio Dr. Magalhães Pessoa",city:"Leiria",tv:"—",s1:null,s2:null,status:"NS",minute:null,friendly:true,m1:["Portugal"],m2:["Nigeria"]},
+      {id:9010,fav:"GER",d:"2026-06-06T20:30",utc:"2026-06-06T18:30:00Z",t1:"USA",t2:"GER",n1:"États-Unis",n2:"Allemagne",st:"Amical de préparation",stad:"Soldier Field",city:"Chicago",tv:"Premier Sports",s1:null,s2:null,status:"NS",minute:null,friendly:true,m1:["USA","United States"],m2:["Germany"]},
+      {id:9011,fav:"NED",d:"2026-06-08T20:45",utc:"2026-06-08T18:45:00Z",t1:"NED",t2:"UZB",n1:"Pays-Bas",n2:"Ouzbékistan",st:"Amical de préparation",stad:"Red Bull Arena",city:"New York",tv:"—",s1:null,s2:null,status:"NS",minute:null,friendly:true,m1:["Netherlands"],m2:["Uzbekistan"]}
+    ];
+    var FRIENDLIES_SRC = "embedded"; // online | cache | embedded — d'où viennent les scores live
+
+    // Config source live (TheSportsDB v1, gratuit, CORS-ok, clé publique "123" sinon "3")
+    var FF_LIVE = {
+      base: "https://www.thesportsdb.com/api/v1/json/",
+      key: "123",
+      pollMs: 60000,        // rafraîchissement pendant un match
+      windowBeforeMs: 10*60000, // commence à scruter 10 min avant le coup d'envoi
+      windowAfterMs: 150*60000, // jusqu'à 2h30 après (fin assurée)
+      _timer: null
+    };
+    var FF_LIVE_CACHE_KEY = "ff26_friendly_live";
+
+    function ffNormName(s){
+      return String(s||"").toLowerCase()
+        .normalize ? String(s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]/g,"")
+        : String(s||"").toLowerCase().replace(/[^a-z0-9]/g,"");
+    }
+    function ffNameMatches(eventName, candidates){
+      var e = ffNormName(eventName);
+      if(!e) return false;
+      for(var i=0;i<candidates.length;i++){
+        var c = ffNormName(candidates[i]);
+        if(c && (e===c || e.indexOf(c)>-1 || c.indexOf(e)>-1)) return true;
+      }
+      return false;
+    }
+    function getFriendly(id){
+      id = parseInt(id,10);
+      for(var i=0;i<FRIENDLIES.length;i++){ if(FRIENDLIES[i].id===id) return FRIENDLIES[i]; }
+      return null;
+    }
+    // Prochain amical (à venir ou en cours) d'une équipe favorite
+    function ffNextFriendlyForTeam(teamId){
+      var now = Date.now();
+      return FRIENDLIES.filter(function(f){
+        if(f.t1!==teamId && f.t2!==teamId) return false;
+        var end = new Date(f.utc).getTime() + FF_LIVE.windowAfterMs;
+        return end > now; // pas encore terminé
+      }).sort(function(a,b){ return new Date(a.utc)-new Date(b.utc); })[0] || null;
+    }
+    // État live d'un amical → {phase, label, color, live, started}
+    function ffFriendlyState(f){
+      var now = Date.now();
+      var ko = new Date(f.utc).getTime();
+      var st = (f.status||"NS").toUpperCase();
+      var finished = st==="FT"||st==="AET"||st==="PEN"||st==="MATCH FINISHED"||st==="FINISHED";
+      var liveStatus = st==="1H"||st==="2H"||st==="HT"||st==="ET"||st==="BT"||st==="P"||st==="LIVE"||st==="IN PROGRESS";
+      var hasScore = (f.s1!==null && f.s1!==undefined && f.s2!==null && f.s2!==undefined);
+      if(finished || (hasScore && now > ko + FF_LIVE.windowAfterMs)){
+        return {phase:"FT", label:"Terminé", color:"var(--t2)", live:false, started:true};
+      }
+      if(liveStatus || (now>=ko && now<=ko+FF_LIVE.windowAfterMs && hasScore)){
+        var min = f.minute ? (" "+f.minute+"'") : (st==="HT"?" Mi-temps":"");
+        return {phase:"LIVE", label:"🔴 EN DIRECT"+min, color:"var(--rd)", live:true, started:true};
+      }
+      if(now>=ko){ return {phase:"LIVE", label:"🔴 EN DIRECT", color:"var(--rd)", live:true, started:true}; }
+      return {phase:"NS", label:"À venir", color:"var(--g)", live:false, started:false};
+    }
+    function ffFriendlyScoreStr(f){
+      var s = ffFriendlyState(f);
+      if(!s.started) return "—";
+      var a = (f.s1===null||f.s1===undefined)?0:f.s1;
+      var b = (f.s2===null||f.s2===undefined)?0:f.s2;
+      return a+" - "+b;
+    }
+
+    // Applique l'overlay live (depuis API ou cache) sur les objets FRIENDLIES
+    function ffApplyLiveOverlay(overlay){
+      if(!overlay) return;
+      Object.keys(overlay).forEach(function(idStr){
+        var f = getFriendly(idStr); if(!f) return;
+        var o = overlay[idStr];
+        if(o.s1!==undefined) f.s1 = o.s1;
+        if(o.s2!==undefined) f.s2 = o.s2;
+        if(o.status) f.status = o.status;
+        if(o.minute!==undefined) f.minute = o.minute;
+      });
+    }
+    function ffSaveLiveOverlay(){
+      var overlay = {};
+      FRIENDLIES.forEach(function(f){
+        if(f.s1!==null && f.s1!==undefined){ overlay[f.id] = {s1:f.s1,s2:f.s2,status:f.status,minute:f.minute}; }
+      });
+      try{ localStorage.setItem(FF_LIVE_CACHE_KEY, JSON.stringify({t:Date.now(),overlay:overlay})); }catch(e){}
+    }
+    (function ffLoadLiveCache(){
+      try{
+        var raw = localStorage.getItem(FF_LIVE_CACHE_KEY);
+        if(raw){ var p = JSON.parse(raw); ffApplyLiveOverlay(p && p.overlay); if(p && p.overlay && Object.keys(p.overlay).length) FRIENDLIES_SRC="cache"; }
+      }catch(e){}
+    })();
+
+    // Récupère les scores via TheSportsDB et fusionne dans FRIENDLIES
+    function ffFetchFriendlyLive(force){
+      var now = Date.now();
+      // dates UTC (YYYY-MM-DD) des amicaux dans la fenêtre [hier, demain], sauf si force
+      var dates = {};
+      FRIENDLIES.forEach(function(f){
+        var ko = new Date(f.utc).getTime();
+        var relevant = force || (now > ko - 36*3600000 && now < ko + 36*3600000);
+        if(!relevant) return;
+        var dt = new Date(f.utc);
+        [dt, new Date(ko-12*3600000), new Date(ko+12*3600000)].forEach(function(x){
+          dates[x.toISOString().slice(0,10)] = true;
+        });
+      });
+      var dateList = Object.keys(dates);
+      if(!dateList.length) return Promise.resolve(false);
+      var changed = false;
+      return Promise.all(dateList.map(function(d){
+        var url = FF_LIVE.base + FF_LIVE.key + "/eventsday.php?d=" + d + "&s=Soccer";
+        return _ffFetchJson(url, 8000).then(function(json){
+          var evs = (json && json.events) || [];
+          evs.forEach(function(ev){
+            // on écarte les compétitions féminines / jeunes pour éviter les faux positifs
+            var lg = (ev.strLeague||"") + " " + (ev.strEvent||"");
+            if(/wom|femin|girls|u-?1[5-9]|u-?2[0-3]|youth|olympic/i.test(lg)) return;
+            var home = ev.strHomeTeam, away = ev.strAwayTeam;
+            FRIENDLIES.forEach(function(f){
+              // même jour (à 1 jour près) ?
+              var evDay = (ev.dateEvent||"").slice(0,10);
+              var fDays = [new Date(f.utc).toISOString().slice(0,10)];
+              if(fDays.indexOf(evDay)<0 && evDay) {
+                // tolérance ±1 jour
+                var ed = new Date(evDay).getTime(), fd = new Date(f.utc).getTime();
+                if(Math.abs(ed-fd) > 30*3600000) return;
+              }
+              var hm1 = ffNameMatches(home, f.m1) && ffNameMatches(away, f.m2);
+              var hm2 = ffNameMatches(home, f.m2) && ffNameMatches(away, f.m1);
+              if(!hm1 && !hm2) return;
+              var hs = (ev.intHomeScore===null||ev.intHomeScore===undefined||ev.intHomeScore==="")?null:parseInt(ev.intHomeScore,10);
+              var as = (ev.intAwayScore===null||ev.intAwayScore===undefined||ev.intAwayScore==="")?null:parseInt(ev.intAwayScore,10);
+              var ns1 = hm1 ? hs : as; // f.t1 = m1 si hm1, sinon f.t1 = m2 → score away
+              var ns2 = hm1 ? as : hs;
+              var st = (ev.strStatus||ev.strProgress||"").toUpperCase();
+              if(ns1!==null && ns1!==f.s1){ f.s1=ns1; changed=true; }
+              if(ns2!==null && ns2!==f.s2){ f.s2=ns2; changed=true; }
+              if(st && st!==f.status){ f.status=st; changed=true; }
+              if(ev.strProgress && /^\d+$/.test(ev.strProgress) && ev.strProgress!==f.minute){ f.minute=ev.strProgress; changed=true; }
+            });
+          });
+          return true;
+        }).catch(function(){ return false; });
+      })).then(function(){
+        if(changed){ FRIENDLIES_SRC="online"; ffSaveLiveOverlay(); ffRerenderFriendlies(); }
+        return changed;
+      });
+    }
+
+    // Re-render léger si on est sur une vue qui montre les amicaux
+    function ffRerenderFriendlies(){
+      try{
+        if(typeof render==="function" && typeof V!=="undefined" && (V.view==="team"||V.view==="cal"||V.view==="match")){ render(); }
+      }catch(e){}
+    }
+
+    // Planifie le polling tant qu'un amical est dans sa fenêtre live
+    function ffStartFriendlyPolling(){
+      function anyLiveSoon(){
+        var now = Date.now();
+        return FRIENDLIES.some(function(f){
+          var ko = new Date(f.utc).getTime();
+          return now > ko - FF_LIVE.windowBeforeMs && now < ko + FF_LIVE.windowAfterMs;
+        });
+      }
+      function tick(){
+        ffFetchFriendlyLive(false);
+        if(FF_LIVE._timer){ clearTimeout(FF_LIVE._timer); }
+        FF_LIVE._timer = setTimeout(tick, anyLiveSoon() ? FF_LIVE.pollMs : 10*60000);
+      }
+      tick();
+    }
+
+    // Outil de test manuel : ffSetFriendlyScore(9005, 2, 1, "2H")  (console ou QA)
+    function ffSetFriendlyScore(id, a, b, status){
+      var f = getFriendly(id); if(!f){ console.warn("amical introuvable", id); return; }
+      f.s1 = (a===null||a===undefined)?null:parseInt(a,10);
+      f.s2 = (b===null||b===undefined)?null:parseInt(b,10);
+      if(status) f.status = String(status).toUpperCase();
+      FRIENDLIES_SRC = "test";
+      ffSaveLiveOverlay();
+      if(typeof toast==="function") toast("⚽ "+f.n1+" "+ffFriendlyScoreStr(f)+" "+f.n2+" ("+(f.status||"")+")");
+      ffRerenderFriendlies();
+    }
+    // Carte HTML "Prochain amical" pour la fiche équipe (avec score live auto-update)
+    function rFriendlyCard(teamId){
+      var f = ffNextFriendlyForTeam(teamId);
+      if(!f) return "";
+      var meId = (f.t1===teamId)?f.t1:f.t2;
+      var meName = (f.t1===teamId)?f.n1:f.n2;
+      var oppId = (f.t1===teamId)?f.t2:f.t1;
+      var oppName = (f.t1===teamId)?f.n2:f.n1;
+      var state = ffFriendlyState(f);
+      var ko = new Date(f.utc).getTime();
+      var diff = ko - Date.now();
+      var h = '';
+      h+='<div style="background:linear-gradient(135deg,rgba(231,196,92,.10),var(--s1));border:1px dashed var(--g);border-radius:12px;padding:16px;margin:12px 0">';
+      h+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">';
+      h+='<div style="display:flex;align-items:center;gap:6px"><span style="font-size:15px">🤝</span><span style="font-size:11px;font-weight:900;color:var(--g);letter-spacing:1px;text-transform:uppercase">Prochain amical</span></div>';
+      h+='<span style="font-size:10px;font-weight:900;color:'+state.color+'">'+state.label+'</span>';
+      h+='</div>';
+      // score / VS
+      h+='<div style="display:flex;align-items:center;justify-content:center;gap:14px;margin:14px 0">';
+      h+='<div style="display:flex;align-items:center;gap:6px">'+flagImg(meId,30)+'<span style="font-size:15px;font-weight:900">'+meName+'</span></div>';
+      if(state.started){
+        h+='<span style="font-size:22px;font-weight:900;color:var(--tx);min-width:60px;text-align:center">'+ffFriendlyScoreStr(f)+'</span>';
+      } else {
+        h+='<span style="font-size:13px;color:var(--t2);font-weight:800">VS</span>';
+      }
+      h+='<div style="display:flex;align-items:center;gap:6px"><span style="font-size:15px;font-weight:900">'+oppName+'</span>'+flagImg(oppId,30)+'</div>';
+      h+='</div>';
+      // compte à rebours si pas commencé
+      if(!state.started && diff>0){
+        var d=Math.floor(diff/86400000), hh=Math.floor((diff%86400000)/3600000), mm=Math.floor((diff%3600000)/60000), ss=Math.floor((diff%60000)/1000);
+        function cb(v,l){return'<div style="background:rgba(0,0,0,.3);border:1px solid rgba(231,196,92,.3);border-radius:6px;padding:5px 4px;min-width:42px;text-align:center"><div style="font-size:16px;font-weight:900;color:var(--g)">'+v+'</div><div style="font-size:8px;color:var(--t2);font-weight:700">'+l+'</div></div>'}
+        h+='<div id="wcd-next-'+f.id+'" data-target="'+ko+'" style="display:flex;justify-content:center;gap:4px;margin:10px 0">'+cb(d,'J')+cb(hh,'H')+cb(mm,'M')+cb(ss,'S')+'</div>';
+      }
+      h+='<div style="margin-top:8px;font-size:12px;color:var(--t2);text-align:center">';
+      h+='<div style="margin-bottom:3px">📍 '+f.stad+', '+f.city+(f.tv&&f.tv!=="—"?' · 📺 '+f.tv:'')+'</div>';
+      h+='<div>🕐 '+fmtDate(f.d)+' · '+fmtTime(f.d)+'</div>';
+      h+='</div>';
+      h+='<button onclick="showMatchDetail('+f.id+')" style="width:100%;margin-top:12px;padding:11px;background:var(--s2);border:1px solid var(--g);border-radius:8px;color:var(--g);font-size:12px;font-weight:900;cursor:pointer;font-family:inherit">→ Détail & suivi live</button>';
+      // bouton MAJ manuelle si mode QA actif
+      if(typeof V!=="undefined" && V.qa){
+        h+='<button onclick="var a=prompt(\'Score '+meName+' ?\');if(a===null)return;var b=prompt(\'Score '+oppName+' ?\');if(b===null)return;var st=prompt(\'Statut (1H/HT/2H/FT)\',\'2H\');ffSetFriendlyScore('+f.id+','+(f.t1===teamId?'a,b':'b,a')+',st)" style="width:100%;margin-top:6px;padding:8px;background:transparent;border:1px dashed var(--rd);border-radius:8px;color:var(--rd);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit">🧪 Saisir un score (test)</button>';
+      }
+      h+='<div style="margin-top:8px;font-size:9px;color:var(--t2);text-align:center">Scores : '+({online:"🟢 API live",cache:"🟡 cache",test:"🧪 test",embedded:"🟠 programme"}[FRIENDLIES_SRC]||FRIENDLIES_SRC)+'</div>';
+      h+='</div>';
+      return h;
+    }
+
+    // Modale détail d'un amical (hero + score live + bouton rafraîchir)
+    function showFriendlyDetail(id){
+      var f = getFriendly(id); if(!f) return;
+      var state = ffFriendlyState(f);
+      var el = document.createElement("div");
+      el.className = "pl-modal"; el.id = "friendly-detail-modal";
+      el.onclick = function(e){ if(e.target===el) el.remove(); };
+      var h = '<div class="pl-card" style="max-height:94vh;overflow-y:auto">';
+      h += '<button class="back" onclick="document.getElementById(\'friendly-detail-modal\').remove()">← Fermer</button>';
+      h += '<div class="mtd-hero">';
+      h += '<div style="font-size:11px;font-weight:900;color:var(--g);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">🤝 Amical de préparation</div>';
+      h += '<div class="mtd-teams">';
+      h += '<div class="mtd-team">'+flagImg(f.t1,48)+'<div class="nm">'+f.n1+'</div></div>';
+      if(state.started){
+        h += '<div class="mtd-vs" style="font-size:30px;color:var(--tx)">'+ffFriendlyScoreStr(f)+'</div>';
+      } else {
+        h += '<div class="mtd-vs">VS</div>';
+      }
+      h += '<div class="mtd-team">'+flagImg(f.t2,48)+'<div class="nm">'+f.n2+'</div></div>';
+      h += '</div>';
+      h += '<div style="text-align:center;margin:8px 0"><span style="font-size:13px;font-weight:900;color:'+state.color+'">'+state.label+'</span></div>';
+      h += '<div class="mtd-meta">📅 '+fmtDate(f.d)+' · '+fmtTime(f.d)+'<br>🏟️ '+f.stad+' · '+f.city+(f.tv&&f.tv!=="—"?'<br>📺 '+f.tv:'')+'</div>';
+      h += '</div>';
+      h += '<div class="mtd-sec"><div style="font-size:12px;color:var(--t2);line-height:1.6;text-align:center">';
+      h += 'Le score se met à jour automatiquement pendant le match (source : '+({online:"🟢 API live",cache:"🟡 cache local",test:"🧪 test manuel",embedded:"🟠 programme"}[FRIENDLIES_SRC]||FRIENDLIES_SRC)+').';
+      h += '</div>';
+      h += '<button class="mtd-btn primary" style="margin-top:10px" onclick="ffFetchFriendlyLive(true).then(function(c){toast(c?\'✓ Score mis à jour\':\'Aucun changement\');var m=document.getElementById(\'friendly-detail-modal\');if(m)m.remove();showFriendlyDetail('+f.id+')})">🔄 Rafraîchir le score</button>';
+      if(typeof V!=="undefined" && V.qa){
+        h += '<button class="mtd-btn secondary" style="margin-top:6px" onclick="var a=prompt(\''+f.n1+' ?\');if(a===null)return;var b=prompt(\''+f.n2+' ?\');if(b===null)return;var st=prompt(\'Statut (1H/HT/2H/FT)\',\'2H\');ffSetFriendlyScore('+f.id+',a,b,st);var m=document.getElementById(\'friendly-detail-modal\');if(m)m.remove();showFriendlyDetail('+f.id+')">🧪 Saisir un score (test)</button>';
+      }
+      h += '</div>';
+      h += '</div>';
+      el.innerHTML = h;
+      document.body.appendChild(el);
+    }
+
+    function ffResetFriendlyLive(){
+      try{ localStorage.removeItem(FF_LIVE_CACHE_KEY); }catch(e){}
+      FRIENDLIES.forEach(function(f){ f.s1=null; f.s2=null; f.status="NS"; f.minute=null; });
+      FRIENDLIES_SRC="embedded";
+      if(typeof toast==="function") toast("↺ Scores amicaux réinitialisés");
+      ffRerenderFriendlies();
+    }
+
     function _ffLoadOne(name){
       var cacheKey = DATA_CACHE_PREFIX + name;
       // Étage 1 : remote
@@ -2981,10 +3276,10 @@
           DATA_STATUS.source = "hardcoded";
           return;
         }
-        Promise.all([_ffLoadOne("blesses"), _ffLoadOne("shortlist"), _ffLoadOne("deadlines"), _ffLoadOne("effectifs"), _ffLoadOne("matches")])
+        Promise.all([_ffLoadOne("blesses"), _ffLoadOne("shortlist"), _ffLoadOne("deadlines"), _ffLoadOne("effectifs"), _ffLoadOne("matches"), _ffLoadOne("friendlies")])
           .then(function(results){
             try {
-              var bles = results[0], slist = results[1], deadl = results[2], effe = results[3], mtch = results[4];
+              var bles = results[0], slist = results[1], deadl = results[2], effe = results[3], mtch = results[4], frnd = results[5];
               var rank = { online:3, cache:2, embedded:1, hardcoded:0 };
               var bestSource = "hardcoded";
               var newestTs = null;
@@ -3001,9 +3296,18 @@
               if(deadl && deadl.payload && deadl.payload.data) { WC2026_DEADLINES = deadl.payload.data; track(deadl); }
               if(effe  && effe.payload  && effe.payload.data && Array.isArray(effe.payload.data) && effe.payload.data.length >= 32){ TEAMS = effe.payload.data; track(effe); }
               if(mtch  && mtch.payload  && mtch.payload.data && Array.isArray(mtch.payload.data) && mtch.payload.data.length >= 64){ MATCHES = mtch.payload.data; track(mtch); }
+              if(frnd  && frnd.payload  && frnd.payload.data && Array.isArray(frnd.payload.data) && frnd.payload.data.length >= 1){
+                // on garde l'overlay live (scores déjà récupérés) au-dessus des fixtures fraîches
+                var liveBefore = {}; FRIENDLIES.forEach(function(f){ if(f.s1!==null&&f.s1!==undefined) liveBefore[f.id]={s1:f.s1,s2:f.s2,status:f.status,minute:f.minute}; });
+                FRIENDLIES = frnd.payload.data;
+                ffApplyLiveOverlay(liveBefore);
+                if(frnd.source==="online") FRIENDLIES_SRC="online";
+              }
               DATA_STATUS.source = bestSource;
               DATA_STATUS.lastUpdated = newestTs;
               console.log("[FFData] bootstrap → source=" + bestSource + " maj=" + (newestTs?new Date(newestTs).toISOString():"n/a"));
+              // Démarre l'auto-update live des amicaux (scores qui se mettent à jour tout seuls)
+              try { if(typeof ffStartFriendlyPolling==="function") ffStartFriendlyPolling(); } catch(_e){}
               // CRITIQUE : on ne re-render que si on est encore au démarrage (V.view==="cal" ou pas de V).
               // Sinon le re-rendu force le retour à l'accueil au beau milieu d'une navigation = crash.
               setTimeout(function(){
@@ -3035,14 +3339,19 @@
       try {
         Object.keys(localStorage).forEach(function(k){ if(k.indexOf(DATA_CACHE_PREFIX)===0) localStorage.removeItem(k); });
       } catch(e){}
-      Promise.all([_ffLoadOne("blesses"), _ffLoadOne("shortlist"), _ffLoadOne("deadlines"), _ffLoadOne("effectifs"), _ffLoadOne("matches")])
+      Promise.all([_ffLoadOne("blesses"), _ffLoadOne("shortlist"), _ffLoadOne("deadlines"), _ffLoadOne("effectifs"), _ffLoadOne("matches"), _ffLoadOne("friendlies")])
         .then(function(r){
           if(r[0]&&r[0].payload&&r[0].payload.data){ INJURIES = r[0].payload.data; DATA_STATUS.source = r[0].source; if(r[0].payload.lastUpdated) DATA_STATUS.lastUpdated = new Date(r[0].payload.lastUpdated).getTime(); }
           if(r[1]&&r[1].payload&&r[1].payload.data){ SHORTLIST = r[1].payload.data; }
           if(r[2]&&r[2].payload&&r[2].payload.data){ WC2026_DEADLINES = r[2].payload.data; }
           if(r[3]&&r[3].payload&&r[3].payload.data&&Array.isArray(r[3].payload.data)&&r[3].payload.data.length>=32){ TEAMS = r[3].payload.data; }
           if(r[4]&&r[4].payload&&r[4].payload.data&&Array.isArray(r[4].payload.data)&&r[4].payload.data.length>=64){ MATCHES = r[4].payload.data; }
+          if(r[5]&&r[5].payload&&r[5].payload.data&&Array.isArray(r[5].payload.data)&&r[5].payload.data.length>=1){
+            var lb={}; FRIENDLIES.forEach(function(f){ if(f.s1!==null&&f.s1!==undefined) lb[f.id]={s1:f.s1,s2:f.s2,status:f.status,minute:f.minute}; });
+            FRIENDLIES = r[5].payload.data; ffApplyLiveOverlay(lb);
+          }
           if(typeof render === "function") render();
+          if(typeof ffFetchFriendlyLive === "function") ffFetchFriendlyLive(true);
           if(typeof toast === "function") toast("✓ Données rafraîchies (" + DATA_STATUS.source + ")");
         });
     }
@@ -5004,6 +5313,9 @@
       h+='<div class="det-meta">Groupe '+t.group+" · FIFA #"+t.rank+"</div>";
       if(t.captain)h+='<div class="det-meta" style="color:var(--g);font-weight:700">🎖️ Capitaine: '+t.captain+"</div>";
       h+='</div>';
+
+      // ═══ PROCHAIN AMICAL DE PRÉPARATION (avec score live auto-update) ═══
+      if(typeof rFriendlyCard==="function"){ h+=rFriendlyCard(V.selTeam); }
 
       // ═══ PROCHAIN MATCH (PRIORITAIRE) ═══
       var nextMatch=MATCHES.filter(function(m){
@@ -12492,6 +12804,8 @@
 
     // v1.075 — MODAL DÉTAIL MATCH
     function showMatchDetail(matchId){
+      // Amicaux de préparation (id >= 9000) → modale dédiée
+      if(parseInt(matchId,10) >= 9000){ if(typeof showFriendlyDetail==="function") showFriendlyDetail(matchId); return; }
       var m = null;
       for(var i=0;i<MATCHES.length;i++){
         if(MATCHES[i].id === parseInt(matchId)){ m = MATCHES[i]; break; }
