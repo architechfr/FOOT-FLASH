@@ -46,7 +46,7 @@
         .app {
           max-width:480px;
           margin:0 auto;
-          padding:0 12px 130px;
+          padding:0 12px 180px;
           animation:fadeIn .2s ease}
         @keyframes fadeIn {
           from {
@@ -758,8 +758,9 @@
 
         /* ═══ v1.075 — Sticky footer pronos + match detail modal ═══════ */
         .prn-sticky-footer{
-          position:sticky;bottom:74px;
-          margin:16px -12px -16px;padding:10px 12px;
+          /* v1.9.1 — la nav fait 2 rangées (~104px), pas 74px : le footer passait dessous */
+          position:sticky;bottom:calc(104px + env(safe-area-inset-bottom,0px));
+          margin:16px -12px 0;padding:10px 12px;
           background:rgba(4,8,10,.92);backdrop-filter:blur(8px);
           border-top:1px solid var(--s3);
           box-shadow:0 -4px 16px rgba(0,0,0,.5);
@@ -2106,6 +2107,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.9.1",d:"07/06/2026",changes:"Fix affichage Pronos : le bandeau Récap/navigation de journée passait sous la barre d'onglets (2 rangées) et le bas de la liste était rogné — impossible de voir le bouton 'Retour au hub'. Le bandeau flotte désormais au-dessus de la nav et la page se termine avec une marge correcte."},
       {v:"v1.9.0",d:"07/06/2026",changes:"Équipes favorites multiples — demande la plus formulée par les utilisateurs ! Tu peux désormais suivre jusqu'à 3 équipes : dans Réglages > Équipes favorites, tap pour ajouter ou retirer (la 1re ⭐ reste ta principale, utilisée pour la grande carte d'accueil et l'agenda). Le filtre 'Mes équipes' (Matchs et Pronos) montre les matchs de tes 3 équipes, l'accueil affiche le prochain match de chacune, le quiz pioche des questions sur tes 3 équipes, et les actus les concernant remontent en priorité."},
       {v:"v1.8.8",d:"07/06/2026",changes:"Les classes de favoris s'appliquent désormais PARTOUT, plus seulement au tableau final. (1) Scores simulés des matchs de groupe : la loi de Poisson intègre le poids de classe — le Portugal ne perd plus contre l'Ouzbékistan qu'environ 1 fois sur 100 (au lieu de 1 sur 7). (2) Tableau final : le plafond de surprise monte avec l'écart de classe — un classe 1 contre un classe 4 gagne ~95% de ses 32es (au lieu de 78%). (3) Pronos auto (algorithme v2.6) : bonus outsider plafonné par l'écart de classe et scores nets (2-0, 3-1) pour les gros favoris. Validation 5000 tournois : 74% de champions classe 1, 26% classe 2, ~0% classe 3/4."},
       {v:"v1.8.7",d:"07/06/2026",changes:"Passerelle Prono Poto : nouveau bouton '🥊 Envoyer mes pronos vers Prono Poto' dans Pronos > Récap. Il copie un lien d'import et ouvre Prono Poto avec tous tes pronos pré-remplis (les matchs déjà verrouillés côté serveur sont ignorés). Sur la version web, Prono Poto peut aussi lire directement tes pronos Foot Flash via '📥 Importer de Foot Flash' (même appareil, même navigateur). Dans Prono Poto, vérifie puis appuie sur 📤 Publier pour valider."},
@@ -2141,7 +2143,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.0 — Jusqu'à 3 équipes favorites · 7 juin 2026";
+    var APP_VERSION="v1.9.1 — 3 équipes favorites + fix scroll pronos · 7 juin 2026";
     var LANG=localStorage.getItem("ff26_lang")||"fr";
     var I18N={
       fr:{
