@@ -2107,7 +2107,8 @@
     }
 
     var APP_CHANGELOG=[
-      {v:"v1.9.1",d:"07/06/2026",changes:"Fix affichage Pronos : le bandeau Récap/navigation de journée passait sous la barre d'onglets (2 rangées) et le bas de la liste était rogné — impossible de voir le bouton 'Retour au hub'. Le bandeau flotte désormais au-dessus de la nav et la page se termine avec une marge correcte."},
+      {v:"v1.9.2",d:"08/06/2026",changes:"Le VRAI tournoi s'intègre aux pronos. (1) Le tableau final se remplit tout seul : dès que les résultats réels tombent, les groupes terminés désignent leurs qualifiés, puis 16es, 8es, quarts, demis et finale s'ouvrent aux paris au fur et à mesure — exactement comme le vrai Mondial (les 3es qualifiés sont calculés quand les 12 groupes sont finis ; si les données serveur fournissent déjà les affiches, elles restent prioritaires). (2) Les pronos auto tiennent compte de la FORME DU MOMENT dans le tournoi : une équipe qui cartonne en poules part avec un bonus (jusqu'à +6), une équipe en difficulté avec un malus. (3) Le MODE EXPERT (doublon des pronos) est retiré de la Simulation — remplacé par un raccourci vers l'onglet Pronos."},
+      {v:"v1.9.1",d:"07/06/2026",changes:"Fix affichage Pronos : le bandeau Récap/navigation de journée passait sous la barre d'onglets (2 rangées) et le bas de la liste était rogné — impossible de voir le bouton 'Retour au hub'. Le bandeau flotte désormais au-dessus de la nav et la page se termine avec une marge correcte. Et dans Matchs > filtre 'Mes équipes' : le classement de CHAQUE groupe de tes équipes favorites s'affiche désormais (avant, plus aucun groupe n'apparaissait dès que tu avais 2-3 équipes), avec tes équipes surlignées en doré."},
       {v:"v1.9.0",d:"07/06/2026",changes:"Équipes favorites multiples — demande la plus formulée par les utilisateurs ! Tu peux désormais suivre jusqu'à 3 équipes : dans Réglages > Équipes favorites, tap pour ajouter ou retirer (la 1re ⭐ reste ta principale, utilisée pour la grande carte d'accueil et l'agenda). Le filtre 'Mes équipes' (Matchs et Pronos) montre les matchs de tes 3 équipes, l'accueil affiche le prochain match de chacune, le quiz pioche des questions sur tes 3 équipes, et les actus les concernant remontent en priorité."},
       {v:"v1.8.8",d:"07/06/2026",changes:"Les classes de favoris s'appliquent désormais PARTOUT, plus seulement au tableau final. (1) Scores simulés des matchs de groupe : la loi de Poisson intègre le poids de classe — le Portugal ne perd plus contre l'Ouzbékistan qu'environ 1 fois sur 100 (au lieu de 1 sur 7). (2) Tableau final : le plafond de surprise monte avec l'écart de classe — un classe 1 contre un classe 4 gagne ~95% de ses 32es (au lieu de 78%). (3) Pronos auto (algorithme v2.6) : bonus outsider plafonné par l'écart de classe et scores nets (2-0, 3-1) pour les gros favoris. Validation 5000 tournois : 74% de champions classe 1, 26% classe 2, ~0% classe 3/4."},
       {v:"v1.8.7",d:"07/06/2026",changes:"Passerelle Prono Poto : nouveau bouton '🥊 Envoyer mes pronos vers Prono Poto' dans Pronos > Récap. Il copie un lien d'import et ouvre Prono Poto avec tous tes pronos pré-remplis (les matchs déjà verrouillés côté serveur sont ignorés). Sur la version web, Prono Poto peut aussi lire directement tes pronos Foot Flash via '📥 Importer de Foot Flash' (même appareil, même navigateur). Dans Prono Poto, vérifie puis appuie sur 📤 Publier pour valider."},
@@ -2143,7 +2144,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.1 — 3 équipes favorites + fix scroll pronos · 7 juin 2026";
+    var APP_VERSION="v1.9.2 — Le tournoi réel s'ouvre aux paris au fil des qualifs · 8 juin 2026";
     var LANG=localStorage.getItem("ff26_lang")||"fr";
     var I18N={
       fr:{
@@ -3902,6 +3903,9 @@
         console.error("Élément #app introuvable dans le DOM");
         return;
       }
+      // v1.9.2 — remplit les slots TBD du tableau avec les vraies équipes
+      // qualifiées dès que les résultats réels le permettent (~1ms)
+      try{if(typeof resolveRealBracket==="function")resolveRealBracket()}catch(e){}
       var h="";
       // v1.046 — Interception onboarding au premier lancement
       if(shouldShowOnboarding()&&V.view!=="onboarding"){V.view="onboarding";V.obStep=V.obStep||0}
@@ -4943,21 +4947,27 @@
 
       if(V.filter&&V.filter.startsWith("G"))matches=matches.filter(function(m){return m.st.indexOf("Groupe "+V.filter[1])>=0});
 
-        var showGroup=null;
-      if(V.filter==="mine"&&V.myTeams.length===1){var mt=getTeam(V.myTeam);if(mt.group)showGroup=mt.group}
-      if(V.filter&&V.filter.startsWith("G"))showGroup=V.filter[1];
-      if(showGroup){
+      // v1.9.1 — filtre "Mes équipes" : afficher le classement de CHAQUE groupe des favorites
+      var showGroups=[];
+      if(V.filter==="mine"){
+        V.myTeams.forEach(function(id){var t=getTeam(id);if(t&&t.group&&showGroups.indexOf(t.group)<0)showGroups.push(t.group)});
+        showGroups.sort();
+      }
+      if(V.filter&&V.filter.startsWith("G"))showGroups=[V.filter[1]];
+      showGroups.forEach(function(showGroup){
         var gTeams=TEAMS.filter(function(t){return t.group===showGroup});
+        var favHere=V.myTeams.filter(function(id){return (getTeam(id)||{}).group===showGroup});
         h+='<div style="background:var(--s1);border:1px solid var(--s3);border-radius:var(--r);padding:12px;margin-bottom:12px">';
-        h+='<div style="font-size:12px;font-weight:900;color:var(--g);margin-bottom:8px">📊 CLASSEMENT GROUPE '+showGroup+'</div>';
+        h+='<div style="font-size:12px;font-weight:900;color:var(--g);margin-bottom:8px">📊 CLASSEMENT GROUPE '+showGroup
+          +(V.filter==="mine"&&favHere.length?' <span style="font-weight:700;color:var(--t2)">· '+favHere.map(function(id){return flagImg(id,12)}).join(" ")+'</span>':'')+'</div>';
         h+='<table class="grp-t"><tr><th>Équipe</th><th>Pts</th><th>J</th><th>G</th><th>N</th><th>P</th><th>Diff</th></tr>';
         gTeams.forEach(function(t,i){
           h+='<tr class="'+(i<2?"qual":"")+'" style="cursor:pointer" onclick="goTeam(\''+t.id+'\')">';
-          h+='<td>'+flagImg(t.id,16)+' '+t.name+'</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>';
+          h+='<td>'+flagImg(t.id,16)+' '+(isFavTeam(t.id)?'<b style="color:var(--g)">'+t.name+'</b>':t.name)+'</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>';
         });
         h+='</table>';
         h+='<div style="font-size:10px;color:var(--t2);text-align:center">Top 2 qualifiés ✓ + 8 meilleurs 3es</div></div>';
-      }
+      });
 
       if(!matches.length)return h+'<div class="empty"><div class="empty-i">📅</div>Aucun match</div>';
 
@@ -8422,25 +8432,14 @@
       }
       h+='</div>';
 
-        h+='<div style="margin-top:16px;padding:12px;background:var(--s1);border:1px solid var(--s3);border-radius:12px">';
-      h+='<div style="font-size:13px;font-weight:900;color:var(--am);margin-bottom:8px">⚡ MODE EXPERT — Pronostic des scores</div>';
-      h+='<div style="font-size:11px;color:var(--t2);margin-bottom:10px">Predit les scores exacts de la phase de groupes !</div>';
-      if(!V.simScores)V.simScores={};
-      var grpMs=MATCHES.filter(function(m){return m.st&&m.st.indexOf("Groupe")>=0}).slice(0,12);
-      grpMs.forEach(function(m){
-        var t1=getTeam(m.t1),t2=getTeam(m.t2);
-        var saved=V.simScores[m.id];
-        h+='<div style="display:flex;align-items:center;gap:6px;padding:6px;margin-bottom:4px;background:var(--s2);border-radius:8px">';
-        h+='<span onclick="goTeam(\''+m.t1+'\')" style="display:inline-flex;align-items:center;gap:4px;cursor:pointer;flex:1">'+flagImg(m.t1,14)+'<span style="font-size:10px;font-weight:700;text-decoration:underline;text-decoration-color:rgba(255,255,255,.15)">'+t1.name+'</span></span>';
-        h+='<input type="number" min="0" max="20" value="'+(saved?saved.a:"")+'" onchange="saveSimScore('+m.id+',0,this.value)" style="width:32px;padding:4px;text-align:center;background:var(--s1);border:1px solid var(--s3);border-radius:6px;color:var(--g);font-size:14px;font-weight:900;font-family:inherit;outline:none">';
-        h+='<span style="font-size:9px;color:var(--t2)">-</span>';
-        h+='<input type="number" min="0" max="20" value="'+(saved?saved.b:"")+'" onchange="saveSimScore('+m.id+',1,this.value)" style="width:32px;padding:4px;text-align:center;background:var(--s1);border:1px solid var(--s3);border-radius:6px;color:var(--g);font-size:14px;font-weight:900;font-family:inherit;outline:none">';
-        h+='<span onclick="goTeam(\''+m.t2+'\')" style="display:inline-flex;align-items:center;gap:4px;cursor:pointer;flex:1;justify-content:flex-end"><span style="font-size:10px;font-weight:700;text-align:right;text-decoration:underline;text-decoration-color:rgba(255,255,255,.15)">'+t2.name+'</span>'+flagImg(m.t2,14)+'</span>';
-        h+='</div>';
-      });
-      var filled=Object.keys(V.simScores).length;
-      h+='<div style="font-size:10px;color:var(--t2);text-align:center;margin-top:6px">'+filled+'/'+grpMs.length+' scores pronostiques</div>';
-      h+='</div>';
+      // v1.9.2 — MODE EXPERT supprimé : les paris sur les VRAIS matchs se font
+      // dans l'onglet Pronos (journée par journée, puis tableau final au fil
+      // des qualifications réelles).
+      h+='<div onclick="go(\'prono\')" style="margin-top:16px;padding:14px;background:linear-gradient(135deg,rgba(231,196,92,.12),var(--s1));border:1px solid rgba(231,196,92,.4);border-radius:12px;cursor:pointer;display:flex;align-items:center;gap:12px">';
+      h+='<div style="font-size:26px">🎯</div>';
+      h+='<div style="flex:1"><div style="font-size:13px;font-weight:900;color:var(--g)">Parie sur les VRAIS matchs</div>';
+      h+='<div style="font-size:11px;color:var(--t2);margin-top:2px;line-height:1.5">Pronostique chaque journée dans l\'onglet Pronos. Dès qu\'une équipe est réellement qualifiée, les 16es, 8es, quarts… s\'ouvrent automatiquement aux paris, avec des probabilités qui tiennent compte de la forme du moment.</div></div>';
+      h+='<div style="color:var(--g);font-size:18px;font-weight:900">›</div></div>';
 
       // Export buttons always visible when simulation has data
       var hasAnyKO=Object.keys(V.simKO).length>0;
@@ -8692,6 +8691,90 @@
       } catch(e){}
       if(typeof toast === "function") toast("🧹 Pronos et simulation réinitialisés");
       if(typeof render === "function") render();
+    }
+
+    // ═══════════════════════════════════════════════════════════
+    // TOURNOI RÉEL (v1.9.2) — le tableau final se remplit tout seul
+    // avec les VRAIES équipes qualifiées, au fil des résultats réels.
+    // Source des résultats : MATCHES (s1/s2 via data/matches.json ou
+    // saisie admin). On ne touche qu'aux slots encore "TBD" : si le
+    // serveur fournit déjà les équipes, ses données restent prioritaires.
+    // ═══════════════════════════════════════════════════════════
+    function _realGroupTable(g){
+      var ms=MATCHES.filter(function(m){return m.st==="Groupe "+g});
+      var done=ms.filter(function(m){return m.s1!=null&&m.s2!=null});
+      var T={};
+      TEAMS.forEach(function(t){if(t.group===g)T[t.id]={id:t.id,pts:0,diff:0,gf:0}});
+      done.forEach(function(m){
+        if(!T[m.t1]||!T[m.t2])return;
+        T[m.t1].diff+=m.s1-m.s2;T[m.t1].gf+=m.s1;
+        T[m.t2].diff+=m.s2-m.s1;T[m.t2].gf+=m.s2;
+        if(m.s1>m.s2)T[m.t1].pts+=3;else if(m.s1<m.s2)T[m.t2].pts+=3;else{T[m.t1].pts++;T[m.t2].pts++}
+      });
+      var order=Object.keys(T).map(function(k){return T[k]}).sort(function(a,b){
+        return b.pts-a.pts||b.diff-a.diff||b.gf-a.gf||(((getTeam(a.id)||{}).rank||99)-(((getTeam(b.id)||{}).rank||99)));
+      });
+      return {complete:ms.length>0&&done.length===ms.length,order:order};
+    }
+    function resolveRealBracket(){
+      try{
+        var W={},R={},T3={},doneGroups=0;
+        ["A","B","C","D","E","F","G","H","I","J","K","L"].forEach(function(g){
+          var t=_realGroupTable(g);
+          if(t.complete){doneGroups++;W[g]=t.order[0].id;R[g]=t.order[1].id;T3[g]=t.order[2]}
+        });
+        var komap={};
+        // 16es (73-88) : seulement quand les 12 groupes sont terminés
+        // (les 8 meilleurs 3es dépendent de TOUS les groupes)
+        if(doneGroups===12){
+          var thirds=Object.keys(T3).map(function(g){return T3[g]}).sort(function(a,b){
+            return b.pts-a.pts||b.diff-a.diff||b.gf-a.gf});
+          var t3p=thirds.slice(0,8).map(function(x){return x.id});
+          var p3=function(o){for(var i=0;i<o.length;i++){var t=T3[o[i]]&&T3[o[i]].id;var x=t3p.indexOf(t);if(x>=0){t3p.splice(x,1);return t}}return t3p.length?t3p.shift():null};
+          var br=[
+            [R["A"],R["B"]],[W["C"],R["F"]],[W["E"],p3(["A","B","C","D","F"])],[W["F"],R["C"]],
+            [R["E"],R["I"]],[W["I"],p3(["C","D","F","G","H"])],[W["A"],p3(["C","E","F","H","I"])],[W["L"],p3(["E","H","I","J","K"])],
+            [W["H"],R["J"]],[R["K"],R["L"]],[W["B"],p3(["E","F","G","I","J"])],[R["D"],R["G"]],
+            [W["J"],R["H"]],[W["K"],p3(["D","E","I","J","L"])],[W["G"],p3(["A","E","H","I","J"])],[W["D"],p3(["B","E","F","I","J"])]
+          ];
+          br.forEach(function(p,i){komap[73+i]=p});
+        }
+        // Tours suivants : vainqueurs réels des matchs précédents
+        function mById(id){for(var i=0;i<MATCHES.length;i++)if(MATCHES[i].id===id)return MATCHES[i];return null}
+        function winnerOf(id){var m=mById(id);
+          if(!m||m.t1==="TBD"||m.t2==="TBD"||m.s1==null||m.s2==null||m.s1===m.s2)return null;
+          return m.s1>m.s2?m.t1:m.t2}
+        function loserOf(id){var m=mById(id);
+          if(!m||m.t1==="TBD"||m.t2==="TBD"||m.s1==null||m.s2==null||m.s1===m.s2)return null;
+          return m.s1>m.s2?m.t2:m.t1}
+        var i;
+        for(i=0;i<8;i++)komap[89+i]=[winnerOf(73+2*i),winnerOf(74+2*i)];   // 8es
+        for(i=0;i<4;i++)komap[97+i]=[winnerOf(89+2*i),winnerOf(90+2*i)];   // quarts
+        komap[101]=[winnerOf(97),winnerOf(98)];                            // demi 1
+        komap[102]=[winnerOf(99),winnerOf(100)];                           // demi 2
+        komap[103]=[loserOf(101),loserOf(102)];                            // 3e place
+        komap[104]=[winnerOf(101),winnerOf(102)];                          // finale
+        Object.keys(komap).forEach(function(idStr){
+          var pair=komap[idStr];
+          var m=mById(+idStr);
+          if(!m)return;
+          if(m.t1==="TBD"&&pair[0])m.t1=pair[0];
+          if(m.t2==="TBD"&&pair[1])m.t2=pair[1];
+        });
+      }catch(e){}
+    }
+    // Forme du moment DANS le tournoi (matchs réels joués) : -6 à +6
+    function tournamentForm(teamId){
+      var ms=MATCHES.filter(function(m){return m.s1!=null&&m.s2!=null&&(m.t1===teamId||m.t2===teamId)});
+      if(!ms.length)return 0;
+      var pts=0,diff=0;
+      ms.forEach(function(m){
+        var mine=m.t1===teamId?m.s1:m.s2, opp=m.t1===teamId?m.s2:m.s1;
+        diff+=mine-opp;
+        if(mine>opp)pts+=3;else if(mine===opp)pts+=1;
+      });
+      var f=((pts/ms.length)-1.5)*3+(diff/ms.length)*1.5;
+      return Math.max(-6,Math.min(6,f));
     }
 
     // ── Classes de favoris (v1.8.4) ──────────────────────────
@@ -12906,6 +12989,12 @@
       comp1 += (w1 - w2) * 6;  // classe 1 vs classe 4 : +15 pts d'écart
       comp2 += (w2 - w1) * 6;
       var tierGap = Math.abs(w1 - w2); // 0 (même classe) → 2.5 (classe 1 vs 4)
+
+      // v1.9.2 — Forme du moment DANS le tournoi (résultats réels joués) :
+      // une équipe qui cartonne en poules part avec un bonus, une équipe
+      // qui a souffert part avec un malus (±6 pts).
+      comp1 += tournamentForm(match.t1);
+      comp2 += tournamentForm(match.t2);
 
       // 2. Bonus underdog plafonné par l'écart de classe
       // → exploit possible entre classes voisines, quasi nul entre extrêmes
