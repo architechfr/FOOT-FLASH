@@ -2107,7 +2107,7 @@
     }
 
     var APP_CHANGELOG=[
-      {v:"v1.9.2",d:"08/06/2026",changes:"Le VRAI tournoi s'intègre aux pronos. (1) Le tableau final se remplit tout seul : dès que les résultats réels tombent, les groupes terminés désignent leurs qualifiés, puis 16es, 8es, quarts, demis et finale s'ouvrent aux paris au fur et à mesure — exactement comme le vrai Mondial (les 3es qualifiés sont calculés quand les 12 groupes sont finis ; si les données serveur fournissent déjà les affiches, elles restent prioritaires). (2) Les pronos auto tiennent compte de la FORME DU MOMENT dans le tournoi : une équipe qui cartonne en poules part avec un bonus (jusqu'à +6), une équipe en difficulté avec un malus. (3) Le MODE EXPERT (doublon des pronos) est retiré de la Simulation — remplacé par un raccourci vers l'onglet Pronos."},
+      {v:"v1.9.2",d:"08/06/2026",changes:"Le VRAI tournoi s'intègre aux pronos. (1) Le tableau final se remplit tout seul : dès que les résultats réels tombent, les groupes terminés désignent leurs qualifiés, puis 16es, 8es, quarts, demis et finale s'ouvrent aux paris au fur et à mesure — exactement comme le vrai Mondial (les 3es qualifiés sont calculés quand les 12 groupes sont finis ; si les données serveur fournissent déjà les affiches, elles restent prioritaires). (2) Les pronos auto tiennent compte de la FORME DU MOMENT dans le tournoi : une équipe qui cartonne en poules part avec un bonus (jusqu'à +6), une équipe en difficulté avec un malus. (3) Le MODE EXPERT (doublon des pronos) est retiré de la Simulation — remplacé par un raccourci vers l'onglet Pronos. (4) MISES À JOUR INTÉGRÉES : l'app vérifie au démarrage si une nouvelle version existe et propose de la télécharger en 1 tap (Réglages > bannière dorée, ou bouton 🔄 Vérifier). L'installation se fait PAR-DESSUS l'ancienne version : pronos, crédits et réglages sont conservés, pas besoin de désinstaller."},
       {v:"v1.9.1",d:"07/06/2026",changes:"Fix affichage Pronos : le bandeau Récap/navigation de journée passait sous la barre d'onglets (2 rangées) et le bas de la liste était rogné — impossible de voir le bouton 'Retour au hub'. Le bandeau flotte désormais au-dessus de la nav et la page se termine avec une marge correcte. Et dans Matchs > filtre 'Mes équipes' : le classement de CHAQUE groupe de tes équipes favorites s'affiche désormais (avant, plus aucun groupe n'apparaissait dès que tu avais 2-3 équipes), avec tes équipes surlignées en doré."},
       {v:"v1.9.0",d:"07/06/2026",changes:"Équipes favorites multiples — demande la plus formulée par les utilisateurs ! Tu peux désormais suivre jusqu'à 3 équipes : dans Réglages > Équipes favorites, tap pour ajouter ou retirer (la 1re ⭐ reste ta principale, utilisée pour la grande carte d'accueil et l'agenda). Le filtre 'Mes équipes' (Matchs et Pronos) montre les matchs de tes 3 équipes, l'accueil affiche le prochain match de chacune, le quiz pioche des questions sur tes 3 équipes, et les actus les concernant remontent en priorité."},
       {v:"v1.8.8",d:"07/06/2026",changes:"Les classes de favoris s'appliquent désormais PARTOUT, plus seulement au tableau final. (1) Scores simulés des matchs de groupe : la loi de Poisson intègre le poids de classe — le Portugal ne perd plus contre l'Ouzbékistan qu'environ 1 fois sur 100 (au lieu de 1 sur 7). (2) Tableau final : le plafond de surprise monte avec l'écart de classe — un classe 1 contre un classe 4 gagne ~95% de ses 32es (au lieu de 78%). (3) Pronos auto (algorithme v2.6) : bonus outsider plafonné par l'écart de classe et scores nets (2-0, 3-1) pour les gros favoris. Validation 5000 tournois : 74% de champions classe 1, 26% classe 2, ~0% classe 3/4."},
@@ -2145,6 +2145,38 @@
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
     var APP_VERSION="v1.9.2 — Le tournoi réel s'ouvre aux paris au fil des qualifs · 8 juin 2026";
+
+    // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
+    // Les APK installés hors Play Store se mettent à jour en installant
+    // la nouvelle version PAR-DESSUS (données conservées) — à condition de
+    // bumper versionCode. L'app vérifie version.json sur GitHub Pages et
+    // propose le téléchargement en 1 tap.
+    var APP_BUILD=2; // = versionCode (build.gradle.kts) — à bumper ensemble
+    var UPDATE_URL="https://architechfr.github.io/FOOT-FLASH/version.json";
+    var _updInfo=null;
+    function ffCheckUpdate(manual){
+      if(!window.AndroidBridge){if(manual)toast("🌐 Version web : toujours à jour automatiquement");return}
+      fetch(UPDATE_URL+"?t="+Date.now())
+        .then(function(r){return r.json()})
+        .then(function(j){
+          if(j&&typeof j.versionCode==="number"&&j.versionCode>APP_BUILD){
+            _updInfo=j;
+            toast("⬇️ Mise à jour "+(j.version||"")+" disponible — voir Réglages");
+            if(typeof render==="function")render();
+          }else if(manual){toast("✓ Tu as la dernière version ("+APP_VERSION.split(" — ")[0]+")")}
+        })
+        .catch(function(){if(manual)toast("⚠️ Vérification impossible (hors-ligne ?)")});
+    }
+    function ffDownloadUpdate(){
+      if(!_updInfo||!_updInfo.apk){toast("Pas de mise à jour en attente");return}
+      try{
+        if(typeof AndroidBridge!=="undefined"&&AndroidBridge.openExternal)AndroidBridge.openExternal(_updInfo.apk);
+        else window.open(_updInfo.apk,"_blank");
+      }catch(e){}
+      toast("⬇️ Téléchargement lancé — ouvre le fichier puis Installer (tes données sont conservées)");
+    }
+    // Vérification silencieuse au démarrage (APK uniquement)
+    setTimeout(function(){try{ffCheckUpdate(false)}catch(e){}},4000);
     var LANG=localStorage.getItem("ff26_lang")||"fr";
     var I18N={
       fr:{
@@ -4227,8 +4259,20 @@
       var team=V.myTeam||SETTINGS.fav_team;
       var teamObj=TEAMS.find(function(t){return t.id===team});
       var teamName=teamObj?teamObj.name:team;
+      var h='';
+      // v1.9.2 — Bannière mise à jour APK disponible
+      if(_updInfo){
+        h+='<div style="background:linear-gradient(135deg,rgba(231,196,92,.2),var(--s1));border:1.5px solid var(--g);border-radius:14px;padding:14px;margin-bottom:12px">';
+        h+='<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">';
+        h+='<div style="font-size:28px">⬇️</div><div style="flex:1">';
+        h+='<div style="font-size:14px;font-weight:900;color:var(--g)">Mise à jour '+(_updInfo.version||"")+' disponible</div>';
+        if(_updInfo.notes)h+='<div style="font-size:11px;color:var(--t2);margin-top:3px;line-height:1.5">'+_updInfo.notes+'</div>';
+        h+='</div></div>';
+        h+='<button onclick="ffDownloadUpdate()" style="width:100%;padding:13px;background:linear-gradient(135deg,var(--g),var(--g2));color:#000;border:none;border-radius:11px;font-size:13px;font-weight:900;cursor:pointer;font-family:inherit">⬇️ Télécharger et installer (données conservées)</button>';
+        h+='</div>';
+      }
       // v1.086 — Carte "Découvrez aussi" — promotion croisée Coach du Dimanche (même auteur)
-      var h='<div class="ff-arb-card" onclick="ffOpenAuthorApp()">';
+      h+='<div class="ff-arb-card" onclick="ffOpenAuthorApp()">';
       h+='<div class="ff-arb-icon">⚽</div>';
       h+='<div class="ff-arb-txt">';
       h+='<div class="ff-arb-title">À DÉCOUVRIR AUSSI</div>';
@@ -4292,6 +4336,10 @@
       }
       // À PROPOS
       h+='<div class="set-sec"><div class="set-h">ℹ️ À propos</div>';
+      if(window.AndroidBridge){
+        h+='<div class="set-row"><div class="set-lbl">Mises à jour<div class="set-hint">Installe par-dessus, sans perdre tes données</div></div>';
+        h+='<button class="set-btn" onclick="ffCheckUpdate(true)">🔄 Vérifier</button></div>';
+      }
       h+='<div class="set-row"><div class="set-lbl">Version<div class="set-hint">'+APP_VERSION+'</div></div>';
       h+='<button class="set-btn" onclick="showChangelog()">📜 Changelog</button></div>';
       h+='<div class="set-row"><div class="set-lbl">Suggérer / Signaler<div class="set-hint">Feedback à l\'équipe</div></div>';
