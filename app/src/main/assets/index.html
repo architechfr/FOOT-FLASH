@@ -2088,7 +2088,7 @@
     }
 
     var APP_CHANGELOG=[
-      {v:"v1.8.4",d:"07/06/2026",changes:"Quiz Chrono ameliore. (1) Audit des 163 questions : 27 questions corrigees ou reecrites — la bonne reponse n'est plus trahie par une precision entre parentheses (ex : 'Hakan Sukur (Turquie 2002)' → 'Hakan Sukur') ni par un indice dans l'enonce (Maracanazo) ; 2 questions incoherentes reecrites. (2) Timer passe de 10 a 15 secondes par question. (3) En cas de mauvaise reponse ou de temps ecoule, la bonne reponse s'affiche desormais pendant 2,5s pour apprendre de ses erreurs. (4) Fix : le timeout ne remelangeait plus correctement les questions restantes (bug _qShuffled)."},
+      {v:"v1.8.4",d:"07/06/2026",changes:"Fix crash Pronos : le bouton boost ⚡ provoquait 'cycleBoost is not defined' — les fonctions getBoost/isBoostLocked/cycleBoost manquaient. Le boost fonctionne desormais : tap pour cycler ×1→×2→×3→×5 (cout 2/8/18/50 credits, difference debitee ou remboursee), verrouille au coup d'envoi. Quiz Chrono ameliore. (1) Audit des 163 questions : 27 questions corrigees ou reecrites — la bonne reponse n'est plus trahie par une precision entre parentheses (ex : 'Hakan Sukur (Turquie 2002)' → 'Hakan Sukur') ni par un indice dans l'enonce (Maracanazo) ; 2 questions incoherentes reecrites. (2) Timer passe de 10 a 15 secondes par question. (3) En cas de mauvaise reponse ou de temps ecoule, la bonne reponse s'affiche desormais pendant 2,5s pour apprendre de ses erreurs. (4) Fix : le timeout ne remelangeait plus correctement les questions restantes (bug _qShuffled)."},
       {v:"v1.8.3",d:"07/06/2026",changes:"La section Réglages > Avancé (Export/Import de données, Relancer l'onboarding, Réinitialiser l'app) est désormais entièrement masquée aux utilisateurs : elle n'apparaît qu'en mode admin (6 taps sur le footer + code)."},
       {v:"v1.8.2",d:"07/06/2026",changes:"Confidentialité — la ligne 'Mode admin scores' n'apparaît plus dans Réglages > Avancé (activation réservée : 6 taps sur le footer + code ; le bouton Désactiver reste visible quand l'admin est actif). Coquilles corrigées dans le bandeau news : 'treble' → 'triplé' (FR) / 'triplete' (ES), accents et apostrophe 'Ballon d'Or' rétablis (Dembélé). Idem dans les actus et le quiz."},
       {v:"V1.088",d:"22/04/2026",changes:"Audit complet des 48 equipes (groupes A a L) : corrections donnees reelles avril 2026. Coaches : Arabie Saoudite Renard→Donis (limoge 17/04), Maroc Regragui→Ouahbi, Curaçao Advocaat→Rutten, Suede Tomasson→Potter, Tunisie Trabelsi→Lamouchi. Capitaines : Belgique Tielemans→De Bruyne, Iran Hajsafi→Taremi, Irak Ali Adnan→Aymen Hussein, Autriche Arnautović→Alaba. Transferts majeurs : Manu Koné→Roma, Kanté→Fenerbahce, Ekitike→Liverpool, Nicolas Jackson→Bayern, Modrić→Milan, Luis Diaz→Bayern, James Rodriguez→Minnesota United, Mbemba→Lille, Zubimendi→Arsenal, Guehi→Man City, Ramsdale→Newcastle, Darwin Nunez→Al-Hilal, Thiago Almada→Atletico, Paredes→Boca Juniors, Musso→Atletico, Arnautović→Red Star Belgrade, Wissa→Newcastle, Semenyo→Man City, Kamaldeen→Atalanta, Jordan Ayew→NAC Breda, Bounedjah→Al Shamal, Atal→Al-Sadd, Mandi→Villarreal, Al-Taamari→Rennes, Feras Al-Buraikan→Al Ahli, Ryan Mendes→Igdir, Stopira→APOEL, Logan Costa→Villarreal, Roberto Lopes→Shamrock Rovers, Monteiro→Union SG, Amoura stats ajustees, Sorloth stats ajustees, Haaland stats ajustees, Kane stats ajustees, Ronaldo stats ajustees, Messi stats ajustees, Shomurodov stats ajustees, Godoy caps ajustees. Retraites internationaux marques : Luis Suarez (URU, sept 2024), Brozović (CRO, aout 2024), Vida (CRO, aout 2024), Mbokani (COD). Diogo Jota retire du fichier suite a son deces tragique en juillet 2025. Doublons supprimes massivement : Irak (6), Jordanie (6), Panama (6), Arabie Saoudite (5), Norvege (1), Algerie (1), Portugal (Pepe), Ouzbekistan (Shomurodov+Masharipov), Colombie (Rios), RD Congo (Bakambu+Silas+Mbemba), Ghana (Kudus+Ati-Zigi+J.Ayew), Uruguay (Rochet+Gimenez). Erreurs de poste corrigees : Benchimol GAR→ATT (CPV), Miguel Borja DEF→ATT (COL). Noms corriges : Dylan Vozinha→Vozinha (CPV), Mandrea (ALG)."},
@@ -13353,6 +13353,44 @@
 
     function saveBoosts(){
       try { localStorage.setItem("ff26_boosts", JSON.stringify(V.boosts || {})); } catch(e){}
+    }
+
+    // v1.8.4 — FIX : getBoost / isBoostLocked / cycleBoost étaient référencés
+    // par rPronoMatchCard et le scoring mais jamais définis
+    // → "Uncaught ReferenceError: cycleBoost is not defined" au tap sur ⚡.
+    function getBoost(mid){
+      if(!V.boosts){
+        try { V.boosts = JSON.parse(localStorage.getItem("ff26_boosts") || "{}"); } catch(e){ V.boosts = {}; }
+      }
+      var b = parseInt(V.boosts[String(mid)], 10);
+      return (BOOST_OPTIONS.indexOf(b) > 0) ? b : 1;
+    }
+    function isBoostLocked(m){
+      if(!m) return true;
+      if(m.s1 !== null && m.s2 !== null) return true; // résultat déjà connu
+      try { if(m.d && new Date(m.d).getTime() <= Date.now()) return true; } catch(e){} // coup d'envoi passé
+      return false;
+    }
+    function cycleBoost(mid, ev){
+      if(ev && ev.stopPropagation) ev.stopPropagation();
+      var m = MATCHES.find(function(x){ return x.id === mid; });
+      if(m && isBoostLocked(m)){ toast("🔒 Boost verrouillé — match commencé"); return; }
+      var cur = getBoost(mid);
+      var idx = BOOST_OPTIONS.indexOf(cur); if(idx < 0) idx = 0;
+      var next = BOOST_OPTIONS[(idx + 1) % BOOST_OPTIONS.length];
+      var delta = boostCostDelta(cur, next);
+      if(delta > 0 && (V.credits || 0) < delta){
+        toast("❌ Crédits insuffisants pour ×" + next + " (" + delta + " requis · solde " + (V.credits||0) + ")");
+        return;
+      }
+      V.credits = (V.credits || 0) - delta;
+      if(next === 1){ delete V.boosts[String(mid)]; } else { V.boosts[String(mid)] = next; }
+      saveBoosts();
+      try { localStorage.setItem("ff26_credits", V.credits); } catch(e){}
+      if(delta > 0) toast("⚡ Boost ×" + next + " · -" + delta + " crédits (solde " + V.credits + ")");
+      else if(delta < 0) toast("⚡ Boost ×" + next + " · +" + (-delta) + " crédits remboursés (solde " + V.credits + ")");
+      else toast("⚡ Boost ×" + next);
+      render();
     }
 
     // v1.086 — Promotion croisée Coach du Dimanche + contact Florian
