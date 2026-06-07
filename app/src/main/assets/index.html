@@ -2088,6 +2088,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.8.8",d:"07/06/2026",changes:"Les classes de favoris s'appliquent désormais PARTOUT, plus seulement au tableau final. (1) Scores simulés des matchs de groupe : la loi de Poisson intègre le poids de classe — le Portugal ne perd plus contre l'Ouzbékistan qu'environ 1 fois sur 100 (au lieu de 1 sur 7). (2) Tableau final : le plafond de surprise monte avec l'écart de classe — un classe 1 contre un classe 4 gagne ~95% de ses 32es (au lieu de 78%). (3) Pronos auto (algorithme v2.6) : bonus outsider plafonné par l'écart de classe et scores nets (2-0, 3-1) pour les gros favoris. Validation 5000 tournois : 74% de champions classe 1, 26% classe 2, ~0% classe 3/4."},
       {v:"v1.8.7",d:"07/06/2026",changes:"Passerelle Prono Poto : nouveau bouton '🥊 Envoyer mes pronos vers Prono Poto' dans Pronos > Récap. Il copie un lien d'import et ouvre Prono Poto avec tous tes pronos pré-remplis (les matchs déjà verrouillés côté serveur sont ignorés). Sur la version web, Prono Poto peut aussi lire directement tes pronos Foot Flash via '📥 Importer de Foot Flash' (même appareil, même navigateur). Dans Prono Poto, vérifie puis appuie sur 📤 Publier pour valider."},
       {v:"v1.8.6",d:"07/06/2026",changes:"Classement FIFA mis à jour : les 48 ranks passent du classement d'avril au classement du 5 juin 2026, le dernier publié avant le Mondial (source FIFA). Coup de tonnerre : la France, battue en amical par la Côte d'Ivoire (1-2) jeudi, perd sa 1re place au profit de l'Argentine ; l'Espagne reste 2e. Top 10 : Argentine, Espagne, France, Angleterre, Portugal, Brésil, Maroc, Pays-Bas, Belgique, Allemagne. Autres mouvements notables : Sénégal 15e (+5), Turquie 22e (+8), Équateur 24e (+9), Côte d'Ivoire 33e (+12), Canada 30e (+10), Suède 38e (-14), Ghana 73e (-25). Le doublon Allemagne/Croatie (toutes deux 10es) est corrigé (Croatie 11e). La simulation auto utilise ces nouveaux ranks pour départager les équipes d'une même classe de favoris."},
       {v:"v1.8.5",d:"07/06/2026",changes:"Simulation auto crédibilisée : système de classes de favoris. Classe 1 (poids 3) : FRA, ESP, ARG, ENG, BRA, POR, GER, NED. Classe 2 (poids 2) : BEL, CRO, MAR, URU, COL, MEX, USA, JPN, SUI, SEN, NOR. Classe 3 (poids 1) : autres outsiders. Classe 4 (poids 0.5) : rank FIFA > 48. Les surprises restent possibles sur un match (un outsider peut sortir un favori en 32es/8es), mais la probabilité du favori monte au fil des tours, et une équipe de classe 3/4 ne peut plus battre une classe 1/2 en finale — fini l'Iran champion du monde. Validation sur 5000 tournois simulés : ~73% de champions classe 1, ~27% classe 2, 0 champion classe 3/4 (sauf finale improbable entre 2 outsiders, ~1 cas sur 1700). Le remplissage auto des groupes est aussi pondéré par classe."},
@@ -2121,7 +2122,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.8.7 — Passerelle Prono Poto : envoie tes pronos en 1 tap · 7 juin 2026";
+    var APP_VERSION="v1.8.8 — Les gros favoris respectés partout (simu, scores, pronos auto) · 7 juin 2026";
     var LANG=localStorage.getItem("ff26_lang")||"fr";
     var I18N={
       fr:{
@@ -8409,18 +8410,19 @@
     // (12 groupes × 4 équipes, 8 meilleurs 3es, 31 entrées bracket, etc.)
     // ═══════════════════════════════════════════════════════════
 
-    // Score plausible selon le rank FIFA des 2 équipes (loi de Poisson approximée)
+    // Score plausible selon rank FIFA + classe de favori (loi de Poisson approximée)
     function _qaPickScore(team1, team2){
       var t1 = getTeam(team1), t2 = getTeam(team2);
       var r1 = (t1 && t1.rank) || 50;
       var r2 = (t2 && t2.rank) || 50;
-      function lambda(rA, rB){ return Math.max(0.35, 2.1 - 0.022*rA + 0.012*rB); }
+      var w1 = tierWeight(teamTier(team1)), w2 = tierWeight(teamTier(team2));
+      function lambda(rA, rB, wA, wB){ return Math.max(0.25, 2.1 - 0.022*rA + 0.012*rB + (wA - wB)*0.45); }
       function poisson(L){
         var Le = Math.exp(-L), k = 0, p = 1;
         do { k++; p *= Math.random(); } while (p > Le);
         return k - 1;
       }
-      return [ Math.min(7, poisson(lambda(r1, r2))), Math.min(7, poisson(lambda(r2, r1))) ];
+      return [ Math.min(7, poisson(lambda(r1, r2, w1, w2))), Math.min(7, poisson(lambda(r2, r1, w2, w1))) ];
     }
 
     // Génère et injecte des scores pour les 72 matchs de groupe dans V.pronos
@@ -8694,9 +8696,11 @@
         var pA=wa/(wa+wb);
         // Affinage par rank FIFA (départage au sein d'une même classe)
         pA+=(rb-ra)*0.004;
-        // Surprises possibles mais bornées — de moins en moins en avançant
+        // Surprises possibles mais bornées — de moins en moins en avançant,
+        // et plafond relevé selon l'écart de classe (un classe 1 vs classe 4
+        // gagne ~95%, pas 78%)
         var caps={r32:0.78,r16:0.80,qf:0.85,sf:0.90,f:0.96};
-        var cap=caps[stage]||0.80;
+        var cap=Math.min(0.97,(caps[stage]||0.80)+Math.abs(wa-wb)*0.07);
         pA=Math.max(1-cap,Math.min(cap,pA));
         // Verrou : en demi, une classe 3/4 face à une classe 1/2 passe très rarement ;
         // en finale, jamais championne face à une classe 1/2
@@ -12816,22 +12820,25 @@
       var sa = sk1.skills;
       var sb = sk2.skills;
 
-      // === ALGORITHME ÉQUILIBRÉ v2.5 (50-20-30) ===
-      // Respect des joueurs individuels et des progrès récents
+      // === ALGORITHME v2.6 — classes de favoris (cohérent avec la simulation v1.8.5) ===
+      // Un classe 1 (POR, FRA…) ne doit presque jamais perdre contre un classe 4 (UZB, COD…)
 
-      // 1. Compression FORTE de l'écart (50% seulement)
-      // → Réduit l'avantage du favori pour respecter les progrès des équipes
+      // 1. Compression de l'écart (50%) + poids de classe de favori
       var avgGlobal = (sa + sb) / 2;
       var comp1 = avgGlobal + (sa - avgGlobal) * 0.5;
       var comp2 = avgGlobal + (sb - avgGlobal) * 0.5;
+      var w1 = tierWeight(teamTier(match.t1)), w2 = tierWeight(teamTier(match.t2));
+      comp1 += (w1 - w2) * 6;  // classe 1 vs classe 4 : +15 pts d'écart
+      comp2 += (w2 - w1) * 6;
+      var tierGap = Math.abs(w1 - w2); // 0 (même classe) → 2.5 (classe 1 vs 4)
 
-      // 2. Bonus underdog ÉLEVÉ (jusqu'à 12 pts)
-      // → Reconnaît les exploits possibles (Sénégal champions CAN, Maroc 4e mondial, etc.)
-      var underdog1 = comp1 < comp2 ? Math.random() * 12 : 0;
-      var underdog2 = comp2 < comp1 ? Math.random() * 12 : 0;
+      // 2. Bonus underdog plafonné par l'écart de classe
+      // → exploit possible entre classes voisines, quasi nul entre extrêmes
+      var udMax = Math.max(2, 12 - tierGap * 4);
+      var underdog1 = comp1 < comp2 ? Math.random() * udMax : 0;
+      var underdog2 = comp2 < comp1 ? Math.random() * udMax : 0;
 
       // 3. Facteur de forme (±8 pts)
-      // → Reconnaît qu'une équipe peut avoir un jour avec/sans
       var forme1 = (Math.random() - 0.5) * 8;
       var forme2 = (Math.random() - 0.5) * 8;
 
@@ -12839,21 +12846,28 @@
       var final1 = Math.max(40, comp1 + underdog1 + forme1);
       var final2 = Math.max(40, comp2 + underdog2 + forme2);
 
-      // 5. Distribution des scores TRÈS SERRÉE
+      // 5. Distribution des scores
       var ratio = final1 / final2;
       var home, away;
 
-      // Seuils AJUSTÉS pour respecter 50-20-30
-      if(ratio > 1.20){
-        // Équipe 1 légèrement favorite (pas écrasante)
+      if(ratio > 1.45){
+        // Gros favori : victoire nette
+        home = Math.floor(Math.random() * 2) + 2; // 2-3 buts
+        away = Math.floor(Math.random() * 2);     // 0-1 but
+      } else if(ratio > 1.20){
+        // Équipe 1 favorite
         home = Math.floor(Math.random() * 2) + 1; // 1-2 buts
         away = Math.floor(Math.random() * 2);     // 0-1 but
+      } else if(ratio < 0.69){
+        // Gros favori côté 2
+        away = Math.floor(Math.random() * 2) + 2; // 2-3 buts
+        home = Math.floor(Math.random() * 2);     // 0-1 but
       } else if(ratio < 0.83){
-        // Équipe 2 légèrement favorite
+        // Équipe 2 favorite
         home = Math.floor(Math.random() * 2);     // 0-1 but
         away = Math.floor(Math.random() * 2) + 1; // 1-2 buts
       } else {
-        // Match TRÈS équilibré (la majorité des cas)
+        // Match équilibré
         home = Math.floor(Math.random() * 3) + 1; // 1-3 buts
         away = Math.floor(Math.random() * 3) + 1; // 1-3 buts
       }
