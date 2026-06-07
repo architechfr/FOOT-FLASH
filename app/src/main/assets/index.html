@@ -2088,6 +2088,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.8.4",d:"07/06/2026",changes:"Quiz Chrono ameliore. (1) Audit des 163 questions : 27 questions corrigees ou reecrites — la bonne reponse n'est plus trahie par une precision entre parentheses (ex : 'Hakan Sukur (Turquie 2002)' → 'Hakan Sukur') ni par un indice dans l'enonce (Maracanazo) ; 2 questions incoherentes reecrites. (2) Timer passe de 10 a 15 secondes par question. (3) En cas de mauvaise reponse ou de temps ecoule, la bonne reponse s'affiche desormais pendant 2,5s pour apprendre de ses erreurs. (4) Fix : le timeout ne remelangeait plus correctement les questions restantes (bug _qShuffled)."},
       {v:"v1.8.3",d:"07/06/2026",changes:"La section Réglages > Avancé (Export/Import de données, Relancer l'onboarding, Réinitialiser l'app) est désormais entièrement masquée aux utilisateurs : elle n'apparaît qu'en mode admin (6 taps sur le footer + code)."},
       {v:"v1.8.2",d:"07/06/2026",changes:"Confidentialité — la ligne 'Mode admin scores' n'apparaît plus dans Réglages > Avancé (activation réservée : 6 taps sur le footer + code ; le bouton Désactiver reste visible quand l'admin est actif). Coquilles corrigées dans le bandeau news : 'treble' → 'triplé' (FR) / 'triplete' (ES), accents et apostrophe 'Ballon d'Or' rétablis (Dembélé). Idem dans les actus et le quiz."},
       {v:"V1.088",d:"22/04/2026",changes:"Audit complet des 48 equipes (groupes A a L) : corrections donnees reelles avril 2026. Coaches : Arabie Saoudite Renard→Donis (limoge 17/04), Maroc Regragui→Ouahbi, Curaçao Advocaat→Rutten, Suede Tomasson→Potter, Tunisie Trabelsi→Lamouchi. Capitaines : Belgique Tielemans→De Bruyne, Iran Hajsafi→Taremi, Irak Ali Adnan→Aymen Hussein, Autriche Arnautović→Alaba. Transferts majeurs : Manu Koné→Roma, Kanté→Fenerbahce, Ekitike→Liverpool, Nicolas Jackson→Bayern, Modrić→Milan, Luis Diaz→Bayern, James Rodriguez→Minnesota United, Mbemba→Lille, Zubimendi→Arsenal, Guehi→Man City, Ramsdale→Newcastle, Darwin Nunez→Al-Hilal, Thiago Almada→Atletico, Paredes→Boca Juniors, Musso→Atletico, Arnautović→Red Star Belgrade, Wissa→Newcastle, Semenyo→Man City, Kamaldeen→Atalanta, Jordan Ayew→NAC Breda, Bounedjah→Al Shamal, Atal→Al-Sadd, Mandi→Villarreal, Al-Taamari→Rennes, Feras Al-Buraikan→Al Ahli, Ryan Mendes→Igdir, Stopira→APOEL, Logan Costa→Villarreal, Roberto Lopes→Shamrock Rovers, Monteiro→Union SG, Amoura stats ajustees, Sorloth stats ajustees, Haaland stats ajustees, Kane stats ajustees, Ronaldo stats ajustees, Messi stats ajustees, Shomurodov stats ajustees, Godoy caps ajustees. Retraites internationaux marques : Luis Suarez (URU, sept 2024), Brozović (CRO, aout 2024), Vida (CRO, aout 2024), Mbokani (COD). Diogo Jota retire du fichier suite a son deces tragique en juillet 2025. Doublons supprimes massivement : Irak (6), Jordanie (6), Panama (6), Arabie Saoudite (5), Norvege (1), Algerie (1), Portugal (Pepe), Ouzbekistan (Shomurodov+Masharipov), Colombie (Rios), RD Congo (Bakambu+Silas+Mbemba), Ghana (Kudus+Ati-Zigi+J.Ayew), Uruguay (Rochet+Gimenez). Erreurs de poste corrigees : Benchimol GAR→ATT (CPV), Miguel Borja DEF→ATT (COL). Noms corriges : Dylan Vozinha→Vozinha (CPV), Mandrea (ALG)."},
@@ -2117,7 +2118,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.8.3 — Section Avancé réservée au mode admin · 7 juin 2026";
+    var APP_VERSION="v1.8.4 — Quiz : questions corrigées, 15s, bonne réponse affichée · 7 juin 2026";
     var LANG=localStorage.getItem("ff26_lang")||"fr";
     var I18N={
       fr:{
@@ -6640,7 +6641,7 @@
     {q:"Quel joueur a marque dans 4 Coupes du Monde differentes ?",a:["Plusieurs joueurs l'ont fait (Pele, Klose, Seeler, Ronaldo, Messi)","Uniquement Pele","Uniquement Klose","Personne ne l'a fait"],c:0,cat:"Records"},
     {q:"Combien de buts Mbappe avait-il marques en Coupe du Monde avant 2026 ?",a:["12","10","14","9"],c:0,cat:"Records"},
     {q:"Combien de buts Messi avait-il marques en Coupe du Monde avant 2026 ?",a:["13","10","15","11"],c:0,cat:"Records"},
-    {q:"Quel est le record du plus grand nombre de spectateurs dans un stade de Coupe du Monde ?",a:["Environ 200 000 (Maracana 1950)","100 000","150 000","250 000"],c:0,cat:"Records"},
+    {q:"Quel est le record du plus grand nombre de spectateurs dans un stade de Coupe du Monde ?",a:["Environ 200 000","100 000","150 000","250 000"],c:0,cat:"Records"},
     {q:"Quel pays a dispute le plus de finales de Coupe du Monde ?",a:["Allemagne","Bresil","Italie","Argentine"],c:0,cat:"Records"},
     {q:"Combien d'equipes participeront a la Coupe du Monde 2026 ?",a:["48","32","40","56"],c:0,cat:"Mondial2026"},
     {q:"Combien de pays co-organisent la Coupe du Monde 2026 ?",a:["3","2","4","1"],c:0,cat:"Mondial2026"},
@@ -6653,8 +6654,8 @@
     {q:"Combien de villes hotes accueillent le Mondial 2026 ?",a:["16","12","20","24"],c:0,cat:"Mondial2026"},
     {q:"Quelle nouveaute majeure introduit le Mondial 2026 apres la phase de groupes ?",a:["Un tour de 16es de finale (32 qualifies)","Des barrages continentaux","Des matchs a rejouer","Un groupe final a 4"],c:0,cat:"Mondial2026"},
     {q:"Combien de villes americaines accueillent des matchs en 2026 ?",a:["11","8","14","16"],c:0,cat:"Mondial2026"},
-    {q:"Combien de villes canadiennes accueillent des matchs en 2026 ?",a:["2 (Toronto, Vancouver)","3","1","4"],c:0,cat:"Mondial2026"},
-    {q:"Combien de villes mexicaines accueillent des matchs en 2026 ?",a:["3 (Mexico, Guadalajara, Monterrey)","2","4","5"],c:0,cat:"Mondial2026"},
+    {q:"Combien de villes canadiennes accueillent des matchs en 2026 ?",a:["2","3","1","4"],c:0,cat:"Mondial2026"},
+    {q:"Combien de villes mexicaines accueillent des matchs en 2026 ?",a:["3","2","4","5"],c:0,cat:"Mondial2026"},
     {q:"Quelle finale precedente a deja eu lieu dans l'Estadio Azteca ?",a:["Les finales de 1970 et 1986","Seulement 1986","Seulement 1970","Aucune"],c:0,cat:"Mondial2026"},
     {q:"Quel est le sponsor principal traditionnel de la Coupe du Monde ?",a:["Coca-Cola","Pepsi","Red Bull","Nestle"],c:0,cat:"Mondial2026"},
     {q:"Qui est le selectionneur de l'equipe de France en 2026 ?",a:["Didier Deschamps","Zinedine Zidane","Thierry Henry","Laurent Blanc"],c:0,cat:"France"},
@@ -6666,7 +6667,7 @@
     {q:"Contre quelle equipe la France a-t-elle perdu la finale du Mondial 2022 ?",a:["Argentine","Bresil","Allemagne","Croatie"],c:0,cat:"France"},
     {q:"Dans quel stade la France a-t-elle souleve la Coupe du Monde en 1998 ?",a:["Stade de France","Parc des Princes","Velodrome","Gerland"],c:0,cat:"France"},
     {q:"Quel joueur francais a recu le Ballon d'Or 2022 ?",a:["Karim Benzema","Kylian Mbappe","Antoine Griezmann","Aucun Francais cette annee-la"],c:0,cat:"France"},
-    {q:"En 2002, la France a ete eliminee a quel tour ?",a:["Phase de groupes (sans marquer)","Huitiemes","Quarts","Demi-finales"],c:0,cat:"France"},
+    {q:"En 2002, la France a ete eliminee a quel tour ?",a:["Phase de groupes","Huitiemes","Quarts","Demi-finales"],c:0,cat:"France"},
     {q:"Quelle est la couleur traditionnelle du maillot de l'Argentine ?",a:["Bleu ciel et blanc","Bleu marine","Blanc et noir","Rouge"],c:0,cat:"Culture"},
     {q:"Comment surnomme-t-on l'equipe nationale du Bresil ?",a:["Selecao","Canarinha","Verde-amarela","Toutes ces reponses"],c:3,cat:"Culture"},
     {q:"Quel est le surnom de l'equipe d'Angleterre ?",a:["Three Lions","The Queens","Royal Reds","Bulldogs"],c:0,cat:"Culture"},
@@ -6688,7 +6689,7 @@
     {q:"Quel stade mexicain a accueilli 2 finales de Coupe du Monde ?",a:["Estadio Azteca","Estadio Jalisco","Estadio Olimpico","Estadio Monterrey"],c:0,cat:"Stades"},
     {q:"Dans quelle ville se trouve le MetLife Stadium ?",a:["New York / New Jersey","Los Angeles","Dallas","Miami"],c:0,cat:"Stades"},
     {q:"Quel stade accueille traditionnellement l'equipe de France a domicile ?",a:["Stade de France","Parc des Princes","Velodrome","Groupama"],c:0,cat:"Stades"},
-    {q:"Quel est le plus grand stade du monde en capacite ?",a:["Rungrado May Day (Coree du Nord)","Camp Nou","Maracana","Wembley"],c:0,cat:"Stades"},
+    {q:"Quel est le plus grand stade du monde en capacite ?",a:["Rungrado May Day","Camp Nou","Maracana","Wembley"],c:0,cat:"Stades"},
     {q:"Dans quel stade la finale du Mondial 2014 au Bresil s'est-elle jouee ?",a:["Maracana (Rio)","Arena Corinthians (Sao Paulo)","Mineirao (Belo Horizonte)","Estadio Nacional (Brasilia)"],c:0,cat:"Stades"},
     {q:"Dans quel stade la finale du Mondial 2018 en Russie s'est-elle jouee ?",a:["Luzhniki (Moscou)","Saint-Petersbourg","Kazan","Sotchi"],c:0,cat:"Stades"},
     {q:"Quel stade en Angleterre est surnomme 'la maison du football' ?",a:["Wembley","Old Trafford","Anfield","Stamford Bridge"],c:0,cat:"Stades"},
@@ -6700,26 +6701,26 @@
     {q:"De quel club etait Pele pendant l'essentiel de sa carriere ?",a:["Santos","Flamengo","Palmeiras","Corinthians"],c:0,cat:"Clubs"},
     {q:"Dans quel club Maradona a-t-il connu ses annees de gloire en Italie ?",a:["Naples","AC Milan","Juventus","Inter Milan"],c:0,cat:"Clubs"},
     {q:"Pour quel club allemand Miroslav Klose a-t-il joue le plus longtemps ?",a:["Lazio puis Bayern Munich","Dortmund","Schalke","Leverkusen"],c:0,cat:"Clubs"},
-    {q:"Quel joueur a quitte le terrain en pleurs lors de la demi-finale Bresil-Allemagne 2014 ?",a:["David Luiz","Neymar (blesse avant le match)","Thiago Silva","Fred"],c:0,cat:"Anecdotes"},
+    {q:"Quel joueur a quitte le terrain en pleurs lors de la demi-finale Bresil-Allemagne 2014 ?",a:["David Luiz","Neymar","Thiago Silva","Fred"],c:0,cat:"Anecdotes"},
     {q:"Quel score a eu la demi-finale Bresil-Allemagne en 2014 ?",a:["7-1","5-1","4-0","6-2"],c:0,cat:"Anecdotes"},
-    {q:"En 1950, un evenement traumatique pour le Bresil se produit au Maracana. Quel est le nom donne a ce choc ?",a:["Le Maracanazo","Le Brasilazo","Le Cafu","Le Samba"],c:0,cat:"Anecdotes"},
+    {q:"En 1950, quel nom a ete donne a la defaite traumatisante du Bresil en finale a domicile ?",a:["Le Maracanazo","Le Brasilazo","Le Tragedio","Le Fracasso"],c:0,cat:"Anecdotes"},
     {q:"Quel joueur anglais a marque 4 buts en une meme Coupe du Monde (1966) et a remporte le tournoi ?",a:["Geoff Hurst","Bobby Charlton","Jack Charlton","Martin Peters"],c:0,cat:"Anecdotes"},
     {q:"Quel Francais a rate un penalty decisif en finale 2006 ?",a:["David Trezeguet","Thierry Henry","Zinedine Zidane","Franck Ribery"],c:0,cat:"Anecdotes"},
     {q:"Quel pays surprenant a atteint les demi-finales du Mondial 2022 ?",a:["Maroc","Japon","Australie","Senegal"],c:0,cat:"Anecdotes"},
     {q:"Quelle equipe a remporte son premier titre mondial en etant pays hote et en battant le Bresil en finale ?",a:["Uruguay en 1930","Italie en 1934","Allemagne en 1974","France en 1998"],c:0,cat:"Anecdotes"},
     {q:"Quel president argentin avait remis la coupe a Maradona en 1986 ?",a:["Raul Alfonsin","Juan Peron","Carlos Menem","Mauricio Macri"],c:0,cat:"Anecdotes"},
-    {q:"Quelle equipe etait la seule invaincue du Mondial 1998 jusqu'a sa finale perdue ?",a:["Pas le Bresil (elle a perdu un match de poule)","Bresil","France","Pays-Bas"],c:2,cat:"Anecdotes"},
-    {q:"Quel joueur a marque le but le plus rapide de l'histoire de la Coupe du Monde (11s) ?",a:["Hakan Sukur (Turquie 2002)","Bryan Robson","Pele","Vaclav Masek"],c:0,cat:"Anecdotes"},
-    {q:"Quel joueur a ete expulse le plus rapidement en Coupe du Monde (56 secondes) ?",a:["Jose Batista (Uruguay 1986)","Harald Schumacher","Zinedine Zidane","Mario Jardel"],c:0,cat:"Anecdotes"},
+    {q:"Quelle equipe a battu le Bresil en phase de groupes du Mondial 1998 ?",a:["Norvege","Ecosse","Maroc","Chili"],c:0,cat:"Anecdotes"},
+    {q:"Quel joueur a marque le but le plus rapide de l'histoire de la Coupe du Monde (11s) ?",a:["Hakan Sukur","Bryan Robson","Pele","Vaclav Masek"],c:0,cat:"Anecdotes"},
+    {q:"Quel joueur a ete expulse le plus rapidement en Coupe du Monde (56 secondes) ?",a:["Jose Batista","Harald Schumacher","Zinedine Zidane","Mario Jardel"],c:0,cat:"Anecdotes"},
     {q:"Quel est le nom du trophee de la Coupe du Monde utilise depuis 1974 ?",a:["Trophee FIFA (Coupe du Monde)","Coupe Jules Rimet","Coupe Pele","Coupe Havelange"],c:0,cat:"Culture"},
     {q:"Quel etait le nom du trophee utilise avant 1974 ?",a:["Coupe Jules Rimet","Coupe de Bronze","Coupe Olympique","Coupe de la FIFA"],c:0,cat:"Culture"},
     {q:"Pourquoi la Coupe Jules Rimet a-t-elle ete donnee definitivement au Bresil en 1970 ?",a:["Pour leur 3e victoire en Coupe du Monde","Pour leur 2e victoire","En cadeau de Pele","Parce qu'ils l'avaient achetee"],c:0,cat:"Culture"},
     {q:"En quelle matiere est faite la Coupe du Monde ?",a:["Or massif","Argent","Bronze plaque","Resine"],c:0,cat:"Culture"},
     {q:"Quelle regle a ete introduite en 1970 et modifie la fin des matchs nuls en phase finale ?",a:["Les prolongations avec but en or (retiree depuis)","Les penaltys seulement","3 points pour une victoire","Les remplacements illimites"],c:0,cat:"Culture"},
     {q:"Quelle innovation technologique a ete utilisee pour la premiere fois au Mondial 2018 ?",a:["La VAR","La goal-line technology","Les panneaux LED","Le ballon connecte"],c:0,cat:"Culture"},
-    {q:"Quelle est la seule nation africaine a avoir atteint les quarts de finale au 20e siecle ?",a:["Cameroun (1990)","Nigeria","Senegal","Maroc"],c:0,cat:"Histoire"},
+    {q:"Quelle est la seule nation africaine a avoir atteint les quarts de finale au 20e siecle ?",a:["Cameroun","Nigeria","Senegal","Maroc"],c:0,cat:"Histoire"},
     {q:"Quelle etait la premiere nation africaine a atteindre les quarts de finale ?",a:["Cameroun","Nigeria","Ghana","Senegal"],c:0,cat:"Histoire"},
-    {q:"Quelle est la premiere equipe africaine a avoir atteint les demi-finales d'une Coupe du Monde ?",a:["Maroc (2022)","Senegal","Ghana","Cameroun"],c:0,cat:"Histoire"},
+    {q:"Quelle est la premiere equipe africaine a avoir atteint les demi-finales d'une Coupe du Monde ?",a:["Maroc","Senegal","Ghana","Cameroun"],c:0,cat:"Histoire"},
     {q:"En 2002, quelle equipe asiatique a atteint les demi-finales (co-organisatrice) ?",a:["Coree du Sud","Japon","Chine","Iran"],c:0,cat:"Histoire"},
     {q:"Quel joueur nord-coreen est devenu celebre en 1966 ?",a:["Pak Doo-ik","Chung Young","Kim Il Sung","Park Ji-sung"],c:0,cat:"Histoire"},
     {q:"Quel pays a fait ses debuts en Coupe du Monde en 2022 ?",a:["Qatar","Canada","Gabon","Cap-Vert"],c:0,cat:"Histoire"},
@@ -6733,17 +6734,17 @@
     {q:"Quel joueur allemand a marque en finale 1990 contre l'Argentine sur penalty ?",a:["Andreas Brehme","Jurgen Klinsmann","Rudi Voller","Lothar Matthaus"],c:0,cat:"Anecdotes"},
     {q:"Quelle couleur de maillot le Bresil n'a-t-il JAMAIS portee officiellement en finale ?",a:["Noir","Jaune","Bleu","Blanc"],c:0,cat:"Culture"},
     {q:"Combien de temps dure un match de Coupe du Monde en temps reglementaire ?",a:["90 minutes","80 minutes","100 minutes","120 minutes"],c:0,cat:"Culture"},
-    {q:"Combien de remplacements sont autorises en Coupe du Monde ?",a:["5 (sans compter la prolongation)","3","4","Illimite"],c:0,cat:"Culture"},
+    {q:"Combien de remplacements sont autorises en Coupe du Monde ?",a:["5","3","4","Illimite"],c:0,cat:"Culture"},
     {q:"Quel type de carton signifie l'expulsion d'un joueur ?",a:["Rouge","Jaune","Bleu","Vert"],c:0,cat:"Culture"},
     {q:"A partir de quel accumule de cartons jaunes un joueur est-il suspendu ?",a:["2 cartons dans des matchs differents","3 cartons","1 carton","Pas de suspension"],c:0,cat:"Culture"},
-    {q:"Combien d'arbitres officient sur le terrain pendant un match de Mondial ?",a:["4 (1 central + 2 de touche + 1 4e)","3","5","6"],c:0,cat:"Culture"},
+    {q:"Combien d'arbitres officient sur le terrain pendant un match de Mondial ?",a:["4","3","5","6"],c:0,cat:"Culture"},
     {q:"Quelle equipe a gagne la Coupe du Monde 1966 a domicile ?",a:["Angleterre","Allemagne","Portugal","URSS"],c:0,cat:"Histoire"},
     {q:"Quelle equipe a gagne la Coupe du Monde 1974 a domicile ?",a:["Allemagne de l'Ouest","Pays-Bas","Pologne","Bresil"],c:0,cat:"Histoire"},
     {q:"Quelle equipe a gagne la Coupe du Monde 1978 a domicile ?",a:["Argentine","Pays-Bas","Bresil","Italie"],c:0,cat:"Histoire"},
     {q:"Quelle equipe a gagne la Coupe du Monde 2006 ?",a:["Italie","France","Allemagne","Portugal"],c:0,cat:"Histoire"},
     {q:"Quelle equipe a gagne la Coupe du Monde 2010 en Afrique du Sud ?",a:["Espagne","Pays-Bas","Allemagne","Uruguay"],c:0,cat:"Histoire"},
     {q:"Quel joueur africain a recu le Ballon d'Or ?",a:["George Weah","Didier Drogba","Samuel Eto'o","Yaya Toure"],c:0,cat:"Legendes"},
-    {q:"Quel Francais a gagne le plus de Ballons d'Or ?",a:["Michel Platini (3)","Zinedine Zidane","Karim Benzema","Thierry Henry"],c:0,cat:"Legendes"},
+    {q:"Quel Francais a gagne le plus de Ballons d'Or ?",a:["Michel Platini","Zinedine Zidane","Karim Benzema","Thierry Henry"],c:0,cat:"Legendes"},
     {q:"Qui a recu le Ballon d'Or 2023 ?",a:["Lionel Messi","Erling Haaland","Kylian Mbappe","Kevin De Bruyne"],c:0,cat:"Legendes"},
     {q:"Combien de Ballons d'Or Messi a-t-il remporte ?",a:["8","6","7","5"],c:0,cat:"Legendes"},
     {q:"Combien de Ballons d'Or Cristiano Ronaldo a-t-il remporte ?",a:["5","7","4","6"],c:0,cat:"Legendes"},
@@ -6751,7 +6752,7 @@
     {q:"Qui est le selectionneur du Bresil en 2026 ?",a:["Carlo Ancelotti","Tite","Ramon Menezes","Fernando Diniz"],c:0,cat:"Mondial2026"},
     {q:"Qui est le selectionneur de l'Argentine en 2026 ?",a:["Lionel Scaloni","Diego Simeone","Mauricio Pochettino","Marcelo Gallardo"],c:0,cat:"Mondial2026"},
     {q:"Quel joueur anglais a marque le but de la main decisif en 2010 contre l'Allemagne mais non valide ?",a:["Frank Lampard","Steven Gerrard","Wayne Rooney","Ashley Young"],c:0,cat:"Anecdotes"},
-    {q:"Quel defenseur bresilien etait surnomme 'la Bete' dans les annees 1990 ?",a:["Roberto Carlos (connu pour ses frappes)","Cafu","Lucio","Juninho"],c:0,cat:"Legendes"},
+    {q:"Quel defenseur bresilien etait surnomme 'la Bete' dans les annees 1990 ?",a:["Roberto Carlos","Cafu","Lucio","Juninho"],c:0,cat:"Legendes"},
     {q:"Quel joueur coree du sud a marque le but qui a elimine l'Allemagne en 2018 ?",a:["Son Heung-min","Park Ji-sung","Ki Sung-yueng","Kim Young-gwon"],c:0,cat:"Anecdotes"},
     {q:"Quelle equipe latino-americaine a surpris tout le monde en atteignant les quarts du Mondial 2014 ?",a:["Costa Rica","Chili","Uruguay","Colombie"],c:0,cat:"Anecdotes"},
     {q:"Quel joueur islandais est connu pour son celebre 'Viking clap' avec ses supporters ?",a:["Aucun en particulier : c'est toute l'equipe","Gylfi Sigurdsson","Eidur Gudjohnsen","Kolbeinn Sigthorsson"],c:0,cat:"Anecdotes"},
@@ -6784,7 +6785,7 @@
     {q:"Quel gardien francais a garde les buts lors de la victoire de 1998 ?",a:["Fabien Barthez","Bernard Lama","Ulrich Rame","Mickael Landreau"],c:0,cat:"Legendes"},
     {q:"Quel joueur italien a marque 6 buts au Mondial 1982 pour offrir la victoire a son pays ?",a:["Paolo Rossi","Marco Tardelli","Dino Zoff","Bruno Conti"],c:0,cat:"Legendes"},
     {q:"Quel joueur nigerian a ete elu meilleur espoir du Mondial 1994 ?",a:["Jay-Jay Okocha","Rashidi Yekini","Daniel Amokachi","Nwankwo Kanu"],c:0,cat:"Legendes"},
-    {q:"Qui est considere comme le meilleur gardien sovietique de l'histoire ?",a:["Lev Yashin (l'Araignee Noire)","Rinat Dasayev","Viktor Chanov","Vladislav Nikitin"],c:0,cat:"Legendes"},
+    {q:"Qui est considere comme le meilleur gardien sovietique de l'histoire ?",a:["Lev Yashin","Rinat Dasayev","Viktor Chanov","Vladislav Nikitin"],c:0,cat:"Legendes"},
     {q:"Quel defenseur anglais a ete capitaine lors de la victoire de 1966 ?",a:["Bobby Moore","Bobby Charlton","Nobby Stiles","Jack Charlton"],c:0,cat:"Legendes"},
     {q:"Quel milieu francais a brille au Mondial 1982 (Seville contre l'Allemagne) ?",a:["Michel Platini","Alain Giresse","Jean Tigana","Tous ces joueurs etaient du 'carre magique'"],c:3,cat:"Legendes"},
     {q:"Quel joueur argentin a inscrit 'le but du siecle' contre l'Angleterre en 1986 ?",a:["Diego Maradona","Jorge Valdano","Jorge Burruchaga","Ramón Díaz"],c:0,cat:"Legendes"},
@@ -6794,15 +6795,15 @@
     {q:"Quel joueur italien etait surnomme 'la Codina Divina' (la Queue de Cheval Divine) ?",a:["Roberto Baggio","Christian Vieri","Francesco Totti","Alessandro Del Piero"],c:0,cat:"Legendes"},
     {q:"Qui a marque le premier but pour la France en finale du Mondial 2018 ?",a:["Mario Mandzukic (csc)","Antoine Griezmann","Paul Pogba","Kylian Mbappe"],c:0,cat:"Legendes"},
     {q:"Qui etait le selectionneur du Portugal avec Eusebio au Mondial 1966 ?",a:["Otto Gloria","Manuel da Luz Afonso","Jose Maria Pedroto","Juca"],c:0,cat:"Legendes"},
-    {q:"Quel est le record de buts marques en un seul match de Coupe du Monde par un joueur ?",a:["5 buts (Oleg Salenko, Russie 1994)","4","6","3"],c:0,cat:"Records"},
+    {q:"Quel est le record de buts marques en un seul match de Coupe du Monde par un joueur ?",a:["5","4","6","3"],c:0,cat:"Records"},
     {q:"Quel joueur a dispute le plus de matchs en Coupe du Monde (avant 2026) ?",a:["Lionel Messi","Lothar Matthaus","Paolo Maldini","Miroslav Klose"],c:0,cat:"Records"},
-    {q:"Quelle equipe a encaisse le plus de buts en une seule Coupe du Monde ?",a:["Coree du Sud (1954, 16 buts)","Arabie Saoudite 2002","Allemagne Est","Zaire 1974"],c:0,cat:"Records"},
-    {q:"Quel joueur a porte le plus longtemps le brassard de capitaine de sa selection ?",a:["Plusieurs records existent selon les pays","Messi","Cristiano Ronaldo","Lloris"],c:1,cat:"Records"},
+    {q:"Quelle equipe a encaisse le plus de buts en une seule Coupe du Monde ?",a:["Coree du Sud 1954","Arabie Saoudite 2002","Allemagne Est","Zaire 1974"],c:0,cat:"Records"},
+    {q:"Quel joueur a ete capitaine de l'Argentine lors des Mondiaux 2014, 2018 et 2022 ?",a:["Lionel Messi","Javier Mascherano","Angel Di Maria","Sergio Aguero"],c:0,cat:"Records"},
     {q:"Quel est le record d'invincibilite en Coupe du Monde (matchs consecutifs sans defaite) ?",a:["Bresil : 13 matchs","Allemagne : 10","Italie : 12","France : 11"],c:0,cat:"Records"},
-    {q:"Quel est le record de victoires consecutives en Coupe du Monde ?",a:["Bresil : 11 matchs (2002-2006)","Italie : 9","Allemagne : 10","France : 8"],c:0,cat:"Records"},
-    {q:"Quelle est la plus longue finale de l'histoire (duree) ?",a:["1994 (incluant prolongations et tirs au but)","1990","2006","2014"],c:0,cat:"Records"},
-    {q:"Quel est le plus jeune capitaine en finale de Coupe du Monde ?",a:["Diego Maradona (25 ans en 1986)","Beckenbauer","Puyol","Iniesta"],c:0,cat:"Records"},
-    {q:"Combien de hat-tricks ont ete inscrits en finale de Coupe du Monde ?",a:["2 (Geoff Hurst 1966, Mbappe 2022)","1","3","4"],c:0,cat:"Records"},
+    {q:"Quel est le record de victoires consecutives en Coupe du Monde ?",a:["Bresil : 11 matchs","Italie : 9","Allemagne : 10","France : 8"],c:0,cat:"Records"},
+    {q:"Quelle est la plus longue finale de l'histoire (duree) ?",a:["1994","1990","2006","2014"],c:0,cat:"Records"},
+    {q:"Quel est le plus jeune capitaine en finale de Coupe du Monde ?",a:["Diego Maradona","Beckenbauer","Puyol","Iniesta"],c:0,cat:"Records"},
+    {q:"Combien de hat-tricks ont ete inscrits en finale de Coupe du Monde ?",a:["2","1","3","4"],c:0,cat:"Records"},
     {q:"Quel est le stade qui a accueilli le plus de matchs de Coupe du Monde au total ?",a:["Maracana (Rio)","Azteca","Wembley","San Siro"],c:0,cat:"Records"},
     {q:"Combien de stades seront utilises pour le Mondial 2026 ?",a:["16","12","20","24"],c:0,cat:"Mondial2026"},
     {q:"Quelle equipe fait ses debuts en Coupe du Monde en 2026 ?",a:["L'Ouzbekistan, le Cap-Vert, la Jordanie","Seulement l'Ouzbekistan","Seulement le Cap-Vert","Aucune"],c:0,cat:"Mondial2026"},
@@ -6810,7 +6811,7 @@
     {q:"Combien d'equipes africaines seront presentes au Mondial 2026 ?",a:["9","5","7","12"],c:0,cat:"Mondial2026"},
     {q:"Combien d'equipes sud-americaines seront presentes au Mondial 2026 ?",a:["6","4","7","5"],c:0,cat:"Mondial2026"},
     {q:"Combien d'equipes asiatiques seront presentes au Mondial 2026 ?",a:["8","6","10","4"],c:0,cat:"Mondial2026"},
-    {q:"Combien d'equipes de la CONCACAF seront presentes au Mondial 2026 ?",a:["6 (avec les 3 pays hotes)","4","8","10"],c:0,cat:"Mondial2026"},
+    {q:"Combien d'equipes de la CONCACAF seront presentes au Mondial 2026 ?",a:["6","4","8","10"],c:0,cat:"Mondial2026"},
     {q:"Combien d'equipes d'Oceanie seront presentes au Mondial 2026 ?",a:["1","2","3","0"],c:0,cat:"Mondial2026"},
     {q:"Qui est le selectionneur de l'Allemagne en 2026 ?",a:["Julian Nagelsmann","Hansi Flick","Joachim Loew","Rudi Voller"],c:0,cat:"Mondial2026"},
     {q:"Qui est le selectionneur du Portugal en 2026 ?",a:["Roberto Martinez","Fernando Santos","Paulo Bento","Jose Mourinho"],c:0,cat:"Mondial2026"},
@@ -6838,7 +6839,7 @@
     {q:"Combien de finales de Coupe du Monde l'Argentine a-t-elle disputees (avant 2026) ?",a:["6","4","5","7"],c:0,cat:"Anecdotes"},
     {q:"Quel joueur a ete suspendu pour le match retour Uruguay-Ghana 2010 pour avoir arrete un but a la main ?",a:["Luis Suarez","Diego Forlan","Edinson Cavani","Diego Godin"],c:0,cat:"Anecdotes"},
     {q:"Quel a ete le score du match Allemagne-Bresil en 1/2 finale 2014 ?",a:["7-1","4-0","5-0","6-1"],c:0,cat:"Anecdotes"},
-    {q:"Quelle equipe africaine a ete la premiere a battre un champion du monde en titre ?",a:["Le Senegal (vs France en 2002)","Le Cameroun","Le Ghana","Le Nigeria"],c:0,cat:"Anecdotes"},
+    {q:"Quelle equipe africaine a ete la premiere a battre un champion du monde en titre ?",a:["Le Senegal","Le Cameroun","Le Ghana","Le Nigeria"],c:0,cat:"Anecdotes"},
     {q:"Quel est le plus grand derby national en Espagne ?",a:["Real Madrid - Barcelone (Clasico)","Real - Atletico","Barcelone - Espanyol","Seville - Betis"],c:0,cat:"Clubs"},
     {q:"Quel est le plus vieux club de football professionnel au monde ?",a:["Sheffield FC","Notts County","Manchester United","FC Barcelone"],c:0,cat:"Clubs"},
     {q:"Quelle Coupe d'Europe des clubs est la plus prestigieuse ?",a:["Ligue des Champions (Champions League)","Europa League","Conference League","Supercoupe"],c:0,cat:"Clubs"},
@@ -6851,7 +6852,7 @@
     {q:"Dans quel pays se trouve le siege de la FIFA ?",a:["Suisse (Zurich)","France","Allemagne","Angleterre"],c:0,cat:"Culture"},
     {q:"Que se passe-t-il si le score est toujours a egalite apres les prolongations en phase finale ?",a:["Seance de tirs au but","Match a rejouer","Victoire a l'equipe ayant eu le moins de cartons","Match nul consacre"],c:0,cat:"Culture"},
     {q:"Combien de joueurs composent une equipe sur le terrain ?",a:["11","10","12","9"],c:0,cat:"Culture"},
-    {q:"Apres combien de minutes de jeu le chronometre peut-il etre arrete lors d'une COOLING BREAK ?",a:["30 minutes en cas de forte chaleur","10 minutes","15 minutes","45 minutes"],c:0,cat:"Culture"},
+    {q:"Apres combien de minutes de jeu le chronometre peut-il etre arrete lors d'une COOLING BREAK ?",a:["30 minutes","10 minutes","15 minutes","45 minutes"],c:0,cat:"Culture"},
     {q:"Quelle est la duree standard des prolongations ?",a:["2 fois 15 minutes","2 fois 10 minutes","2 fois 20 minutes","1 fois 30 minutes"],c:0,cat:"Culture"},
     {q:"Qui decide si un but est valide en cas de doute sur la ligne ?",a:["La goal-line technology","L'arbitre central","La VAR","Le capitaine"],c:0,cat:"Culture"},
     {q:"Quel joueur italien a ete le meilleur buteur du Mondial 1982 ?",a:["Paolo Rossi","Bruno Conti","Marco Tardelli","Giancarlo Antognoni"],c:0,cat:"Legendes"},
@@ -7482,7 +7483,7 @@
     }
 
 
-    var qIdx=0,qScore=0,qDone=false,qTimer=null,qTimeLeft=10,qStreak=0,qBestStreak=0,qPoints=0,qPlayerName="";
+    var qIdx=0,qScore=0,qDone=false,qTimer=null,qTimeLeft=15,qStreak=0,qBestStreak=0,qPoints=0,qPlayerName="";
     function exportBracketPDF(){
       var ko=V.simKO;
       function nm(mid){return ko[mid]?getTeam(ko[mid]).name:"?"}
@@ -7662,12 +7663,12 @@
       localStorage.setItem("ff26_leaderboard",JSON.stringify(lb));
     }
     function startQTimer(){
-      clearInterval(qTimer);qTimeLeft=10;
+      clearInterval(qTimer);qTimeLeft=15; // v1.8.4 — 15s par question (au lieu de 10)
       qTimer=setInterval(function(){
         qTimeLeft-=0.1;
         var bar=document.getElementById("qtbar");
         if(bar){
-          var pct=Math.max(0,(qTimeLeft/10)*100);
+          var pct=Math.max(0,(qTimeLeft/15)*100);
           bar.style.width=pct+"%";
           bar.style.background=qTimeLeft<=5?"var(--rd)":"var(--g)";
         }
@@ -7690,9 +7691,12 @@
         if(qTimeLeft<=0){
           clearInterval(qTimer);
           if(navigator.vibrate)navigator.vibrate([100,50,100]);
-                qIdx++;if(qIdx>=10)qDone=true;
-          window._qShuffled=false;
-          render();
+          // v1.8.4 — au timeout : montrer la bonne réponse avant de passer à la suite
+          // (avant : passage direct + reshuffle buggué des questions restantes)
+          var aq=window._qPicked||QUIZ.slice(0,10);
+          qStreak=0;
+          showQFeedback(false,0,0,0,aq[qIdx]?aq[qIdx].a[aq[qIdx].c]:null,true);
+          setTimeout(function(){qIdx++;if(qIdx>=10)qDone=true;render()},2500);
         }
       },100);
     }
@@ -7730,7 +7734,7 @@
         var h='<div class="sec">🧠 Quiz Chrono</div>';
         h+='<div style="background:var(--s1);border-radius:var(--r);padding:20px;border:1px solid var(--s3);text-align:center">';
         h+='<div style="font-size:36px;margin-bottom:8px">⚽🧠</div>';
-        h+='<div style="font-size:16px;font-weight:800;margin-bottom:4px">10 questions · 10 secondes chacune</div>';
+        h+='<div style="font-size:16px;font-weight:800;margin-bottom:4px">10 questions · 15 secondes chacune</div>';
         h+='<div style="font-size:12px;color:var(--t2);margin-bottom:16px">Bonus streak · Bonus rapidite · Classement</div>';
         h+='<input id="qname" type="text" placeholder="Ton prenom..." value="'+(localStorage.getItem("ff26_qname")||"")+'" style="width:100%;padding:14px;background:var(--s2);border:2px solid var(--s3);border-radius:12px;color:var(--g);font-size:18px;font-weight:700;text-align:center;outline:none;font-family:inherit;margin-bottom:12px">';
         h+='<button onclick="startQuizGame()" class="btn">🚀 Jouer !</button>';
@@ -7801,7 +7805,7 @@
         h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">';
       h+='<div class="q-timer" style="flex:1"><div id="qtbar" class="q-timer-bar" style="width:100%;background:var(--g)"></div></div>';
       h+='<span id="qheart" class="q-heartbeat" style="display:none">💓</span>';
-      h+='<span id="qtime" style="font-size:12px;font-weight:700;color:var(--t2);min-width:28px;text-align:right">10s</span>';
+      h+='<span id="qtime" style="font-size:12px;font-weight:700;color:var(--t2);min-width:28px;text-align:right">15s</span>';
       h+='</div>';
       h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:9px;font-weight:800;color:#000;background:var(--g);padding:3px 10px;border-radius:99px">'+(q.cat||"")+'</span>';
       h+='<div style="display:flex;gap:8px;align-items:center">';
@@ -7831,19 +7835,26 @@
             showQFeedback(true,qStreak,timeBonus,streakBonus);
       } else {
         qStreak=0;
-        showQFeedback(false,0,0,0);
+        // v1.8.4 — montrer la bonne réponse pour apprendre de ses erreurs
+        showQFeedback(false,0,0,0,aq[qIdx].a[aq[qIdx].c]);
       }
-      setTimeout(function(){qIdx++;if(qIdx>=10)qDone=true;render()},900);
+      // v1.8.4 — laisser le temps de lire la bonne réponse (2.5s si erreur)
+      setTimeout(function(){qIdx++;if(qIdx>=10)qDone=true;render()},correct?900:2500);
     }
-    function showQFeedback(ok,streak,tb,sb){
+    function showQFeedback(ok,streak,tb,sb,goodAnswer,isTimeout){
       var wrap=document.getElementById("qwrap");
       if(!wrap)return;
       var fb=document.createElement("div");
-      fb.style.cssText="position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;flex-direction:column;border-radius:14px;z-index:10;animation:fadeQfb .8s forwards;background:"+(ok?"rgba(231,196,92,.2)":"rgba(255,23,68,.2)");
-      var h='<div style="font-size:48px">'+(ok?"✅":"❌")+"</div>";
+      fb.style.cssText="position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;flex-direction:column;border-radius:14px;z-index:10;animation:fadeQfb "+(ok?".8s":"2.4s")+" forwards;background:"+(ok?"rgba(231,196,92,.2)":"rgba(255,23,68,.35)");
+      var h='<div style="font-size:48px">'+(ok?"✅":isTimeout?"⏱️":"❌")+"</div>";
       if(ok&&streak>=2)h+='<div style="font-size:16px;font-weight:900;color:var(--g);margin-top:4px">🔥 x'+streak+'</div>';
       if(ok&&sb>0)h+='<div style="font-size:12px;color:var(--am)">Streak +'+sb+'</div>';
       if(ok)h+='<div style="font-size:11px;color:var(--g);margin-top:4px">+'+Math.round(100+tb+sb)+' pts</div>';
+      if(!ok&&isTimeout)h+='<div style="font-size:13px;font-weight:800;color:#fff;margin-top:4px">Temps écoulé !</div>';
+      if(!ok&&goodAnswer){
+        h+='<div style="font-size:11px;color:var(--t2);margin-top:8px">Bonne réponse :</div>';
+        h+='<div style="font-size:15px;font-weight:900;color:var(--g);margin-top:2px;padding:6px 14px;background:rgba(0,0,0,.55);border:1px solid var(--g);border-radius:10px;max-width:90%;text-align:center">'+goodAnswer+'</div>';
+      }
       fb.innerHTML=h;
       wrap.style.position="relative";
       wrap.appendChild(fb);
