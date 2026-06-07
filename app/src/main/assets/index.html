@@ -1886,6 +1886,24 @@
     var V={view:"cal",histTab:"wc",simPicks:{},simKO:{},simStep1:false,simScores:{},sim3rd:[],simStep3:false,qTheme:'mix',myTeam:"FRA",filter:"all",selTeam:null,tab:"matches",watchMs:[],qMode:"chrono",qLibreStep:null,coachDetail:false};
     try{V.watchMs=JSON.parse(localStorage.getItem("ff26_watch"))||[]}catch(e){V.watchMs=[]}
     try{V.myTeam=localStorage.getItem("ff26_myteam")||"FRA"}catch(e){}
+    // v1.9 — Jusqu'à 3 équipes favorites. La 1re est la "principale" et reste
+    // exposée via V.myTeam pour tout le code existant (fiche accueil, TV, QA…).
+    V.myTeams=null;
+    try{V.myTeams=JSON.parse(localStorage.getItem("ff26_fav_teams")||"null")}catch(e){}
+    if(!Array.isArray(V.myTeams)||!V.myTeams.length)V.myTeams=[V.myTeam];
+    V.myTeams=V.myTeams.slice(0,3);
+    V.myTeam=V.myTeams[0];
+    function isFavTeam(id){return V.myTeams&&V.myTeams.indexOf(id)>=0}
+    function saveFavTeams(){
+      V.myTeams=V.myTeams.slice(0,3);
+      V.myTeam=V.myTeams[0];
+      try{
+        localStorage.setItem("ff26_fav_teams",JSON.stringify(V.myTeams));
+        localStorage.setItem("ff26_myteam",V.myTeam);
+        localStorage.setItem("ff26_fav_team",V.myTeam);
+      }catch(e){}
+      if(typeof SETTINGS==="object")SETTINGS.fav_team=V.myTeam;
+    }
 
     // ═══════════════════════════════════════════════════════════════════
     // v1.046 — SETTINGS centralisés
@@ -2088,6 +2106,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.9.0",d:"07/06/2026",changes:"Équipes favorites multiples — demande la plus formulée par les utilisateurs ! Tu peux désormais suivre jusqu'à 3 équipes : dans Réglages > Équipes favorites, tap pour ajouter ou retirer (la 1re ⭐ reste ta principale, utilisée pour la grande carte d'accueil et l'agenda). Le filtre 'Mes équipes' (Matchs et Pronos) montre les matchs de tes 3 équipes, l'accueil affiche le prochain match de chacune, le quiz pioche des questions sur tes 3 équipes, et les actus les concernant remontent en priorité."},
       {v:"v1.8.8",d:"07/06/2026",changes:"Les classes de favoris s'appliquent désormais PARTOUT, plus seulement au tableau final. (1) Scores simulés des matchs de groupe : la loi de Poisson intègre le poids de classe — le Portugal ne perd plus contre l'Ouzbékistan qu'environ 1 fois sur 100 (au lieu de 1 sur 7). (2) Tableau final : le plafond de surprise monte avec l'écart de classe — un classe 1 contre un classe 4 gagne ~95% de ses 32es (au lieu de 78%). (3) Pronos auto (algorithme v2.6) : bonus outsider plafonné par l'écart de classe et scores nets (2-0, 3-1) pour les gros favoris. Validation 5000 tournois : 74% de champions classe 1, 26% classe 2, ~0% classe 3/4."},
       {v:"v1.8.7",d:"07/06/2026",changes:"Passerelle Prono Poto : nouveau bouton '🥊 Envoyer mes pronos vers Prono Poto' dans Pronos > Récap. Il copie un lien d'import et ouvre Prono Poto avec tous tes pronos pré-remplis (les matchs déjà verrouillés côté serveur sont ignorés). Sur la version web, Prono Poto peut aussi lire directement tes pronos Foot Flash via '📥 Importer de Foot Flash' (même appareil, même navigateur). Dans Prono Poto, vérifie puis appuie sur 📤 Publier pour valider."},
       {v:"v1.8.6",d:"07/06/2026",changes:"Classement FIFA mis à jour : les 48 ranks passent du classement d'avril au classement du 5 juin 2026, le dernier publié avant le Mondial (source FIFA). Coup de tonnerre : la France, battue en amical par la Côte d'Ivoire (1-2) jeudi, perd sa 1re place au profit de l'Argentine ; l'Espagne reste 2e. Top 10 : Argentine, Espagne, France, Angleterre, Portugal, Brésil, Maroc, Pays-Bas, Belgique, Allemagne. Autres mouvements notables : Sénégal 15e (+5), Turquie 22e (+8), Équateur 24e (+9), Côte d'Ivoire 33e (+12), Canada 30e (+10), Suède 38e (-14), Ghana 73e (-25). Le doublon Allemagne/Croatie (toutes deux 10es) est corrigé (Croatie 11e). La simulation auto utilise ces nouveaux ranks pour départager les équipes d'une même classe de favoris."},
@@ -2122,7 +2141,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.8.8 — Les gros favoris respectés partout (simu, scores, pronos auto) · 7 juin 2026";
+    var APP_VERSION="v1.9.0 — Jusqu'à 3 équipes favorites · 7 juin 2026";
     var LANG=localStorage.getItem("ff26_lang")||"fr";
     var I18N={
       fr:{
@@ -3795,8 +3814,8 @@
       var teamIds=Object.keys(SHORTLIST);
       // Tri : FRA en premier si favorite, puis alphabétique
       teamIds.sort(function(a,b){
-        if(a===V.myTeam)return -1;
-        if(b===V.myTeam)return 1;
+        var fa=V.myTeams.indexOf(a),fb=V.myTeams.indexOf(b);
+        if(fa>=0||fb>=0)return (fa<0?99:fa)-(fb<0?99:fb);
         var ta=getTeam(a),tb=getTeam(b);
         return (ta.name||a).localeCompare(tb.name||b,"fr");
       });
@@ -4113,7 +4132,7 @@
     function obNext(){V.obStep=(V.obStep||0)+1;render()}
     function obBack(){V.obStep=Math.max(0,(V.obStep||0)-1);render()}
     function obPickLang(c){saveSetting("lang",c);LANG=c;render()}
-    function obPickTeam(id){saveSetting("fav_team",id);V.myTeam=id;try{localStorage.setItem("ff26_myteam",id)}catch(e){}render()}
+    function obPickTeam(id){V.myTeams=[id];saveFavTeams();saveSetting("fav_team",id);render()}
     function obSkipTeam(){V.obStep=3;render()}
     function obPickTheme(k){applyTheme(k);render()}
     function obToggle(key){
@@ -4199,8 +4218,8 @@
       h+=rShareApp();
       // PROFIL
       h+='<div class="set-sec"><div class="set-h">👤 Profil</div>';
-      h+='<div class="set-row"><div class="set-lbl">Équipe favorite<div class="set-hint">Utilisée partout dans l\'app</div></div>';
-      h+='<button class="set-btn" onclick="cycleTeam()">'+flagImg(team,14)+' '+teamName+' ▾</button></div>';
+      h+='<div class="set-row"><div class="set-lbl">Équipes favorites<div class="set-hint">Jusqu\'à 3 — la 1re est la principale</div></div>';
+      h+='<button class="set-btn" onclick="cycleTeam()">'+V.myTeams.map(function(id){return flagImg(id,14)}).join(" ")+' '+(V.myTeams.length>1?V.myTeams.length+" équipes":teamName)+' ▾</button></div>';
       h+='<div class="set-row"><div class="set-lbl">Pseudo pronostics<div class="set-hint">Affiché dans le classement</div></div>';
       h+='<input type="text" value="'+(SETTINGS.nickname||"").replace(/"/g,"&quot;")+'" placeholder="Ton pseudo" onblur="saveSetting(\'nickname\',this.value);toast(\'✓ Enregistré\')" style="padding:8px 10px;background:var(--s2);border:1px solid var(--s3);border-radius:8px;color:var(--tx);font-family:inherit;font-size:13px;min-width:120px"></div>';
       h+='<div class="set-row"><div class="set-lbl">Langue</div>';
@@ -4732,6 +4751,29 @@
       h+='<button onclick="exportCalendar(\''+V.myTeam+'\')" style="flex:1;padding:8px;background:var(--s2);border:1px solid var(--s3);border-radius:8px;color:var(--tx);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit">📅 Agenda</button>';
       h+='</div>';
 
+      // v1.9 — Mes autres équipes favorites (2e et 3e) : prochain match en compact
+      if(V.myTeams&&V.myTeams.length>1){
+        h+='<div style="border-top:1px solid var(--s3);padding:8px 14px">';
+        h+='<div style="font-size:9px;font-weight:800;color:var(--t2);letter-spacing:1px;margin-bottom:6px">MES AUTRES ÉQUIPES</div>';
+        V.myTeams.slice(1).forEach(function(tid){
+          var tt=getTeam(tid);if(!tt)return;
+          var now=Date.now();
+          var nx=MATCHES.filter(function(m){return (m.t1===tid||m.t2===tid)&&m.t1!=="TBD"&&m.t2!=="TBD"&&new Date(m.d).getTime()>now-2*3600*1000})
+            .sort(function(a,b){return new Date(a.d)-new Date(b.d)})[0];
+          h+='<div onclick="goTeam(\''+tid+'\')" style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.03);cursor:pointer">';
+          h+=flagImg(tid,20);
+          h+='<div style="flex:1;font-size:12px;font-weight:800">'+tt.name+'</div>';
+          if(nx){
+            var opp=nx.t1===tid?nx.t2:nx.t1;
+            h+='<div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--t2)">vs '+flagImg(opp,14)+' <b style="color:var(--tx)">'+(getTeam(opp)||{name:opp}).name+'</b> · '+fmtDate(nx.d)+'</div>';
+          }else{
+            h+='<div style="font-size:10px;color:var(--t2)">Plus de match à venir</div>';
+          }
+          h+='</div>';
+        });
+        h+='</div>';
+      }
+
       h+='</div>';
       return h;
     }
@@ -4811,18 +4853,20 @@
       var el=document.createElement("div");el.className="pl-modal";el.id="team-modal";
       el.onclick=function(e){if(e.target===el)el.remove()};
       var h='<div class="pl-card" style="max-height:80vh;overflow-y:auto">';
-      h+='<div style="font-size:18px;font-weight:900;text-align:center;margin-bottom:12px">Choisis ton equipe</div>';
+      h+='<div style="font-size:18px;font-weight:900;text-align:center;margin-bottom:2px">Tes équipes favorites</div>';
+      h+='<div style="font-size:11px;color:var(--t2);text-align:center;margin-bottom:10px">Tap pour ajouter / retirer · <b style="color:var(--g)">'+V.myTeams.length+'/3</b> · la 1re ⭐ est ta principale</div>';
+      h+='<button onclick="document.getElementById(\'team-modal\').remove()" style="width:100%;padding:11px;margin-bottom:10px;background:var(--g);color:#000;border:none;border-radius:10px;font-size:13px;font-weight:900;cursor:pointer;font-family:inherit">✓ Valider</button>';
       var groups={};TEAMS.forEach(function(t){if(!groups[t.group])groups[t.group]=[];groups[t.group].push(t)});
       Object.keys(groups).sort().forEach(function(g){
         h+='<div style="font-size:10px;font-weight:900;color:var(--g);margin:10px 0 4px">GROUPE '+g+'</div>';
         groups[g].forEach(function(t){
-          var sel=t.id===V.myTeam;
-          // v2.1 — Fix : synchroniser SETTINGS.fav_team pour que le logo change dans les parametres
+          var idx=V.myTeams.indexOf(t.id);
+          var sel=idx>=0;
           h+='<div onclick="pickFavTeam(\''+t.id+'\')" style="display:flex;align-items:center;gap:10px;padding:10px;margin-bottom:3px;background:'+(sel?'var(--gw)':'var(--s2)')+';border:1.5px solid '+(sel?'var(--g)':'transparent')+';border-radius:10px;cursor:pointer">';
           h+=flagImg(t.id,24);
           h+='<div style="flex:1"><div style="font-size:14px;font-weight:'+(sel?'900':'600')+'">'+t.name+'</div>';
           h+='<div style="font-size:10px;color:var(--t2)">FIFA #'+t.rank+' · '+t.coach+'</div></div>';
-          if(sel)h+='<span style="color:var(--g);font-size:14px">✓</span>';
+          if(sel)h+='<span style="color:var(--g);font-size:13px;font-weight:900">'+(idx===0?'⭐ principale':'✓')+'</span>';
           h+='</div>';
         });
       });
@@ -4831,14 +4875,26 @@
       document.body.appendChild(el);
     }
 
-    // v2.1 — Helper selection equipe favorite : synchronise V.myTeam, localStorage legacy ff26_myteam, et SETTINGS.fav_team
+    // v1.9 — Sélection multi : tap = ajouter/retirer (3 max). La 1re = principale.
     function pickFavTeam(id){
-      V.myTeam=id;
-      try{localStorage.setItem("ff26_myteam",id)}catch(e){}
-      if(typeof saveSetting==="function")saveSetting("fav_team",id);
-      else if(typeof SETTINGS==="object"){SETTINGS.fav_team=id;try{localStorage.setItem("ff26_fav_team",id)}catch(e){}}
-      var m=document.getElementById("team-modal");if(m)m.remove();
+      if(!V.myTeams||!V.myTeams.length)V.myTeams=[V.myTeam||"FRA"];
+      var i=V.myTeams.indexOf(id);
+      if(i>=0){
+        if(V.myTeams.length===1){toast("Garde au moins une équipe favorite");return}
+        V.myTeams.splice(i,1);
+        saveFavTeams();
+        toast((getTeam(id)||{}).name+" retirée"+(i===0?" — "+(getTeam(V.myTeams[0])||{}).name+" devient principale":""));
+      }else{
+        if(V.myTeams.length>=3){toast("⚠️ 3 équipes favorites max — retire-en une d'abord");return}
+        V.myTeams.push(id);
+        saveFavTeams();
+        toast("⭐ "+(getTeam(id)||{}).name+" ajoutée ("+V.myTeams.length+"/3)");
+      }
+      if(typeof saveSetting==="function")saveSetting("fav_team",V.myTeam);
       render();
+      // Rouvre le sélecteur pour enchaîner les sélections
+      var m=document.getElementById("team-modal");
+      if(m){m.remove();cycleTeam();}
     }
 
     function rCal(){
@@ -4855,12 +4911,12 @@
       //  dans le hero et le widget "Mon équipe" en haut de page — pas de doublon ici.)
       var h=ht;
       var matches=MATCHES.slice();
-      if(V.filter==="mine")matches=matches.filter(function(m){return m.t1===V.myTeam||m.t2===V.myTeam});
+      if(V.filter==="mine")matches=matches.filter(function(m){return isFavTeam(m.t1)||isFavTeam(m.t2)});
       matches.sort(function(a,b){return new Date(a.d)-new Date(b.d)});
 
       h+='<div class="filters">';
       h+='<button class="fil'+(V.filter==="all"?" on":"")+'" onclick="V.filter=\'all\';render()">Tous</button>';
-      h+='<button class="fil'+(V.filter==="mine"?" on":"")+'" onclick="V.filter=\'mine\';render()">'+flagImg(V.myTeam,16)+' Mon équipe</button>';
+      h+='<button class="fil'+(V.filter==="mine"?" on":"")+'" onclick="V.filter=\'mine\';render()">'+V.myTeams.map(function(id){return flagImg(id,16)}).join("")+' '+(V.myTeams.length>1?"Mes équipes":"Mon équipe")+'</button>';
       var allGroups={};TEAMS.forEach(function(t){allGroups[t.group]=true});
       Object.keys(allGroups).sort().forEach(function(g){
         h+='<button class="fil'+(V.filter==="G"+g?" on":"")+'" onclick="V.filter=\'G'+g+'\';render()">Gr.'+g+"</button>";
@@ -4870,7 +4926,7 @@
       if(V.filter&&V.filter.startsWith("G"))matches=matches.filter(function(m){return m.st.indexOf("Groupe "+V.filter[1])>=0});
 
         var showGroup=null;
-      if(V.filter==="mine"){var mt=getTeam(V.myTeam);if(mt.group)showGroup=mt.group}
+      if(V.filter==="mine"&&V.myTeams.length===1){var mt=getTeam(V.myTeam);if(mt.group)showGroup=mt.group}
       if(V.filter&&V.filter.startsWith("G"))showGroup=V.filter[1];
       if(showGroup){
         var gTeams=TEAMS.filter(function(t){return t.group===showGroup});
@@ -6462,7 +6518,7 @@
 
       // Filter matches
       var matches=MATCHES.filter(function(m){return m.t1!=="TBD"&&m.t2!=="TBD"});
-      if(V.pronoFilter==="mine") matches=matches.filter(function(m){return m.t1===V.myTeam||m.t2===V.myTeam});
+      if(V.pronoFilter==="mine") matches=matches.filter(function(m){return isFavTeam(m.t1)||isFavTeam(m.t2)});
       else if(V.pronoFilter==="bet") matches=matches.filter(function(m){return V.bets[m.id]});
       else if(V.pronoFilter&&V.pronoFilter.startsWith("G")) matches=matches.filter(function(m){return m.st&&m.st.indexOf("Groupe "+V.pronoFilter[1])>=0});
       else if(V.pronoFilter==="r32") matches=matches.filter(function(m){return m.st==="16e de finale"});
@@ -7759,8 +7815,8 @@
         return h;
       }
         if(!window._qShuffled){
-        var teamQs=QUIZ.filter(function(q){return q.team===V.myTeam});
-        var generalQs=QUIZ.filter(function(q){return !q.team||q.team!==V.myTeam});
+        var teamQs=QUIZ.filter(function(q){return q.team&&isFavTeam(q.team)});
+        var generalQs=QUIZ.filter(function(q){return !q.team||!isFavTeam(q.team)});
             function shuf(arr){for(var i=arr.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=arr[i];arr[i]=arr[j];arr[j]=t}return arr}
         shuf(teamQs);shuf(generalQs);
             var picked=teamQs.slice(0,5);
@@ -11760,7 +11816,8 @@
     applyTheme(SETTINGS.theme);
     applyTextSize(SETTINGS.text_size);
     applyAnimationPref(SETTINGS.animations);
-    V.myTeam=SETTINGS.fav_team||V.myTeam||"FRA";
+    V.myTeam=(V.myTeams&&V.myTeams[0])||SETTINGS.fav_team||V.myTeam||"FRA";
+    if(V.myTeams&&V.myTeams.indexOf(V.myTeam)<0)V.myTeams.unshift(V.myTeam);
     LANG=SETTINGS.lang||LANG||"fr";
 
     try{localStorage.setItem("ff26_teams",JSON.stringify(TEAMS.map(function(t){return{id:t.id,name:t.name,group:t.group,rank:t.rank}})));
@@ -12085,7 +12142,7 @@
           if(upcomingTeams[related[r]]){ score+=3; break; }
         }
         // Boost équipe favorite
-        if(V.myTeam&&related.indexOf(V.myTeam)>=0)score+=1;
+        if(V.myTeams&&V.myTeams.some(function(t){return related.indexOf(t)>=0}))score+=1;
         // Boost catégories selon phase
         if(context==="in"&&a.category==="edition26")score+=1.5;
         else if(context==="pre"&&(a.category==="legendes"||a.category==="finales"||a.category==="edition26"))score+=0.5;
