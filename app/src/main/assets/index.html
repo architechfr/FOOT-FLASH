@@ -2088,6 +2088,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.8.7",d:"07/06/2026",changes:"Passerelle Prono Poto : nouveau bouton '🥊 Envoyer mes pronos vers Prono Poto' dans Pronos > Récap. Il copie un lien d'import et ouvre Prono Poto avec tous tes pronos pré-remplis (les matchs déjà verrouillés côté serveur sont ignorés). Sur la version web, Prono Poto peut aussi lire directement tes pronos Foot Flash via '📥 Importer de Foot Flash' (même appareil, même navigateur). Dans Prono Poto, vérifie puis appuie sur 📤 Publier pour valider."},
       {v:"v1.8.6",d:"07/06/2026",changes:"Classement FIFA mis à jour : les 48 ranks passent du classement d'avril au classement du 5 juin 2026, le dernier publié avant le Mondial (source FIFA). Coup de tonnerre : la France, battue en amical par la Côte d'Ivoire (1-2) jeudi, perd sa 1re place au profit de l'Argentine ; l'Espagne reste 2e. Top 10 : Argentine, Espagne, France, Angleterre, Portugal, Brésil, Maroc, Pays-Bas, Belgique, Allemagne. Autres mouvements notables : Sénégal 15e (+5), Turquie 22e (+8), Équateur 24e (+9), Côte d'Ivoire 33e (+12), Canada 30e (+10), Suède 38e (-14), Ghana 73e (-25). Le doublon Allemagne/Croatie (toutes deux 10es) est corrigé (Croatie 11e). La simulation auto utilise ces nouveaux ranks pour départager les équipes d'une même classe de favoris."},
       {v:"v1.8.5",d:"07/06/2026",changes:"Simulation auto crédibilisée : système de classes de favoris. Classe 1 (poids 3) : FRA, ESP, ARG, ENG, BRA, POR, GER, NED. Classe 2 (poids 2) : BEL, CRO, MAR, URU, COL, MEX, USA, JPN, SUI, SEN, NOR. Classe 3 (poids 1) : autres outsiders. Classe 4 (poids 0.5) : rank FIFA > 48. Les surprises restent possibles sur un match (un outsider peut sortir un favori en 32es/8es), mais la probabilité du favori monte au fil des tours, et une équipe de classe 3/4 ne peut plus battre une classe 1/2 en finale — fini l'Iran champion du monde. Validation sur 5000 tournois simulés : ~73% de champions classe 1, ~27% classe 2, 0 champion classe 3/4 (sauf finale improbable entre 2 outsiders, ~1 cas sur 1700). Le remplissage auto des groupes est aussi pondéré par classe."},
       {v:"v1.8.4",d:"07/06/2026",changes:"Fix crash Pronos : le bouton boost ⚡ provoquait 'cycleBoost is not defined' — les fonctions getBoost/isBoostLocked/cycleBoost manquaient. Le boost fonctionne desormais : tap pour cycler ×1→×2→×3→×5 (cout 2/8/18/50 credits, difference debitee ou remboursee), verrouille au coup d'envoi. Quiz Chrono ameliore. (1) Audit des 163 questions : 27 questions corrigees ou reecrites — la bonne reponse n'est plus trahie par une precision entre parentheses (ex : 'Hakan Sukur (Turquie 2002)' → 'Hakan Sukur') ni par un indice dans l'enonce (Maracanazo) ; 2 questions incoherentes reecrites. (2) Timer passe de 10 a 15 secondes par question, et bonus eclair +75 pts si reponse en moins de 4 secondes. (3) En cas de mauvaise reponse ou de temps ecoule, la bonne reponse s'affiche desormais pendant 2,5s pour apprendre de ses erreurs. (4) Fix : le timeout ne remelangeait plus correctement les questions restantes (bug _qShuffled)."},
@@ -2120,7 +2121,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.8.6 — Classement FIFA du 5 juin (Argentine 1re) + classes de favoris · 7 juin 2026";
+    var APP_VERSION="v1.8.7 — Passerelle Prono Poto : envoie tes pronos en 1 tap · 7 juin 2026";
     var LANG=localStorage.getItem("ff26_lang")||"fr";
     var I18N={
       fr:{
@@ -8950,11 +8951,35 @@
 
 
 
+    // ── Passerelle Prono Poto (v1.8.7) ─────────────────────────
+    // Envoie V.pronos ({id:{a,b}}) vers Prono Poto. Sur le web (même
+    // domaine github.io), Prono Poto lit aussi ff26_pronos directement ;
+    // le lien ?ffimport= couvre l'APK (localStorage séparé).
+    function exportToPronoPoto(){
+      if(!V.pronos)V.pronos={};
+      var payload={};
+      Object.keys(V.pronos).forEach(function(k){
+        var p=V.pronos[k];
+        if(p&&p.a!=null&&p.b!=null&&p.a!==""&&p.b!=="")payload[k]={a:+p.a,b:+p.b};
+      });
+      var n=Object.keys(payload).length;
+      if(!n){toast("Aucun prono à envoyer — remplis d'abord tes pronos");return}
+      var url="https://architechfr.github.io/Prono-poto/?ffimport="+encodeURIComponent(btoa(JSON.stringify(payload)));
+      try{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(url)}catch(e){}
+      toast("📤 "+n+" pronos prêts — lien copié, ouverture de Prono Poto…");
+      try{window.open(url,"_blank")}catch(e){location.href=url}
+    }
+
     function rPronoRecap(){
       var h='<div class="sec">📊 RECAP & CLASSEMENT</div>';
       if(!V.pronos)V.pronos={};
       var total=Object.keys(V.pronos).length;
       var bets=V.bets?Object.keys(V.bets).length:0;
+
+      // Passerelle Prono Poto
+      if(total>0){
+        h+='<button onclick="exportToPronoPoto()" style="width:100%;padding:13px;margin-bottom:10px;background:linear-gradient(135deg,var(--g),var(--g2));color:#000;border:none;border-radius:12px;font-size:13px;font-weight:900;cursor:pointer;font-family:inherit">🥊 Envoyer mes '+total+' pronos vers Prono Poto</button>';
+      }
 
       // v1.076 — Alerte crédits orphelins (paris sans prono correspondant)
       if(typeof findOrphanedBets==="function"){
