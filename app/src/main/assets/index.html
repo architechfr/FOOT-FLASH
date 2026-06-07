@@ -2088,6 +2088,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.8.3",d:"07/06/2026",changes:"La section Réglages > Avancé (Export/Import de données, Relancer l'onboarding, Réinitialiser l'app) est désormais entièrement masquée aux utilisateurs : elle n'apparaît qu'en mode admin (6 taps sur le footer + code)."},
       {v:"v1.8.2",d:"07/06/2026",changes:"Confidentialité — la ligne 'Mode admin scores' n'apparaît plus dans Réglages > Avancé (activation réservée : 6 taps sur le footer + code ; le bouton Désactiver reste visible quand l'admin est actif). Coquilles corrigées dans le bandeau news : 'treble' → 'triplé' (FR) / 'triplete' (ES), accents et apostrophe 'Ballon d'Or' rétablis (Dembélé). Idem dans les actus et le quiz."},
       {v:"V1.088",d:"22/04/2026",changes:"Audit complet des 48 equipes (groupes A a L) : corrections donnees reelles avril 2026. Coaches : Arabie Saoudite Renard→Donis (limoge 17/04), Maroc Regragui→Ouahbi, Curaçao Advocaat→Rutten, Suede Tomasson→Potter, Tunisie Trabelsi→Lamouchi. Capitaines : Belgique Tielemans→De Bruyne, Iran Hajsafi→Taremi, Irak Ali Adnan→Aymen Hussein, Autriche Arnautović→Alaba. Transferts majeurs : Manu Koné→Roma, Kanté→Fenerbahce, Ekitike→Liverpool, Nicolas Jackson→Bayern, Modrić→Milan, Luis Diaz→Bayern, James Rodriguez→Minnesota United, Mbemba→Lille, Zubimendi→Arsenal, Guehi→Man City, Ramsdale→Newcastle, Darwin Nunez→Al-Hilal, Thiago Almada→Atletico, Paredes→Boca Juniors, Musso→Atletico, Arnautović→Red Star Belgrade, Wissa→Newcastle, Semenyo→Man City, Kamaldeen→Atalanta, Jordan Ayew→NAC Breda, Bounedjah→Al Shamal, Atal→Al-Sadd, Mandi→Villarreal, Al-Taamari→Rennes, Feras Al-Buraikan→Al Ahli, Ryan Mendes→Igdir, Stopira→APOEL, Logan Costa→Villarreal, Roberto Lopes→Shamrock Rovers, Monteiro→Union SG, Amoura stats ajustees, Sorloth stats ajustees, Haaland stats ajustees, Kane stats ajustees, Ronaldo stats ajustees, Messi stats ajustees, Shomurodov stats ajustees, Godoy caps ajustees. Retraites internationaux marques : Luis Suarez (URU, sept 2024), Brozović (CRO, aout 2024), Vida (CRO, aout 2024), Mbokani (COD). Diogo Jota retire du fichier suite a son deces tragique en juillet 2025. Doublons supprimes massivement : Irak (6), Jordanie (6), Panama (6), Arabie Saoudite (5), Norvege (1), Algerie (1), Portugal (Pepe), Ouzbekistan (Shomurodov+Masharipov), Colombie (Rios), RD Congo (Bakambu+Silas+Mbemba), Ghana (Kudus+Ati-Zigi+J.Ayew), Uruguay (Rochet+Gimenez). Erreurs de poste corrigees : Benchimol GAR→ATT (CPV), Miguel Borja DEF→ATT (COL). Noms corriges : Dylan Vozinha→Vozinha (CPV), Mandrea (ALG)."},
       {v:"v1.075",d:"19/04/2026",changes:"Hotfix ticker news — Le bandeau d'actualites en haut de l'ecran affichait 'Chargement des actus...' indefiniment si le chargement RSS echouait ou tardait. Cause : le ticker etait genere avec un contenu initial de chargement qui ne s'actualisait jamais en cas d'echec. Fix : le ticker n'est desormais affiche que lorsque window._tickerItems existe (actus chargees), sinon il reste masque. Si le chargement reussit en cours de session, updateTicker() declenche automatiquement un render() pour afficher le ticker dynamiquement. Resultat : plus d'indicateur 'Chargement...' qui reste bloque visuellement."},
@@ -2116,7 +2117,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.8.2 — Admin masqué + coquilles news corrigées · 7 juin 2026";
+    var APP_VERSION="v1.8.3 — Section Avancé réservée au mode admin · 7 juin 2026";
     var LANG=localStorage.getItem("ff26_lang")||"fr";
     var I18N={
       fr:{
@@ -4227,23 +4228,22 @@
       h+='<div class="set-row"><div class="set-lbl">Actus quotidiennes<div class="set-hint">Résumé 1×/jour</div></div>';
       h+=setToggleHtml("notif_news")+'</div>';
       h+='<div class="set-row" style="padding:10px 14px;background:var(--s2)"><div style="font-size:10px;color:var(--t2);line-height:1.5">ℹ️ Les notifications locales seront activées dans une prochaine mise à jour.</div></div></div>';
-      // AVANCÉ
-      h+='<div class="set-sec"><div class="set-h">🔧 Avancé</div>';
-      // v1.8.2 — Ligne "Mode admin scores" masquée aux utilisateurs.
-      // Visible uniquement si admin déjà actif (pour pouvoir le désactiver).
-      // Activation : 6 taps rapides sur "⚽ Foot Flash 2026" (footer) + code.
-      if(V.isAdmin&&typeof disableAdmin==="function"){
+      // AVANCÉ — v1.8.3 : section entière réservée au mode admin.
+      // Les utilisateurs n'ont plus accès à Export/Import/Onboarding/Reset.
+      // Activation admin : 6 taps rapides sur "⚽ Foot Flash 2026" (footer) + code.
+      if(V.isAdmin){
+        h+='<div class="set-sec"><div class="set-h">🔧 Avancé (admin)</div>';
         h+='<div class="set-row"><div class="set-lbl">Mode admin scores<div class="set-hint">Actif — saisie manuelle des résultats</div></div>';
         h+='<button class="set-btn" onclick="disableAdmin()">🔒 Désactiver</button></div>';
+        h+='<div class="set-row"><div class="set-lbl">Exporter mes données<div class="set-hint">Sauvegarde JSON</div></div>';
+        h+='<button class="set-btn" onclick="exportSettings()">📥 Exporter</button></div>';
+        h+='<div class="set-row"><div class="set-lbl">Importer des données<div class="set-hint">Depuis un export JSON</div></div>';
+        h+='<button class="set-btn" onclick="importSettings()">📤 Importer</button></div>';
+        h+='<div class="set-row"><div class="set-lbl">Relancer l\'onboarding</div>';
+        h+='<button class="set-btn" onclick="saveSetting(\'onboarded\',\'0\');V.view=\'onboarding\';V.obStep=0;render()">↻ Refaire</button></div>';
+        h+='<div class="set-row"><div class="set-lbl">Réinitialiser l\'app<div class="set-hint">Efface TOUT (irréversible)</div></div>';
+        h+='<button class="set-btn danger" onclick="resetApp()">🗑 Reset</button></div></div>';
       }
-      h+='<div class="set-row"><div class="set-lbl">Exporter mes données<div class="set-hint">Sauvegarde JSON</div></div>';
-      h+='<button class="set-btn" onclick="exportSettings()">📥 Exporter</button></div>';
-      h+='<div class="set-row"><div class="set-lbl">Importer des données<div class="set-hint">Depuis un export JSON</div></div>';
-      h+='<button class="set-btn" onclick="importSettings()">📤 Importer</button></div>';
-      h+='<div class="set-row"><div class="set-lbl">Relancer l\'onboarding</div>';
-      h+='<button class="set-btn" onclick="saveSetting(\'onboarded\',\'0\');V.view=\'onboarding\';V.obStep=0;render()">↻ Refaire</button></div>';
-      h+='<div class="set-row"><div class="set-lbl">Réinitialiser l\'app<div class="set-hint">Efface TOUT (irréversible)</div></div>';
-      h+='<button class="set-btn danger" onclick="resetApp()">🗑 Reset</button></div></div>';
       // À PROPOS
       h+='<div class="set-sec"><div class="set-h">ℹ️ À propos</div>';
       h+='<div class="set-row"><div class="set-lbl">Version<div class="set-hint">'+APP_VERSION+'</div></div>';
