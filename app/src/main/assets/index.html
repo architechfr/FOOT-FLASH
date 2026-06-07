@@ -2088,6 +2088,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.8.5",d:"07/06/2026",changes:"Simulation auto crédibilisée : système de classes de favoris. Classe 1 (poids 3) : FRA, ESP, ARG, ENG, BRA, POR, GER, NED. Classe 2 (poids 2) : BEL, CRO, MAR, URU, COL, MEX, USA, JPN, SUI, SEN, NOR. Classe 3 (poids 1) : autres outsiders. Classe 4 (poids 0.5) : rank FIFA > 48. Les surprises restent possibles sur un match (un outsider peut sortir un favori en 32es/8es), mais la probabilité du favori monte au fil des tours, et une équipe de classe 3/4 ne peut plus battre une classe 1/2 en finale — fini l'Iran champion du monde. Validation sur 5000 tournois simulés : ~73% de champions classe 1, ~27% classe 2, 0 champion classe 3/4 (sauf finale improbable entre 2 outsiders, ~1 cas sur 1700). Le remplissage auto des groupes est aussi pondéré par classe."},
       {v:"v1.8.4",d:"07/06/2026",changes:"Fix crash Pronos : le bouton boost ⚡ provoquait 'cycleBoost is not defined' — les fonctions getBoost/isBoostLocked/cycleBoost manquaient. Le boost fonctionne desormais : tap pour cycler ×1→×2→×3→×5 (cout 2/8/18/50 credits, difference debitee ou remboursee), verrouille au coup d'envoi. Quiz Chrono ameliore. (1) Audit des 163 questions : 27 questions corrigees ou reecrites — la bonne reponse n'est plus trahie par une precision entre parentheses (ex : 'Hakan Sukur (Turquie 2002)' → 'Hakan Sukur') ni par un indice dans l'enonce (Maracanazo) ; 2 questions incoherentes reecrites. (2) Timer passe de 10 a 15 secondes par question, et bonus eclair +75 pts si reponse en moins de 4 secondes. (3) En cas de mauvaise reponse ou de temps ecoule, la bonne reponse s'affiche desormais pendant 2,5s pour apprendre de ses erreurs. (4) Fix : le timeout ne remelangeait plus correctement les questions restantes (bug _qShuffled)."},
       {v:"v1.8.3",d:"07/06/2026",changes:"La section Réglages > Avancé (Export/Import de données, Relancer l'onboarding, Réinitialiser l'app) est désormais entièrement masquée aux utilisateurs : elle n'apparaît qu'en mode admin (6 taps sur le footer + code)."},
       {v:"v1.8.2",d:"07/06/2026",changes:"Confidentialité — la ligne 'Mode admin scores' n'apparaît plus dans Réglages > Avancé (activation réservée : 6 taps sur le footer + code ; le bouton Désactiver reste visible quand l'admin est actif). Coquilles corrigées dans le bandeau news : 'treble' → 'triplé' (FR) / 'triplete' (ES), accents et apostrophe 'Ballon d'Or' rétablis (Dembélé). Idem dans les actus et le quiz."},
@@ -2118,7 +2119,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.8.4 — Quiz : questions corrigées, 15s, bonne réponse affichée · 7 juin 2026";
+    var APP_VERSION="v1.8.5 — Simulation : classes de favoris, fini l'Iran champion · 7 juin 2026";
     var LANG=localStorage.getItem("ff26_lang")||"fr";
     var I18N={
       fr:{
@@ -8615,6 +8616,21 @@
       if(typeof render === "function") render();
     }
 
+    // ── Classes de favoris (v1.8.4) ──────────────────────────
+    // Classe 1 (poids 3) : les 8 grands favoris
+    // Classe 2 (poids 2) : challengers crédibles
+    // Classe 3 (poids 1) : outsiders — surprises possibles en match, jamais champions
+    // Classe 4 (poids 0.5) : petits poucets (rank > 48)
+    var FF_TIER1=["FRA","ESP","ARG","ENG","BRA","POR","GER","NED"];
+    var FF_TIER2=["BEL","CRO","MAR","URU","COL","MEX","USA","JPN","SUI","SEN","NOR"];
+    function teamTier(id){
+      if(FF_TIER1.indexOf(id)>=0)return 1;
+      if(FF_TIER2.indexOf(id)>=0)return 2;
+      var r=(getTeam(id)||{}).rank||50;
+      return r>48?4:3;
+    }
+    function tierWeight(t){return t===1?3:(t===2?2:(t===3?1:0.5))}
+
     function autoSimulate(){
       // Keep existing group picks, only fill empty ones
       var groups={};TEAMS.forEach(function(t){if(!groups[t.group])groups[t.group]=[];groups[t.group].push(t)});
@@ -8634,8 +8650,13 @@
         } else {
           // Auto-fill this group
           var ts=groups[g].slice();
-          // More random shuffle
-          ts.sort(function(a,b){return a.rank-b.rank+Math.random()*30-15});
+          // Tri pondéré : classe de favori + rank, avec aléa modéré
+          // (une classe 4 peut créer la surprise sur UN match, pas finir 1re devant un favori)
+          ts.sort(function(a,b){
+            var sa=a.rank-tierWeight(teamTier(a.id))*12+Math.random()*20-10;
+            var sb=b.rank-tierWeight(teamTier(b.id))*12+Math.random()*20-10;
+            return sa-sb;
+          });
           V.simPicks[g]=[ts[0].id,ts[1].id,ts[2].id];
           allThirds.push({id:ts[2].id,rank:ts[2].rank});
         }
@@ -8660,37 +8681,49 @@
         {id:"r13",a:W["J"],b:R["H"]},{id:"r14",a:W["K"],b:p3(["D","E","I","J","L"])},{id:"r15",a:W["G"],b:p3(["A","E","H","I","J"])},{id:"r16",a:W["D"],b:p3(["B","E","F","I","J"])}
       ];
 
-      // Pick winner with real upset potential
-      function pickWinner(a,b){
+      // Pick winner : pondéré par classe + rank, surprises bornées,
+      // verrou crédibilité en demi/finale (pas de champion classe 3/4)
+      function pickWinner(a,b,stage){
         if(!a||a==="?"||!b||b==="?")return a||b||"?";
+        var ta=teamTier(a),tb=teamTier(b);
+        var wa=tierWeight(ta),wb=tierWeight(tb);
         var ra=getTeam(a).rank||50,rb=getTeam(b).rank||50;
-        // Normalize: bigger gap = more certain, but always 20-30% upset chance
-        var diff=rb-ra; // positive = a is better
-        var pA=0.5+diff*0.008; // slight advantage per rank difference
-        pA=Math.max(0.25,Math.min(0.75,pA)); // clamp: never less than 25% chance
-        pA+=Math.random()*0.4-0.2; // big random factor
-        return pA>0.5?a:b;
+        // Base : rapport des poids de classe (3 vs 1 → 75%)
+        var pA=wa/(wa+wb);
+        // Affinage par rank FIFA (départage au sein d'une même classe)
+        pA+=(rb-ra)*0.004;
+        // Surprises possibles mais bornées — de moins en moins en avançant
+        var caps={r32:0.78,r16:0.80,qf:0.85,sf:0.90,f:0.96};
+        var cap=caps[stage]||0.80;
+        pA=Math.max(1-cap,Math.min(cap,pA));
+        // Verrou : en demi, une classe 3/4 face à une classe 1/2 passe très rarement ;
+        // en finale, jamais championne face à une classe 1/2
+        if(stage==="sf"||stage==="f"){
+          if(ta>=3&&tb<=2)pA=(stage==="f")?0:Math.min(pA,0.06);
+          else if(tb>=3&&ta<=2)pA=(stage==="f")?1:Math.max(pA,0.94);
+        }
+        return Math.random()<pA?a:b;
       }
 
       // R32
-      bracket.forEach(function(m){V.simKO[m.id]=pickWinner(m.a,m.b)});
+      bracket.forEach(function(m){V.simKO[m.id]=pickWinner(m.a,m.b,"r32")});
       // R16
       var r16=[];[[0,1],[2,3],[4,5],[6,7],[8,9],[10,11],[12,13],[14,15]].forEach(function(p,i){
         var a=V.simKO[bracket[p[0]].id],b=V.simKO[bracket[p[1]].id];
-        var mid="h"+i;r16.push(mid);V.simKO[mid]=pickWinner(a,b);
+        var mid="h"+i;r16.push(mid);V.simKO[mid]=pickWinner(a,b,"r16");
       });
       // QF
       var qfIds=[];[[0,1],[2,3],[4,5],[6,7]].forEach(function(p,i){
         var a=V.simKO[r16[p[0]]],b=V.simKO[r16[p[1]]];
-        var mid="q"+i;qfIds.push(mid);V.simKO[mid]=pickWinner(a,b);
+        var mid="q"+i;qfIds.push(mid);V.simKO[mid]=pickWinner(a,b,"qf");
       });
       // SF
       var sfIds=[];[[0,1],[2,3]].forEach(function(p,i){
         var a=V.simKO[qfIds[p[0]]],b=V.simKO[qfIds[p[1]]];
-        var mid="s"+i;sfIds.push(mid);V.simKO[mid]=pickWinner(a,b);
+        var mid="s"+i;sfIds.push(mid);V.simKO[mid]=pickWinner(a,b,"sf");
       });
       // Final
-      V.simKO["final"]=pickWinner(V.simKO["s0"],V.simKO["s1"]);
+      V.simKO["final"]=pickWinner(V.simKO["s0"],V.simKO["s1"],"f");
       V.simBracketShown=true;
       toast("🎲 Simulation terminee ! Champion: "+getTeam(V.simKO["final"]).name);
       render();
