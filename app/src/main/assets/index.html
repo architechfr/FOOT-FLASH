@@ -2088,6 +2088,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.8.2",d:"07/06/2026",changes:"Confidentialité — la ligne 'Mode admin scores' n'apparaît plus dans Réglages > Avancé (activation réservée : 6 taps sur le footer + code ; le bouton Désactiver reste visible quand l'admin est actif). Coquilles corrigées dans le bandeau news : 'treble' → 'triplé' (FR) / 'triplete' (ES), accents et apostrophe 'Ballon d'Or' rétablis (Dembélé). Idem dans les actus et le quiz."},
       {v:"V1.088",d:"22/04/2026",changes:"Audit complet des 48 equipes (groupes A a L) : corrections donnees reelles avril 2026. Coaches : Arabie Saoudite Renard→Donis (limoge 17/04), Maroc Regragui→Ouahbi, Curaçao Advocaat→Rutten, Suede Tomasson→Potter, Tunisie Trabelsi→Lamouchi. Capitaines : Belgique Tielemans→De Bruyne, Iran Hajsafi→Taremi, Irak Ali Adnan→Aymen Hussein, Autriche Arnautović→Alaba. Transferts majeurs : Manu Koné→Roma, Kanté→Fenerbahce, Ekitike→Liverpool, Nicolas Jackson→Bayern, Modrić→Milan, Luis Diaz→Bayern, James Rodriguez→Minnesota United, Mbemba→Lille, Zubimendi→Arsenal, Guehi→Man City, Ramsdale→Newcastle, Darwin Nunez→Al-Hilal, Thiago Almada→Atletico, Paredes→Boca Juniors, Musso→Atletico, Arnautović→Red Star Belgrade, Wissa→Newcastle, Semenyo→Man City, Kamaldeen→Atalanta, Jordan Ayew→NAC Breda, Bounedjah→Al Shamal, Atal→Al-Sadd, Mandi→Villarreal, Al-Taamari→Rennes, Feras Al-Buraikan→Al Ahli, Ryan Mendes→Igdir, Stopira→APOEL, Logan Costa→Villarreal, Roberto Lopes→Shamrock Rovers, Monteiro→Union SG, Amoura stats ajustees, Sorloth stats ajustees, Haaland stats ajustees, Kane stats ajustees, Ronaldo stats ajustees, Messi stats ajustees, Shomurodov stats ajustees, Godoy caps ajustees. Retraites internationaux marques : Luis Suarez (URU, sept 2024), Brozović (CRO, aout 2024), Vida (CRO, aout 2024), Mbokani (COD). Diogo Jota retire du fichier suite a son deces tragique en juillet 2025. Doublons supprimes massivement : Irak (6), Jordanie (6), Panama (6), Arabie Saoudite (5), Norvege (1), Algerie (1), Portugal (Pepe), Ouzbekistan (Shomurodov+Masharipov), Colombie (Rios), RD Congo (Bakambu+Silas+Mbemba), Ghana (Kudus+Ati-Zigi+J.Ayew), Uruguay (Rochet+Gimenez). Erreurs de poste corrigees : Benchimol GAR→ATT (CPV), Miguel Borja DEF→ATT (COL). Noms corriges : Dylan Vozinha→Vozinha (CPV), Mandrea (ALG)."},
       {v:"v1.075",d:"19/04/2026",changes:"Hotfix ticker news — Le bandeau d'actualites en haut de l'ecran affichait 'Chargement des actus...' indefiniment si le chargement RSS echouait ou tardait. Cause : le ticker etait genere avec un contenu initial de chargement qui ne s'actualisait jamais en cas d'echec. Fix : le ticker n'est desormais affiche que lorsque window._tickerItems existe (actus chargees), sinon il reste masque. Si le chargement reussit en cours de session, updateTicker() declenche automatiquement un render() pour afficher le ticker dynamiquement. Resultat : plus d'indicateur 'Chargement...' qui reste bloque visuellement."},
       {v:"v2.1",d:"19/04/2026",changes:"Session S7 — Bugfixes Simulation, Navigation Android, Infirmerie & Équipe favorite. (1) SIMULATION — Fix critique du bug '2x 2e' apres injection des pronostics : V.simPicks[g] contient desormais [1er, 2e, 3e] et le render affiche correctement le label '3e' avec une couleur ambre distincte du 2e (vert). T[g] (table des 3es) utilise pk[2] quand il existe, sinon recalcule depuis les non-pickees. (2) MEILLEURS 3ES — La liste des 12 troisiemes etait reduite a 4 equipes a cause du bug ci-dessus. Tri desormais par rang FIFA croissant, affichage du rang sous chaque equipe, boutons rapides '⚡ Top 8 FIFA' et '🔄 Reset' pour selectionner/deselectionner en un tap. (3) ALIGNEMENT BRACKET — Suppression des paddings asymetriques '0 5%' (8es) et '0 15%' (quarts) qui decalaient visuellement sans raison. Les cards quarts passent en layout vertical (equipe / VS / equipe) avec min-width:0 + text-overflow:ellipsis pour eliminer les debordements a droite. Demi-finales : padding 25% → 10%. (4) EXPORT TABLEAU — Fix critique : window.open('','_blank') remplacait la page en WebView Android sans bouton retour. Remplace par une modal in-app plein-ecran avec iframe (sandbox), bouton '← Retour' en haut a gauche, bouton '📤 Partager' (Web Share API → clipboard → WhatsApp fallback). (5) BOUTON RETOUR ANDROID — Nouveau systeme de navigation : pile V.navStack + history.pushState a chaque go()/goTeam() + ecouteur popstate. Priorite de navBack() : fermer modales > depiler navStack > retour accueil > laisser le systeme quitter l'app. La modal d'export est egalement capturee (V.modalOpen='simulExport'). (6) INFIRMERIE — Widget accueil etait 'cursor:default' sans onclick : il est maintenant cliquable (chevron '›' + cursor:pointer) et ouvre la vue detaillee rInfirmerie qui a ete reactivee dans le dispatcher (etait redirigee vers 'cal' depuis v1.073). (7) EQUIPE FAVORITE — cycleTeam() ne mettait a jour que V.myTeam / ff26_myteam mais pas SETTINGS.fav_team, d'ou le logo de l'ancienne equipe qui restait dans Parametres. Nouvelle fonction pickFavTeam(id) qui synchronise les 3 sources (V.myTeam, ff26_myteam, SETTINGS.fav_team). rSettings() lit desormais V.myTeam en priorite (source fiable)."},
@@ -2115,7 +2116,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.8.1 — Amicaux : 30 équipes du Mondial couvertes · 6 juin 2026";
+    var APP_VERSION="v1.8.2 — Admin masqué + coquilles news corrigées · 7 juin 2026";
     var LANG=localStorage.getItem("ff26_lang")||"fr";
     var I18N={
       fr:{
@@ -4228,11 +4229,12 @@
       h+='<div class="set-row" style="padding:10px 14px;background:var(--s2)"><div style="font-size:10px;color:var(--t2);line-height:1.5">ℹ️ Les notifications locales seront activées dans une prochaine mise à jour.</div></div></div>';
       // AVANCÉ
       h+='<div class="set-sec"><div class="set-h">🔧 Avancé</div>';
-      if(typeof enableAdmin==="function"){
-        h+='<div class="set-row"><div class="set-lbl">Mode admin scores<div class="set-hint">Saisie manuelle des résultats — code requis</div></div>';
-        if(V.isAdmin){h+='<button class="set-btn" onclick="disableAdmin()">🔒 Désactiver</button>';}
-        else{h+='<button class="set-btn" onclick="promptAdminCode()">🔓 Activer</button>';}
-        h+='</div>';
+      // v1.8.2 — Ligne "Mode admin scores" masquée aux utilisateurs.
+      // Visible uniquement si admin déjà actif (pour pouvoir le désactiver).
+      // Activation : 6 taps rapides sur "⚽ Foot Flash 2026" (footer) + code.
+      if(V.isAdmin&&typeof disableAdmin==="function"){
+        h+='<div class="set-row"><div class="set-lbl">Mode admin scores<div class="set-hint">Actif — saisie manuelle des résultats</div></div>';
+        h+='<button class="set-btn" onclick="disableAdmin()">🔒 Désactiver</button></div>';
       }
       h+='<div class="set-row"><div class="set-lbl">Exporter mes données<div class="set-hint">Sauvegarde JSON</div></div>';
       h+='<button class="set-btn" onclick="exportSettings()">📥 Exporter</button></div>';
@@ -9348,7 +9350,7 @@
           ["Plus jeune buteur","Pele (17 ans, 1958)"],["Plus vieux buteur","Roger Milla (42 ans, 1994)"],
           ["Plus de selections en Coupe du Monde","Lothar Matthaus (25 matchs)"],["Hat-trick le plus rapide","Laszlo Kiss (7 min, 1982)"],
           ["Plus de buts en 1 edition","Just Fontaine (13 buts, 1958)"],["Penalty le plus tardif","2022 finale 120+3e min"],
-          ["Mbappe buts en finale","4 buts en finales (2022+2018)"],["Dembele Ballon d'Or","2025 (PSG, treble+37 buts)"]
+          ["Mbappe buts en finale","4 buts en finales (2022+2018)"],["Dembele Ballon d'Or","2025 (PSG, triplé+37 buts)"]
         ];
         h+='<div style="background:var(--s1);border:1px solid var(--s3);border-radius:10px;padding:12px">';
         records.forEach(function(r){
@@ -11321,7 +11323,7 @@
       var news=[
         {t:"Mondial 2026 : le calendrier complet des 104 matchs devoile par la FIFA",d:"Avril 2026",cat:"CALENDRIER"},
         {t:"France dans le Groupe I : Senegal, Irak et Norvege au programme des Bleus",d:"Avril 2026",cat:"BLEUS"},
-        {t:"Ousmane Dembele, Ballon d'Or 2025 : 37 buts et un treble historique avec le PSG",d:"Sept 2025",cat:"BALLON D'OR"},
+        {t:"Ousmane Dembele, Ballon d'Or 2025 : 37 buts et un triplé historique avec le PSG",d:"Sept 2025",cat:"BALLON D'OR"},
         {t:"Kylian Mbappe au Real Madrid : premiere saison mitigee avant le Mondial",d:"Avril 2026",cat:"TRANSFERT"},
         {t:"Erling Haaland et la Norvege : le danger numero 1 du groupe de la France",d:"Avril 2026",cat:"ADVERSAIRE"},
         {t:"Lamine Yamal (18 ans) : la pepite espagnole qui affole les compteurs",d:"Avril 2026",cat:"REVELATION"},
@@ -11389,7 +11391,7 @@
       var articles=[
         {t:"Mondial 2026 : tout savoir sur le format a 48 equipes",d:"Le tournoi passe de 32 a 48 equipes reparties en 12 groupes de 4. Les 2 premiers et les 8 meilleurs 3es se qualifient pour les 16es.",l:"https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026",dt:"2026"},
         {t:"France dans le Groupe I : Senegal, Irak, Norvege",d:"Les Bleus debuteront face au Senegal le 16 juin a New York, puis l'Irak le 22 a Philadelphie et la Norvege le 26 a Boston.",l:"https://www.fff.fr",dt:"2026"},
-        {t:"Ousmane Dembele, Ballon d'Or 2025",d:"L'ailier du PSG a remporte le Ballon d'Or apres une saison a 37 buts et un treble historique avec le club parisien.",l:"https://www.lequipe.fr",dt:"2025"},
+        {t:"Ousmane Dembele, Ballon d'Or 2025",d:"L'ailier du PSG a remporté le Ballon d'Or après une saison à 37 buts et un triplé historique avec le club parisien.",l:"https://www.lequipe.fr",dt:"2025"},
         {t:"Kylian Mbappe : nouveau capitaine des Bleus",d:"L'attaquant du Real Madrid portera le brassard lors du Mondial 2026, son deuxieme apres la victoire en 2018 et la finale 2022.",l:"https://www.lequipe.fr",dt:"2026"},
         {t:"MetLife Stadium : la finale du 19 juillet",d:"Le stade de 82 500 places a East Rutherford (New Jersey) accueillera la finale du Mondial 2026.",l:"https://www.fifa.com",dt:"2026"},
         {t:"Erling Haaland face a la France dans le Groupe I",d:"Le buteur de Manchester City et la Norvege seront le dernier adversaire des Bleus en phase de groupes, le 26 juin a Boston.",l:"https://www.bbc.com/sport/football",dt:"2026"},
@@ -11551,7 +11553,7 @@
       fr:[
         "Mondial 2026 : 48 equipes, 104 matchs, 16 villes - du 11 juin au 19 juillet",
         "France dans le Groupe I avec Senegal, Irak et Norvege",
-        "Ousmane Dembele Ballon d Or 2025 - 37 buts, treble PSG",
+        "Ousmane Dembélé Ballon d\'Or 2025 — 37 buts, triplé avec le PSG",
         "Match d ouverture : Mexique vs Afrique du Sud le 11 juin a Mexico",
         "Finale au MetLife Stadium de New York le 19 juillet 2026",
         "Erling Haaland et la Norvege dans le groupe de la France",
@@ -11563,7 +11565,7 @@
       en:[
         "World Cup 2026: 48 teams, 104 matches, 16 cities - June 11 to July 19",
         "France in Group I with Senegal, Iraq and Norway",
-        "Ousmane Dembele Ballon d Or 2025 - 37 goals, PSG treble",
+        "Ousmane Dembélé Ballon d\'Or 2025 — 37 goals, PSG treble",
         "Opening match: Mexico vs South Africa on June 11 in Mexico City",
         "Final at MetLife Stadium in New York on July 19, 2026",
         "Erling Haaland and Norway in France s group",
@@ -11575,7 +11577,7 @@
       es:[
         "Mundial 2026: 48 equipos, 104 partidos, 16 ciudades - 11 junio al 19 julio",
         "Francia en el Grupo I con Senegal, Irak y Noruega",
-        "Ousmane Dembele Balon de Oro 2025 - 37 goles, treble PSG",
+        "Ousmane Dembélé Balón de Oro 2025 — 37 goles, triplete del PSG",
         "Partido inaugural: Mexico vs Sudafrica el 11 junio en Mexico",
         "Final en MetLife Stadium Nueva York el 19 julio 2026",
         "Erling Haaland y Noruega en el grupo de Francia",
