@@ -3669,6 +3669,28 @@
       if(el<=105) return (el-15)+"'";   // ~15 min de pause retirées
       return "90'+";
     }
+    // Onze type indicatif : meilleurs notés par ligne (postes GAR/DEF/MIL/ATT), schéma 4-3-3.
+    function ffProbableXI(teamId){
+      var all = (typeof getTopPlayersOfTeam==="function") ? getTopPlayersOfTeam(teamId,99) : [];
+      if(!all.length) return null;
+      var byPos = {GAR:[],DEF:[],MIL:[],ATT:[]};
+      all.forEach(function(p){ var k=(p.pos||"").toUpperCase(); if(byPos[k]) byPos[k].push(p); });
+      var xi = { GAR:byPos.GAR.slice(0,1), DEF:byPos.DEF.slice(0,4), MIL:byPos.MIL.slice(0,3), ATT:byPos.ATT.slice(0,3) };
+      if(!xi.GAR.length && !xi.DEF.length && !xi.MIL.length && !xi.ATT.length) return null;
+      return xi;
+    }
+    function ffRenderXICol(teamId, name){
+      var xi = ffProbableXI(teamId);
+      var h = '<div class="mtd-players-col"><div class="mtd-players-flag">'+flagImg(teamId,18)+'<span>'+name+'</span></div>';
+      if(!xi){ h += '<div style="font-size:11px;color:var(--t2);padding:4px 0">Compo non disponible</div></div>'; return h; }
+      [["🧤 Gardien",xi.GAR],["🛡️ Défense",xi.DEF],["⚙️ Milieu",xi.MIL],["⚡ Attaque",xi.ATT]].forEach(function(L){
+        if(!L[1].length) return;
+        h += '<div style="font-size:9px;font-weight:900;color:var(--g);letter-spacing:.5px;margin:7px 0 2px">'+L[0]+'</div>';
+        L[1].forEach(function(p){ h += '<div class="mtd-player-row"><span class="n">'+p.name+'</span><span class="r">'+p.rating+'</span></div>'; });
+      });
+      h += '</div>';
+      return h;
+    }
     function showFriendlyDetail(id){
       var f = getFriendly(id); if(!f) return;
       ffStopLiveClock();
@@ -3700,25 +3722,13 @@
         if(state.live) h += '<div style="font-size:10px;color:var(--t2);margin-top:4px">Minute estimée · 🔄 rafraîchis pour le score officiel</div>';
         h += '</div>';
       }
-      // Joueurs clés / compo (effectif réel quand disponible)
-      var topA = (typeof getTopPlayersOfTeam==="function") ? getTopPlayersOfTeam(f.t1,5) : [];
-      var topB = (typeof getTopPlayersOfTeam==="function") ? getTopPlayersOfTeam(f.t2,5) : [];
-      if(topA.length || topB.length){
+      // Onze type indicatif (compo probable groupée par ligne)
+      var xiA = ffProbableXI(f.t1), xiB = ffProbableXI(f.t2);
+      if(xiA || xiB){
         h += '<div class="mtd-sec">';
-        h += '<div class="mtd-sec-title">👥 JOUEURS CLÉS</div>';
-        h += '<div class="mtd-players">';
-        [{t:f.t1,n:f.n1,top:topA},{t:f.t2,n:f.n2,top:topB}].forEach(function(side){
-          h += '<div class="mtd-players-col">';
-          h += '<div class="mtd-players-flag">'+flagImg(side.t,18)+'<span>'+side.n+'</span></div>';
-          if(side.top.length){
-            side.top.forEach(function(p){ h += '<div class="mtd-player-row"><span class="n">'+p.name+'</span><span class="r">'+p.rating+'</span></div>'; });
-          } else {
-            h += '<div style="font-size:11px;color:var(--t2);padding:4px 0">Effectif non répertorié</div>';
-          }
-          h += '</div>';
-        });
-        h += '</div>';
-        h += '<div style="font-size:10px;color:var(--t2);margin-top:8px;text-align:center">La compo officielle est communiquée ~1h avant le coup d\'envoi.</div>';
+        h += '<div class="mtd-sec-title">📋 ONZE TYPE INDICATIF</div>';
+        h += '<div class="mtd-players">'+ffRenderXICol(f.t1,f.n1)+ffRenderXICol(f.t2,f.n2)+'</div>';
+        h += '<div style="font-size:10px;color:var(--t2);margin-top:8px;text-align:center">Onze probable (4-3-3) basé sur les joueurs les mieux notés — la compo officielle tombe ~1h avant le coup d\'envoi.</div>';
         h += '</div>';
       }
       h += '<div class="mtd-sec"><div style="font-size:12px;color:var(--t2);line-height:1.6;text-align:center">';
