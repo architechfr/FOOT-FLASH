@@ -3655,7 +3655,9 @@
     function ffLiveMinuteLabel(f){
       var st=(f.status||"NS").toUpperCase();
       if(st==="FT"||st==="AET"||st==="PEN"||st==="MATCH FINISHED"||st==="FINISHED") return "Terminé";
-      if(st==="HT") return "Mi-temps";
+      if(st==="HT"||st==="HALF TIME"||st==="BREAK") return "Mi-temps";
+      // Minute OFFICIELLE uniquement (fournie par le flux live). Pas d'estimation :
+      // impossible de deviner le temps additionnel depuis l'horloge → on n'invente pas.
       if(f.minute) return f.minute+"'";
       var ko=new Date(f.utc).getTime(), now=Date.now();
       if(now<ko){
@@ -3663,11 +3665,7 @@
         if(mins>=60){ var hh=Math.floor(mins/60), mm=mins%60; return "dans "+hh+"h"+(mm<10?"0":"")+mm; }
         return "dans "+mins+" min";
       }
-      var el=Math.floor((now-ko)/60000);
-      if(el<=45) return el+"'";
-      if(el<=60) return "Mi-temps";
-      if(el<=105) return (el-15)+"'";   // ~15 min de pause retirées
-      return "90'+";
+      return "en cours"; // démarré mais minute non communiquée — aucune estimation trompeuse
     }
     // Onze type indicatif : meilleurs notés par ligne (postes GAR/DEF/MIL/ATT), schéma 4-3-3.
     function ffProbableXI(teamId){
@@ -3740,13 +3738,13 @@
       h += '<div class="mtd-teams">';
       h += '<div class="mtd-team">'+flagImg(f.t1,48)+'<div class="nm">'+f.n1+'</div></div>';
       if(state.started){
-        h += '<div class="mtd-vs" style="font-size:30px;color:var(--tx)">'+ffFriendlyScoreStr(f)+'</div>';
+        h += '<div class="mtd-vs" id="ff-live-vs" style="font-size:30px;color:var(--tx)">'+ffFriendlyScoreStr(f)+'</div>';
       } else {
-        h += '<div class="mtd-vs">VS</div>';
+        h += '<div class="mtd-vs" id="ff-live-vs">VS</div>';
       }
       h += '<div class="mtd-team">'+flagImg(f.t2,48)+'<div class="nm">'+f.n2+'</div></div>';
       h += '</div>';
-      h += '<div style="text-align:center;margin:8px 0"><span style="font-size:13px;font-weight:900;color:'+state.color+'">'+state.label+'</span></div>';
+      h += '<div style="text-align:center;margin:8px 0"><span id="ff-live-state" style="font-size:13px;font-weight:900;color:'+state.color+'">'+state.label+'</span></div>';
       h += '<div class="mtd-meta">📅 '+fmtDate(f.d)+' · '+fmtTime(f.d)+'<br>🏟️ '+f.stad+' · '+f.city+(f.tv&&f.tv!=="—"?'<br>📺 '+f.tv:'')+'</div>';
       h += '</div>';
       // Chrono : se compte tout seul (minute en direct, ou compte à rebours avant le coup d'envoi)
@@ -3754,7 +3752,7 @@
         h += '<div class="mtd-sec" style="text-align:center;padding:14px">';
         h += '<div class="mtd-sec-title" style="justify-content:center">'+(state.live?'🔴 EN DIRECT':'⏱️ COUP D\'ENVOI')+'</div>';
         h += '<div id="ff-live-clock" style="font-size:30px;font-weight:900;color:'+(state.live?'var(--rd)':'var(--g)')+'">'+ffLiveMinuteLabel(f)+'</div>';
-        if(state.live) h += '<div style="font-size:10px;color:var(--t2);margin-top:4px">Minute estimée · 🔄 rafraîchis pour le score officiel</div>';
+        if(state.live) h += '<div style="font-size:10px;color:var(--t2);margin-top:4px">Minute &amp; score officiels dès qu\'ils sont communiqués · 🔄 pour forcer</div>';
         h += '</div>';
       }
       // Compo officielle si disponible (feuille de match) — sinon onze type indicatif
@@ -3786,6 +3784,10 @@
           var c = document.getElementById("ff-live-clock");
           if(!c){ ffStopLiveClock(); return; }
           c.textContent = ffLiveMinuteLabel(f);
+          var vs = document.getElementById("ff-live-vs");
+          if(vs && ffFriendlyState(f).started) vs.textContent = ffFriendlyScoreStr(f);
+          var stEl = document.getElementById("ff-live-state");
+          if(stEl){ var st2 = ffFriendlyState(f); stEl.textContent = st2.label; stEl.style.color = st2.color; }
         }, 10000);
       }
     }
