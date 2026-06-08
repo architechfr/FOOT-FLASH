@@ -1,0 +1,48 @@
+name: Update lineups
+
+# Récupère les compositions officielles (API-Football) et met à jour
+# app/src/main/assets/data/lineups.json. La clé API reste un secret du dépôt.
+
+on:
+  schedule:
+    # Toutes les 15 min entre 14h et 23h UTC (couvre les coups d'envoi du Mondial).
+    # Ajuste les heures si besoin. GitHub peut décaler légèrement l'exécution.
+    - cron: "*/15 14-23 * * *"
+  workflow_dispatch:        # bouton "Run workflow" pour lancer à la main
+
+permissions:
+  contents: write           # autorise le commit du JSON mis à jour
+
+concurrency:
+  group: update-lineups
+  cancel-in-progress: false
+
+jobs:
+  lineups:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Récupérer les compositions
+        env:
+          APIFOOTBALL_KEY: ${{ secrets.APIFOOTBALL_KEY }}
+          WINDOW_HOURS: "3"
+          LEAGUE_ID: "1"
+          SEASON: "2026"
+        run: node scripts/fetch-lineups.mjs
+
+      - name: Commit si changement
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet -- app/src/main/assets/data/lineups.json; then
+            git add app/src/main/assets/data/lineups.json
+            git commit -m "Auto: maj compositions (lineups.json)"
+            git push
+          else
+            echo "Aucun changement de compo."
+          fi

@@ -3691,6 +3691,41 @@
       h += '</div>';
       return h;
     }
+    // ─── Compositions officielles (feuille de match) ───────────────
+    // Alimentées par lineups.json (rempli par le script/Action API-Football).
+    function ffGetLineup(id){ return (LINEUPS && LINEUPS[String(id)]) ? LINEUPS[String(id)] : null; }
+    function ffPosLabel(p){ return {G:"🧤 Gardien",D:"🛡️ Défense",M:"⚙️ Milieu",F:"⚡ Attaque"}[String(p||"").toUpperCase()] || "Joueurs"; }
+    function ffRenderRealCol(teamId, name, side){
+      var h='<div class="mtd-players-col"><div class="mtd-players-flag">'+flagImg(teamId,18)+'<span>'+name+(side.formation?' · '+side.formation:'')+'</span></div>';
+      var byPos={G:[],D:[],M:[],F:[]};
+      (side.xi||[]).forEach(function(p){ var k=String(p.pos||"").toUpperCase(); if(byPos[k]) byPos[k].push(p); else byPos.M.push(p); });
+      ["G","D","M","F"].forEach(function(k){
+        if(!byPos[k].length) return;
+        h+='<div style="font-size:9px;font-weight:900;color:var(--g);letter-spacing:.5px;margin:7px 0 2px">'+ffPosLabel(k)+'</div>';
+        byPos[k].forEach(function(p){
+          h+='<div class="mtd-player-row"><span class="n">'+(p.num?'<span style="color:var(--t2);font-size:10px">'+p.num+'</span> ':'')+(p.n||"")+'</span></div>';
+        });
+      });
+      if(side.subs && side.subs.length){
+        h+='<div style="font-size:9px;font-weight:900;color:var(--t2);letter-spacing:.5px;margin:8px 0 2px">🔄 Remplaçants</div>';
+        h+='<div style="font-size:11px;color:var(--t2);line-height:1.5">'+side.subs.map(function(p){return (p.num?p.num+" ":"")+(p.n||"")}).join(" · ")+'</div>';
+      }
+      if(side.coach) h+='<div style="font-size:10px;color:var(--t2);margin-top:8px">👔 '+side.coach+'</div>';
+      h+='</div>';
+      return h;
+    }
+    function ffRenderLineupSection(matchId, t1, n1, t2, n2){
+      var L=ffGetLineup(matchId); if(!L) return "";
+      var hSide={xi:(L.home&&L.home.xi)||[], subs:(L.home&&L.home.subs)||[], formation:L.fHome, coach:L.cHome};
+      var aSide={xi:(L.away&&L.away.xi)||[], subs:(L.away&&L.away.subs)||[], formation:L.fAway, coach:L.cAway};
+      if(!hSide.xi.length && !aSide.xi.length) return "";
+      var h='<div class="mtd-sec">';
+      h+='<div class="mtd-sec-title">📋 COMPOSITIONS OFFICIELLES</div>';
+      h+='<div class="mtd-players">'+ffRenderRealCol(t1,n1,hSide)+ffRenderRealCol(t2,n2,aSide)+'</div>';
+      h+='<div style="font-size:10px;color:var(--t2);margin-top:8px;text-align:center">Feuille de match officielle'+(L.ts?' · maj '+(new Date(L.ts).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})):'')+'</div>';
+      h+='</div>';
+      return h;
+    }
     function showFriendlyDetail(id){
       var f = getFriendly(id); if(!f) return;
       ffStopLiveClock();
@@ -3722,9 +3757,12 @@
         if(state.live) h += '<div style="font-size:10px;color:var(--t2);margin-top:4px">Minute estimée · 🔄 rafraîchis pour le score officiel</div>';
         h += '</div>';
       }
-      // Onze type indicatif (compo probable groupée par ligne)
+      // Compo officielle si disponible (feuille de match) — sinon onze type indicatif
+      var realXI = ffRenderLineupSection(f.id, f.t1, f.n1, f.t2, f.n2);
       var xiA = ffProbableXI(f.t1), xiB = ffProbableXI(f.t2);
-      if(xiA || xiB){
+      if(realXI){
+        h += realXI;
+      } else if(xiA || xiB){
         h += '<div class="mtd-sec">';
         h += '<div class="mtd-sec-title">📋 ONZE TYPE INDICATIF</div>';
         h += '<div class="mtd-players">'+ffRenderXICol(f.t1,f.n1)+ffRenderXICol(f.t2,f.n2)+'</div>';
@@ -3846,6 +3884,20 @@
         _ffLogCrash("error", "bootstrap init: "+(e.message||e), "bootstrap", 0, 0, e);
         try { localStorage.setItem("ff26_no_loader","1"); } catch(_){}
       }
+    })();
+
+    // Compositions officielles (lineups.json) — même pipeline de données (remote → cache → embarqué).
+    var LINEUPS = {};
+    (function loadLineups(){
+      try{
+        if(typeof _ffLoadOne !== "function") return;
+        _ffLoadOne("lineups").then(function(res){
+          if(res && res.payload && res.payload.data){
+            LINEUPS = res.payload.data;
+            try{ if(typeof render==="function" && (typeof V==="undefined" || V.view==="cal")) render(); }catch(e){}
+          }
+        }).catch(function(){});
+      }catch(e){}
     })();
 
     // Bouton "Rafraîchir" : vide le cache et retente
@@ -13766,6 +13818,10 @@
         h += '<div style="font-size:10px;color:var(--t2);margin-top:10px;text-align:center;line-height:1.5">📊 Pondération : Joueurs (35%) · FIFA (25%) · Forme (20%) · Titres (15%) · Terrain (5%)</div>';
         h += '</div>';
       }
+
+      // BLOC 4bis — Compositions officielles (feuille de match) si disponibles
+      var realLineupWC = ffRenderLineupSection(m.id, m.t1, (tA?tA.name:m.t1), m.t2, (tB?tB.name:m.t2));
+      if(realLineupWC) h += realLineupWC;
 
       // BLOC 5 — Joueurs clés
       if(topA.length || topB.length){
