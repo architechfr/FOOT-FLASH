@@ -4,6 +4,8 @@ name: Update livescores
 # La clé reste un secret du dépôt (FOOTBALLDATA_KEY). 1 requête par exécution.
 
 on:
+  push:
+    branches: [ main ]        # se lance à chaque push (utile pour le 1er test/enregistrement)
   schedule:
     - cron: "*/3 * * * *"     # toutes les 3 min ; commit seulement si un score change
   workflow_dispatch:          # bouton "Run workflow" (test/vérif manuelle)
