@@ -3565,6 +3565,81 @@
       });
     }
 
+    // ─── LIVE MONDIAL (gratuit, TheSportsDB) ─────────────────────────────
+    // Mêmes appels eventsday que les amicaux, appliqués aux 104 matchs.
+    // IMPORTANT : on écrit dans m._live (PAS m.s1/m.s2) pour ne PAS fausser
+    // le classement et le calcul des pronos pendant le match.
+    var WC_ALIASES = {
+      MEX:["Mexico"],KOR:["South Korea","Korea Republic","Korea"],RSA:["South Africa"],
+      CZE:["Czech Republic","Czechia"],BRA:["Brazil"],MAR:["Morocco"],GER:["Germany"],
+      NED:["Netherlands","Holland"],JPN:["Japan"],BEL:["Belgium"],ESP:["Spain"],URU:["Uruguay"],
+      FRA:["France"],NOR:["Norway"],SEN:["Senegal"],ARG:["Argentina"],POR:["Portugal"],CRO:["Croatia"],
+      ENG:["England"],USA:["USA","United States"],CAN:["Canada"],BIH:["Bosnia and Herzegovina","Bosnia"],
+      QAT:["Qatar"],SUI:["Switzerland"],HAI:["Haiti"],SCO:["Scotland"],PAR:["Paraguay"],AUS:["Australia"],
+      TUR:["Turkey","Turkiye","Turkey","Türkiye"],CIV:["Ivory Coast","Cote d Ivoire"],ECU:["Ecuador"],
+      CUR:["Curacao"],SWE:["Sweden"],TUN:["Tunisia"],IRN:["Iran"],NZL:["New Zealand"],EGY:["Egypt"],
+      KSA:["Saudi Arabia"],CPV:["Cape Verde","Cabo Verde"],IRQ:["Iraq"],AUT:["Austria"],JOR:["Jordan"],
+      ALG:["Algeria"],UZB:["Uzbekistan"],COL:["Colombia"],COD:["DR Congo","Congo DR","Democratic Republic of Congo"],
+      GHA:["Ghana"],PAN:["Panama"]
+    };
+    function ffFetchWCLive(force){
+      if(typeof MATCHES==="undefined" || !MATCHES || !MATCHES.length) return Promise.resolve(false);
+      var now = Date.now(), dates = {};
+      MATCHES.forEach(function(m){
+        if(!m.t1||!m.t2||m.t1==="TBD"||m.t2==="TBD") return;
+        var ko = new Date(m.utc||m.d).getTime();
+        if(!(force || (now > ko - FF_LIVE.windowBeforeMs && now < ko + FF_LIVE.windowAfterMs))) return;
+        var dt = new Date(ko);
+        [dt, new Date(ko-12*36e5), new Date(ko+12*36e5)].forEach(function(x){ dates[x.toISOString().slice(0,10)] = true; });
+      });
+      var dateList = Object.keys(dates);
+      if(!dateList.length) return Promise.resolve(false);
+      var changed = false;
+      return Promise.all(dateList.map(function(d){
+        var url = FF_LIVE.base + FF_LIVE.key + "/eventsday.php?d=" + d + "&s=Soccer";
+        return _ffFetchJson(url, 8000).then(function(json){
+          var evs = (json && json.events) || [];
+          evs.forEach(function(ev){
+            var lg = (ev.strLeague||"") + " " + (ev.strEvent||"");
+            if(/wom|femin|girls|u-?1[5-9]|u-?2[0-3]|youth|olympic/i.test(lg)) return;
+            var home = ev.strHomeTeam, away = ev.strAwayTeam;
+            MATCHES.forEach(function(m){
+              if(!m.t1||!m.t2||m.t1==="TBD"||m.t2==="TBD") return;
+              var a1 = WC_ALIASES[m.t1], a2 = WC_ALIASES[m.t2];
+              if(!a1||!a2) return;
+              var evDay = (ev.dateEvent||"").slice(0,10);
+              if(evDay){ var ed=new Date(evDay).getTime(), md=new Date(m.utc||m.d).getTime(); if(Math.abs(ed-md) > 30*36e5) return; }
+              var hm1 = ffNameMatches(home,a1) && ffNameMatches(away,a2);
+              var hm2 = ffNameMatches(home,a2) && ffNameMatches(away,a1);
+              if(!hm1 && !hm2) return;
+              var hs = (ev.intHomeScore===null||ev.intHomeScore===undefined||ev.intHomeScore==="")?null:parseInt(ev.intHomeScore,10);
+              var as = (ev.intAwayScore===null||ev.intAwayScore===undefined||ev.intAwayScore==="")?null:parseInt(ev.intAwayScore,10);
+              var ns1 = hm1 ? hs : as, ns2 = hm1 ? as : hs;
+              var stt = (ev.strStatus||ev.strProgress||"").toUpperCase();
+              var min = (ev.strProgress && /^\d+$/.test(ev.strProgress)) ? ev.strProgress : null;
+              var prev = m._live || {};
+              if(prev.s1!==ns1 || prev.s2!==ns2 || prev.status!==stt || prev.minute!==min){
+                m._live = { s1:ns1, s2:ns2, status:stt, minute:min };
+                changed = true;
+              }
+            });
+          });
+          return true;
+        }).catch(function(){ return false; });
+      })).then(function(){
+        if(changed){ try{ if(typeof render==="function" && typeof V!=="undefined" && !V.detail && (V.view==="cal"||V.view==="home"||V.view==="team")) render(); }catch(e){} }
+        return changed;
+      });
+    }
+    // Statut "live" d'un match Mondial d'après _live (FT/HT/minute…)
+    function wcLiveState(m){
+      var L = m && m._live; if(!L) return null;
+      var st = (L.status||"").toUpperCase();
+      if(st==="FT"||st==="AET"||st==="PEN"||st==="MATCH FINISHED"||st==="FINISHED") return {fin:true, label:"Terminé", min:null};
+      if(st==="HT"||st==="HALF TIME"||st==="BREAK") return {fin:false, label:"Mi-temps", min:null};
+      return {fin:false, label:"EN DIRECT", min:(L.minute||null)};
+    }
+
     // Re-render léger si on est sur une vue qui montre les amicaux
     function ffRerenderFriendlies(){
       try{
@@ -3576,13 +3651,14 @@
     function ffStartFriendlyPolling(){
       function anyLiveSoon(){
         var now = Date.now();
-        return FRIENDLIES.some(function(f){
-          var ko = new Date(f.utc).getTime();
-          return now > ko - FF_LIVE.windowBeforeMs && now < ko + FF_LIVE.windowAfterMs;
-        });
+        var inWin = function(iso){ var ko=new Date(iso).getTime(); return now > ko - FF_LIVE.windowBeforeMs && now < ko + FF_LIVE.windowAfterMs; };
+        var fr = FRIENDLIES.some(function(f){ return inWin(f.utc); });
+        var wc = (typeof MATCHES!=="undefined" && MATCHES) ? MATCHES.some(function(m){ return m.t1&&m.t2&&m.t1!=="TBD"&&m.t2!=="TBD" && inWin(m.utc||m.d); }) : false;
+        return fr || wc;
       }
       function tick(){
         ffFetchFriendlyLive(false);
+        if(typeof ffFetchWCLive==="function") ffFetchWCLive(false); // live Mondial (même flux gratuit)
         if(FF_LIVE._timer){ clearTimeout(FF_LIVE._timer); }
         FF_LIVE._timer = setTimeout(tick, anyLiveSoon() ? FF_LIVE.pollMs : 10*60000);
       }
@@ -5483,13 +5559,16 @@
         if(dt!==lastDate){h+='<div class="sec">'+dt+"</div>";lastDate=dt}
         var t1=getTeam(m.t1),t2=getTeam(m.t2);
         var st=matchStatus(m.d);
+        var lv=(typeof wcLiveState==="function")?wcLiveState(m):null; // live Mondial (champ _live)
         h+='<div class="mc'+(st==="live"?" live":"")+(st==="soon"?" soon":"")+'">';
-            if(st==="live")h+='<div class="mc-status" style="color:var(--g)"><span class="dot" style="background:var(--g)"></span>EN COURS</div>';
+            if(lv&&!lv.fin)h+='<div class="mc-status" style="color:var(--rd)"><span class="dot" style="background:var(--rd)"></span>EN DIRECT'+(lv.min?" · "+lv.min+"'":(lv.label==="Mi-temps"?" · Mi-temps":""))+"</div>";
+        else if(st==="live")h+='<div class="mc-status" style="color:var(--g)"><span class="dot" style="background:var(--g)"></span>EN COURS</div>';
         else if(st==="soon")h+='<div class="mc-status" style="color:var(--am)">⏰ BIENTÔT — '+fmtTime(m.d)+"</div>";
         else if(st==="done")h+='<div class="mc-status" style="color:var(--t2)">TERMINÉ</div>';
         else h+='<div class="mc-status" style="color:var(--t2)">'+fmtTime(m.d)+" · "+m.st+"</div>";
             h+='<div class="mc-teams"><div class="mc-team" onclick="event.stopPropagation();goTeam(\''+m.t1+'\')"><div class="mc-flag">'+flagImg(m.t1,36)+'</div><div class="mc-name" style="text-decoration:underline;text-decoration-color:rgba(255,255,255,.2)">'+t1.name+"</div></div>";
         if(m.s1!==null)h+='<div class="mc-score">'+m.s1+" - "+m.s2+"</div>";
+        else if(lv&&lv.s1!=null&&lv.s2!=null)h+='<div class="mc-score" style="color:var(--rd)">'+lv.s1+" - "+lv.s2+"</div>";
         else h+='<div class="mc-vs">VS</div>';
         h+='<div class="mc-team" onclick="event.stopPropagation();goTeam(\''+m.t2+'\')"><div class="mc-flag">'+flagImg(m.t2,36)+'</div><div class="mc-name" style="text-decoration:underline;text-decoration-color:rgba(255,255,255,.2)">'+t2.name+"</div></div></div>";
             var stadObj=getStadiumByName(m.stad);
@@ -13767,9 +13846,13 @@
       h += '<div class="mtd-hero">';
       h += '<div class="mtd-teams">';
       h += '<div class="mtd-team" onclick="document.getElementById(\'match-detail-modal\').remove();goTeam(\''+m.t1+'\')" style="cursor:pointer">'+flagImg(m.t1,48)+'<div class="nm">'+(tA?tA.name:m.t1)+'</div></div>';
-      h += '<div class="mtd-vs">VS</div>';
+      var _lv=(typeof wcLiveState==="function")?wcLiveState(m):null;
+      if(m.s1!==null && m.s2!==null) h += '<div class="mtd-vs" style="font-size:30px;color:var(--tx)">'+m.s1+' - '+m.s2+'</div>';
+      else if(_lv && _lv.s1!=null && _lv.s2!=null) h += '<div class="mtd-vs" style="font-size:30px;color:var(--rd)">'+_lv.s1+' - '+_lv.s2+'</div>';
+      else h += '<div class="mtd-vs">VS</div>';
       h += '<div class="mtd-team" onclick="document.getElementById(\'match-detail-modal\').remove();goTeam(\''+m.t2+'\')" style="cursor:pointer">'+flagImg(m.t2,48)+'<div class="nm">'+(tB?tB.name:m.t2)+'</div></div>';
       h += '</div>';
+      if(_lv && !_lv.fin) h += '<div style="text-align:center;margin:2px 0 6px"><span style="font-size:12px;font-weight:900;color:var(--rd)">🔴 EN DIRECT'+(_lv.min?" · "+_lv.min+"\'":(_lv.label==="Mi-temps"?" · Mi-temps":""))+'</span></div>';
       h += '<div class="mtd-meta">📅 '+fmtDate(m.d)+' · '+fmtTime(m.d)+'<br>🏟️ '+(m.stad||"?")+' · '+(m.city||"?")+'</div>';
       if(m.st) h += '<div class="mtd-meta" style="margin-top:4px"><b style="color:var(--g)">'+m.st+'</b></div>';
       h += '</div>';
