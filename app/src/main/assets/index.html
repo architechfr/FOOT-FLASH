@@ -3605,6 +3605,7 @@
             var home = ev.strHomeTeam, away = ev.strAwayTeam;
             MATCHES.forEach(function(m){
               if(!m.t1||!m.t2||m.t1==="TBD"||m.t2==="TBD") return;
+              if(m._liveSrc==="fd") return; // football-data déjà autoritaire sur ce match
               var a1 = WC_ALIASES[m.t1], a2 = WC_ALIASES[m.t2];
               if(!a1||!a2) return;
               var evDay = (ev.dateEvent||"").slice(0,10);
@@ -3977,6 +3978,49 @@
         }).catch(function(){});
       }catch(e){}
     })();
+
+    // Scores du Mondial (livescores.json, rempli par l'Action football-data.org).
+    // Fichier statique → aucun quota côté utilisateur. Source fiable, prioritaire sur TheSportsDB.
+    var LIVESCORES = {};
+    function applyLiveScores(){
+      if(!LIVESCORES) return;
+      Object.keys(LIVESCORES).forEach(function(id){
+        var o = LIVESCORES[id]; if(!o) return;
+        var st = String(o.status||"").toUpperCase();
+        var fin = (st==="FINISHED"||st==="FT"||st==="AET"||st==="PEN"||st==="AWARDED");
+        // Amical (ids 9000+) : overlay direct (même logique que TheSportsDB)
+        var f = (typeof getFriendly==="function") ? getFriendly(id) : null;
+        if(f){
+          if(o.s1!=null) f.s1=o.s1; if(o.s2!=null) f.s2=o.s2;
+          if(o.status) f.status=o.status; if(o.minute!=null) f.minute=String(o.minute);
+          return;
+        }
+        // Match du Mondial
+        if(typeof MATCHES!=="undefined" && MATCHES){
+          var m = MATCHES.find(function(x){return String(x.id)===String(id)});
+          if(m){
+            m._live = { s1:o.s1, s2:o.s2, status:o.status, minute:(o.minute!=null?String(o.minute):null) };
+            m._liveSrc = "fd"; // football-data prioritaire (TheSportsDB ne réécrira pas)
+            // À la fin du match : on fige le score officiel → classement + pronos se calculent tout seuls
+            if(fin){ if(o.s1!=null) m.s1=o.s1; if(o.s2!=null) m.s2=o.s2; }
+          }
+        }
+      });
+    }
+    function loadLiveScores(){
+      try{
+        fetch(DATA_REMOTE_BASE+"livescores.json?t="+Date.now())
+          .then(function(r){return r.json()})
+          .then(function(j){
+            if(j && j.data){
+              LIVESCORES = j.data; applyLiveScores();
+              try{ if(typeof render==="function" && typeof V!=="undefined" && !V.detail && (V.view==="cal"||V.view==="home"||V.view==="team"||V.view==="groups"||V.view==="prono")) render(); }catch(e){}
+            }
+          }).catch(function(){});
+      }catch(e){}
+    }
+    loadLiveScores();
+    setInterval(loadLiveScores, 60000); // re-lit le fichier toutes les 60 s
 
     // Bouton "Rafraîchir" : vide le cache et retente
     function ffRefreshData(){

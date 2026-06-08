@@ -1,0 +1,41 @@
+name: Update livescores
+
+# Scores du Mondial via football-data.org → app/src/main/assets/data/livescores.json
+# La clé reste un secret du dépôt (FOOTBALLDATA_KEY). 1 requête par exécution.
+
+on:
+  schedule:
+    - cron: "*/3 * * * *"     # toutes les 3 min ; commit seulement si un score change
+  workflow_dispatch:          # bouton "Run workflow" (test/vérif manuelle)
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-livescores
+  cancel-in-progress: true
+
+jobs:
+  livescores:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Récupérer les scores (football-data.org)
+        env:
+          FOOTBALLDATA_KEY: ${{ secrets.FOOTBALLDATA_KEY }}
+          COMP: "WC"
+        run: node scripts/fetch-livescores.mjs
+      - name: Commit si changement
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet -- app/src/main/assets/data/livescores.json; then
+            git add app/src/main/assets/data/livescores.json
+            git commit -m "Auto: scores Mondial (livescores.json)"
+            git push
+          else
+            echo "Aucun changement de score."
+          fi
