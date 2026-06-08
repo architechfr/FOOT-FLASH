@@ -3447,13 +3447,20 @@
       for(var i=0;i<FRIENDLIES.length;i++){ if(FRIENDLIES[i].id===id) return FRIENDLIES[i]; }
       return null;
     }
-    // Prochain amical (à venir ou en cours) d'une équipe favorite
+    // Prochain amical (à venir ou en cours) d'une équipe favorite.
+    // Un amical TERMINÉ n'est plus affiché (statut FT, ou ~2h10 après le coup
+    // d'envoi s'il n'est pas suivi en live → on évite le 0-0 fantôme).
     function ffNextFriendlyForTeam(teamId){
       var now = Date.now();
       return FRIENDLIES.filter(function(f){
         if(f.t1!==teamId && f.t2!==teamId) return false;
-        var end = new Date(f.utc).getTime() + FF_LIVE.windowAfterMs;
-        return end > now; // pas encore terminé
+        var st = (f.status||"NS").toUpperCase();
+        if(st==="FT"||st==="AET"||st==="PEN"||st==="FINISHED"||st==="MATCH FINISHED") return false;
+        var ko = new Date(f.utc).getTime();
+        var liveNow = (st==="1H"||st==="2H"||st==="HT"||st==="ET"||st==="BT"||st==="P"||st==="LIVE");
+        // suivi en live → on garde jusqu'à la fenêtre longue ; sinon on masque après ~2h10
+        var end = ko + (liveNow ? FF_LIVE.windowAfterMs : 130*60000);
+        return end > now;
       }).sort(function(a,b){ return new Date(a.utc)-new Date(b.utc); })[0] || null;
     }
     // État live d'un amical → {phase, label, color, live, started}
