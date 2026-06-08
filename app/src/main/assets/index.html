@@ -3648,14 +3648,36 @@
     }
 
     // Modale détail d'un amical (hero + score live + bouton rafraîchir)
+    // Chrono live qui se compte tout seul : minute API si dispo, sinon estimée
+    // depuis le coup d'envoi (avec gestion mi-temps), ou compte à rebours avant match.
+    var _ffLiveTimer = null;
+    function ffStopLiveClock(){ if(_ffLiveTimer){ clearInterval(_ffLiveTimer); _ffLiveTimer=null; } }
+    function ffLiveMinuteLabel(f){
+      var st=(f.status||"NS").toUpperCase();
+      if(st==="FT"||st==="AET"||st==="PEN"||st==="MATCH FINISHED"||st==="FINISHED") return "Terminé";
+      if(st==="HT") return "Mi-temps";
+      if(f.minute) return f.minute+"'";
+      var ko=new Date(f.utc).getTime(), now=Date.now();
+      if(now<ko){
+        var mins=Math.ceil((ko-now)/60000);
+        if(mins>=60){ var hh=Math.floor(mins/60), mm=mins%60; return "dans "+hh+"h"+(mm<10?"0":"")+mm; }
+        return "dans "+mins+" min";
+      }
+      var el=Math.floor((now-ko)/60000);
+      if(el<=45) return el+"'";
+      if(el<=60) return "Mi-temps";
+      if(el<=105) return (el-15)+"'";   // ~15 min de pause retirées
+      return "90'+";
+    }
     function showFriendlyDetail(id){
       var f = getFriendly(id); if(!f) return;
+      ffStopLiveClock();
       var state = ffFriendlyState(f);
       var el = document.createElement("div");
       el.className = "pl-modal"; el.id = "friendly-detail-modal";
-      el.onclick = function(e){ if(e.target===el) el.remove(); };
+      el.onclick = function(e){ if(e.target===el){ ffStopLiveClock(); el.remove(); } };
       var h = '<div class="pl-card" style="max-height:94vh;overflow-y:auto">';
-      h += '<button class="back" onclick="document.getElementById(\'friendly-detail-modal\').remove()">← Fermer</button>';
+      h += '<button class="back" onclick="ffStopLiveClock();document.getElementById(\'friendly-detail-modal\').remove()">← Fermer</button>';
       h += '<div class="mtd-hero">';
       h += '<div style="font-size:11px;font-weight:900;color:var(--g);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">🤝 Amical de préparation</div>';
       h += '<div class="mtd-teams">';
@@ -3670,6 +3692,35 @@
       h += '<div style="text-align:center;margin:8px 0"><span style="font-size:13px;font-weight:900;color:'+state.color+'">'+state.label+'</span></div>';
       h += '<div class="mtd-meta">📅 '+fmtDate(f.d)+' · '+fmtTime(f.d)+'<br>🏟️ '+f.stad+' · '+f.city+(f.tv&&f.tv!=="—"?'<br>📺 '+f.tv:'')+'</div>';
       h += '</div>';
+      // Chrono : se compte tout seul (minute en direct, ou compte à rebours avant le coup d'envoi)
+      if(state.phase!=="FT"){
+        h += '<div class="mtd-sec" style="text-align:center;padding:14px">';
+        h += '<div class="mtd-sec-title" style="justify-content:center">'+(state.live?'🔴 EN DIRECT':'⏱️ COUP D\'ENVOI')+'</div>';
+        h += '<div id="ff-live-clock" style="font-size:30px;font-weight:900;color:'+(state.live?'var(--rd)':'var(--g)')+'">'+ffLiveMinuteLabel(f)+'</div>';
+        if(state.live) h += '<div style="font-size:10px;color:var(--t2);margin-top:4px">Minute estimée · 🔄 rafraîchis pour le score officiel</div>';
+        h += '</div>';
+      }
+      // Joueurs clés / compo (effectif réel quand disponible)
+      var topA = (typeof getTopPlayersOfTeam==="function") ? getTopPlayersOfTeam(f.t1,5) : [];
+      var topB = (typeof getTopPlayersOfTeam==="function") ? getTopPlayersOfTeam(f.t2,5) : [];
+      if(topA.length || topB.length){
+        h += '<div class="mtd-sec">';
+        h += '<div class="mtd-sec-title">👥 JOUEURS CLÉS</div>';
+        h += '<div class="mtd-players">';
+        [{t:f.t1,n:f.n1,top:topA},{t:f.t2,n:f.n2,top:topB}].forEach(function(side){
+          h += '<div class="mtd-players-col">';
+          h += '<div class="mtd-players-flag">'+flagImg(side.t,18)+'<span>'+side.n+'</span></div>';
+          if(side.top.length){
+            side.top.forEach(function(p){ h += '<div class="mtd-player-row"><span class="n">'+p.name+'</span><span class="r">'+p.rating+'</span></div>'; });
+          } else {
+            h += '<div style="font-size:11px;color:var(--t2);padding:4px 0">Effectif non répertorié</div>';
+          }
+          h += '</div>';
+        });
+        h += '</div>';
+        h += '<div style="font-size:10px;color:var(--t2);margin-top:8px;text-align:center">La compo officielle est communiquée ~1h avant le coup d\'envoi.</div>';
+        h += '</div>';
+      }
       h += '<div class="mtd-sec"><div style="font-size:12px;color:var(--t2);line-height:1.6;text-align:center">';
       h += 'Le score se met à jour automatiquement pendant le match (source : '+({online:"🟢 API live",cache:"🟡 cache local",test:"🧪 test manuel",embedded:"🟠 programme"}[FRIENDLIES_SRC]||FRIENDLIES_SRC)+').';
       h += '</div>';
@@ -3681,6 +3732,14 @@
       h += '</div>';
       el.innerHTML = h;
       document.body.appendChild(el);
+      // Démarre le chrono qui se met à jour seul (s'auto-arrête si la fiche est fermée)
+      if(state.phase!=="FT"){
+        _ffLiveTimer = setInterval(function(){
+          var c = document.getElementById("ff-live-clock");
+          if(!c){ ffStopLiveClock(); return; }
+          c.textContent = ffLiveMinuteLabel(f);
+        }, 10000);
+      }
     }
 
     function ffResetFriendlyLive(){
