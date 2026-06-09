@@ -6391,8 +6391,11 @@
         localStorage.setItem("ff26_pronos",JSON.stringify(V.pronos));
         var meta={};
         try{meta=JSON.parse(localStorage.getItem("ff26_predictions_meta")||"{}")}catch(e){}
-        meta[id]={updatedAt:Date.now()};
+        var _ts=Date.now();
+        meta[id]={updatedAt:_ts};
         localStorage.setItem("ff26_predictions_meta",JSON.stringify(meta));
+        // Synchro Prono Poto (store partagé, scores uniquement) — dernier modifié gagne
+        if(typeof ffSyncPush==="function") ffSyncPush(id, hasH?parseInt(home):null, hasA?parseInt(away):null, _ts);
       }catch(e){}
     }
     function getPredictionForMatch(matchId){
@@ -6401,6 +6404,52 @@
       if(!p)return null;
       return {homeScorePred:p.a,awayScorePred:p.b};
     }
+    // ═══ Synchro pronos Foot Flash ⇄ Prono Poto (store partagé, même domaine) ═══
+    // Scores uniquement, matchs OUVERTS uniquement, jamais d'effacement.
+    var FF_SYNC_KEY="ff_shared_pronos";
+    function ffSyncReadShared(){ try{return JSON.parse(localStorage.getItem(FF_SYNC_KEY)||"{}")||{}}catch(e){return {}} }
+    function ffSyncReadMeta(){ try{return JSON.parse(localStorage.getItem("ff26_predictions_meta")||"{}")||{}}catch(e){return {}} }
+    function ffMatchOpenById(id){
+      if(typeof MATCHES==="undefined"||!MATCHES)return false;
+      for(var i=0;i<MATCHES.length;i++){ if(String(MATCHES[i].id)===String(id)){ var m=MATCHES[i];
+        if(!m.d||m.t1==="TBD"||m.t2==="TBD")return false; return new Date(m.d).getTime()>Date.now(); } }
+      return false;
+    }
+    function ffSyncPush(id,a,b,ts){
+      try{ var sh=ffSyncReadShared();
+        sh[String(id)]={s1:(a==null||a==="")?null:parseInt(a,10), s2:(b==null||b==="")?null:parseInt(b,10), ts:ts||Date.now()};
+        localStorage.setItem(FF_SYNC_KEY,JSON.stringify(sh));
+      }catch(e){}
+    }
+    function ffSyncPull(){
+      var sh=ffSyncReadShared(), meta=ffSyncReadMeta(), changed=false;
+      if(!V.pronos)loadPredictions();
+      Object.keys(sh).forEach(function(id){
+        var o=sh[id]; if(!o||o.s1==null||o.s2==null)return;   // score complet uniquement
+        if(!ffMatchOpenById(id))return;                       // match ouvert uniquement
+        var localTs=(meta[id]&&meta[id].updatedAt)||0;
+        if(o.ts>localTs){ V.pronos[id]={a:o.s1,b:o.s2}; meta[id]={updatedAt:o.ts}; changed=true; }
+      });
+      if(changed){ try{ localStorage.setItem("ff26_pronos",JSON.stringify(V.pronos)); localStorage.setItem("ff26_predictions_meta",JSON.stringify(meta)); }catch(e){} }
+      return changed;
+    }
+    // 1er lancement : on PUBLIE l'état FF dans le store partagé (sans rien écraser), puis on fusionne.
+    function ffSyncSeedOnce(){
+      try{ if(localStorage.getItem("ff_sync_seeded")==="1")return;
+        if(!V.pronos)loadPredictions(); var meta=ffSyncReadMeta(); var t0=Date.now();
+        Object.keys(V.pronos||{}).forEach(function(id){ var p=V.pronos[id];
+          if(p&&p.a!==""&&p.a!=null&&p.b!==""&&p.b!=null){ var ts=(meta[id]&&meta[id].updatedAt)||t0; if(!(meta[id]&&meta[id].updatedAt)){meta[id]={updatedAt:t0};} ffSyncPush(id,p.a,p.b,ts); }
+        });
+        localStorage.setItem("ff26_predictions_meta",JSON.stringify(meta));
+        localStorage.setItem("ff_sync_seeded","1");
+      }catch(e){}
+    }
+    (function ffSyncInit(){
+      function reconcile(){ try{ ffSyncSeedOnce(); if(ffSyncPull() && typeof render==="function") render(); }catch(e){} }
+      setTimeout(reconcile, 500);                 // au démarrage (MATCHES chargé)
+      window.addEventListener("storage", function(e){ if(e&&e.key===FF_SYNC_KEY) reconcile(); });
+      window.addEventListener("focus", reconcile); // retour sur l'onglet → on récupère les edits Prono Poto
+    })();
     function clearBlockPredictions(blockId){
       if(!V.pronos)loadPredictions();
       if(!V.bets)V.bets={};
