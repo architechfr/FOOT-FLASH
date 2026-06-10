@@ -1,6 +1,6 @@
 {
-  "versionCode": 2,
-  "version": "v1.9.2",
+  "versionCode": 3,
+  "version": "v1.9.3",
   "apk": "https://github.com/architechfr/FOOT-FLASH/releases/latest/download/footflash.apk",
-  "notes": "Tournoi réel : le tableau s'ouvre aux paris au fil des qualifications · forme du moment · 3 équipes favorites · classement FIFA de juin"
+  "notes": "Double heure par match : heure locale du stade (New York, Toronto…) ET heure en France, partout dans l'app"
 }
