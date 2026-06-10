@@ -14476,4 +14476,77 @@
     // ───────────────────────────────────────────────────────────────────
     // Traduit titres et descriptions de news affichés dans une langue ≠ V.lang.
     // Cache localStorage persistant. Sans clé API, sans backend.
-    // ═══════════════════════�
+    // ═══════════════════════════════════════════════════════════════════
+    var _FF_TRANS_CACHE_KEY = "ff26_trans_cache_v1";
+    var _ffTransCache = (function(){
+      try { return JSON.parse(localStorage.getItem(_FF_TRANS_CACHE_KEY) || "{}"); } catch(e){ return {}; }
+    })();
+    var _ffTransSaveDebounce = null;
+    function _ffSaveTransCache(){
+      if(_ffTransSaveDebounce) clearTimeout(_ffTransSaveDebounce);
+      _ffTransSaveDebounce = setTimeout(function(){
+        try { localStorage.setItem(_FF_TRANS_CACHE_KEY, JSON.stringify(_ffTransCache)); } catch(e){}
+      }, 800);
+    }
+    function _ffGuessFeedLang(source){
+      var n = String(source||"").toLowerCase();
+      if(n.indexOf("kicker")>=0 || n.indexOf("bild")>=0) return "de";
+      if(n.indexOf("marca")>=0 || n.indexOf(" as")>=0 || n.indexOf("mundo")>=0 || n.indexOf("sport.es")>=0) return "es";
+      if(n.indexOf("gazzetta")>=0 || n.indexOf("corriere")>=0 || n.indexOf("tuttosport")>=0) return "it";
+      if(n.indexOf("a bola")>=0) return "pt";
+      if(n.indexOf("bbc")>=0 || n.indexOf("sky sports")>=0 || n.indexOf("guardian")>=0 || n.indexOf("daily mail")>=0 || n.indexOf("the sun")>=0 || n.indexOf("mirror")>=0 || n.indexOf("independent")>=0 || n.indexOf("espn")>=0 || n.indexOf("goal")>=0 || n.indexOf("90min")>=0 || n.indexOf("football365")>=0 || n.indexOf("fourfourtwo")>=0) return "en";
+      return "fr";
+    }
+    function _ffCurrentLang(){
+      try { return (typeof V !== "undefined" && V && V.lang) ? V.lang : "fr"; } catch(e){ return "fr"; }
+    }
+    function _ffTranslate(text, src, dst){
+      return new Promise(function(resolve){
+        if(!text || src === dst) return resolve(text);
+        var key = src + "|" + dst + "|" + text;
+        if(_ffTransCache[key]) return resolve(_ffTransCache[key]);
+        var truncated = String(text).substring(0, 480);
+        var url = "https://api.mymemory.translated.net/get?q=" + encodeURIComponent(truncated) + "&langpair=" + src + "|" + dst;
+        fetch(url)
+          .then(function(r){ return r.json(); })
+          .then(function(data){
+            var t = data && data.responseData && data.responseData.translatedText;
+            if(t && data.responseStatus === 200 && t.length > 0){
+              _ffTransCache[key] = t;
+              _ffSaveTransCache();
+              resolve(t);
+            } else resolve(text);
+          })
+          .catch(function(){ resolve(text); });
+      });
+    }
+    function ffAutoTranslateNews(){
+      try {
+        var dst = _ffCurrentLang();
+        if(!dst) return;
+        var elems = document.querySelectorAll("[data-ff-translate]");
+        var queue = [];
+        elems.forEach(function(el){
+          if(el.dataset.ffDone === "1") return;
+          var src = el.dataset.ffTranslate;
+          if(!src || src === dst) { el.dataset.ffDone = "1"; return; }
+          queue.push({el: el, src: src, orig: el.textContent});
+        });
+        var batch = queue.slice(0, 25);
+        batch.forEach(function(item){
+          item.el.dataset.ffDone = "1";
+          item.el.dataset.ffOriginal = item.orig;
+          _ffTranslate(item.orig, item.src, dst).then(function(t){
+            if(t && t !== item.orig){
+              item.el.textContent = t;
+              item.el.title = "Traduit auto de " + item.src.toUpperCase();
+              item.el.style.borderLeft = "2px solid rgba(76,175,80,0.5)";
+              item.el.style.paddingLeft = "6px";
+            }
+          });
+        });
+      } catch(e){}
+    }
+</script>
+</body>
+</html>
