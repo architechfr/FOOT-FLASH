@@ -84,6 +84,32 @@ async function main(){
   let changed = false, live = 0, fin = 0;
   if(JSON.stringify(out.meta||null) !== JSON.stringify(meta)){ out.meta = meta; changed = true; }
 
+  // Calendrier de référence (autocontrôle) : id app ↔ utcDate football-data.
+  // Écrit une seule fois par changement → schedule-fd.json, comparé hors-ligne
+  // avec matches.json et openfootball pour repérer les horaires erronés.
+  try {
+    const SCHED = path.join(DATA_DIR, "schedule-fd.json");
+    const sched = {};
+    for(const fx of fixtures){
+      const ko = new Date(fx.utcDate).getTime();
+      const hN = fx.homeTeam && (fx.homeTeam.name||fx.homeTeam.shortName);
+      const aN = fx.awayTeam && (fx.awayTeam.name||fx.awayTeam.shortName);
+      const hTla = fx.homeTeam && fx.homeTeam.tla, aTla = fx.awayTeam && fx.awayTeam.tla;
+      const m = appMatches.find(m => {
+        if(Math.abs(m.ko - ko) > 36*3600000) return false;
+        return (matchTeam(m.t1,hN,hTla)&&matchTeam(m.t2,aN,aTla)) || (matchTeam(m.t1,aN,aTla)&&matchTeam(m.t2,hN,hTla));
+      });
+      const key = m ? String(m.id) : ("fd-"+fx.id);
+      sched[key] = { utc: fx.utcDate, home: hN, away: aN, stage: fx.stage||null };
+    }
+    const prevSched = readJson(SCHED, null);
+    const next = { source:"football-data.org", data: sched };
+    if(JSON.stringify(prevSched && prevSched.data || null) !== JSON.stringify(sched)){
+      fs.writeFileSync(SCHED, JSON.stringify(next, null, 1));
+      console.log("📅 schedule-fd.json mis à jour ("+Object.keys(sched).length+" matchs).");
+    }
+  } catch(e){ console.warn("schedule-fd:", e.message); }
+
   for(const fx of fixtures){
     const st = String(fx.status||"").toUpperCase();
     const isLive = st==="IN_PLAY" || st==="PAUSED";
