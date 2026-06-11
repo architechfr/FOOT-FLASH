@@ -13984,6 +13984,64 @@
     }
 
     // Skills index 0-100 pour une équipe
+    // ═══ v1.9.14 — CONTEXTE DU MATCH (réglages utilisateur du 12/06) ═══
+    // Trois réalités du Mondial 2026 injectées dans le prono (points de force) :
+    // 1. AFRIQUE : les progrès sont réels mais pour l'ÉLITE seulement — le top 4
+    //    FIFA du continent (+2). Les autres ne doivent pas être surestimés (-2).
+    // 2. HÔTES : Mexique/USA/Canada jouent à domicile — bonus +3 quand ils
+    //    disputent un match DANS leur propre pays.
+    // 3. CHALEUR : coup d'envoi entre 11h et 17h locales dans une ville chaude
+    //    (Monterrey, Texas, Kansas City, Miami, Atlanta…) → +2 pour les équipes
+    //    habituées aux fortes chaleurs, -2 pour les nordiques.
+    var AFRICAN_TEAMS = ["MAR","SEN","EGY","ALG","TUN","CIV","GHA","COD","RSA","CPV"];
+    var _afrEliteCache = null;
+    function africanElite(){ // top 4 FIFA du continent, calculé sur les ranks à jour
+      if(_afrEliteCache) return _afrEliteCache;
+      _afrEliteCache = AFRICAN_TEAMS.map(function(id){ return {id:id, r:(getTeam(id)||{}).rank||99}; })
+        .sort(function(a,b){ return a.r-b.r; }).slice(0,4).map(function(x){ return x.id; });
+      return _afrEliteCache;
+    }
+    function hostCountryOfCity(city){
+      var c = "" + (city||"");
+      if(/Mexico|Guadalajara|Zapopan|Monterrey|Guadalupe|Puebla/.test(c)) return "MEX";
+      if(/Toronto|Vancouver/.test(c)) return "CAN";
+      return "USA";
+    }
+    var HEAT_HARDENED = {MAR:1,SEN:1,EGY:1,ALG:1,TUN:1,CIV:1,GHA:1,COD:1,RSA:1,CPV:1,
+      KSA:1,QAT:1,IRQ:1,IRN:1,JOR:1,UZB:1,MEX:1,PAN:1,HAI:1,CUR:1,COL:1,ECU:1,PAR:1,BRA:1,ARG:1,URU:1};
+    var HEAT_SENSITIVE = {ENG:1,SCO:1,NOR:1,SWE:1,GER:1,NED:1,BEL:1,SUI:1,AUT:1,CZE:1,CRO:1,BIH:1};
+    function isHotMatch(m){
+      if(!/Monterrey|Houston|Arlington|Dallas|Kansas City|Miami|Atlanta|Philadelphia/.test(""+(m.city||""))) return false;
+      var hh = parseInt(("" + (m.dLocal||"")).slice(0,2), 10);
+      return !isNaN(hh) && hh >= 11 && hh <= 17;
+    }
+    // Total des ajustements contextuels pour une équipe sur un match donné.
+    function matchContextAdj(m, teamId){
+      if(!m || !teamId || teamId==="TBD") return 0;
+      var adj = 0;
+      if(AFRICAN_TEAMS.indexOf(teamId) >= 0) adj += (africanElite().indexOf(teamId) >= 0 ? 2 : -2);
+      if(teamId === hostCountryOfCity(m.city)) adj += 3;
+      if(isHotMatch(m)){
+        if(HEAT_HARDENED[teamId]) adj += 2;
+        else if(HEAT_SENSITIVE[teamId]) adj -= 2;
+      }
+      return adj;
+    }
+    // Libellé lisible des facteurs actifs (fiche match, "Pourquoi ce choix ?")
+    function matchContextLabel(m){
+      if(!m || m.t1==="TBD" || m.t2==="TBD") return "";
+      var parts = [];
+      [m.t1, m.t2].forEach(function(id){
+        if(AFRICAN_TEAMS.indexOf(id) >= 0){
+          var t = getTeam(id) || {name:id};
+          parts.push(africanElite().indexOf(id) >= 0 ? "🌍 " + t.name + " : élite africaine (+)" : "🌍 " + t.name + " : hors top 4 africain (−)");
+        }
+        if(id === hostCountryOfCity(m.city)) parts.push("🏟️ " + ((getTeam(id)||{}).name||id) + " à domicile (+)");
+      });
+      if(isHotMatch(m)) parts.push("🌡️ Chaleur prévue (" + (m.dLocal||"") + " à " + m.city + ") : avantage aux habitués");
+      return parts.join(" · ");
+    }
+
     function computeTeamSkills(teamId){
       if(_skillsCache[teamId]) return _skillsCache[teamId];
       if(!teamId || teamId==="TBD"){
@@ -14096,6 +14154,10 @@
       // qui a souffert part avec un malus (±6 pts).
       comp1 += tournamentForm(match.t1);
       comp2 += tournamentForm(match.t2);
+
+      // v1.9.14 — Contexte du match : élite africaine / hôte à domicile / chaleur
+      comp1 += matchContextAdj(match, match.t1);
+      comp2 += matchContextAdj(match, match.t2);
 
       // 2. Bonus underdog plafonné par l'écart de classe
       // → exploit possible entre classes voisines, quasi nul entre extrêmes
@@ -14265,7 +14327,8 @@
       var sA = computeTeamSkills(m.t1);
       var sB = computeTeamSkills(m.t2);
       var pred = generateAutoPrediction(m);
-      var probs = computeOutcomeProbabilities(sA.skills, sB.skills);
+      // v1.9.14 — probabilités cohérentes avec le prono : mêmes ajustements contextuels
+      var probs = computeOutcomeProbabilities(sA.skills + matchContextAdj(m, m.t1), sB.skills + matchContextAdj(m, m.t2));
       var tier = pred ? getConfidenceTier(pred.confidence) : null;
       // v1.9.11 — Pendant le match : prono ajusté au direct (score, minute, rouges).
       // Buts restants attendus = prono d'avant-match × temps restant, pondéré par
@@ -14495,7 +14558,9 @@
         h += '<div class="mtd-sec">';
         h += '<div class="mtd-sec-title">💡 POURQUOI CE CHOIX ?</div>';
         h += '<div class="mtd-narr">'+generateAutoNarrative(m, sA, sB, pred, probs);
-        h += '<span class="limits">⚠️ L\'algo ne prend pas en compte : blessures récentes, suspensions, conditions météo, enjeu sportif (qualification déjà acquise, repos des cadres…).</span>';
+        var _ctx = (typeof matchContextLabel==="function") ? matchContextLabel(m) : "";
+        if(_ctx) h += '<div style="margin:8px 0;padding:8px;background:var(--s2);border-radius:8px;font-size:11px;line-height:1.6">📌 Facteurs contextuels intégrés : '+_ctx+'</div>';
+        h += '<span class="limits">⚠️ L\'algo ne prend pas en compte : blessures récentes, suspensions, enjeu sportif (qualification déjà acquise, repos des cadres…).</span>';
         h += '</div>';
         h += '</div>';
       }
