@@ -202,6 +202,11 @@ async function main(){
     }
 
     const prev = out.data[String(m.id)] || {};
+    // Préserve les enrichissements posés par fetch-lineups.mjs (API-Football) :
+    // si cette source-ci ne fournit pas le champ, on garde la valeur existante.
+    for(const k of ["goals","cards","minute","ht","ref"]){
+      if(entry[k]==null && prev[k]!=null) entry[k] = prev[k];
+    }
     if(JSON.stringify(prev) !== JSON.stringify(entry)){
       out.data[String(m.id)] = entry;
       changed = true;

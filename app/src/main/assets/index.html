@@ -14127,6 +14127,41 @@
       var pred = generateAutoPrediction(m);
       var probs = computeOutcomeProbabilities(sA.skills, sB.skills);
       var tier = pred ? getConfidenceTier(pred.confidence) : null;
+      // v1.9.11 — Pendant le match : prono ajusté au direct (score, minute, rouges).
+      // Buts restants attendus = prono d'avant-match × temps restant, pondéré par
+      // les cartons rouges ; probabilités 1N2 recalculées par Poisson.
+      var liveAdj = null;
+      (function(){
+        var L = m._live; if(!L || L.s1==null || L.s2==null) return;
+        var st = (L.status||"").toUpperCase();
+        if(st==="FINISHED"||st==="FT"||st==="AET"||st==="PEN") return;
+        var min = L.minute ? parseInt(L.minute,10) : NaN;
+        if(isNaN(min)){
+          var elapsed = (Date.now() - new Date(m.d).getTime())/60000;
+          min = Math.round(elapsed > 60 ? elapsed - 17 : elapsed); // pause ~17 min déduite après l'heure de jeu
+        }
+        if(st==="HT") min = 45;
+        min = Math.max(1, Math.min(94, min));
+        var remaining = Math.max(0, 95 - min);
+        var r1 = 0, r2 = 0;
+        (L.cards||[]).forEach(function(c){ if(c.c==="R"){ if(c.t===1) r1++; else r2++; } });
+        var f1 = Math.pow(0.55, r1) * (r2 > 0 ? 1.25 : 1);
+        var f2 = Math.pow(0.55, r2) * (r1 > 0 ? 1.25 : 1);
+        var base1 = pred ? pred.home : 1.3, base2 = pred ? pred.away : 1.1;
+        var lam1 = base1 * (remaining/95) * f1, lam2 = base2 * (remaining/95) * f2;
+        function pois(l,k){ var p = Math.exp(-l); for(var i=1;i<=k;i++) p *= l/i; return p; }
+        var pW1=0, pW2=0, pN=0;
+        for(var a=0;a<=6;a++) for(var b=0;b<=6;b++){
+          var p = pois(lam1,a)*pois(lam2,b);
+          if(L.s1+a > L.s2+b) pW1+=p; else if(L.s2+b > L.s1+a) pW2+=p; else pN+=p;
+        }
+        var tot = pW1+pW2+pN || 1;
+        liveAdj = {
+          min:min, s1:L.s1, s2:L.s2, r1:r1, r2:r2,
+          ph: L.s1 + Math.round(lam1), pa: L.s2 + Math.round(lam2),
+          pW1: Math.round(pW1/tot*100), pN: Math.round(pN/tot*100), pW2: Math.round(pW2/tot*100)
+        };
+      })();
       var topA = getTopPlayersOfTeam(m.t1, 3);
       var topB = getTopPlayersOfTeam(m.t2, 3);
       var injA = (typeof getInjuriesByTeam === "function") ? getInjuriesByTeam(m.t1) : [];
@@ -14185,37 +14220,49 @@
         h += '</div>';
       }
 
-      // BLOC 2 — Prono auto (si dispo)
+      // BLOC 2 — Prono auto (si dispo) — bascule en "score final probable" pendant le direct
       if(pred && sA.valid && sB.valid){
         h += '<div class="mtd-pred-box">';
-        h += '<div class="mtd-pred-label">🤖 PRONOSTIC AUTO</div>';
-        h += '<div class="mtd-pred-score">'+pred.home+' - '+pred.away+'</div>';
-        if(tier){
-          h += '<div style="margin-top:4px"><span class="prn-tier tier-'+tier.key+'">'+tier.icon+' '+tier.label+' · '+pred.confidence+'%</span></div>';
-        }
-        h += '<div class="mtd-pred-actions">';
-        var btnLabel = existing ? '✓ Remplacer' : '📥 Appliquer';
-        h += '<button class="mtd-btn primary" onclick="applyMatchDetailPrediction('+m.id+')">'+btnLabel+' '+pred.home+'-'+pred.away+'</button>';
-        h += '<button class="mtd-btn secondary" onclick="document.getElementById(\'match-detail-modal\').remove();openPronoBlock(guessBlockForMatch('+m.id+'))">✍️ Saisie manuelle</button>';
-        h += '</div>';
-        if(existing && (existing.a !== "" || existing.b !== "")){
-          h += '<div style="margin-top:8px;font-size:10px;color:var(--t2)">📝 Ton prono actuel : <b style="color:var(--tx)">'+(existing.a===""?"-":existing.a)+'-'+(existing.b===""?"-":existing.b)+'</b></div>';
+        if(liveAdj){
+          h += '<div class="mtd-pred-label">🤖 SCORE FINAL PROBABLE · <span style="color:var(--rd)">🔴 '+liveAdj.min+'’</span></div>';
+          h += '<div class="mtd-pred-score">'+liveAdj.ph+' - '+liveAdj.pa+'</div>';
+          h += '<div style="font-size:10px;color:var(--t2);margin-top:6px;line-height:1.5">Ajusté au direct : score <b style="color:var(--tx)">'+liveAdj.s1+'-'+liveAdj.s2+'</b>'
+            +((liveAdj.r1||liveAdj.r2)?' · 🟥 '+liveAdj.r1+'-'+liveAdj.r2:'')
+            +' · prono d’avant-match : '+pred.home+'-'+pred.away+'</div>';
+          h += '<div style="margin-top:8px;font-size:10px;color:var(--t2)">🔒 Pronos verrouillés (match commencé)'+(existing&&(existing.a!==""||existing.b!=="")?' · 📝 Ton prono : <b style="color:var(--tx)">'+existing.a+'-'+existing.b+'</b>':'')+'</div>';
+        } else {
+          h += '<div class="mtd-pred-label">🤖 PRONOSTIC AUTO</div>';
+          h += '<div class="mtd-pred-score">'+pred.home+' - '+pred.away+'</div>';
+          if(tier){
+            h += '<div style="margin-top:4px"><span class="prn-tier tier-'+tier.key+'">'+tier.icon+' '+tier.label+' · '+pred.confidence+'%</span></div>';
+          }
+          h += '<div class="mtd-pred-actions">';
+          var btnLabel = existing ? '✓ Remplacer' : '📥 Appliquer';
+          h += '<button class="mtd-btn primary" onclick="applyMatchDetailPrediction('+m.id+')">'+btnLabel+' '+pred.home+'-'+pred.away+'</button>';
+          h += '<button class="mtd-btn secondary" onclick="document.getElementById(\'match-detail-modal\').remove();openPronoBlock(guessBlockForMatch('+m.id+'))">✍️ Saisie manuelle</button>';
+          h += '</div>';
+          if(existing && (existing.a !== "" || existing.b !== "")){
+            h += '<div style="margin-top:8px;font-size:10px;color:var(--t2)">📝 Ton prono actuel : <b style="color:var(--tx)">'+(existing.a===""?"-":existing.a)+'-'+(existing.b===""?"-":existing.b)+'</b></div>';
+          }
         }
         h += '</div>';
       } else {
         h += '<div class="mtd-sec"><div style="text-align:center;color:var(--t2);font-size:12px;padding:12px">⚠️ Données insuffisantes pour un prono auto.</div></div>';
       }
 
-      // BLOC 3 — Probabilités 1N2
+      // BLOC 3 — Probabilités 1N2 (recalculées en direct pendant le match)
       if(sA.valid && sB.valid){
+        var _pH = liveAdj ? liveAdj.pW1 : probs.home;
+        var _pD = liveAdj ? liveAdj.pN : probs.draw;
+        var _pA = liveAdj ? liveAdj.pW2 : probs.away;
         h += '<div class="mtd-sec">';
-        h += '<div class="mtd-sec-title">🎲 PROBABILITÉS</div>';
+        h += '<div class="mtd-sec-title">🎲 PROBABILITÉS'+(liveAdj?' · <span style="color:var(--rd)">🔴 en direct</span>':'')+'</div>';
         h += '<div class="mtd-probs">';
-        h += rMtdProbRow((tA?tA.name:m.t1) + " victoire", probs.home, "home");
-        h += rMtdProbRow("Nul", probs.draw, "draw");
-        h += rMtdProbRow((tB?tB.name:m.t2) + " victoire", probs.away, "away");
+        h += rMtdProbRow((tA?tA.name:m.t1) + " victoire", _pH, "home");
+        h += rMtdProbRow("Nul", _pD, "draw");
+        h += rMtdProbRow((tB?tB.name:m.t2) + " victoire", _pA, "away");
         h += '</div>';
-        h += '<div style="font-size:10px;color:var(--t2);margin-top:10px;text-align:center">V1 = '+(tA?tA.name:m.t1)+' · V2 = '+(tB?tB.name:m.t2)+'</div>';
+        h += '<div style="font-size:10px;color:var(--t2);margin-top:10px;text-align:center">'+(liveAdj?'Calculées à la '+liveAdj.min+'e min (score, temps restant, cartons rouges)':'V1 = '+(tA?tA.name:m.t1)+' · V2 = '+(tB?tB.name:m.t2))+'</div>';
         h += '</div>';
 
         // BLOC 4 — Forces comparées (5 facteurs)
