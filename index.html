@@ -6,10 +6,22 @@
   <title>Foot Flash 2026</title>
   <meta name="theme-color" content="#060d1f">
   <link rel="canonical" href="app/src/main/assets/index.html">
-  <meta http-equiv="refresh" content="0; url=app/src/main/assets/index.html">
   <script>
-    // Redirige vers l'app en conservant d'éventuels paramètres
-    location.replace("app/src/main/assets/index.html" + location.search + location.hash);
+    // Redirige vers l'app avec un anti-cache basé sur la version (évite que le navigateur
+    // serve un vieux index.html en cache). On lit version.json (no-store) puis on ajoute ?v=<version>.
+    (function(){
+      var base="app/src/main/assets/index.html";
+      function go(v){
+        var extra=location.search?("&"+location.search.slice(1)):"";
+        location.replace(base+"?v="+encodeURIComponent(v)+extra+location.hash);
+      }
+      try{
+        fetch("version.json?_="+Date.now(),{cache:"no-store"})
+          .then(function(r){return r.json();})
+          .then(function(j){ go((j&&j.version)||Date.now()); })
+          .catch(function(){ go(Date.now()); });
+      }catch(e){ go(Date.now()); }
+    })();
   </script>
   <style>
     html,body{height:100%;margin:0}
