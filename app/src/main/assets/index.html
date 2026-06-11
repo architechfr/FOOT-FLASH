@@ -4676,7 +4676,39 @@
         h+='</div>';
         h+='<div style="font-size:9px;color:rgba(255,255,255,.45);letter-spacing:.5px">11 juin → 19 juil 2026 · 48 équipes · 104 matchs</div>';
       } else {
-        h+='<div style="font-size:13px;color:var(--g);font-weight:900;margin:6px 0;letter-spacing:1px">⚽ EN COURS !</div>';
+        // v1.9.11 — bannière utile : match EN DIRECT avec score live, sinon prochain match.
+        // (l'ancien "⚽ EN COURS !" statique n'apportait aucune info)
+        var _hNow=Date.now(),_hLive=null,_hNext=null;
+        try{
+          MATCHES.forEach(function(m){
+            if(!m||!m.d)return;
+            var ko=new Date(m.d).getTime();if(isNaN(ko))return;
+            var lv=(typeof wcLiveState==="function")?wcLiveState(m):null;
+            var enCours=(lv&&!lv.fin)||(m.s1===null&&!lv&&_hNow>ko&&_hNow<ko+125*60000);
+            if(enCours){
+              // priorité à un match d'une équipe favorite si plusieurs matchs simultanés
+              if(!_hLive||((isFavTeam(m.t1)||isFavTeam(m.t2))&&!(isFavTeam(_hLive.t1)||isFavTeam(_hLive.t2))))_hLive=m;
+            }
+            if(m.s1===null&&ko>_hNow&&(!_hNext||ko<new Date(_hNext.d).getTime()))_hNext=m;
+          });
+        }catch(e){}
+        var _hT=function(id){var t=getTeam(id);return fe(id)+' '+((t&&t.name)||id);};
+        if(_hLive){
+          var _hLv=wcLiveState(_hLive)||{};
+          var _hSc=(_hLv.s1!=null&&_hLv.s2!=null)?(_hLv.s1+' - '+_hLv.s2):'0 - 0';
+          h+='<div onclick="showMatchDetail('+_hLive.id+')" style="cursor:pointer;margin:6px auto;display:inline-block;background:rgba(0,0,0,.5);border:1px solid rgba(255,90,90,.6);border-radius:12px;padding:8px 16px">';
+          h+='<div style="font-size:10px;font-weight:900;color:#ff6b6b;letter-spacing:1px;margin-bottom:3px">🔴 EN DIRECT'+(_hLv.min?' · '+_hLv.min+"'":(_hLv.label==="Mi-temps"?' · Mi-temps':''))+'</div>';
+          h+='<div style="font-size:14px;font-weight:900;color:#fff">'+_hT(_hLive.t1)+' <span style="color:var(--g);font-size:17px;letter-spacing:1px"> '+_hSc+' </span> '+_hT(_hLive.t2)+'</div>';
+          h+='</div>';
+        } else if(_hNext){
+          h+='<div onclick="showMatchDetail('+_hNext.id+')" style="cursor:pointer;margin:6px auto;display:inline-block;background:rgba(0,0,0,.45);border:1px solid rgba(231,196,92,.35);border-radius:12px;padding:8px 16px">';
+          h+='<div style="font-size:10px;font-weight:800;color:var(--g);letter-spacing:1px;margin-bottom:3px">⏱ PROCHAIN MATCH</div>';
+          h+='<div style="font-size:13px;font-weight:900;color:#fff">'+_hT(_hNext.t1)+' <span style="opacity:.6">vs</span> '+_hT(_hNext.t2)+'</div>';
+          h+='<div style="font-size:10px;color:rgba(255,255,255,.65);margin-top:2px">'+fmtDate(_hNext.d)+' · '+fmtTimeFR(_hNext.d,_hNext.city)+' heure FR</div>';
+          h+='</div>';
+        } else {
+          h+='<div style="font-size:13px;color:var(--g);font-weight:900;margin:6px 0;letter-spacing:1px">⚽ EN COURS !</div>';
+        }
       }
       h+='<div style="font-size:10px;color:var(--g);font-weight:800;letter-spacing:3px;margin-top:4px;opacity:.7">FOOT FLASH</div>';
       h+='</div></div>';
