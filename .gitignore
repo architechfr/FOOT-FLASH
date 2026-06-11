@@ -30,6 +30,8 @@ local.properties
 Thumbs.db
 ehthumbs.db
 Desktop.ini
+.fuse_hidden*
+nul
 
 # ─── APK builds / signature (NE JAMAIS COMMIT) ──────────────
 *.apk
@@ -42,3 +44,4 @@ key.properties
 node_modules/
 package-lock.json
 .npm/
+prono-poto/
