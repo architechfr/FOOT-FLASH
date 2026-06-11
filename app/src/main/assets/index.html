@@ -1208,6 +1208,31 @@
           .catch(function(){ /* bénin : pas de SW à désinscrire ou WebView pas prête */ });
       }
     } catch(e){ /* navigator.serviceWorker indisponible : ignore */ }
+
+    // v1.9.9 — AUTO-RAFRAÎCHISSEMENT : quel que soit le point d'entrée (raccourci
+    // d'accueil, onglet, PWA installée), l'app vérifie version.json en ligne au
+    // démarrage. Si une version plus récente existe, elle se recharge avec le
+    // nouveau ?v=<version> → le navigateur va chercher le index.html à jour
+    // (la chaîne TV, les horaires et toute la logique sont DANS index.html).
+    // Anti-boucle : après rechargement, le ?v de l'URL == version serveur, donc
+    // on ne recharge plus. Hors-ligne : le fetch échoue, on garde la version en cache.
+    (function ffAutoFresh(){
+      try{
+        var curV = decodeURIComponent((location.search.match(/[?&]v=([^&#]+)/)||[])[1]||"");
+        fetch("https://architechfr.github.io/FOOT-FLASH/version.json?_="+Date.now(),{cache:"no-store"})
+          .then(function(r){return r.json();})
+          .then(function(j){
+            var srvV=j&&j.version;
+            if(srvV&&srvV!==curV){
+              try{sessionStorage.setItem("ff_fresh_notice",srvV);}catch(e){}
+              var base=location.href.split("?")[0].split("#")[0];
+              location.replace(base+"?v="+encodeURIComponent(srvV));
+            }
+          })
+          .catch(function(){ /* hors-ligne : on reste sur la version actuelle */ });
+      }catch(e){}
+    })();
+
     var TEAMS=[
     {id:"MEX",name:"Mexique",flag:"🇲🇽",group:"A",rank:14,titles:"0",coach:"Javier Aguirre",captain:"Edson Álvarez",players:[
     {n:"Hirving Lozano",p:"ATT",club:"PSV",caps:70,g:17},{n:"Raúl Jiménez",p:"ATT",club:"Fulham",caps:105,g:32},{n:"Santiago Giménez",p:"ATT",club:"Feyenoord",caps:25,g:12},
@@ -2199,6 +2224,16 @@
       }catch(e){}
       if(typeof SETTINGS==="object")SETTINGS.fav_team=V.myTeam;
     }
+    // v1.9.8 — Passer une équipe favorite secondaire en principale (carte d'accueil).
+    // L'ancienne principale redescend dans "Mes autres équipes".
+    function setPrimaryTeam(id){
+      if(!V.myTeams||V.myTeams.indexOf(id)<0)return;
+      V.myTeams=[id].concat(V.myTeams.filter(function(x){return x!==id}));
+      saveFavTeams();
+      var tn=(getTeam(id)||{}).name||id;
+      toast("⭐ "+tn+" est ton équipe principale");
+      if(typeof render==="function")render();
+    }
 
     // ═══════════════════════════════════════════════════════════════════
     // v1.046 — SETTINGS centralisés
@@ -2509,7 +2544,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.7 — Diffuseur France M6 + heure ouverture corrigée · 11 juin 2026";
+    var APP_VERSION="v1.9.9 — Auto-rafraîchissement (fini le cache périmé) · 11 juin 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -5448,9 +5483,9 @@
           var now=Date.now();
           var nx=MATCHES.filter(function(m){return (m.t1===tid||m.t2===tid)&&m.t1!=="TBD"&&m.t2!=="TBD"&&new Date(m.d).getTime()>now-2*3600*1000})
             .sort(function(a,b){return new Date(a.d)-new Date(b.d)})[0];
-          h+='<div onclick="goTeam(\''+tid+'\')" style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.03);cursor:pointer">';
+          h+='<div onclick="setPrimaryTeam(\''+tid+'\')" title="Mettre en équipe principale" style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.03);cursor:pointer">';
           h+=flagImg(tid,20);
-          h+='<div style="flex:1;font-size:12px;font-weight:800">'+tt.name+'</div>';
+          h+='<div style="flex:1;font-size:12px;font-weight:800">'+tt.name+' <span style="font-size:10px;color:var(--t2);font-weight:600">⭐ définir</span></div>';
           if(nx){
             var opp=nx.t1===tid?nx.t2:nx.t1;
             h+='<div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--t2)">vs '+flagImg(opp,14)+' <b style="color:var(--tx)">'+(getTeam(opp)||{name:opp}).name+'</b> · '+fmtDate(nx.d)+'</div>';
@@ -5685,7 +5720,7 @@
         var t1=getTeam(m.t1),t2=getTeam(m.t2);
         var st=matchStatus(m.d);
         var lv=(typeof wcLiveState==="function")?wcLiveState(m):null; // live Mondial (champ _live)
-        h+='<div class="mc'+(st==="live"?" live":"")+(st==="soon"?" soon":"")+'">';
+        h+='<div class="mc'+(st==="live"?" live":"")+(st==="soon"?" soon":"")+'" style="cursor:pointer" onclick="showMatchDetail('+m.id+')">';
             if(lv&&!lv.fin)h+='<div class="mc-status" style="color:var(--rd)"><span class="dot" style="background:var(--rd)"></span>EN DIRECT'+(lv.min?" · "+lv.min+"'":(lv.label==="Mi-temps"?" · Mi-temps":""))+"</div>";
         else if(st==="live")h+='<div class="mc-status" style="color:var(--g)"><span class="dot" style="background:var(--g)"></span>EN COURS</div>';
         else if(st==="soon")h+='<div class="mc-status" style="color:var(--am)">⏰ BIENTÔT — '+fmtTimeDual(m.d,m.city)+"</div>";

@@ -1,5 +1,5 @@
 {
-  "versionCode": 7,
-  "version": "v1.9.7",
-  "notes": "Diffuseur France corrige (M6, plus TF1) + heure du match d'ouverture (21h00 Paris)"
+  "versionCode": 9,
+  "version": "v1.9.9",
+  "notes": "Auto-rafraichissement : l'app se met a jour seule a l'ouverture (fini le cache TF1 perime)"
 }
