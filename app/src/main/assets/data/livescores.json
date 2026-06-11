@@ -1,11 +1,19 @@
 {
-  "lastUpdated": "2026-06-11T19:47:27.059Z",
-  "data": {},
+  "lastUpdated": "2026-06-11T19:54:57.699Z",
+  "data": {
+    "1": {
+      "s1": 1,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null
+    }
+  },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "TIMED": 104
+      "IN_PLAY": 1,
+      "TIMED": 103
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
