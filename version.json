@@ -1,6 +1,6 @@
 {
-  "versionCode": 3,
-  "version": "v1.9.3",
+  "versionCode": 4,
+  "version": "v1.9.4",
   "apk": "https://github.com/architechfr/FOOT-FLASH/releases/latest/download/footflash.apk",
-  "notes": "Double heure par match : heure locale du stade (New York, Toronto…) ET heure en France, partout dans l'app"
+  "notes": "Horaires corriges : heure locale du stade (New York, Toronto, Mexico...) ET heure en France, partout + compte a rebours juste"
 }
