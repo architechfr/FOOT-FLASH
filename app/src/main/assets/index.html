@@ -2144,7 +2144,7 @@
     ];
 
     var TV={
-    "FRA":{free:"TF1",paid:"beIN Sports"},
+    "FRA":{free:"M6",paid:"beIN Sports"},
     "BEL":{free:"RTBF",paid:"RTL-TVI"},
     "MAR":{free:"SNRT / Arryadia",paid:"beIN MENA"},
     "USA":{free:"FOX (OTA)",paid:"Telemundo / Peacock"},
@@ -2509,7 +2509,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.6 — Version 100% web, mise à jour automatique · 11 juin 2026";
+    var APP_VERSION="v1.9.7 — Diffuseur France M6 + heure ouverture corrigée · 11 juin 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -10074,9 +10074,16 @@
       function realMc(m,num,labels){
         var hasScore=m.s1!==null&&m.s1!==undefined;
         var l1=labels?labels[0]:"?",l2=labels?labels[1]:"?";
+        var dateLine='';
+        if(m.d){
+          try{
+            var d=fmtDate(m.d), hFr=fmtTimeFR(m.d,m.city);
+            dateLine='<div style="font-size:7px;font-weight:700;color:var(--am);padding:2px 3px;border-top:1px solid var(--s3);text-align:center;line-height:1.1">📅 '+d+' · '+hFr+' <span style="opacity:.7">FR</span></div>';
+          }catch(e){}
+        }
         return '<div style="background:var(--s1);border:1px solid '+(hasScore?'var(--g)':'var(--s3)')+';border-radius:4px;overflow:hidden;min-width:0">'
           +(num?'<div style="font-size:6px;color:var(--t2);padding:1px 3px 0">M'+num+'</div>':'')
-          +realTm(m.t1,l1)+realTm(m.t2,l2)+'</div>';
+          +realTm(m.t1,l1)+realTm(m.t2,l2)+dateLine+'</div>';
       }
 
       // 16es
@@ -10135,7 +10142,14 @@
         h+='<div>'+ft1n+'</div>';
         h+='<div style="font-size:14px;font-weight:900;color:var(--g)">VS</div>';
         h+='<div>'+ft2n+'</div>';
-        h+='</div></div>';
+        h+='</div>';
+        if(fm.d){
+          try{
+            h+='<div style="font-size:10px;font-weight:800;color:var(--am);margin-top:8px">📅 '+fmtDate(fm.d)+' · '+fmtTimeFR(fm.d,fm.city)+' <span style="opacity:.7">heure FR</span></div>';
+            if(fm.stad||fm.city)h+='<div style="font-size:9px;color:var(--t2);margin-top:2px">📍 '+(fm.stad?fm.stad+(fm.city?' · ':''):'')+(fm.city||'')+'</div>';
+          }catch(e){}
+        }
+        h+='</div>';
       }
 
       // Link to simulation at bottom
@@ -14580,4 +14594,3 @@
 </script>
 </body>
 </html>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
