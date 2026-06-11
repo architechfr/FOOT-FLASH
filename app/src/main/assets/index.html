@@ -3732,7 +3732,6 @@
             var home = ev.strHomeTeam, away = ev.strAwayTeam;
             MATCHES.forEach(function(m){
               if(!m.t1||!m.t2||m.t1==="TBD"||m.t2==="TBD") return;
-              if(m._liveSrc==="fd") return; // football-data déjà autoritaire sur ce match
               var a1 = WC_ALIASES[m.t1], a2 = WC_ALIASES[m.t2];
               if(!a1||!a2) return;
               var evDay = (ev.dateEvent||"").slice(0,10);
@@ -3746,6 +3745,17 @@
               var stt = (ev.strStatus||ev.strProgress||"").toUpperCase();
               var min = (ev.strProgress && /^\d+$/.test(ev.strProgress)) ? ev.strProgress : null;
               var prev = m._live || {};
+              // v1.9.12 — football-data reste prioritaire sur le SCORE, mais
+              // TheSportsDB bascule "FT" plus vite : on fusionne le statut de fin
+              // et la minute, sans toucher au score officiel. (Avant : return sec,
+              // l'app restait bloquée sur EN DIRECT après le coup de sifflet final.)
+              if(m._liveSrc==="fd"){
+                var tsdbFin = (stt==="FT"||stt==="MATCH FINISHED"||stt==="FINISHED"||stt==="AET"||stt==="PEN");
+                var prevFin = ["FT","FINISHED","AET","PEN","MATCH FINISHED"].indexOf((prev.status||"").toUpperCase())>=0;
+                if(tsdbFin && !prevFin){ m._live = Object.assign({}, prev, { status:"FT" }); changed = true; }
+                else if(!prev.minute && min && !prevFin){ m._live = Object.assign({}, prev, { minute:min }); changed = true; }
+                return;
+              }
               if(prev.s1!==ns1 || prev.s2!==ns2 || prev.status!==stt || prev.minute!==min){
                 m._live = { s1:ns1, s2:ns2, status:stt, minute:min };
                 changed = true;
@@ -3767,6 +3777,16 @@
       var st = (L.status||"").toUpperCase();
       if(st==="FT"||st==="AET"||st==="PEN"||st==="MATCH FINISHED"||st==="FINISHED") return {fin:true, label:"Terminé", min:null, s1:L.s1, s2:L.s2};
       if(st==="HT"||st==="HALF TIME"||st==="BREAK"||st==="PAUSED") return {fin:false, label:"Mi-temps", min:null, s1:L.s1, s2:L.s2};
+      // v1.9.12 — garde-fou chrono : si la source tarde à basculer FINISHED,
+      // on cesse d'afficher EN DIRECT au-delà de la durée max plausible.
+      // Groupes : 90' + ~15 de pause + arrêts de jeu (pauses fraîcheur = 3 min
+      // mini par MT, VAR aléatoire, 7 min vus ce soir) → seuil 130 min.
+      // Élimination directe : prolongation + tirs au but possibles → 205 min.
+      try{
+        var ko = new Date(m.d).getTime();
+        var lim = (String(m.st||"").indexOf("Groupe")>=0) ? 130 : 205;
+        if(Date.now() > ko + lim*60000) return {fin:true, soft:true, label:"Fin de match (à confirmer)", min:null, s1:L.s1, s2:L.s2};
+      }catch(e){}
       return {fin:false, label:"EN DIRECT", min:(L.minute||null), s1:L.s1, s2:L.s2};
     }
 
@@ -4139,9 +4159,17 @@
         if(typeof MATCHES!=="undefined" && MATCHES){
           var m = MATCHES.find(function(x){return String(x.id)===String(id)});
           if(m){
-            m._live = { s1:o.s1, s2:o.s2, status:o.status, minute:(o.minute!=null?String(o.minute):null),
+            // v1.9.12 — ne jamais rétrograder une fin de match déjà actée
+            // (TheSportsDB bascule FT avant football-data ; sans ce garde,
+            // le re-fetch 60 s repassait le match EN DIRECT après le coup de sifflet).
+            var _pSt = ((m._live&&m._live.status)||"").toUpperCase();
+            var _pFin = ["FT","FINISHED","AET","PEN","MATCH FINISHED"].indexOf(_pSt)>=0;
+            var _nSt = String(o.status||"").toUpperCase();
+            var _nFin = ["FT","FINISHED","AET","PEN","AWARDED"].indexOf(_nSt)>=0;
+            m._live = { s1:o.s1, s2:o.s2, status:(_pFin&&!_nFin)?m._live.status:o.status,
+                        minute:(o.minute!=null?String(o.minute):null),
                         ht:o.ht||null, goals:o.goals||null, cards:o.cards||null, ref:o.ref||null };
-            m._liveSrc = "fd"; // football-data prioritaire (TheSportsDB ne réécrira pas)
+            m._liveSrc = "fd"; // football-data prioritaire sur le score (TheSportsDB ne complète que statut/minute)
             // À la fin du match : on fige le score officiel → classement + pronos se calculent tout seuls
             if(fin){ if(o.s1!=null) m.s1=o.s1; if(o.s2!=null) m.s2=o.s2; }
           }
@@ -14135,6 +14163,9 @@
         var L = m._live; if(!L || L.s1==null || L.s2==null) return;
         var st = (L.status||"").toUpperCase();
         if(st==="FINISHED"||st==="FT"||st==="AET"||st==="PEN") return;
+        // v1.9.12 — fin probable au chrono (source en retard) : plus d'ajustement live
+        var _w = (typeof wcLiveState==="function") ? wcLiveState(m) : null;
+        if(_w && _w.fin) return;
         var min = L.minute ? parseInt(L.minute,10) : NaN;
         if(isNaN(min)){
           var elapsed = (Date.now() - new Date(m.d).getTime())/60000;
@@ -14186,6 +14217,7 @@
       h += '<div class="mtd-team" onclick="document.getElementById(\'match-detail-modal\').remove();goTeam(\''+m.t2+'\')" style="cursor:pointer">'+flagImg(m.t2,48)+'<div class="nm">'+(tB?tB.name:m.t2)+'</div></div>';
       h += '</div>';
       if(_lv && !_lv.fin) h += '<div style="text-align:center;margin:2px 0 6px"><span style="font-size:12px;font-weight:900;color:var(--rd)">🔴 EN DIRECT'+(_lv.min?" · "+_lv.min+"\'":(_lv.label==="Mi-temps"?" · Mi-temps":""))+'</span></div>';
+      else if(_lv && _lv.soft) h += '<div style="text-align:center;margin:2px 0 6px"><span style="font-size:11px;font-weight:800;color:var(--t2)">🏁 Fin de match · score en attente de confirmation officielle</span></div>';
       // v1.9.11 — Buteurs sous le score (flux détaillé football-data)
       var _ev=m._live||{};
       if(_ev.ht && (m.s1!==null||(_lv&&_lv.s1!=null))) h += '<div style="text-align:center;font-size:10px;color:var(--t2);margin-bottom:4px">(mi-temps '+_ev.ht[0]+' - '+_ev.ht[1]+')</div>';
