@@ -2175,7 +2175,9 @@
     // demi-finales, petite finale et finale. Les ~46 autres matchs M6 (sélection
     // groupes/16es/8es/quarts) seront ajoutés à M6_IDS dès que la grille officielle
     // est connue. En attendant : on n'affiche M6 QUE sur les matchs confirmés.
-    var M6_IDS={1:1,17:1,42:1,61:1,101:1,102:1,103:1,104:1};
+    // Confirmés via guide TV (Fanzo, 11/06) : 3 CAN-BIH, 5 QAT-SUI, 6 BRA-MAR,
+    // 9 GER-CUR, 10 NED-JPN. Pas M6 : KOR-CZE, USA-PAR, HAI-SCO, AUS-TUR.
+    var M6_IDS={1:1,3:1,5:1,6:1,9:1,10:1,17:1,42:1,61:1,101:1,102:1,103:1,104:1};
     function isM6Match(m){
       if(!m)return false;
       if(M6_IDS[m.id])return true;
