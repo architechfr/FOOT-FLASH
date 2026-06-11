@@ -202,9 +202,11 @@ async function main(){
     }
 
     const prev = out.data[String(m.id)] || {};
-    // Préserve les enrichissements posés par fetch-lineups.mjs (API-Football) :
-    // si cette source-ci ne fournit pas le champ, on garde la valeur existante.
-    for(const k of ["goals","cards","minute","ht","ref"]){
+    // Préserve les champs déjà connus quand la source ne les fournit pas :
+    // enrichissements API-Football (goals/cards/minute…) ET score (football-data
+    // renvoie parfois fullTime=null à l'instant de la bascule FINISHED — vu le
+    // 11/06 sur MEX-RSA : le 2-0 avait été écrasé par null).
+    for(const k of ["s1","s2","goals","cards","minute","ht","ref"]){
       if(entry[k]==null && prev[k]!=null) entry[k] = prev[k];
     }
     if(JSON.stringify(prev) !== JSON.stringify(entry)){

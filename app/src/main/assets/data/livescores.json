@@ -2,8 +2,8 @@
   "lastUpdated": "2026-06-11T21:20:59.071Z",
   "data": {
     "1": {
-      "s1": null,
-      "s2": null,
+      "s1": 2,
+      "s2": 0,
       "status": "FINISHED",
       "minute": null,
       "ref": "Wilton Sampaio",
