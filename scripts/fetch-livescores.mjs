@@ -215,6 +215,44 @@ async function main(){
     if(isLive) live++; else fin++;
   }
 
+  // ── openfootball/worldcup.json : filet de sécurité RÉSULTATS (sans clé, sans quota) ──
+  // Source communautaire fiable (a servi à valider le calendrier). Les scores y sont
+  // ajoutés après les matchs : on complète ce que football-data n'aurait pas publié,
+  // et on signale tout conflit entre les deux sources dans meta.ofConflicts.
+  try{
+    const r = await fetch("https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json");
+    if(r.ok){
+      const ofj = await r.json();
+      let filled = 0; const conflicts = [];
+      for(const x of (ofj.matches||[])){
+        const n1 = (typeof x.team1==="string") ? x.team1 : (x.team1 && (x.team1.name||x.team1.code));
+        const n2 = (typeof x.team2==="string") ? x.team2 : (x.team2 && (x.team2.name||x.team2.code));
+        const a = (x.score1!=null) ? x.score1 : (x.score && x.score.ft && x.score.ft[0]!=null ? x.score.ft[0] : null);
+        const b = (x.score2!=null) ? x.score2 : (x.score && x.score.ft && x.score.ft[1]!=null ? x.score.ft[1] : null);
+        if(a==null || b==null || !n1 || !n2) continue;
+        const t = new Date((x.date||"")+"T12:00:00Z").getTime();
+        if(isNaN(t)) continue;
+        const m = appMatches.find(m => Math.abs(m.ko - t) < 36*3600000 &&
+          ((matchTeam(m.t1,n1)&&matchTeam(m.t2,n2)) || (matchTeam(m.t1,n2)&&matchTeam(m.t2,n1))));
+        if(!m) continue;
+        const t1Home = matchTeam(m.t1, n1);
+        const s1 = t1Home ? a : b, s2 = t1Home ? b : a;
+        const cur = out.data[String(m.id)];
+        if(!cur || cur.s1==null){
+          out.data[String(m.id)] = Object.assign({}, cur||{}, { s1:s1, s2:s2, status:"FINISHED", src:"openfootball" });
+          changed = true; filled++;
+        } else if(cur.status==="FINISHED" && (cur.s1!==s1 || cur.s2!==s2)){
+          conflicts.push("#"+m.id+" fd="+cur.s1+"-"+cur.s2+" of="+s1+"-"+s2);
+        }
+      }
+      if(filled) console.log("🟢 openfootball : "+filled+" résultat(s) complété(s).");
+      if(conflicts.length){
+        console.warn("⚠️ Conflits football-data / openfootball : "+conflicts.join(" ; "));
+        if(JSON.stringify(out.meta.ofConflicts||null) !== JSON.stringify(conflicts)){ out.meta.ofConflicts = conflicts; changed = true; }
+      }
+    }
+  }catch(e){ console.warn("openfootball:", e.message); }
+
   console.log("→ "+live+" en direct, "+fin+" terminé(s) rapprochés à des matchs de l'app.");
   if(!changed){ console.log("↔️ Aucun changement → pas de commit."); return; }
   out.lastUpdated = new Date().toISOString();
