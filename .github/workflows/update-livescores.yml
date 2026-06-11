@@ -12,6 +12,7 @@ on:
 
 permissions:
   contents: write
+  actions: write   # auto-réenclenchement (workflow_dispatch sur soi-même)
 
 concurrency:
   group: update-livescores
@@ -25,11 +26,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-      # Le cron GitHub "*/3" est fortement throttlé (trous observés > 3 h).
-      # Parade : chaque run BOUCLE ~5 h 50 en re-fetchant toutes les ~3 min,
-      # et commit/push à chaque changement. Le groupe concurrency fait la
-      # rotation (un nouveau run annule l'ancien). Repo public = minutes illimitées.
-      - name: Boucle scores (~5 h 50, fetch toutes les ~3 min)
+      # Le cron GitHub "*/3" est fortement throttlé (constaté : AUCUN run schedule
+      # pendant la nuit du 11 au 12/06 → KOR-CZE raté). Parade en deux temps :
+      # 1. chaque run BOUCLE ~5 h 30 en re-fetchant toutes les ~3 min ;
+      # 2. à la fin, le run SE RÉENCLENCHE lui-même (workflow_dispatch, autorisé
+      #    avec le GITHUB_TOKEN) → chaîne perpétuelle, indépendante du cron.
+      # Le groupe concurrency fait la rotation. Repo public = minutes illimitées.
+      - name: Boucle scores (~5 h 30, fetch toutes les ~3 min)
         env:
           FOOTBALLDATA_KEY: ${{ secrets.FOOTBALLDATA_KEY }}
           APIFOOTBALL_KEY: ${{ secrets.APIFOOTBALL_KEY }}
@@ -37,8 +40,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          for i in $(seq 1 118); do
-            echo "── Itération $i/118 ──"
+          for i in $(seq 1 110); do
+            echo "── Itération $i/110 ──"
             node scripts/fetch-livescores.mjs || true
             node scripts/fetch-lineups.mjs || true
             if ! git diff --quiet -- app/src/main/assets/data/ || [ -n "$(git status --porcelain app/src/main/assets/data/)" ]; then
@@ -49,5 +52,10 @@ jobs:
             else
               echo "Aucun changement de score."
             fi
-            [ "$i" -lt 118 ] && sleep 175
+            [ "$i" -lt 110 ] && sleep 175
           done
+      - name: Réenclenchement (chaîne perpétuelle)
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run update-livescores.yml --ref main || echo "dispatch KO (le cron prendra le relais)"

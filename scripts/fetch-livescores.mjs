@@ -217,6 +217,44 @@ async function main(){
     if(isLive) live++; else fin++;
   }
 
+  // ── TheSportsDB : complément RÉSULTATS (gratuit, clé publique "123") ──
+  // Si un match est fini au chrono mais sans score publié (football-data en
+  // retard — constaté la nuit du 11/06 —, openfootball pas encore à jour),
+  // on tente eventsday : scores fiables au coup de sifflet final.
+  try{
+    const now = Date.now();
+    const pendings = appMatches.filter(m => {
+      const e = out.data[String(m.id)];
+      return (!e || e.s1==null) && now > m.ko + 135*60000 && now < m.ko + 48*3600000;
+    });
+    const dates = new Set();
+    pendings.forEach(m => {
+      dates.add(new Date(m.ko).toISOString().slice(0,10));
+      dates.add(new Date(m.ko - 12*3600000).toISOString().slice(0,10)); // TSDB date "locale"
+    });
+    for(const d of Array.from(dates).slice(0,4)){
+      const r = await fetch("https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d="+d+"&s=Soccer");
+      if(!r.ok) continue;
+      const evs = ((await r.json())||{}).events || [];
+      for(const ev of evs){
+        if(!/world cup/i.test(ev.strLeague||"")) continue;
+        const st = String(ev.strStatus||"").toUpperCase();
+        if(!(st==="FT"||st==="AET"||st==="PEN"||st==="MATCH FINISHED"||st==="FINISHED")) continue;
+        const hs = parseInt(ev.intHomeScore,10), as = parseInt(ev.intAwayScore,10);
+        if(isNaN(hs)||isNaN(as)) continue;
+        const m = pendings.find(m =>
+          (matchTeam(m.t1, ev.strHomeTeam) && matchTeam(m.t2, ev.strAwayTeam)) ||
+          (matchTeam(m.t1, ev.strAwayTeam) && matchTeam(m.t2, ev.strHomeTeam)));
+        if(!m) continue;
+        const t1Home = matchTeam(m.t1, ev.strHomeTeam);
+        out.data[String(m.id)] = Object.assign({}, out.data[String(m.id)]||{}, {
+          s1: t1Home?hs:as, s2: t1Home?as:hs, status:"FINISHED", src:"tsdb" });
+        changed = true;
+        console.log("🟣 TheSportsDB : résultat #"+m.id+" publié.");
+      }
+    }
+  }catch(e){ console.warn("tsdb:", e.message); }
+
   // ── openfootball/worldcup.json : filet de sécurité RÉSULTATS (sans clé, sans quota) ──
   // Source communautaire fiable (a servi à valider le calendrier). Les scores y sont
   // ajoutés après les matchs : on complète ce que football-data n'aurait pas publié,
