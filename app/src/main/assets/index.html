@@ -3760,12 +3760,14 @@
       });
     }
     // Statut "live" d'un match Mondial d'après _live (FT/HT/minute…)
+    // v1.9.11 — expose aussi s1/s2 : l'affichage (carte + fiche match) lit
+    // lv.s1/lv.s2 ; sans ces champs le score live restait bloqué sur "VS".
     function wcLiveState(m){
       var L = m && m._live; if(!L) return null;
       var st = (L.status||"").toUpperCase();
-      if(st==="FT"||st==="AET"||st==="PEN"||st==="MATCH FINISHED"||st==="FINISHED") return {fin:true, label:"Terminé", min:null};
-      if(st==="HT"||st==="HALF TIME"||st==="BREAK") return {fin:false, label:"Mi-temps", min:null};
-      return {fin:false, label:"EN DIRECT", min:(L.minute||null)};
+      if(st==="FT"||st==="AET"||st==="PEN"||st==="MATCH FINISHED"||st==="FINISHED") return {fin:true, label:"Terminé", min:null, s1:L.s1, s2:L.s2};
+      if(st==="HT"||st==="HALF TIME"||st==="BREAK"||st==="PAUSED") return {fin:false, label:"Mi-temps", min:null, s1:L.s1, s2:L.s2};
+      return {fin:false, label:"EN DIRECT", min:(L.minute||null), s1:L.s1, s2:L.s2};
     }
 
     // Re-render léger si on est sur une vue qui montre les amicaux
