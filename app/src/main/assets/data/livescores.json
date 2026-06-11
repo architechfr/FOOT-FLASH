@@ -1,16 +1,16 @@
 {
-  "lastUpdated": "2026-06-11T21:39:47.014Z",
+  "lastUpdated": "2026-06-11T21:42:43.840Z",
   "data": {
     "1": {
       "s1": 2,
       "s2": 0,
       "status": "FINISHED",
       "minute": null,
+      "ref": "Wilton Sampaio",
       "ht": [
         1,
         0
-      ],
-      "ref": "Wilton Sampaio"
+      ]
     }
   },
   "meta": {
