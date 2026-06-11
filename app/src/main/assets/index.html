@@ -468,7 +468,7 @@
         .pl-modal {
           position:fixed;
           inset:0;
-          background:rgba(0,0,0,.92);
+          background:var(--bg);
           z-index:200;
           display:flex;
           flex-direction:column;
@@ -786,7 +786,7 @@
         .prn-match-header-clickable .prn-info-icon{color:var(--g);font-size:11px;margin-left:4px;opacity:.7}
 
         /* Modal détail match */
-        .mtd-hero{text-align:center;padding:20px 10px 14px;background:linear-gradient(180deg,var(--s2),transparent);border-radius:var(--r);margin-bottom:12px}
+        .mtd-hero{text-align:center;padding:20px 10px 14px;background:linear-gradient(180deg,var(--s2),var(--s1));border:1px solid var(--s3);border-radius:var(--r);margin-bottom:12px}
         .mtd-teams{display:flex;align-items:center;justify-content:center;gap:18px;margin-bottom:8px}
         .mtd-team{display:flex;flex-direction:column;align-items:center;gap:4px}
         .mtd-team .nm{font-size:13px;font-weight:900;color:var(--tx);max-width:110px;text-align:center}
@@ -2544,7 +2544,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.9 — Auto-rafraîchissement (fini le cache périmé) · 11 juin 2026";
+    var APP_VERSION="v1.9.10 — Fiche match opaque (fini la transparence) · 11 juin 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant

@@ -1,5 +1,5 @@
 {
-  "versionCode": 9,
-  "version": "v1.9.9",
-  "notes": "Auto-rafraichissement : l'app se met a jour seule a l'ouverture (fini le cache TF1 perime)"
+  "versionCode": 10,
+  "version": "v1.9.10",
+  "notes": "Fiche match opaque et nette (fini la transparence qui laissait voir la page derriere)"
 }
