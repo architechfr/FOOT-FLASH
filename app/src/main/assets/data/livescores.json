@@ -1,23 +1,24 @@
 {
-  "lastUpdated": "2026-06-11T21:03:13.584Z",
+  "lastUpdated": "2026-06-11T21:12:02.427Z",
   "data": {
     "1": {
-      "s1": 2,
-      "s2": 0,
-      "status": "IN_PLAY",
+      "s1": null,
+      "s2": null,
+      "status": "FINISHED",
       "minute": null,
+      "ref": "Wilton Sampaio",
       "ht": [
         1,
         0
-      ],
-      "ref": "Wilton Sampaio"
+      ]
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "TIMED": 104
+      "FINISHED": 1,
+      "TIMED": 103
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
