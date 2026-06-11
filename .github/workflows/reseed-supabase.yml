@@ -1,0 +1,23 @@
+name: Reseed Supabase (PRONO POTO)
+
+# Corrige la table `matches` dans Supabase avec le bon calendrier FIFA 2026
+# (équipes, horaires UTC depuis football-data.org, stages).
+# À lancer UNE SEULE FOIS (ou après chaque correction du calendrier).
+# Déclencher via "Run workflow" dans GitHub Actions.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  reseed:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Reseed table matches Supabase
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: node scripts/reseed-supabase.mjs
