@@ -4139,7 +4139,8 @@
         if(typeof MATCHES!=="undefined" && MATCHES){
           var m = MATCHES.find(function(x){return String(x.id)===String(id)});
           if(m){
-            m._live = { s1:o.s1, s2:o.s2, status:o.status, minute:(o.minute!=null?String(o.minute):null) };
+            m._live = { s1:o.s1, s2:o.s2, status:o.status, minute:(o.minute!=null?String(o.minute):null),
+                        ht:o.ht||null, goals:o.goals||null, cards:o.cards||null, ref:o.ref||null };
             m._liveSrc = "fd"; // football-data prioritaire (TheSportsDB ne réécrira pas)
             // À la fin du match : on fige le score officiel → classement + pronos se calculent tout seuls
             if(fin){ if(o.s1!=null) m.s1=o.s1; if(o.s2!=null) m.s2=o.s2; }
@@ -5806,6 +5807,11 @@
         else if(lv&&lv.s1!=null&&lv.s2!=null)h+='<div class="mc-score" style="color:var(--rd)">'+lv.s1+" - "+lv.s2+"</div>";
         else h+='<div class="mc-vs">VS</div>';
         h+='<div class="mc-team" onclick="event.stopPropagation();goTeam(\''+m.t2+'\')"><div class="mc-flag">'+flagImg(m.t2,36)+'</div><div class="mc-name" style="text-decoration:underline;text-decoration-color:rgba(255,255,255,.2)">'+t2.name+"</div></div></div>";
+        // v1.9.11 — dernier buteur sur la carte (match en cours ou terminé)
+        if(m._live&&m._live.goals&&m._live.goals.length){
+          var _lg=m._live.goals[m._live.goals.length-1];
+          h+='<div style="text-align:center;font-size:10px;color:var(--t2);margin:2px 0">⚽ '+(_lg.m!=null?_lg.m+"' ":'')+_lg.n+(_lg.type==="P"?' (pén.)':_lg.type==="CSC"?' (csc)':'')+'</div>';
+        }
             var stadObj=getStadiumByName(m.stad);
             var stadHtml=stadObj?'<span class="mc-stad-click" onclick="event.stopPropagation();openStadium(\''+stadObj.id+'\')">\ud83c\udfdf\ufe0f '+m.stad+'</span>':'<span>\ud83c\udfdf\ufe0f '+m.stad+'</span>';
             h+='<div class="mc-info"><span>\ud83d\udccd '+m.city+"</span>"+stadHtml+"</div>";
@@ -14145,9 +14151,39 @@
       h += '<div class="mtd-team" onclick="document.getElementById(\'match-detail-modal\').remove();goTeam(\''+m.t2+'\')" style="cursor:pointer">'+flagImg(m.t2,48)+'<div class="nm">'+(tB?tB.name:m.t2)+'</div></div>';
       h += '</div>';
       if(_lv && !_lv.fin) h += '<div style="text-align:center;margin:2px 0 6px"><span style="font-size:12px;font-weight:900;color:var(--rd)">🔴 EN DIRECT'+(_lv.min?" · "+_lv.min+"\'":(_lv.label==="Mi-temps"?" · Mi-temps":""))+'</span></div>';
-      h += '<div class="mtd-meta">📅 '+fmtDate(m.d)+' · '+fmtTimeDual(m.d,m.city)+'<br>🏟️ '+(m.stad||"?")+' · '+(m.city||"?")+'</div>';
+      // v1.9.11 — Buteurs sous le score (flux détaillé football-data)
+      var _ev=m._live||{};
+      if(_ev.ht && (m.s1!==null||(_lv&&_lv.s1!=null))) h += '<div style="text-align:center;font-size:10px;color:var(--t2);margin-bottom:4px">(mi-temps '+_ev.ht[0]+' - '+_ev.ht[1]+')</div>';
+      if(_ev.goals && _ev.goals.length){
+        var _g1=_ev.goals.filter(function(g){return g.t===1}),_g2=_ev.goals.filter(function(g){return g.t===2});
+        var _gFmt=function(g){return '⚽ '+(g.m!=null?g.m+"' ":'')+g.n+(g.type==="P"?' (pén.)':g.type==="CSC"?' (csc)':'');};
+        h += '<div style="display:flex;gap:10px;margin:4px 0 6px">';
+        h += '<div style="flex:1;text-align:left;font-size:10px;color:var(--t2);line-height:1.6">'+_g1.map(_gFmt).join('<br>')+'</div>';
+        h += '<div style="flex:1;text-align:right;font-size:10px;color:var(--t2);line-height:1.6">'+_g2.map(_gFmt).join('<br>')+'</div>';
+        h += '</div>';
+      }
+      h += '<div class="mtd-meta">📅 '+fmtDate(m.d)+' · '+fmtTimeDual(m.d,m.city)+'<br>🏟️ '+(m.stad||"?")+' · '+(m.city||"?")+(_ev.ref?'<br>👮 '+_ev.ref:'')+'</div>';
       if(m.st) h += '<div class="mtd-meta" style="margin-top:4px"><b style="color:var(--g)">'+m.st+'</b></div>';
       h += '</div>';
+
+      // BLOC 1bis — Fil du match (buts + cartons fusionnés, du plus récent au plus ancien)
+      var _evts=[];
+      (_ev.goals||[]).forEach(function(g){_evts.push({m:g.m||0,ic:'⚽',txt:'<b>But'+(g.type==="P"?' (pénalty)':g.type==="CSC"?' (contre son camp)':'')+'</b> — '+g.n+(g.a?' <span style="color:var(--t2)">(passe : '+g.a+')</span>':''),t:g.t})});
+      (_ev.cards||[]).forEach(function(c){_evts.push({m:c.m||0,ic:(c.c==="R"?'🟥':'🟨'),txt:(c.c==="R"?'<b>Carton rouge</b>':'Carton jaune')+' — '+c.n,t:c.t})});
+      if(_evts.length){
+        _evts.sort(function(a,b){return b.m-a.m});
+        h += '<div class="mtd-sec">';
+        h += '<div class="mtd-sec-title">⏱ FIL DU MATCH</div>';
+        _evts.forEach(function(e){
+          var team=e.t===1?(tA?tA.name:m.t1):(tB?tB.name:m.t2);
+          h += '<div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid rgba(128,128,128,.08)">';
+          h += '<span style="font-size:11px;font-weight:900;color:var(--g);min-width:30px;text-align:right">'+(e.m?e.m+"'":'—')+'</span>';
+          h += '<span style="font-size:13px">'+e.ic+'</span>';
+          h += '<span style="flex:1;font-size:11px;line-height:1.4">'+e.txt+' <span style="color:var(--t2)">· '+team+'</span></span>';
+          h += '</div>';
+        });
+        h += '</div>';
+      }
 
       // BLOC 2 — Prono auto (si dispo)
       if(pred && sA.valid && sB.valid){

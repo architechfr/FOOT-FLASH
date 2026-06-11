@@ -110,6 +110,14 @@ async function main(){
     }
   } catch(e){ console.warn("schedule-fd:", e.message); }
 
+  // Position football-data → poste app (G/D/M/F)
+  const posMap = p => { p = String(p||"").toLowerCase();
+    if(p.includes("keeper")) return "G";
+    if(p.includes("back")||p.includes("defen")) return "D";
+    if(p.includes("midfield")) return "M";
+    if(p.includes("offence")||p.includes("forward")||p.includes("winger")||p.includes("striker")) return "F";
+    return "M"; };
+
   for(const fx of fixtures){
     const st = String(fx.status||"").toUpperCase();
     const isLive = st==="IN_PLAY" || st==="PAUSED";
@@ -132,13 +140,72 @@ async function main(){
     const gh = (sc.home==null)?null:sc.home, ga = (sc.away==null)?null:sc.away;
     const s1 = t1IsHome ? gh : ga, s2 = t1IsHome ? ga : gh;
     const status = isFin ? "FINISHED" : (st==="PAUSED" ? "HT" : "IN_PLAY");
-    const minute = (fx.minute!=null) ? String(fx.minute) : null;
+    const entry = { s1:s1, s2:s2, status:status, minute:(fx.minute!=null)?String(fx.minute):null };
+
+    // Score à la mi-temps (déjà dans la liste, aucune requête en plus)
+    const htSc = fx.score && fx.score.halfTime;
+    if(htSc && htSc.home!=null) entry.ht = t1IsHome ? [htSc.home,htSc.away] : [htSc.away,htSc.home];
+
+    // ── Détail du match (1 requête) : buteurs, cartons, minute, arbitre, compos ──
+    // Uniquement matchs en cours ou terminés depuis < 4 h (puis l'entrée est figée).
+    const recentFin = isFin && (Date.now() - ko < 4*3600000);
+    if(isLive || recentFin){
+      try{
+        const r = await fetch("https://api.football-data.org/v4/matches/"+fx.id, { headers:{ "X-Auth-Token": KEY } });
+        if(r.ok){
+          const det = await r.json();
+          const dHomeId = det.homeTeam && det.homeTeam.id;
+          const sideOf = team => (team && team.id===dHomeId) ? (t1IsHome?1:2) : (t1IsHome?2:1);
+          if(det.minute!=null) entry.minute = String(det.minute);
+          if(Array.isArray(det.goals) && det.goals.length){
+            entry.goals = det.goals.map(g => ({
+              m: g.minute, t: sideOf(g.team), n: (g.scorer&&g.scorer.name)||"?",
+              type: (g.type==="PENALTY")?"P":(g.type==="OWN")?"CSC":null,
+              a: (g.assist&&g.assist.name)||null
+            }));
+          }
+          if(Array.isArray(det.bookings) && det.bookings.length){
+            entry.cards = det.bookings.map(b => ({
+              m: b.minute, t: sideOf(b.team), n: (b.player&&b.player.name)||"?",
+              c: String(b.card||"").indexOf("RED")>=0?"R":"Y"
+            }));
+          }
+          if(Array.isArray(det.referees) && det.referees.length) entry.ref = det.referees[0].name;
+          // Compositions si le plan les expose → lineups.json (même format que l'app)
+          const hl = det.homeTeam && det.homeTeam.lineup, al = det.awayTeam && det.awayTeam.lineup;
+          if(hl && hl.length >= 11 && al && al.length >= 11){
+            try{
+              const LUP = path.join(DATA_DIR, "lineups.json");
+              const lu = readJson(LUP, { lastUpdated:null, data:{} });
+              if(!lu.data) lu.data = {};
+              const cur = lu.data[String(m.id)];
+              if(!cur || !cur.home || (cur.home.xi||[]).length < 11){
+                const mp = p => ({ n:p.name, num:p.shirtNumber||null, pos:posMap(p.position) });
+                const homeSide = { xi:hl.map(mp), subs:(det.homeTeam.bench||[]).map(mp) };
+                const awaySide = { xi:al.map(mp), subs:(det.awayTeam.bench||[]).map(mp) };
+                lu.data[String(m.id)] = {
+                  home: t1IsHome?homeSide:awaySide, away: t1IsHome?awaySide:homeSide,
+                  fHome: t1IsHome?det.homeTeam.formation:det.awayTeam.formation,
+                  fAway: t1IsHome?det.awayTeam.formation:det.homeTeam.formation,
+                  cHome: t1IsHome?(det.homeTeam.coach&&det.homeTeam.coach.name):(det.awayTeam.coach&&det.awayTeam.coach.name),
+                  cAway: t1IsHome?(det.awayTeam.coach&&det.awayTeam.coach.name):(det.homeTeam.coach&&det.homeTeam.coach.name),
+                  ts: new Date().toISOString()
+                };
+                lu.lastUpdated = new Date().toISOString();
+                fs.writeFileSync(LUP, JSON.stringify(lu, null, 1));
+                console.log("📋 compos #"+m.id+" via football-data ("+hl.length+"+"+al.length+").");
+              }
+            }catch(e){ console.warn("lineups fd:", e.message); }
+          }
+        } else { console.warn("détail "+fx.id+" → HTTP "+r.status); }
+      }catch(e){ console.warn("détail "+fx.id+":", e.message); }
+    }
 
     const prev = out.data[String(m.id)] || {};
-    if(prev.s1!==s1 || prev.s2!==s2 || prev.status!==status || prev.minute!==minute){
-      out.data[String(m.id)] = { s1:s1, s2:s2, status:status, minute:minute };
+    if(JSON.stringify(prev) !== JSON.stringify(entry)){
+      out.data[String(m.id)] = entry;
       changed = true;
-      console.log((isFin?"🏁":"🔴")+" #"+m.id+" "+hN+" "+gh+"-"+ga+" "+aN+" ("+status+(minute?" "+minute+"'":"")+")");
+      console.log((isFin?"🏁":"🔴")+" #"+m.id+" "+hN+" "+gh+"-"+ga+" "+aN+" ("+status+(entry.minute?" "+entry.minute+"'":"")+(entry.goals?" · "+entry.goals.length+" but(s)":"")+")");
     }
     if(isLive) live++; else fin++;
   }
