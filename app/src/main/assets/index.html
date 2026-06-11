@@ -2509,39 +2509,23 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.5 — Infirmerie = joueurs sélectionnés au Mondial · 11 juin 2026";
+    var APP_VERSION="v1.9.6 — Version 100% web, mise à jour automatique · 11 juin 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
     // la nouvelle version PAR-DESSUS (données conservées) — à condition de
     // bumper versionCode. L'app vérifie version.json sur GitHub Pages et
     // propose le téléchargement en 1 tap.
-    var APP_BUILD=2; // = versionCode (build.gradle.kts) — à bumper ensemble
-    var UPDATE_URL="https://architechfr.github.io/FOOT-FLASH/version.json";
-    var _updInfo=null;
+    // v1.9.6 — Distribution 100% web/PWA : la version en ligne se met à jour
+    // toute seule (index.html ajoute ?v=<version> pour casser le cache). Plus
+    // d'APK ni de bannière de téléchargement (qui menait vers une release 404).
+    var _updInfo=null; // conservé pour compat : reste toujours null sur le web
     function ffCheckUpdate(manual){
-      if(!window.AndroidBridge){if(manual)toast("🌐 Version web : toujours à jour automatiquement");return}
-      fetch(UPDATE_URL+"?t="+Date.now())
-        .then(function(r){return r.json()})
-        .then(function(j){
-          if(j&&typeof j.versionCode==="number"&&j.versionCode>APP_BUILD){
-            _updInfo=j;
-            toast("⬇️ Mise à jour "+(j.version||"")+" disponible — voir Réglages");
-            if(typeof render==="function")render();
-          }else if(manual){toast("✓ Tu as la dernière version ("+APP_VERSION.split(" — ")[0]+")")}
-        })
-        .catch(function(){if(manual)toast("⚠️ Vérification impossible (hors-ligne ?)")});
+      if(manual)toast("🌐 Version web : toujours à jour automatiquement");
     }
     function ffDownloadUpdate(){
-      if(!_updInfo||!_updInfo.apk){toast("Pas de mise à jour en attente");return}
-      try{
-        if(typeof AndroidBridge!=="undefined"&&AndroidBridge.openExternal)AndroidBridge.openExternal(_updInfo.apk);
-        else window.open(_updInfo.apk,"_blank");
-      }catch(e){}
-      toast("⬇️ Téléchargement lancé — ouvre le fichier puis Installer (tes données sont conservées)");
+      toast("🌐 Version web : déjà à jour");
     }
-    // Vérification silencieuse au démarrage (APK uniquement)
-    setTimeout(function(){try{ffCheckUpdate(false)}catch(e){}},4000);
     var LANG=localStorage.getItem("ff26_lang")||"fr";
     var I18N={
       fr:{
@@ -4903,17 +4887,8 @@
       var teamObj=TEAMS.find(function(t){return t.id===team});
       var teamName=teamObj?teamObj.name:team;
       var h='';
-      // v1.9.2 — Bannière mise à jour APK disponible
-      if(_updInfo){
-        h+='<div style="background:linear-gradient(135deg,rgba(231,196,92,.2),var(--s1));border:1.5px solid var(--g);border-radius:14px;padding:14px;margin-bottom:12px">';
-        h+='<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">';
-        h+='<div style="font-size:28px">⬇️</div><div style="flex:1">';
-        h+='<div style="font-size:14px;font-weight:900;color:var(--g)">Mise à jour '+(_updInfo.version||"")+' disponible</div>';
-        if(_updInfo.notes)h+='<div style="font-size:11px;color:var(--t2);margin-top:3px;line-height:1.5">'+_updInfo.notes+'</div>';
-        h+='</div></div>';
-        h+='<button onclick="ffDownloadUpdate()" style="width:100%;padding:13px;background:linear-gradient(135deg,var(--g),var(--g2));color:#000;border:none;border-radius:11px;font-size:13px;font-weight:900;cursor:pointer;font-family:inherit">⬇️ Télécharger et installer (données conservées)</button>';
-        h+='</div>';
-      }
+      // v1.9.6 — Bannière de mise à jour APK retirée (distribution 100% web/PWA,
+      // la version en ligne se met à jour automatiquement).
       // v1.086 — Carte "Découvrez aussi" — promotion croisée Coach du Dimanche (même auteur)
       h+='<div class="ff-arb-card" onclick="ffOpenAuthorApp()">';
       h+='<div class="ff-arb-icon">⚽</div>';
@@ -14605,3 +14580,4 @@
 </script>
 </body>
 </html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
