@@ -32,6 +32,7 @@ jobs:
       - name: Boucle scores (~5 h 50, fetch toutes les ~3 min)
         env:
           FOOTBALLDATA_KEY: ${{ secrets.FOOTBALLDATA_KEY }}
+          APIFOOTBALL_KEY: ${{ secrets.APIFOOTBALL_KEY }}
           COMP: "WC"
         run: |
           git config user.name "github-actions[bot]"
@@ -39,8 +40,9 @@ jobs:
           for i in $(seq 1 118); do
             echo "── Itération $i/118 ──"
             node scripts/fetch-livescores.mjs || true
+            node scripts/fetch-lineups.mjs || true
             if ! git diff --quiet -- app/src/main/assets/data/ || [ -n "$(git status --porcelain app/src/main/assets/data/)" ]; then
-              git add app/src/main/assets/data/livescores.json app/src/main/assets/data/schedule-fd.json
+              git add app/src/main/assets/data/livescores.json app/src/main/assets/data/schedule-fd.json app/src/main/assets/data/lineups.json
               git commit -m "Auto: scores Mondial (livescores.json)" || true
               git pull --rebase origin main || true
               git push || echo "⚠️ push KO (retry au tour suivant)"

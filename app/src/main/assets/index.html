@@ -4105,6 +4105,17 @@
         }).catch(function(){});
       }catch(e){}
     })();
+    // Les compos tombent ~40 min avant le coup d'envoi : on relit le fichier
+    // distant toutes les 5 min pour les capter sans redémarrer l'app.
+    function refreshLineups(){
+      try{
+        fetch(DATA_REMOTE_BASE+"lineups.json?t="+Date.now())
+          .then(function(r){return r.json()})
+          .then(function(j){ if(j && j.data){ LINEUPS = j.data; } })
+          .catch(function(){});
+      }catch(e){}
+    }
+    setInterval(refreshLineups, 5*60000);
 
     // Scores du Mondial (livescores.json, rempli par l'Action football-data.org).
     // Fichier statique → aucun quota côté utilisateur. Source fiable, prioritaire sur TheSportsDB.
