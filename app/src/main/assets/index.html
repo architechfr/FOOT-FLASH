@@ -796,7 +796,7 @@
         .mtd-sec-title{font-size:10px;font-weight:900;color:var(--g);letter-spacing:1px;margin-bottom:10px;display:flex;align-items:center;gap:6px}
         .mtd-pred-box{text-align:center;padding:16px 10px;background:linear-gradient(135deg,rgba(231,196,92,.08),var(--s1));border:1.5px solid var(--g);border-radius:14px;margin-bottom:10px}
         .mtd-pred-label{font-size:10px;font-weight:800;color:var(--g);letter-spacing:1px;margin-bottom:4px}
-        .mtd-pred-score{font-size:36px;font-weight:900;color:#fff;letter-spacing:4px;line-height:1;margin:4px 0}
+        .mtd-pred-score{font-size:42px;font-weight:900;color:var(--tx);letter-spacing:6px;line-height:1;margin:6px 0;text-shadow:0 1px 2px rgba(0,0,0,.12)}
         .mtd-pred-actions{display:flex;gap:8px;margin-top:12px}
         .mtd-btn{flex:1;padding:10px;border-radius:10px;font-family:inherit;font-weight:800;cursor:pointer;border:none;font-size:12px}
         .mtd-btn.primary{background:linear-gradient(135deg,var(--g),var(--g2));color:#000}
@@ -2168,8 +2168,36 @@
        shareable:true}
     ];
 
+    // ═══ Diffusion FRANCE (v1.9.9) — la vraie répartition des droits ═══
+    // beIN Sports : 104/104 matchs. M6 : 54 matchs en clair (TF1 : AUCUN match,
+    // une première depuis 1978). M6 confirmés à ce jour : match d'ouverture,
+    // tous les matchs des Bleus (groupes + élimination directe s'ils passent),
+    // demi-finales, petite finale et finale. Les ~46 autres matchs M6 (sélection
+    // groupes/16es/8es/quarts) seront ajoutés à M6_IDS dès que la grille officielle
+    // est connue. En attendant : on n'affiche M6 QUE sur les matchs confirmés.
+    var M6_IDS={1:1,17:1,42:1,61:1,101:1,102:1,103:1,104:1};
+    function isM6Match(m){
+      if(!m)return false;
+      if(M6_IDS[m.id])return true;
+      return m.t1==="FRA"||m.t2==="FRA"; // tous les matchs des Bleus sont sur M6
+    }
+    // Chaîne TV affichée sur une carte match, selon le pays de l'utilisateur.
+    function tvForMatch(m){
+      if(V.myTeam==="FRA"){
+        var h='';
+        if(isM6Match(m))h+='<span style="color:var(--g);font-weight:700">🆓 M6</span> · ';
+        h+='<span style="color:var(--am)">💰 beIN Sports</span>';
+        return h;
+      }
+      var tvObj=TV[V.myTeam]||TV["default"]||{free:"FIFA+",paid:""};
+      var tvH='';
+      if(tvObj.free)tvH+='<span style="color:var(--g);font-weight:700">🆓 '+tvObj.free+'</span>';
+      if(tvObj.free&&tvObj.paid)tvH+=' · ';
+      if(tvObj.paid)tvH+='<span style="color:var(--am)">💰 '+tvObj.paid+'</span>';
+      return tvH||'📺 FIFA+';
+    }
     var TV={
-    "FRA":{free:"M6",paid:"beIN Sports"},
+    "FRA":{free:"M6 (54 matchs)",paid:"beIN Sports (tous)"},
     "BEL":{free:"RTBF",paid:"RTL-TVI"},
     "MAR":{free:"SNRT / Arryadia",paid:"beIN MENA"},
     "USA":{free:"FOX (OTA)",paid:"Telemundo / Peacock"},
@@ -5734,13 +5762,7 @@
             var stadObj=getStadiumByName(m.stad);
             var stadHtml=stadObj?'<span class="mc-stad-click" onclick="event.stopPropagation();openStadium(\''+stadObj.id+'\')">\ud83c\udfdf\ufe0f '+m.stad+'</span>':'<span>\ud83c\udfdf\ufe0f '+m.stad+'</span>';
             h+='<div class="mc-info"><span>\ud83d\udccd '+m.city+"</span>"+stadHtml+"</div>";
-            var tvObj=TV[V.myTeam]||TV["default"]||{free:"FIFA+",paid:""};
-        var tvH='';
-        if(tvObj.free)tvH+='<span style="color:var(--g);font-weight:700">🆓 '+tvObj.free+'</span>';
-        if(tvObj.free&&tvObj.paid)tvH+=' · ';
-        if(tvObj.paid)tvH+='<span style="color:var(--am)">💰 '+tvObj.paid+'</span>';
-        if(!tvH)tvH='📺 FIFA+';
-        h+='<div class="mc-tv">'+tvH+"</div>";
+        h+='<div class="mc-tv">'+tvForMatch(m)+"</div>";
         var isWatched=V.watchMs&&V.watchMs.indexOf(m.id)>=0;
         h+='<div style="display:flex;gap:6px;margin-top:4px">';
         h+='<div onclick="event.stopPropagation();exportMatch('+m.id+')" style="flex:1;text-align:center;padding:6px;font-size:11px;color:var(--g);cursor:pointer;font-weight:700">📅 Agenda</div>';
