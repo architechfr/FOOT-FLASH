@@ -2470,7 +2470,7 @@
     }
 
     var APP_CHANGELOG=[
-      {v:"v1.9.5",d:"11/06/2026",changes:"Infirmerie recentrée sur le Mondial : les listes des 26 étant connues, l'infirmerie n'affiche plus que les joueurs SÉLECTIONNÉS. Les blessés non retenus (blessures longue durée : Ekitiké, Rodrygo, Xavi Simons, Militão, Foyth, Carboni, Panichelli, Grealish, L. Zidane) sont masqués automatiquement par croisement avec l'effectif officiel de chaque équipe (effectifs.json). Restent affichés les blessés bien sélectionnés : Koundé, Saliba, Manu Koné, Valverde, Yamal, Mbappé."},
+      {v:"v1.9.5",d:"11/06/2026",changes:"Infirmerie recentrée sur le Mondial : les listes des 26 étant connues, l'infirmerie n'affiche plus que les joueurs SÉLECTIONNÉS. Les blessés non retenus (blessures longue durée : Ekitiké, Rodrygo, Xavi Simons, Militão, Foyth, Carboni, Panichelli, Grealish, L. Zidane) sont masqués automatiquement par croisement avec l'effectif officiel de chaque équipe (effectifs.json). De plus, un blessé disparaît automatiquement dès que sa date de retour est passée (joueur rétabli ayant rejoué) : en juin, Koundé, Saliba, Manu Koné, Yamal, Mbappé sont remis. Ne restent que les cas réellement en cours (ex. Valverde, retour ciblé au coup d'envoi)."},
       {v:"v1.9.4",d:"11/06/2026",changes:"Horaires des matchs ENFIN justes + double affichage. La source officielle (data/matches.json) stocke l'heure LOCALE du stade ; l'app la prenait pour l'heure de Paris, d'ou un decalage. Desormais chaque match est converti dans le bon fuseau du stade (Est, Centre, Pacifique, Mexique) puis affiche en double : heure locale du stade ET heure en France, ex. France-Senegal 15:00 (East Rutherford) - 21:00 en France. La conversion alimente aussi le compte a rebours, le statut en direct, le tri et l'export agenda. Stade en France ou meme fuseau : une seule heure affichee. Amicaux: bases sur leur instant UTC exact."},
       {v:"v1.9.2",d:"08/06/2026",changes:"Le VRAI tournoi s'intègre aux pronos. (1) Le tableau final se remplit tout seul : dès que les résultats réels tombent, les groupes terminés désignent leurs qualifiés, puis 16es, 8es, quarts, demis et finale s'ouvrent aux paris au fur et à mesure — exactement comme le vrai Mondial (les 3es qualifiés sont calculés quand les 12 groupes sont finis ; si les données serveur fournissent déjà les affiches, elles restent prioritaires). (2) Les pronos auto tiennent compte de la FORME DU MOMENT dans le tournoi : une équipe qui cartonne en poules part avec un bonus (jusqu'à +6), une équipe en difficulté avec un malus. (3) Le MODE EXPERT (doublon des pronos) est retiré de la Simulation — remplacé par un raccourci vers l'onglet Pronos. (4) MISES À JOUR INTÉGRÉES : l'app vérifie au démarrage si une nouvelle version existe et propose de la télécharger en 1 tap (Réglages > bannière dorée, ou bouton 🔄 Vérifier). L'installation se fait PAR-DESSUS l'ancienne version : pronos, crédits et réglages sont conservés, pas besoin de désinstaller."},
       {v:"v1.9.1",d:"07/06/2026",changes:"Fix affichage Pronos : le bandeau Récap/navigation de journée passait sous la barre d'onglets (2 rangées) et le bas de la liste était rogné — impossible de voir le bouton 'Retour au hub'. Le bandeau flotte désormais au-dessus de la nav et la page se termine avec une marge correcte. Et dans Matchs > filtre 'Mes équipes' : le classement de CHAQUE groupe de tes équipes favorites s'affiche désormais (avant, plus aucun groupe n'apparaissait dès que tu avais 2-3 équipes), avec tes équipes surlignées en doré."},
@@ -4263,7 +4263,14 @@
         return false; // joueur non retenu dans les 26 -> masqué
       }catch(e){return true;}
     }
-    function wcInjuries(){ try{return INJURIES.filter(_injurySelected);}catch(e){return INJURIES;} }
+    // Un blessé n'est plus affiché une fois sa date de retour passée (joueur rétabli, a rejoué).
+    function _injuryActive(x){
+      if(!x)return false;
+      if(x.status==="out")return true; // gravement indisponible et sélectionné -> reste affiché
+      if(x.estimatedReturn){ var d=new Date(x.estimatedReturn+"T23:59:59"); if(!isNaN(d.getTime())&&d.getTime()<Date.now())return false; }
+      return true;
+    }
+    function wcInjuries(){ try{return INJURIES.filter(function(x){return _injurySelected(x)&&_injuryActive(x);});}catch(e){return INJURIES;} }
     function findInjury(teamId,playerName){
       if(typeof INJURIES==="undefined"||!playerName)return null;
       var target=_normName(playerName);
