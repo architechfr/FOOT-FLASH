@@ -67,9 +67,22 @@ async function main(){
   console.log("ℹ️ "+fixtures.length+" matchs "+COMP+" renvoyés par football-data.org (1 requête).");
   if(!fixtures.length){ console.warn("⚠️ 0 match — la compétition "+COMP+" est peut-être hors de ton offre gratuite, ou pas encore peuplée."); }
 
+  // Diagnostic auto-publié : compte des statuts + saison renvoyée par l'API.
+  // Pas de timestamp ici → le fichier ne change (et n'est commité) que si la situation change.
+  const statusCounts = {};
+  for(const fx of fixtures){ const s = String(fx.status||"?").toUpperCase(); statusCounts[s] = (statusCounts[s]||0)+1; }
+  const meta = {
+    fixtures: fixtures.length,
+    season: (payload.filters && payload.filters.season) || (fixtures[0] && fixtures[0].season && fixtures[0].season.startDate) || null,
+    statuses: statusCounts,
+    firstUtc: fixtures.length ? fixtures.reduce((a,b)=> a.utcDate < b.utcDate ? a : b).utcDate : null,
+    lastUtc:  fixtures.length ? fixtures.reduce((a,b)=> a.utcDate > b.utcDate ? a : b).utcDate : null
+  };
+
   const out = readJson(OUT, { lastUpdated:null, data:{} });
   if(!out.data) out.data = {};
   let changed = false, live = 0, fin = 0;
+  if(JSON.stringify(out.meta||null) !== JSON.stringify(meta)){ out.meta = meta; changed = true; }
 
   for(const fx of fixtures){
     const st = String(fx.status||"").toUpperCase();
