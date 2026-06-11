@@ -6520,24 +6520,49 @@
         ms.forEach(function(m){
           var opp=m.t1===V.selTeam?getTeam(m.t2):getTeam(m.t1);
           var oppId=m.t1===V.selTeam?m.t2:m.t1;
-          var isPast=new Date(m.d).getTime()<Date.now();
-          h+='<div style="background:var(--s1);border:1px solid var(--s3);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;transition:all .2s" onclick="showMatchDetail('+m.id+')" onmouseover="this.style.background=\'var(--s2)\'" onmouseout="this.style.background=\'var(--s1)\'">';
+          // v1.9.13 — carte intelligente : terminé (score + verdict prono),
+          // en direct (score live), ou à venir (pronostic + agenda).
+          var lvT=(typeof wcLiveState==="function")?wcLiveState(m):null;
+          var isFin=(m.s1!==null&&m.s2!==null)||(lvT&&lvT.fin);
+          var isLiveT=!isFin&&((lvT&&!lvT.fin)||matchStatus(m.d)==="live");
+          var selIsT1=m.t1===V.selTeam;
+          var fs1=(m.s1!==null)?m.s1:(lvT?lvT.s1:null), fs2=(m.s2!==null)?m.s2:(lvT?lvT.s2:null);
+          var border='var(--s3)';
+          if(isFin&&fs1!=null){
+            var my=selIsT1?fs1:fs2, his=selIsT1?fs2:fs1;
+            border=my>his?'rgba(80,200,120,.6)':(my<his?'rgba(255,90,90,.5)':'var(--s3)');
+          } else if(isLiveT) border='rgba(255,90,90,.6)';
+          h+='<div style="background:var(--s1);border:1px solid '+border+';border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;transition:all .2s" onclick="showMatchDetail('+m.id+')" onmouseover="this.style.background=\'var(--s2)\'" onmouseout="this.style.background=\'var(--s1)\'">';
           h+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">';
           h+='<div style="display:flex;align-items:center;gap:10px;flex:1">';
           h+=flagImg(V.selTeam,28);
           h+='<span style="font-size:13px;font-weight:900">'+t.name+'</span>';
-          h+='<span style="font-size:11px;color:var(--t2);font-weight:800">VS</span>';
+          if(fs1!=null&&fs2!=null){
+            var sc1=selIsT1?fs1:fs2, sc2=selIsT1?fs2:fs1;
+            h+='<span style="font-size:16px;font-weight:900;color:'+(isLiveT?'var(--rd)':'var(--tx)')+';letter-spacing:1px">'+sc1+' - '+sc2+'</span>';
+          } else {
+            h+='<span style="font-size:11px;color:var(--t2);font-weight:800">VS</span>';
+          }
           h+='<span style="font-size:13px;font-weight:900;text-decoration:underline">'+opp.name+'</span>';
           h+=flagImg(oppId,28);
           h+='</div>';
-          h+='<button onclick="event.stopPropagation();exportMatch('+m.id+')" style="padding:6px 10px;background:var(--s2);border:1px solid var(--g);border-radius:6px;color:var(--g);font-size:10px;font-weight:700;cursor:pointer;font-family:inherit">📅 Agenda</button>';
+          if(!isFin&&!isLiveT)h+='<button onclick="event.stopPropagation();exportMatch('+m.id+')" style="padding:6px 10px;background:var(--s2);border:1px solid var(--g);border-radius:6px;color:var(--g);font-size:10px;font-weight:700;cursor:pointer;font-family:inherit">📅 Agenda</button>';
+          else if(isLiveT)h+='<span style="font-size:10px;font-weight:900;color:var(--rd)">🔴 DIRECT'+(lvT&&lvT.min?' '+lvT.min+"'":'')+'</span>';
+          else h+='<span style="font-size:10px;font-weight:800;color:var(--t2)">TERMINÉ</span>';
           h+='</div>';
           h+='<div style="display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--t2)">';
           h+='<div><span style="font-weight:800">'+fmtDate(m.d)+'</span> · '+fmtTimeDual(m.d,m.city)+'</div>';
           h+='<div>📍 '+m.stad+', '+m.city+'</div>';
           h+='</div>';
-          h+='<div style="text-align:right;margin-top:8px">';
-          h+='<span style="font-size:11px;color:var(--g);font-weight:700;text-decoration:underline">→ Pronostic</span>';
+          h+='<div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px">';
+          // Verdict du prono sur les matchs joués
+          var pr=V.pronos&&V.pronos[String(m.id)];
+          if(isFin&&m.s1!==null&&pr&&pr.a!==""&&pr.b!==""){
+            var pa=parseInt(pr.a,10),pb=parseInt(pr.b,10);
+            var vd=(pa===m.s1&&pb===m.s2)?'🎯 Prono : score exact !':(Math.sign(pa-pb)===Math.sign(m.s1-m.s2)?'✅ Prono : bon vainqueur':'❌ Prono raté');
+            h+='<span style="font-size:10px;color:var(--t2)">📝 '+pr.a+'-'+pr.b+' · '+vd+'</span>';
+          } else h+='<span></span>';
+          h+='<span style="font-size:11px;color:var(--g);font-weight:700;text-decoration:underline">'+(isFin?'→ Feuille de match':(isLiveT?'→ Match en direct':'→ Pronostic'))+'</span>';
           h+='</div>';
           h+='</div>';
         });
