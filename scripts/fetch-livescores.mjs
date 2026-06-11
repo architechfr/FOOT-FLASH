@@ -246,6 +246,24 @@ async function main(){
         } else if(cur.status==="FINISHED" && (cur.s1!==s1 || cur.s2!==s2)){
           conflicts.push("#"+m.id+" fd="+cur.s1+"-"+cur.s2+" of="+s1+"-"+s2);
         }
+        // Faits de jeu openfootball : buteurs (goals1/goals2) + score mi-temps.
+        // On enrichit l'entrée si elle n'a pas déjà ces infos (API-Football prioritaire).
+        const e2 = out.data[String(m.id)];
+        if(e2){
+          const ofGoals = [];
+          const pushG = (arr, side) => (arr||[]).forEach(g => ofGoals.push({
+            m: g.minute||0, t: side, n: g.name||"?",
+            type: g.penalty ? "P" : (g.owngoal ? "CSC" : null), a: null
+          }));
+          pushG(x.goals1, t1Home?1:2); pushG(x.goals2, t1Home?2:1);
+          ofGoals.sort((u,v)=>u.m-v.m);
+          if(ofGoals.length && (!e2.goals || e2.goals.length < ofGoals.length)){
+            e2.goals = ofGoals; changed = true;
+            console.log("⚽ openfootball : buteurs #"+m.id+" ("+ofGoals.length+").");
+          }
+          const ht = x.score && x.score.ht;
+          if(!e2.ht && ht && ht[0]!=null){ e2.ht = t1Home ? [ht[0],ht[1]] : [ht[1],ht[0]]; changed = true; }
+        }
       }
       if(filled) console.log("🟢 openfootball : "+filled+" résultat(s) complété(s).");
       if(conflicts.length){

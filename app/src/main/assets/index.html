@@ -3790,6 +3790,55 @@
       return {fin:false, label:"EN DIRECT", min:(L.minute||null), s1:L.s1, s2:L.s2};
     }
 
+    // v1.9.13 — Classement RÉEL d'un groupe à partir des scores finaux (m.s1/m.s2,
+    // figés par applyLiveScores à la fin de chaque match). Remplace les tableaux
+    // à zéro codés en dur : le classement se met à jour tout seul.
+    function computeRealGroupStandings(g){
+      var rows = {};
+      TEAMS.forEach(function(t){ if(t.group===g) rows[t.id] = {id:t.id, name:t.name, pts:0, j:0, v:0, n:0, p:0, bp:0, bc:0}; });
+      if(typeof MATCHES!=="undefined" && MATCHES) MATCHES.forEach(function(m){
+        if(m.st!=="Groupe "+g || m.s1===null || m.s2===null) return;
+        var a = rows[m.t1], b = rows[m.t2]; if(!a||!b) return;
+        a.j++; b.j++; a.bp+=m.s1; a.bc+=m.s2; b.bp+=m.s2; b.bc+=m.s1;
+        if(m.s1>m.s2){ a.v++; a.pts+=3; b.p++; }
+        else if(m.s1<m.s2){ b.v++; b.pts+=3; a.p++; }
+        else { a.n++; b.n++; a.pts++; b.pts++; }
+      });
+      return Object.keys(rows).map(function(k){return rows[k]}).sort(function(x,y){
+        return (y.pts-x.pts) || ((y.bp-y.bc)-(x.bp-x.bc)) || (y.bp-x.bp) || x.name.localeCompare(y.name);
+      });
+    }
+    // Cellules <td> Pts/J/G/N/P/Diff d'une ligne de classement réel
+    function realStandingCells(r){
+      var d = r.bp-r.bc;
+      return '<td><b>'+r.pts+'</b></td><td>'+r.j+'</td><td>'+r.v+'</td><td>'+r.n+'</td><td>'+r.p+'</td><td>'+(d>0?'+':'')+d+'</td>';
+    }
+    // ⚽ Classement des buteurs du tournoi (agrégé depuis les faits de jeu connus :
+    // openfootball après les matchs, API-Football en live si la clé existe).
+    function tournamentScorers(){
+      var agg = {};
+      if(typeof MATCHES!=="undefined" && MATCHES) MATCHES.forEach(function(m){
+        var gs = m._live && m._live.goals; if(!gs) return;
+        gs.forEach(function(g){
+          if(g.type==="CSC") return; // un csc ne compte pas pour le buteur
+          var team = g.t===1 ? m.t1 : m.t2;
+          var k = g.n+"|"+team;
+          if(!agg[k]) agg[k] = {n:g.n, team:team, g:0, pen:0};
+          agg[k].g++; if(g.type==="P") agg[k].pen++;
+        });
+      });
+      return Object.keys(agg).map(function(k){return agg[k]}).sort(function(a,b){return (b.g-a.g)||((a.pen)-(b.pen))||a.n.localeCompare(b.n);});
+    }
+    // 🟨🟥 Bilan discipline du tournoi
+    function tournamentCards(){
+      var y=0, r=0;
+      if(typeof MATCHES!=="undefined" && MATCHES) MATCHES.forEach(function(m){
+        var cs = m._live && m._live.cards; if(!cs) return;
+        cs.forEach(function(c){ if(c.c==="R") r++; else y++; });
+      });
+      return {y:y, r:r};
+    }
+
     // Re-render léger si on est sur une vue qui montre les amicaux
     function ffRerenderFriendlies(){
       try{
@@ -5807,9 +5856,9 @@
         h+='<div style="font-size:12px;font-weight:900;color:var(--g);margin-bottom:8px">📊 CLASSEMENT GROUPE '+showGroup
           +(V.filter==="mine"&&favHere.length?' <span style="font-weight:700;color:var(--t2)">· '+favHere.map(function(id){return flagImg(id,12)}).join(" ")+'</span>':'')+'</div>';
         h+='<table class="grp-t"><tr><th>Équipe</th><th>Pts</th><th>J</th><th>G</th><th>N</th><th>P</th><th>Diff</th></tr>';
-        gTeams.forEach(function(t,i){
-          h+='<tr class="'+(i<2?"qual":"")+'" style="cursor:pointer" onclick="goTeam(\''+t.id+'\')">';
-          h+='<td>'+flagImg(t.id,16)+' '+(isFavTeam(t.id)?'<b style="color:var(--g)">'+t.name+'</b>':t.name)+'</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>';
+        computeRealGroupStandings(showGroup).forEach(function(r,i){
+          h+='<tr class="'+(i<2?"qual":"")+'" style="cursor:pointer" onclick="goTeam(\''+r.id+'\')">';
+          h+='<td>'+flagImg(r.id,16)+' '+(isFavTeam(r.id)?'<b style="color:var(--g)">'+r.name+'</b>':r.name)+'</td>'+realStandingCells(r)+'</tr>';
         });
         h+='</table>';
         h+='<div style="font-size:10px;color:var(--t2);text-align:center">Top 2 qualifiés ✓ + 8 meilleurs 3es</div></div>';
@@ -6001,8 +6050,8 @@
       Object.keys(groups).sort().forEach(function(g){
         h+='<div class="sec">Groupe '+g+"</div>";
         h+='<table class="grp-t"><tr><th>Équipe</th><th>Pts</th><th>J</th><th>G</th><th>N</th><th>P</th><th>Diff</th></tr>';
-        groups[g].forEach(function(t,i){
-          h+='<tr class="'+(i<2?"qual":"")+'" style="cursor:pointer" onclick="goTeam(\''+t.id+'\')" ><td>'+flagImg(t.id,20)+" "+t.name+"</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>";
+        computeRealGroupStandings(g).forEach(function(r,i){
+          h+='<tr class="'+(i<2?"qual":"")+'" style="cursor:pointer" onclick="goTeam(\''+r.id+'\')" ><td>'+flagImg(r.id,20)+" "+r.name+"</td>"+realStandingCells(r)+"</tr>";
         });
         h+="</table>";
       });
@@ -6498,10 +6547,10 @@
       var grpTeams=TEAMS.filter(function(x){return x.group===t.group});
       h+='<div class="sec">🏆 Classement Groupe '+t.group+'</div>';
       h+='<table class="grp-t"><tr><th>Équipe</th><th>Pts</th><th>J</th><th>G</th><th>N</th><th>P</th><th>Diff</th></tr>';
-      grpTeams.forEach(function(gt,i){
-        var isCurrent=gt.id===V.selTeam;
-        h+='<tr class="'+(i<2?"qual":"")+'" style="cursor:pointer;'+(isCurrent?"background:var(--gw)":"")+'" onclick="goTeam(\''+gt.id+'\')">';
-        h+='<td onclick="goTeam(\''+gt.id+'\')" style="cursor:pointer">'+flagImg(gt.id,18)+" "+(isCurrent?"<strong>"+gt.name+"</strong>":gt.name)+"</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>";
+      computeRealGroupStandings(t.group).forEach(function(r,i){
+        var isCurrent=r.id===V.selTeam;
+        h+='<tr class="'+(i<2?"qual":"")+'" style="cursor:pointer;'+(isCurrent?"background:var(--gw)":"")+'" onclick="goTeam(\''+r.id+'\')">';
+        h+='<td onclick="goTeam(\''+r.id+'\')" style="cursor:pointer">'+flagImg(r.id,18)+" "+(isCurrent?"<strong>"+r.name+"</strong>":r.name)+"</td>"+realStandingCells(r)+"</tr>";
       });
       h+="</table>";
         var grpMs=MATCHES.filter(function(m){return m.st==="Groupe "+t.group});
@@ -10288,6 +10337,29 @@
           }catch(e){}
         }
         h+='</div>';
+      }
+
+      // v1.9.13 — Stats du tournoi (alimentées par les faits de jeu connus :
+      // openfootball après chaque match, API-Football en live si clé configurée)
+      var _scorers = (typeof tournamentScorers==="function") ? tournamentScorers() : [];
+      if(_scorers.length){
+        h+='<div style="font-size:10px;font-weight:900;color:var(--am);margin:14px 0 4px">⚽ CLASSEMENT DES BUTEURS</div>';
+        h+='<div style="background:var(--s1);border:1px solid var(--s3);border-radius:10px;padding:8px">';
+        _scorers.slice(0,10).forEach(function(s,i){
+          var medal = i===0?"🥇":i===1?"🥈":i===2?"🥉":(i+1);
+          h+='<div style="display:flex;align-items:center;gap:8px;padding:4px 2px;border-bottom:1px solid rgba(128,128,128,.07)">';
+          h+='<span style="font-size:11px;font-weight:900;color:'+(i<3?'var(--g)':'var(--t2)')+';min-width:22px;text-align:center">'+medal+'</span>';
+          h+=flagImg(s.team,14);
+          h+='<span style="flex:1;font-size:12px;font-weight:700">'+s.n+'</span>';
+          h+='<span style="font-size:13px;font-weight:900;color:var(--g)">'+s.g+'</span>';
+          h+=(s.pen?'<span style="font-size:9px;color:var(--t2)">dont '+s.pen+' pén.</span>':'');
+          h+='</div>';
+        });
+        h+='</div>';
+      }
+      var _disc = (typeof tournamentCards==="function") ? tournamentCards() : {y:0,r:0};
+      if(_disc.y || _disc.r){
+        h+='<div style="text-align:center;font-size:11px;color:var(--t2);margin:8px 0">Discipline du tournoi : 🟨 '+_disc.y+' jaune(s) · 🟥 '+_disc.r+' rouge(s)</div>';
       }
 
       // Link to simulation at bottom
@@ -14262,6 +14334,20 @@
             +((liveAdj.r1||liveAdj.r2)?' · 🟥 '+liveAdj.r1+'-'+liveAdj.r2:'')
             +' · prono d’avant-match : '+pred.home+'-'+pred.away+'</div>';
           h += '<div style="margin-top:8px;font-size:10px;color:var(--t2)">🔒 Pronos verrouillés (match commencé)'+(existing&&(existing.a!==""||existing.b!=="")?' · 📝 Ton prono : <b style="color:var(--tx)">'+existing.a+'-'+existing.b+'</b>':'')+'</div>';
+        } else if(Date.now() > new Date(m.d).getTime()){
+          // v1.9.13 — match commencé ou terminé : prono d'avant-match affiché à titre
+          // de bilan, mais plus aucun bouton (sinon on pouvait « pronostiquer » après coup).
+          h += '<div class="mtd-pred-label">🤖 PRONOSTIC AUTO (avant-match)</div>';
+          h += '<div class="mtd-pred-score">'+pred.home+' - '+pred.away+'</div>';
+          var _verdict = '';
+          if(m.s1!==null && m.s2!==null && existing && existing.a!=="" && existing.b!==""){
+            var _ea = parseInt(existing.a,10), _eb = parseInt(existing.b,10);
+            if(_ea===m.s1 && _eb===m.s2) _verdict = ' · 🎯 score exact !';
+            else if(Math.sign(_ea-_eb)===Math.sign(m.s1-m.s2)) _verdict = ' · ✅ bon vainqueur';
+            else _verdict = ' · ❌ raté';
+          }
+          h += '<div style="margin-top:8px;font-size:10px;color:var(--t2)">🔒 Pronos verrouillés'
+            +(existing&&(existing.a!==""||existing.b!=="")?' · 📝 Ton prono : <b style="color:var(--tx)">'+existing.a+'-'+existing.b+'</b>'+_verdict:'')+'</div>';
         } else {
           h += '<div class="mtd-pred-label">🤖 PRONOSTIC AUTO</div>';
           h += '<div class="mtd-pred-score">'+pred.home+' - '+pred.away+'</div>';
