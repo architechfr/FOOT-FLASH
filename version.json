@@ -1,6 +1,6 @@
 {
-  "versionCode": 4,
-  "version": "v1.9.4",
+  "versionCode": 5,
+  "version": "v1.9.5",
   "apk": "https://github.com/architechfr/FOOT-FLASH/releases/latest/download/footflash.apk",
-  "notes": "Horaires corriges : heure locale du stade (New York, Toronto, Mexico...) ET heure en France, partout + compte a rebours juste"
+  "notes": "Infirmerie recentree sur les joueurs selectionnes au Mondial + horaires locaux/France corriges"
 }

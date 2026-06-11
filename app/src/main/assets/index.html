@@ -2470,6 +2470,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.9.5",d:"11/06/2026",changes:"Infirmerie recentrée sur le Mondial : les listes des 26 étant connues, l'infirmerie n'affiche plus que les joueurs SÉLECTIONNÉS. Les blessés non retenus (blessures longue durée : Ekitiké, Rodrygo, Xavi Simons, Militão, Foyth, Carboni, Panichelli, Grealish, L. Zidane) sont masqués automatiquement par croisement avec l'effectif officiel de chaque équipe (effectifs.json). Restent affichés les blessés bien sélectionnés : Koundé, Saliba, Manu Koné, Valverde, Yamal, Mbappé."},
       {v:"v1.9.4",d:"11/06/2026",changes:"Horaires des matchs ENFIN justes + double affichage. La source officielle (data/matches.json) stocke l'heure LOCALE du stade ; l'app la prenait pour l'heure de Paris, d'ou un decalage. Desormais chaque match est converti dans le bon fuseau du stade (Est, Centre, Pacifique, Mexique) puis affiche en double : heure locale du stade ET heure en France, ex. France-Senegal 15:00 (East Rutherford) - 21:00 en France. La conversion alimente aussi le compte a rebours, le statut en direct, le tri et l'export agenda. Stade en France ou meme fuseau : une seule heure affichee. Amicaux: bases sur leur instant UTC exact."},
       {v:"v1.9.2",d:"08/06/2026",changes:"Le VRAI tournoi s'intègre aux pronos. (1) Le tableau final se remplit tout seul : dès que les résultats réels tombent, les groupes terminés désignent leurs qualifiés, puis 16es, 8es, quarts, demis et finale s'ouvrent aux paris au fur et à mesure — exactement comme le vrai Mondial (les 3es qualifiés sont calculés quand les 12 groupes sont finis ; si les données serveur fournissent déjà les affiches, elles restent prioritaires). (2) Les pronos auto tiennent compte de la FORME DU MOMENT dans le tournoi : une équipe qui cartonne en poules part avec un bonus (jusqu'à +6), une équipe en difficulté avec un malus. (3) Le MODE EXPERT (doublon des pronos) est retiré de la Simulation — remplacé par un raccourci vers l'onglet Pronos. (4) MISES À JOUR INTÉGRÉES : l'app vérifie au démarrage si une nouvelle version existe et propose de la télécharger en 1 tap (Réglages > bannière dorée, ou bouton 🔄 Vérifier). L'installation se fait PAR-DESSUS l'ancienne version : pronos, crédits et réglages sont conservés, pas besoin de désinstaller."},
       {v:"v1.9.1",d:"07/06/2026",changes:"Fix affichage Pronos : le bandeau Récap/navigation de journée passait sous la barre d'onglets (2 rangées) et le bas de la liste était rogné — impossible de voir le bouton 'Retour au hub'. Le bandeau flotte désormais au-dessus de la nav et la page se termine avec une marge correcte. Et dans Matchs > filtre 'Mes équipes' : le classement de CHAQUE groupe de tes équipes favorites s'affiche désormais (avant, plus aucun groupe n'apparaissait dès que tu avais 2-3 équipes), avec tes équipes surlignées en doré."},
@@ -2508,7 +2509,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.4 � Heure locale du stade + heure France (fuseaux corriges) � 11 juin 2026";
+    var APP_VERSION="v1.9.5 — Infirmerie = joueurs sélectionnés au Mondial · 11 juin 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -4241,7 +4242,7 @@
       return h;
     }
     function getInjuriesByTeam(teamId){
-      return INJURIES.filter(function(x){return x.teamId===teamId});
+      return INJURIES.filter(function(x){return x.teamId===teamId && _injurySelected(x)});
     }
     // v1.088-fix — Normalisation tolérante aux accents pour matching noms
     function _normName(s){
@@ -4249,6 +4250,20 @@
       try{return s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim();}
       catch(e){return String(s).toLowerCase().trim();}
     }
+    // v1.9.5 — Les listes définitives (26) étant connues, l'infirmerie ne concerne QUE les joueurs
+    // réellement sélectionnés pour le Mondial. On masque les blessés absents de l'effectif de leur équipe.
+    function _injurySelected(x){
+      if(!x)return false;
+      try{
+        var t=(typeof getTeam==="function")?getTeam(x.teamId):null;
+        if(!t||!t.players||!t.players.length)return true; // effectif inconnu -> on n'exclut pas (prudence)
+        var target=_normName(x.playerName),i,ln=target.split(" ").pop();
+        for(i=0;i<t.players.length;i++){ if(_normName(t.players[i].n)===target)return true; }
+        for(i=0;i<t.players.length;i++){ var pn=_normName(t.players[i].n); if(pn.split(" ").pop()===ln && pn.indexOf(ln)>=0)return true; }
+        return false; // joueur non retenu dans les 26 -> masqué
+      }catch(e){return true;}
+    }
+    function wcInjuries(){ try{return INJURIES.filter(_injurySelected);}catch(e){return INJURIES;} }
     function findInjury(teamId,playerName){
       if(typeof INJURIES==="undefined"||!playerName)return null;
       var target=_normName(playerName);
@@ -4263,7 +4278,7 @@
       return []; // short-list retirée (listes définitives disponibles)
     }
     function getSortedInjuries(filter){
-      var list=INJURIES.slice();
+      var list=wcInjuries();
       if(filter&&filter!=="all")list=list.filter(function(x){return x.status===filter});
       var rank={out:0,doubt:1,return:2};
       list.sort(function(a,b){
@@ -4390,8 +4405,9 @@
       h+=rDeadlineBanner();
 
       // Compteurs
-      var counts={all:INJURIES.length,out:0,doubt:0,return:0};
-      INJURIES.forEach(function(x){if(counts[x.status]!==undefined)counts[x.status]++});
+      var _inj=wcInjuries();
+      var counts={all:_inj.length,out:0,doubt:0,return:0};
+      _inj.forEach(function(x){if(counts[x.status]!==undefined)counts[x.status]++});
 
       var tabs=[
         {k:"all",l:"Tous ("+counts.all+")"},
