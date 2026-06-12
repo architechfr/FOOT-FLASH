@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-12T21:29:36.465Z",
+  "lastUpdated": "2026-06-12T21:53:11.764Z",
   "data": {
     "1": {
       "s1": 2,
@@ -71,7 +71,23 @@
         0,
         1
       ],
-      "ref": "Facundo Tello"
+      "ref": "Facundo Tello",
+      "goals": [
+        {
+          "m": "21",
+          "t": 2,
+          "n": "Jovo Lukić",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "78",
+          "t": 1,
+          "n": "Cyle Larin",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
