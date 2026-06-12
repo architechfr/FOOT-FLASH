@@ -1,0 +1,22 @@
+name: Reset pronos PRONO POTO
+
+# Supprime tous les pronos de la phase de groupes (matchs 1-72) dans Supabase.
+# À utiliser après une correction du calendrier (ALL_MATCHES était erroné).
+# Déclencher via "Run workflow" dans GitHub Actions.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  reset:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Suppression des pronos invalides
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: node scripts/reset-pronos.mjs
