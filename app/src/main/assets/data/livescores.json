@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-12T01:22:22.999Z",
+  "lastUpdated": "2026-06-12T02:06:27.839Z",
   "data": {
     "1": {
       "s1": 2,
@@ -11,6 +11,13 @@
         0
       ],
       "ref": "Wilton Sampaio"
+    },
+    "2": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Amin Omar"
     }
   },
   "meta": {
@@ -18,7 +25,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 1,
-      "TIMED": 103
+      "IN_PLAY": 1,
+      "TIMED": 102
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
