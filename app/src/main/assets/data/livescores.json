@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-12T20:28:16.884Z",
+  "lastUpdated": "2026-06-12T20:48:56.579Z",
   "data": {
     "1": {
       "s1": 2,
@@ -63,7 +63,7 @@
       "ref": "Amin Omar"
     },
     "3": {
-      "s1": 0,
+      "s1": 1,
       "s2": 1,
       "status": "IN_PLAY",
       "minute": null,
