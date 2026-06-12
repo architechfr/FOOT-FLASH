@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-12T07:55:56.280Z",
+  "lastUpdated": "2026-06-12T07:58:54.470Z",
   "data": {
     "1": {
       "s1": 2,
@@ -10,7 +10,23 @@
         1,
         0
       ],
-      "ref": "Wilton Sampaio"
+      "ref": "Wilton Sampaio",
+      "goals": [
+        {
+          "m": "9",
+          "t": 1,
+          "n": "Julián Quiñones",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "67",
+          "t": 1,
+          "n": "Raúl Jiménez",
+          "type": null,
+          "a": null
+        }
+      ]
     },
     "2": {
       "s1": 2,
@@ -21,7 +37,30 @@
         0,
         0
       ],
-      "ref": "Amin Omar"
+      "ref": "Amin Omar",
+      "goals": [
+        {
+          "m": "59",
+          "t": 2,
+          "n": "Ladislav Krejcí",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "67",
+          "t": 1,
+          "n": "Hwang In-Beom",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "80",
+          "t": 1,
+          "n": "Oh Hyeon-Gyu",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
@@ -29,8 +68,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 2,
-      "TIMED": 101,
-      "SCHEDULED": 1
+      "TIMED": 102
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
