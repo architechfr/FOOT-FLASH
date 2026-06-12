@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-12T22:46:20.152Z",
+  "lastUpdated": "2026-06-12T23:00:00.636Z",
   "data": {
     "1": {
       "s1": 2,
@@ -71,7 +71,6 @@
         0,
         1
       ],
-      "ref": "Facundo Tello",
       "goals": [
         {
           "m": "21",
@@ -87,7 +86,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Facundo Tello"
     }
   },
   "meta": {
