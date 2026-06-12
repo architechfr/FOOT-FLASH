@@ -4124,7 +4124,7 @@
               if(slist && slist.payload && slist.payload.data) { SHORTLIST        = slist.payload.data; track(slist); }
               if(deadl && deadl.payload && deadl.payload.data) { WC2026_DEADLINES = deadl.payload.data; track(deadl); }
               if(effe  && effe.payload  && effe.payload.data && Array.isArray(effe.payload.data) && effe.payload.data.length >= 32){ TEAMS = effe.payload.data; track(effe); }
-              if(mtch  && mtch.payload  && mtch.payload.data && Array.isArray(mtch.payload.data) && mtch.payload.data.length >= 64){ MATCHES = mtch.payload.data; normalizeMatches(); track(mtch); }
+              if(mtch  && mtch.payload  && mtch.payload.data && Array.isArray(mtch.payload.data) && mtch.payload.data.length >= 64){ MATCHES = mtch.payload.data; normalizeMatches(); if(typeof applyLiveScores==="function") applyLiveScores(); track(mtch); }
               if(frnd  && frnd.payload  && frnd.payload.data && Array.isArray(frnd.payload.data) && frnd.payload.data.length >= 1){
                 // on garde l'overlay live (scores déjà récupérés) au-dessus des fixtures fraîches
                 var liveBefore = {}; FRIENDLIES.forEach(function(f){ if(f.s1!==null&&f.s1!==undefined) liveBefore[f.id]={s1:f.s1,s2:f.s2,status:f.status,minute:f.minute}; });
@@ -4251,7 +4251,7 @@
           if(r[1]&&r[1].payload&&r[1].payload.data){ SHORTLIST = r[1].payload.data; }
           if(r[2]&&r[2].payload&&r[2].payload.data){ WC2026_DEADLINES = r[2].payload.data; }
           if(r[3]&&r[3].payload&&r[3].payload.data&&Array.isArray(r[3].payload.data)&&r[3].payload.data.length>=32){ TEAMS = r[3].payload.data; }
-          if(r[4]&&r[4].payload&&r[4].payload.data&&Array.isArray(r[4].payload.data)&&r[4].payload.data.length>=64){ MATCHES = r[4].payload.data; normalizeMatches(); }
+          if(r[4]&&r[4].payload&&r[4].payload.data&&Array.isArray(r[4].payload.data)&&r[4].payload.data.length>=64){ MATCHES = r[4].payload.data; normalizeMatches(); if(typeof applyLiveScores==="function") applyLiveScores(); }
           if(r[5]&&r[5].payload&&r[5].payload.data&&Array.isArray(r[5].payload.data)&&r[5].payload.data.length>=1){
             var lb={}; FRIENDLIES.forEach(function(f){ if(f.s1!==null&&f.s1!==undefined) lb[f.id]={s1:f.s1,s2:f.s2,status:f.status,minute:f.minute}; });
             FRIENDLIES = r[5].payload.data; ffApplyLiveOverlay(lb);

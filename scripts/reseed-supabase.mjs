@@ -55,14 +55,15 @@ const rows = matches.map(m => {
     kickoff = m.d.includes("T") ? m.d + ":00Z" : m.d + "T00:00:00Z";
   }
 
+  // NE PAS inclure score1/score2 : un upsert merge-duplicates les écraserait à null
+  // alors que les vrais scores sont déjà poussés (corrects par ID). On ne corrige
+  // QUE le calendrier (équipes/horaire/stage) ; les scores restent intacts.
   return {
     id:      m.id,
     kickoff,
     stage:   mapStage(m.st),
     team1:   m.t1 !== "TBD" ? m.t1 : null,
     team2:   m.t2 !== "TBD" ? m.t2 : null,
-    score1:  null,
-    score2:  null,
   };
 });
 

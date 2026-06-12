@@ -1,5 +1,5 @@
 {
-  "versionCode": 10,
-  "version": "v1.9.10",
-  "notes": "Fiche match opaque et nette (fini la transparence qui laissait voir la page derriere)"
+  "versionCode": 11,
+  "version": "v1.9.13",
+  "notes": "Scores des matchs termines ne clignotent plus (reapplique l'overlay live apres rechargement du calendrier)"
 }
