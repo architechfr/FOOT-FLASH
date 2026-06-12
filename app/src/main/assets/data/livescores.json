@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-12T02:35:52.565Z",
+  "lastUpdated": "2026-06-12T02:56:26.816Z",
   "data": {
     "1": {
       "s1": 2,
@@ -15,8 +15,12 @@
     "2": {
       "s1": 0,
       "s2": 0,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
+      "ht": [
+        0,
+        0
+      ],
       "ref": "Amin Omar"
     }
   },
@@ -25,7 +29,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 1,
-      "IN_PLAY": 1,
+      "PAUSED": 1,
       "TIMED": 102
     },
     "firstUtc": "2026-06-11T19:00:00Z",
