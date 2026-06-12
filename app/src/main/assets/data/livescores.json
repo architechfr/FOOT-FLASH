@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-12T03:25:50.670Z",
+  "lastUpdated": "2026-06-12T03:34:40.093Z",
   "data": {
     "1": {
       "s1": 2,
@@ -13,7 +13,7 @@
       "ref": "Wilton Sampaio"
     },
     "2": {
-      "s1": 0,
+      "s1": 1,
       "s2": 1,
       "status": "IN_PLAY",
       "minute": null,
