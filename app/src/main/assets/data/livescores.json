@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-12T07:58:54.470Z",
+  "lastUpdated": "2026-06-12T08:01:52.072Z",
   "data": {
     "1": {
       "s1": 2,
@@ -10,7 +10,6 @@
         1,
         0
       ],
-      "ref": "Wilton Sampaio",
       "goals": [
         {
           "m": "9",
@@ -26,7 +25,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Wilton Sampaio"
     },
     "2": {
       "s1": 2,
@@ -37,7 +37,6 @@
         0,
         0
       ],
-      "ref": "Amin Omar",
       "goals": [
         {
           "m": "59",
@@ -60,7 +59,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Amin Omar"
     }
   },
   "meta": {
