@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-12T19:16:52.961Z",
+  "lastUpdated": "2026-06-12T19:31:36.200Z",
   "data": {
     "1": {
       "s1": 2,
@@ -64,7 +64,7 @@
     },
     "3": {
       "s1": 0,
-      "s2": 0,
+      "s2": 1,
       "status": "IN_PLAY",
       "minute": null,
       "ref": "Facundo Tello"
@@ -76,7 +76,8 @@
     "statuses": {
       "FINISHED": 2,
       "IN_PLAY": 1,
-      "TIMED": 101
+      "TIMED": 100,
+      "SCHEDULED": 1
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
