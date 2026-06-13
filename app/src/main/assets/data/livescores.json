@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-13T01:52:05.530Z",
+  "lastUpdated": "2026-06-13T01:58:00.072Z",
   "data": {
     "1": {
       "s1": 2,
@@ -90,10 +90,14 @@
       "ref": "Facundo Tello"
     },
     "4": {
-      "s1": 2,
+      "s1": 3,
       "s2": 0,
       "status": "IN_PLAY",
       "minute": null,
+      "ht": [
+        0,
+        0
+      ],
       "ref": "Danny Makkelie"
     }
   },
