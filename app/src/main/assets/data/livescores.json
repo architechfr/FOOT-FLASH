@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-13T21:59:59.360Z",
+  "lastUpdated": "2026-06-13T22:08:54.208Z",
   "data": {
     "1": {
       "s1": 2,
@@ -163,6 +163,13 @@
           "a": null
         }
       ]
+    },
+    "6": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Slavko Vinčič"
     }
   },
   "meta": {
@@ -170,7 +177,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 5,
-      "TIMED": 99
+      "IN_PLAY": 1,
+      "TIMED": 98
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
