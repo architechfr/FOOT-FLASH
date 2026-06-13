@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-13T00:35:23.227Z",
+  "lastUpdated": "2026-06-13T01:07:47.554Z",
   "data": {
     "1": {
       "s1": 2,
@@ -88,6 +88,13 @@
         }
       ],
       "ref": "Facundo Tello"
+    },
+    "4": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Danny Makkelie"
     }
   },
   "meta": {
@@ -95,7 +102,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 3,
-      "TIMED": 101
+      "IN_PLAY": 1,
+      "TIMED": 100
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
