@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-13T02:59:53.023Z",
+  "lastUpdated": "2026-06-13T03:05:46.866Z",
   "data": {
     "1": {
       "s1": 2,
@@ -98,7 +98,44 @@
         3,
         0
       ],
-      "ref": "Danny Makkelie"
+      "ref": "Danny Makkelie",
+      "goals": [
+        {
+          "m": "7",
+          "t": 1,
+          "n": "Damian Bobadilla",
+          "type": "CSC",
+          "a": null
+        },
+        {
+          "m": "31",
+          "t": 1,
+          "n": "Folarin Balogun",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "45+5",
+          "t": 1,
+          "n": "Folarin Balogun",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "90+7",
+          "t": 1,
+          "n": "Giovanni Reyna",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "73",
+          "t": 2,
+          "n": "Mauricio",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
