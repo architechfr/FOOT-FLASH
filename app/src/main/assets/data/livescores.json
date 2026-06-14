@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-14T17:13:29.796Z",
+  "lastUpdated": "2026-06-14T17:28:13.871Z",
   "data": {
     "1": {
       "s1": 2,
@@ -67,10 +67,6 @@
       "s2": 1,
       "status": "FINISHED",
       "minute": null,
-      "ht": [
-        0,
-        1
-      ],
       "goals": [
         {
           "m": "21",
@@ -86,6 +82,10 @@
           "type": null,
           "a": null
         }
+      ],
+      "ht": [
+        0,
+        1
       ],
       "ref": "Facundo Tello"
     },
@@ -240,7 +240,7 @@
     },
     "9": {
       "s1": 1,
-      "s2": 0,
+      "s2": 1,
       "status": "IN_PLAY",
       "minute": null,
       "ref": "Jalal Jayed"
