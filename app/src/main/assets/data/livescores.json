@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-14T21:54:53.422Z",
+  "lastUpdated": "2026-06-14T22:03:46.162Z",
   "data": {
     "1": {
       "s1": 2,
@@ -310,21 +310,50 @@
     "10": {
       "s1": 2,
       "s2": 2,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         0,
         0
       ],
-      "ref": "Ismail Elfath"
+      "ref": "Ismail Elfath",
+      "goals": [
+        {
+          "m": "51",
+          "t": 1,
+          "n": "Virgil van Dijk",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "57",
+          "t": 2,
+          "n": "Keito Nakamura",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "64",
+          "t": 1,
+          "n": "Crysencio Summerville",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "88",
+          "t": 2,
+          "n": "Daichi Kamada",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 9,
-      "IN_PLAY": 1,
+      "FINISHED": 10,
       "TIMED": 94
     },
     "firstUtc": "2026-06-11T19:00:00Z",
