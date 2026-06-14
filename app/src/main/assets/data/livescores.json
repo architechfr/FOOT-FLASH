@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-14T19:30:48.274Z",
+  "lastUpdated": "2026-06-14T20:06:13.150Z",
   "data": {
     "1": {
       "s1": 2,
@@ -306,6 +306,13 @@
           "a": null
         }
       ]
+    },
+    "10": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Ismail Elfath"
     }
   },
   "meta": {
@@ -313,7 +320,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 9,
-      "TIMED": 95
+      "IN_PLAY": 1,
+      "TIMED": 94
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
