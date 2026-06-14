@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-14T01:36:33.593Z",
+  "lastUpdated": "2026-06-14T01:39:31.407Z",
   "data": {
     "1": {
       "s1": 2,
@@ -193,7 +193,7 @@
     },
     "7": {
       "s1": 0,
-      "s2": 0,
+      "s2": 1,
       "status": "IN_PLAY",
       "minute": null,
       "ref": "Mustapha Ghorbal"
@@ -204,7 +204,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 6,
-      "TIMED": 98
+      "IN_PLAY": 1,
+      "TIMED": 97
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
