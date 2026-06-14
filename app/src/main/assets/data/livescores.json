@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-14T03:58:46.397Z",
+  "lastUpdated": "2026-06-14T04:01:44.756Z",
   "data": {
     "1": {
       "s1": 2,
@@ -67,10 +67,6 @@
       "s2": 1,
       "status": "FINISHED",
       "minute": null,
-      "ht": [
-        0,
-        1
-      ],
       "goals": [
         {
           "m": "21",
@@ -86,6 +82,10 @@
           "type": null,
           "a": null
         }
+      ],
+      "ht": [
+        0,
+        1
       ],
       "ref": "Facundo Tello"
     },
@@ -200,7 +200,16 @@
         0,
         1
       ],
-      "ref": "Mustapha Ghorbal"
+      "ref": "Mustapha Ghorbal",
+      "goals": [
+        {
+          "m": "28",
+          "t": 2,
+          "n": "John McGinn",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
