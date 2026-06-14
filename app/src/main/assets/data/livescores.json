@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-14T17:46:08.368Z",
+  "lastUpdated": "2026-06-14T17:57:56.093Z",
   "data": {
     "1": {
       "s1": 2,
@@ -239,10 +239,14 @@
       "ref": "Jesús Valenzuela"
     },
     "9": {
-      "s1": 2,
+      "s1": 3,
       "s2": 1,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
+      "ht": [
+        0,
+        0
+      ],
       "ref": "Jalal Jayed"
     }
   },
@@ -251,7 +255,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 8,
-      "IN_PLAY": 1,
+      "PAUSED": 1,
       "TIMED": 95
     },
     "firstUtc": "2026-06-11T19:00:00Z",
