@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-14T18:21:35.384Z",
+  "lastUpdated": "2026-06-14T18:36:20.258Z",
   "data": {
     "1": {
       "s1": 2,
@@ -256,7 +256,8 @@
     "statuses": {
       "FINISHED": 8,
       "IN_PLAY": 1,
-      "TIMED": 95
+      "TIMED": 94,
+      "SCHEDULED": 1
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
