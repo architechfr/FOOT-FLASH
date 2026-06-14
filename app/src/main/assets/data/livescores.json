@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-14T01:30:38.972Z",
+  "lastUpdated": "2026-06-14T01:36:33.593Z",
   "data": {
     "1": {
       "s1": 2,
@@ -67,6 +67,10 @@
       "s2": 1,
       "status": "FINISHED",
       "minute": null,
+      "ht": [
+        0,
+        1
+      ],
       "goals": [
         {
           "m": "21",
@@ -82,10 +86,6 @@
           "type": null,
           "a": null
         }
-      ],
-      "ht": [
-        0,
-        1
       ],
       "ref": "Facundo Tello"
     },
@@ -204,8 +204,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 6,
-      "IN_PLAY": 1,
-      "TIMED": 97
+      "TIMED": 98
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
