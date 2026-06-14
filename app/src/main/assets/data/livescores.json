@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-14T17:10:31.799Z",
+  "lastUpdated": "2026-06-14T17:13:29.796Z",
   "data": {
     "1": {
       "s1": 2,
@@ -239,7 +239,7 @@
       "ref": "Jesús Valenzuela"
     },
     "9": {
-      "s1": 0,
+      "s1": 1,
       "s2": 0,
       "status": "IN_PLAY",
       "minute": null,
@@ -252,8 +252,7 @@
     "statuses": {
       "FINISHED": 8,
       "IN_PLAY": 1,
-      "TIMED": 94,
-      "SCHEDULED": 1
+      "TIMED": 95
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
