@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-14T19:04:08.495Z",
+  "lastUpdated": "2026-06-14T19:13:01.965Z",
   "data": {
     "1": {
       "s1": 2,
@@ -247,7 +247,65 @@
         3,
         1
       ],
-      "ref": "Jalal Jayed"
+      "ref": "Jalal Jayed",
+      "goals": [
+        {
+          "m": "6",
+          "t": 1,
+          "n": "Felix Nmecha",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "21",
+          "t": 2,
+          "n": "Livano Comenencia",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "38",
+          "t": 1,
+          "n": "Nico Schlotterbeck",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "45+5",
+          "t": 1,
+          "n": "Kai Havertz",
+          "type": "P",
+          "a": null
+        },
+        {
+          "m": "47",
+          "t": 1,
+          "n": "Jamal Musiala",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "68",
+          "t": 1,
+          "n": "Nathaniel Brown",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "78",
+          "t": 1,
+          "n": "Deniz Undav",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "88",
+          "t": 1,
+          "n": "Kai Havertz",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
@@ -255,7 +313,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 9,
-      "TIMED": 95
+      "TIMED": 94,
+      "SCHEDULED": 1
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
