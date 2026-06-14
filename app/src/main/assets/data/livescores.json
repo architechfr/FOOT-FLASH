@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-14T04:04:42.985Z",
+  "lastUpdated": "2026-06-14T04:07:41.552Z",
   "data": {
     "1": {
       "s1": 2,
@@ -210,6 +210,13 @@
           "a": null
         }
       ]
+    },
+    "8": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Jesús Valenzuela"
     }
   },
   "meta": {
@@ -217,7 +224,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 7,
-      "TIMED": 97
+      "IN_PLAY": 1,
+      "TIMED": 96
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
