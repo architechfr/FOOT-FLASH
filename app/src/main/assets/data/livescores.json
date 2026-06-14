@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-14T01:57:16.764Z",
+  "lastUpdated": "2026-06-14T02:00:16.441Z",
   "data": {
     "1": {
       "s1": 2,
@@ -173,7 +173,6 @@
         1,
         1
       ],
-      "ref": "Slavko Vinčič",
       "goals": [
         {
           "m": "21",
@@ -189,13 +188,18 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Slavko Vinčič"
     },
     "7": {
       "s1": 0,
       "s2": 1,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
+      "ht": [
+        0,
+        1
+      ],
       "ref": "Mustapha Ghorbal"
     }
   },
@@ -204,7 +208,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 6,
-      "IN_PLAY": 1,
+      "PAUSED": 1,
       "TIMED": 97
     },
     "firstUtc": "2026-06-11T19:00:00Z",
