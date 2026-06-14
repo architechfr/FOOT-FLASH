@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-14T17:57:56.093Z",
+  "lastUpdated": "2026-06-14T18:03:53.510Z",
   "data": {
     "1": {
       "s1": 2,
@@ -244,8 +244,8 @@
       "status": "HT",
       "minute": null,
       "ht": [
-        0,
-        0
+        3,
+        1
       ],
       "ref": "Jalal Jayed"
     }
