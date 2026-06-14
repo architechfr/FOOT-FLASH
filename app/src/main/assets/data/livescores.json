@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-14T00:16:05.529Z",
+  "lastUpdated": "2026-06-14T00:48:32.105Z",
   "data": {
     "1": {
       "s1": 2,
@@ -173,7 +173,23 @@
         1,
         1
       ],
-      "ref": "Slavko Vinčič"
+      "ref": "Slavko Vinčič",
+      "goals": [
+        {
+          "m": "21",
+          "t": 2,
+          "n": "Ismael Saibari",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "32",
+          "t": 1,
+          "n": "Vinícius Júnior",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
