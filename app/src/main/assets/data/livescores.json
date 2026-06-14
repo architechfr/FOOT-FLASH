@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-14T12:53:21.571Z",
+  "lastUpdated": "2026-06-14T12:56:19.264Z",
   "data": {
     "1": {
       "s1": 2,
@@ -220,7 +220,23 @@
         1,
         0
       ],
-      "ref": "Jesús Valenzuela"
+      "ref": "Jesús Valenzuela",
+      "goals": [
+        {
+          "m": "27",
+          "t": 1,
+          "n": "Nestory Irankunda",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "75",
+          "t": 1,
+          "n": "Connor Metcalfe",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
