@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-15T00:55:37.374Z",
+  "lastUpdated": "2026-06-15T01:07:25.169Z",
   "data": {
     "1": {
       "s1": 2,
@@ -349,10 +349,15 @@
       "ref": "Ismail Elfath"
     },
     "11": {
-      "s1": null,
-      "s2": null,
+      "s1": 1,
+      "s2": 0,
       "status": "IN_PLAY",
-      "minute": null
+      "minute": null,
+      "ht": [
+        0,
+        0
+      ],
+      "ref": "François Letexier"
     }
   },
   "meta": {
