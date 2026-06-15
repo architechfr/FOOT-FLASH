@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-15T20:36:07.269Z",
+  "lastUpdated": "2026-06-15T21:05:35.768Z",
   "data": {
     "1": {
       "s1": 2,
@@ -437,21 +437,36 @@
     "14": {
       "s1": 1,
       "s2": 1,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         0,
         1
       ],
-      "ref": "Ramon Abatti Abel"
+      "ref": "Ramon Abatti Abel",
+      "goals": [
+        {
+          "m": "19",
+          "t": 2,
+          "n": "Emam Ashour",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "66",
+          "t": 1,
+          "n": "Mohamed Hany",
+          "type": "CSC",
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 13,
-      "IN_PLAY": 1,
+      "FINISHED": 14,
       "TIMED": 90
     },
     "firstUtc": "2026-06-11T19:00:00Z",
