@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-15T18:04:04.966Z",
+  "lastUpdated": "2026-06-15T19:06:06.475Z",
   "data": {
     "1": {
       "s1": 2,
@@ -433,6 +433,13 @@
         0
       ],
       "ref": "Adham Makhadmeh"
+    },
+    "14": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Ramon Abatti Abel"
     }
   },
   "meta": {
@@ -440,7 +447,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 13,
-      "TIMED": 91
+      "IN_PLAY": 1,
+      "TIMED": 90
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
