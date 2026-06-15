@@ -44,10 +44,14 @@
           padding-top:0}
         .ticker {margin-top:0}
         .app {
-          max-width:480px;
+          /* v1.9.16 — remplit toute la largeur sur téléphone/tablette (plus de
+             bandes blanches sur les côtés) ; colonne centrée seulement sur grand
+             écran PC (≥ 900px). */
+          width:100%;
           margin:0 auto;
           padding:0 12px 180px;
           animation:fadeIn .2s ease}
+        @media (min-width:900px){ .app{max-width:480px} }
         @keyframes fadeIn {
           from {
           opacity:.3}
@@ -97,8 +101,8 @@
           display:grid;
           grid-template-columns:repeat(5,1fr);
           gap:2px 0;
-          max-width:480px;
           width:100%}
+        @media (min-width:900px){ .nav-i{max-width:480px} }
         .nav button {
           display:flex;
           flex-direction:column;
@@ -2574,7 +2578,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.15 — Bracket KO FIFA 2026 + scroll prochain match + fix faux 'EN DIRECT' (matchs à venir) · 15 juin 2026";
+    var APP_VERSION="v1.9.16 — App pleine largeur sur téléphone (fini les bandes blanches) · 16 juin 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant

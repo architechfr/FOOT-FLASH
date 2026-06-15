@@ -1,5 +1,5 @@
 {
-  "versionCode": 11,
-  "version": "v1.9.13",
-  "notes": "Scores des matchs termines ne clignotent plus (reapplique l'overlay live apres rechargement du calendrier)"
+  "versionCode": 13,
+  "version": "v1.9.16",
+  "notes": "App pleine largeur sur telephone (fini les bandes blanches sur les cotes) + bracket KO FIFA 2026 + ouverture sur le prochain match + fix faux 'EN DIRECT'"
 }
