@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-15T03:56:33.195Z",
+  "lastUpdated": "2026-06-15T04:05:24.597Z",
   "data": {
     "1": {
       "s1": 2,
@@ -369,23 +369,66 @@
       "ref": "François Letexier"
     },
     "12": {
-      "s1": 4,
+      "s1": 5,
       "s2": 1,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         2,
         1
       ],
-      "ref": "Yael Falcón"
+      "ref": "Yael Falcón",
+      "goals": [
+        {
+          "m": "7",
+          "t": 1,
+          "n": "Yasin Ayari",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "30",
+          "t": 1,
+          "n": "Alexander Isak",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "59",
+          "t": 1,
+          "n": "Viktor Gyökeres",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "84",
+          "t": 1,
+          "n": "Mattias Svanberg",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "90+6",
+          "t": 1,
+          "n": "Yasin Ayari",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "43",
+          "t": 2,
+          "n": "Omar Rekik",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 11,
-      "IN_PLAY": 1,
+      "FINISHED": 12,
       "TIMED": 92
     },
     "firstUtc": "2026-06-11T19:00:00Z",
