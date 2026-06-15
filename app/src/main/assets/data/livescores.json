@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-15T22:59:23.859Z",
+  "lastUpdated": "2026-06-15T23:01:44.814Z",
   "data": {
     "1": {
       "s1": 2,
@@ -443,7 +443,6 @@
         0,
         1
       ],
-      "ref": "Ramon Abatti Abel",
       "goals": [
         {
           "m": "19",
@@ -459,7 +458,8 @@
           "type": "CSC",
           "a": null
         }
-      ]
+      ],
+      "ref": "Ramon Abatti Abel"
     },
     "15": {
       "s1": 1,
