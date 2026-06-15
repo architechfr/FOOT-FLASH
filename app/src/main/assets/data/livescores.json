@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-15T02:50:51.190Z",
+  "lastUpdated": "2026-06-15T02:59:42.246Z",
   "data": {
     "1": {
       "s1": 2,
@@ -67,10 +67,6 @@
       "s2": 1,
       "status": "FINISHED",
       "minute": null,
-      "ht": [
-        0,
-        1
-      ],
       "goals": [
         {
           "m": "21",
@@ -86,6 +82,10 @@
           "type": null,
           "a": null
         }
+      ],
+      "ht": [
+        0,
+        1
       ],
       "ref": "Facundo Tello"
     },
@@ -371,8 +371,12 @@
     "12": {
       "s1": 2,
       "s2": 1,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
+      "ht": [
+        2,
+        1
+      ],
       "ref": "Yael Falcón"
     }
   },
@@ -381,7 +385,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 11,
-      "IN_PLAY": 1,
+      "PAUSED": 1,
       "TIMED": 92
     },
     "firstUtc": "2026-06-11T19:00:00Z",
