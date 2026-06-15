@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-15T05:01:37.348Z",
+  "lastUpdated": "2026-06-15T05:07:32.745Z",
   "data": {
     "1": {
       "s1": 2,
@@ -351,12 +351,13 @@
     "11": {
       "s1": 1,
       "s2": 0,
-      "status": "FINISHED",
+      "status": "IN_PLAY",
       "minute": null,
       "ht": [
         0,
         0
       ],
+      "ref": "François Letexier",
       "goals": [
         {
           "m": "90",
@@ -365,8 +366,7 @@
           "type": null,
           "a": null
         }
-      ],
-      "ref": "François Letexier"
+      ]
     },
     "12": {
       "s1": 5,
@@ -428,7 +428,8 @@
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 12,
+      "FINISHED": 11,
+      "IN_PLAY": 1,
       "TIMED": 92
     },
     "firstUtc": "2026-06-11T19:00:00Z",
