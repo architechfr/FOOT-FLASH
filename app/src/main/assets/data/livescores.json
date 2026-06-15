@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-15T19:12:04.917Z",
+  "lastUpdated": "2026-06-15T19:26:52.452Z",
   "data": {
     "1": {
       "s1": 2,
@@ -436,7 +436,7 @@
     },
     "14": {
       "s1": 0,
-      "s2": 0,
+      "s2": 1,
       "status": "IN_PLAY",
       "minute": null,
       "ref": "Ramon Abatti Abel"
