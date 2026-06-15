@@ -1,5 +1,5 @@
 {
-  "versionCode": 13,
-  "version": "v1.9.16",
-  "notes": "App pleine largeur sur telephone (fini les bandes blanches sur les cotes) + bracket KO FIFA 2026 + ouverture sur le prochain match + fix faux 'EN DIRECT'"
+  "versionCode": 14,
+  "version": "v1.9.17",
+  "notes": "Favoris : indice qui integre la forme EN COMPETITION ponderee par le niveau des adversaires (Argentine de retour dans le top 5, France remonte pres du Portugal/Espagne)"
 }

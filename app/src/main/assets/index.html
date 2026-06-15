@@ -2578,7 +2578,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.16 — App pleine largeur sur téléphone (fini les bandes blanches) · 16 juin 2026";
+    var APP_VERSION="v1.9.17 — Favoris : forme en compétition pondérée par le niveau adverse (Argentine top 5, France remonte) · 16 juin 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -7026,10 +7026,41 @@
 
     // ═══ FAVORIS DU MONDIAL (v2.2) — vitrine des forces d'equipe ═══════════
     // Reutilise computeTeamSkills (indice 0-100). Proba de titre = softmax sur les indices.
+    // v1.9.17 — FORME EN COMPÉTITION : ajustement modéré de l'indice favori selon
+    // les résultats RÉELS du tournoi, pondéré par le NIVEAU des adversaires
+    // (toutes les équipes ne se valent pas). N'agit qu'au fil des matchs terminés,
+    // et reste borné pour donner "une idée" sans bouleverser le classement.
+    function compFormAdj(id){
+      if(typeof MATCHES==="undefined" || !MATCHES) return 0;
+      var played=0, score=0;
+      for(var i=0;i<MATCHES.length;i++){
+        var m=MATCHES[i];
+        if(m.s1==null || m.s2==null) continue;            // pas (encore) joué
+        if(m.t1!==id && m.t2!==id) continue;              // équipe non concernée
+        var stl=(m.st||"").toLowerCase();
+        if(stl.indexOf("groupe")<0 && stl.indexOf("finale")<0) continue; // tournoi uniquement (pas amicaux)
+        var me  = (m.t1===id)? m.s1 : m.s2;
+        var opp = (m.t1===id)? m.s2 : m.s1;
+        var oid = (m.t1===id)? m.t2 : m.t1;
+        var osk = computeTeamSkills(oid);
+        var oForce = (osk&&osk.valid)? osk.skills : 60;
+        var lvl = Math.max(-1, Math.min(1, (oForce-60)/30)); // niveau adversaire : -1 (faible) .. +1 (très fort)
+        var res;
+        if(me>opp)        res = 0.7 + 0.7*lvl;   // victoire : ~0 contre un petit (attendu), gros bonus contre un fort
+        else if(me===opp) res = 0.0 + 0.5*lvl;   // nul : malus contre un petit, bonus contre un gros
+        else              res = -1.0 + 0.5*lvl;  // défaite : lourde contre un petit, atténuée contre un fort
+        res += Math.max(-0.3, Math.min(0.3, (me-opp)*0.10)); // petit poids de l'écart de buts (borné)
+        score += res; played++;
+      }
+      if(!played) return 0;
+      var adj = (score/played) * 4.2;            // ~ ±5 pts sur l'échelle de force
+      return Math.max(-6, Math.min(8, adj));     // borné : reste "un peu", pas exagéré
+    }
     function computeFavoritesRanking(){
-      // Modele "force du moment" (v2.4) : critere Dynamique = forme + titres recents, ajuste par equipe.
+      // Modele "force du moment" (v1.9.17) : Dynamique (base avant-tournoi) + forme
+      // EN COMPÉTITION (compFormAdj) pondérée par le niveau des adversaires.
       var W={players:0.30,rank:0.20,dyn:0.40,titles:0.05,home:0.05};
-      var MOM={ESP:100,POR:99.8,FRA:88.6,ENG:85,GER:75,BRA:73,ARG:46,NED:78,MAR:80,URU:70,CRO:70,BEL:60};
+      var MOM={ESP:100,POR:99.8,FRA:91,ENG:85,GER:75,BRA:73,ARG:88,NED:78,MAR:80,URU:70,CRO:70,BEL:60};
       var arr=[];
       for(var i=0;i<TEAMS.length;i++){
         var t=TEAMS[i];
@@ -7038,6 +7069,7 @@
         var b=sk.breakdown;
         var dyn=(MOM[t.id]!=null)?MOM[t.id]:b.rank;
         var force=W.players*b.players+W.rank*b.rank+W.dyn*dyn+W.titles*b.titles+W.home*b.home;
+        force += compFormAdj(t.id);  // forme réelle en compétition (bornée)
         arr.push({id:t.id,name:t.name,flag:t.flag||"🏳️",skills:force,dyn:Math.round(dyn),bd:b});
       }
       arr.sort(function(a,b){return b.skills-a.skills});
