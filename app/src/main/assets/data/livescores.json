@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-14T23:35:17.350Z",
+  "lastUpdated": "2026-06-15T00:02:33.643Z",
   "data": {
     "1": {
       "s1": 2,
@@ -316,7 +316,6 @@
         0,
         0
       ],
-      "ref": "Ismail Elfath",
       "goals": [
         {
           "m": "51",
@@ -346,7 +345,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Ismail Elfath"
     }
   },
   "meta": {
