@@ -374,6 +374,15 @@
           text-transform:uppercase;
           letter-spacing:.8px;
           margin:16px 0 8px}
+        /* v1.9.18 — Barre de jours (sélecteur sticky en haut de la liste Matchs) */
+        .daybar{display:flex;gap:6px;overflow-x:auto;margin:0 -12px 6px;padding:8px 12px;position:sticky;top:0;z-index:50;background:var(--bg);-webkit-overflow-scrolling:touch}
+        .daybar::-webkit-scrollbar{display:none}
+        .daychip{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:1px;min-width:50px;padding:6px 9px;background:var(--s1);border:1px solid var(--s3);border-radius:10px;color:var(--t2);cursor:pointer;font-family:inherit;transition:transform .1s}
+        .daychip:active{transform:scale(.94)}
+        .daychip .dc-wd{font-size:10px;font-weight:800;letter-spacing:.5px}
+        .daychip .dc-dm{font-size:11px;font-weight:700;white-space:nowrap}
+        .daychip.on{background:var(--g);border-color:var(--g);color:#000}
+        .daychip.on .dc-wd{color:#000}
         /* Detail page */ .det-hero {
           text-align:center;
           padding:20px 0}
@@ -2578,7 +2587,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.17 — Favoris : forme en compétition pondérée par le niveau adverse (Argentine top 5, France remonte) · 16 juin 2026";
+    var APP_VERSION="v1.9.18 — Barre de jours en haut de la liste Matchs (saut direct au jour, ouverture sur aujourd'hui) · 16 juin 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -4879,9 +4888,21 @@
         var _jsig="cal/matchs/"+(V.filter||"all");
         if(_jsig!==V._matchsJumpSig){
           var _anc=document.getElementById("nextMatchAnchor");
-          if(_anc){V._matchsJumpSig=_jsig;setTimeout(function(){try{_anc.scrollIntoView({block:"start",behavior:"auto"})}catch(e){}},60)}
+          if(_anc){V._matchsJumpSig=_jsig;setTimeout(function(){
+            try{_anc.scrollIntoView({block:"start",behavior:"auto"})}catch(e){}
+            try{var _oc=document.querySelector("#ffDaybar .daychip.on"); if(_oc) _oc.scrollIntoView({inline:"center",block:"nearest"});}catch(e){}
+          },60)}
         }
       }else{V._matchsJumpSig=null}
+    }
+    // v1.9.18 — saut vers les matchs d'un jour depuis la barre de jours
+    function ffJumpDay(i){
+      var el=document.getElementById("day-"+i);
+      if(el){ try{el.scrollIntoView({block:"start",behavior:"smooth"})}catch(e){ try{scrollTo(0, Math.max(0, el.getBoundingClientRect().top+window.pageYOffset-60))}catch(_){} } }
+      var bar=document.getElementById("ffDaybar");
+      if(bar){ var b=bar.querySelectorAll(".daychip"); for(var k=0;k<b.length;k++) b[k].classList.remove("on"); }
+      var c=document.getElementById("daychip-"+i);
+      if(c){ c.classList.add("on"); try{c.scrollIntoView({inline:"center",block:"nearest"})}catch(e){} }
     }
     function nb(v,i,l){return'<button class="'+(V.view===v?"on":"")+'" onclick="go(\''+v+'\')"><span class="ic">'+i+"</span>"+l+"</button>"}
 
@@ -5893,14 +5914,36 @@
 
       if(!matches.length)return h+'<div class="empty"><div class="empty-i">📅</div>Aucun match</div>';
 
-      // v1.9.14 — repère le 1er match à venir / en cours pour s'y positionner
-      // automatiquement (sinon il faut scroller sous tous les matchs passés)
+      // v1.9.18 — Barre de jours (comme les apps de scores) : on arrive sur la
+      // liste et on saute direct au bon jour. AUJ (ou le 1er jour à venir) est
+      // surligné ; un tap sur un jour fait défiler jusqu'à ses matchs.
+      var todayKey=fmtDate(Date.now());
+      var dayList=[], daySeen={}, nextDayKey=null;
+      matches.forEach(function(m){
+        var dk=fmtDate(m.d);
+        if(daySeen[dk]==null){ daySeen[dk]=dayList.length; dayList.push({key:dk,d:m.d}); }
+        if(nextDayKey===null && matchStatus(m.d)!=="done") nextDayKey=dk;
+      });
+      var activeDayKey=(daySeen[todayKey]!=null)?todayKey:(nextDayKey||(dayList[0]&&dayList[0].key));
+      if(dayList.length>1){
+        h+='<div class="daybar" id="ffDaybar">';
+        dayList.forEach(function(o,i){
+          var dd=new Date(o.d);
+          var wd=dd.toLocaleDateString("fr-FR",{weekday:"short",timeZone:tz}).replace(".","").toUpperCase();
+          var dm=dd.toLocaleDateString("fr-FR",{day:"2-digit",month:"2-digit",timeZone:tz});
+          var isTod=(o.key===todayKey), isAct=(o.key===activeDayKey);
+          h+='<button id="daychip-'+i+'" onclick="ffJumpDay('+i+')" class="daychip'+(isAct?' on':'')+'">'
+            +'<span class="dc-wd">'+(isTod?'AUJ':wd)+'</span><span class="dc-dm">'+dm+'</span></button>';
+        });
+        h+='</div>';
+      }
+      // v1.9.14 — repère le 1er match à venir / en cours pour s'y positionner auto.
       var lastDate="",anchorPlaced=false;
       matches.forEach(function(m){
         var st=matchStatus(m.d);
-        if(!anchorPlaced&&st!=="done"){h+='<div id="nextMatchAnchor" style="scroll-margin-top:12px"></div>';anchorPlaced=true}
+        if(!anchorPlaced&&st!=="done"){h+='<div id="nextMatchAnchor" style="scroll-margin-top:64px"></div>';anchorPlaced=true}
         var dt=fmtDate(m.d);
-        if(dt!==lastDate){h+='<div class="sec">'+dt+"</div>";lastDate=dt}
+        if(dt!==lastDate){h+='<div class="sec" id="day-'+daySeen[dt]+'" style="scroll-margin-top:58px">'+dt+"</div>";lastDate=dt}
         var t1=getTeam(m.t1),t2=getTeam(m.t2);
         var lv=(typeof wcLiveState==="function")?wcLiveState(m):null; // live Mondial (champ _live)
         h+='<div class="mc'+(st==="live"?" live":"")+(st==="soon"?" soon":"")+'" style="cursor:pointer" onclick="showMatchDetail('+m.id+')">';

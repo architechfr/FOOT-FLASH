@@ -1,5 +1,5 @@
 {
-  "versionCode": 14,
-  "version": "v1.9.17",
-  "notes": "Favoris : indice qui integre la forme EN COMPETITION ponderee par le niveau des adversaires (Argentine de retour dans le top 5, France remonte pres du Portugal/Espagne)"
+  "versionCode": 15,
+  "version": "v1.9.18",
+  "notes": "Liste Matchs : barre de jours en haut (comme les apps de scores) qui s'ouvre sur aujourd'hui et permet de sauter direct au jour voulu, sans faire defiler tous les matchs"
 }
