@@ -2574,7 +2574,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.10 — Fiche match opaque (fini la transparence) · 11 juin 2026";
+    var APP_VERSION="v1.9.15 — Bracket KO FIFA 2026 + scroll prochain match + fix faux 'EN DIRECT' (matchs à venir) · 15 juin 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -3775,8 +3775,21 @@
     function wcLiveState(m){
       var L = m && m._live; if(!L) return null;
       var st = (L.status||"").toUpperCase();
+      // v1.9.15 — un match ne peut PAS être "EN DIRECT" avant son coup d'envoi.
+      // Le flux livescores peut contenir des matchs encore programmés (statut
+      // "TIMED"/"NS"…) ; sans ce garde, le statut inconnu retombait sur le
+      // fallback "EN DIRECT" plus bas et des matchs de demain s'affichaient en direct.
+      var _started=true;
+      try{ _started = Date.now() >= (new Date(m.d).getTime() - 60000); }catch(e){}
+      if(!_started){
+        // avant le coup d'envoi : rien en direct (sauf fin explicite = horaire décalé)
+        if(st==="FT"||st==="AET"||st==="PEN"||st==="MATCH FINISHED"||st==="FINISHED") return {fin:true, label:"Terminé", min:null, s1:L.s1, s2:L.s2};
+        return null;
+      }
       if(st==="FT"||st==="AET"||st==="PEN"||st==="MATCH FINISHED"||st==="FINISHED") return {fin:true, label:"Terminé", min:null, s1:L.s1, s2:L.s2};
       if(st==="HT"||st==="HALF TIME"||st==="BREAK"||st==="PAUSED") return {fin:false, label:"Mi-temps", min:null, s1:L.s1, s2:L.s2};
+      // Statuts "pas commencé / non joué" explicites → jamais EN DIRECT
+      if(["NS","SCHED","SCHEDULED","TIMED","NOT STARTED","NOT_STARTED","PST","POSTPONED","CANC","CANCELLED","TBD","SUSP","ABD","AWARDED"].indexOf(st)>=0) return (st==="AWARDED")?{fin:true,label:"Terminé",min:null,s1:L.s1,s2:L.s2}:null;
       // v1.9.12 — garde-fou chrono : si la source tarde à basculer FINISHED,
       // on cesse d'afficher EN DIRECT au-delà de la durée max plausible.
       // Groupes : 90' + ~15 de pause + arrêts de jeu (pauses fraîcheur = 3 min
@@ -4855,6 +4868,16 @@
       a.innerHTML=h;
       if(V.view==="quiz"&&!qDone)startQTimer();else stopQTimer();
       if(window._tickerItems)setTimeout(updateTicker,50);
+      // v1.9.14 — Onglet Matchs (Liste) : se positionner sur le prochain match.
+      // On ne saute qu'au changement de vue/onglet/filtre (signature), PAS à chaque
+      // auto-rafraîchissement live (sinon on combattrait le scroll de l'utilisateur).
+      if(V.view==="cal"&&V.calTab==="matchs"){
+        var _jsig="cal/matchs/"+(V.filter||"all");
+        if(_jsig!==V._matchsJumpSig){
+          var _anc=document.getElementById("nextMatchAnchor");
+          if(_anc){V._matchsJumpSig=_jsig;setTimeout(function(){try{_anc.scrollIntoView({block:"start",behavior:"auto"})}catch(e){}},60)}
+        }
+      }else{V._matchsJumpSig=null}
     }
     function nb(v,i,l){return'<button class="'+(V.view===v?"on":"")+'" onclick="go(\''+v+'\')"><span class="ic">'+i+"</span>"+l+"</button>"}
 
@@ -5866,12 +5889,15 @@
 
       if(!matches.length)return h+'<div class="empty"><div class="empty-i">📅</div>Aucun match</div>';
 
-      var lastDate="";
+      // v1.9.14 — repère le 1er match à venir / en cours pour s'y positionner
+      // automatiquement (sinon il faut scroller sous tous les matchs passés)
+      var lastDate="",anchorPlaced=false;
       matches.forEach(function(m){
+        var st=matchStatus(m.d);
+        if(!anchorPlaced&&st!=="done"){h+='<div id="nextMatchAnchor" style="scroll-margin-top:12px"></div>';anchorPlaced=true}
         var dt=fmtDate(m.d);
         if(dt!==lastDate){h+='<div class="sec">'+dt+"</div>";lastDate=dt}
         var t1=getTeam(m.t1),t2=getTeam(m.t2);
-        var st=matchStatus(m.d);
         var lv=(typeof wcLiveState==="function")?wcLiveState(m):null; // live Mondial (champ _live)
         h+='<div class="mc'+(st==="live"?" live":"")+(st==="soon"?" soon":"")+'" style="cursor:pointer" onclick="showMatchDetail('+m.id+')">';
             if(lv&&!lv.fin)h+='<div class="mc-status" style="color:var(--rd)"><span class="dot" style="background:var(--rd)"></span>EN DIRECT'+(lv.min?" · "+lv.min+"'":(lv.label==="Mi-temps"?" · Mi-temps":""))+"</div>";
@@ -9210,8 +9236,17 @@
         {id:"r16",a:W["D"],b:pick3(["B","E","F","I","J"]),label:"1D vs 3e",round:"R32"}
       ];
 
-        var r16pairs=[[0,1],[2,3],[4,5],[6,7],[8,9],[10,11],[12,13],[14,15]];
-        var qfpairs=[[0,1],[2,3],[4,5],[6,7]];
+        // v1.9.14 — Arbre conforme au bracket officiel FIFA 2026 (M89-M102).
+        // Les 8es ne s'obtiennent PAS en appariant les 16es consécutifs (M1+M2…),
+        // sinon deux équipes d'un même groupe (ex. 1I et 2I) pourraient se croiser
+        // dès les 8es. Mapping bracket[idx] → 8e officiel :
+        //  h0=M89(M74×M77)=[2,5]  h1=M90(M73×M75)=[0,3]  h2=M91(M76×M78)=[1,4]
+        //  h3=M92(M79×M80)=[6,7]  h4=M93(M83×M84)=[9,8]  h5=M94(M81×M82)=[15,14]
+        //  h6=M95(M86×M88)=[12,11] h7=M96(M85×M87)=[10,13]
+        var r16pairs=[[2,5],[0,3],[1,4],[6,7],[9,8],[15,14],[12,11],[10,13]];
+        // QF: M97=h0×h1, M98=h4×h5, M99=h2×h3, M100=h6×h7
+        var qfpairs=[[0,1],[4,5],[2,3],[6,7]];
+        // SF: M101=QF M97×M98, M102=QF M99×M100
         var sfpairs=[[0,1],[2,3]];
 
           var r16=[],qf=[],sf=[];
@@ -9841,13 +9876,13 @@
 
       // R32
       bracket.forEach(function(m){V.simKO[m.id]=pickWinner(m.a,m.b,"r32")});
-      // R16
-      var r16=[];[[0,1],[2,3],[4,5],[6,7],[8,9],[10,11],[12,13],[14,15]].forEach(function(p,i){
+      // R16 — arbre officiel FIFA 2026 (cf. r16pairs dans rBracket)
+      var r16=[];[[2,5],[0,3],[1,4],[6,7],[9,8],[15,14],[12,11],[10,13]].forEach(function(p,i){
         var a=V.simKO[bracket[p[0]].id],b=V.simKO[bracket[p[1]].id];
         var mid="h"+i;r16.push(mid);V.simKO[mid]=pickWinner(a,b,"r16");
       });
-      // QF
-      var qfIds=[];[[0,1],[2,3],[4,5],[6,7]].forEach(function(p,i){
+      // QF — M97=h0×h1, M98=h4×h5, M99=h2×h3, M100=h6×h7
+      var qfIds=[];[[0,1],[4,5],[2,3],[6,7]].forEach(function(p,i){
         var a=V.simKO[r16[p[0]]],b=V.simKO[r16[p[1]]];
         var mid="q"+i;qfIds.push(mid);V.simKO[mid]=pickWinner(a,b,"qf");
       });
@@ -9919,8 +9954,8 @@
         {id:"r9",a:W["H"],b:R["J"]},{id:"r10",a:R["K"],b:R["L"]},{id:"r11",a:W["B"],b:p3(["E","F","G","I","J"])},{id:"r12",a:R["D"],b:R["G"]},
         {id:"r13",a:W["J"],b:R["H"]},{id:"r14",a:W["K"],b:p3(["D","E","I","J","L"])},{id:"r15",a:W["G"],b:p3(["A","E","H","I","J"])},{id:"r16",a:W["D"],b:p3(["B","E","F","I","J"])}
       ];
-      var r16=[];[[0,1],[2,3],[4,5],[6,7],[8,9],[10,11],[12,13],[14,15]].forEach(function(p,i){r16.push({id:"h"+i,a:V.simKO[br[p[0]].id]||"?",b:V.simKO[br[p[1]].id]||"?"})});
-      var qf=[];[[0,1],[2,3],[4,5],[6,7]].forEach(function(p,i){qf.push({id:"q"+i,a:V.simKO[r16[p[0]].id]||"?",b:V.simKO[r16[p[1]].id]||"?"})});
+      var r16=[];[[2,5],[0,3],[1,4],[6,7],[9,8],[15,14],[12,11],[10,13]].forEach(function(p,i){r16.push({id:"h"+i,a:V.simKO[br[p[0]].id]||"?",b:V.simKO[br[p[1]].id]||"?"})});
+      var qf=[];[[0,1],[4,5],[2,3],[6,7]].forEach(function(p,i){qf.push({id:"q"+i,a:V.simKO[r16[p[0]].id]||"?",b:V.simKO[r16[p[1]].id]||"?"})});
       var sf=[];[[0,1],[2,3]].forEach(function(p,i){sf.push({id:"s"+i,a:V.simKO[qf[p[0]].id]||"?",b:V.simKO[qf[p[1]].id]||"?"})});
       var champ=V.simKO["final"]||"?";
 
@@ -10272,9 +10307,10 @@
         ["1er Gr.H","2e Gr.J"],["2e Gr.K","2e Gr.L"],["1er Gr.B","3e"],["2e Gr.D","2e Gr.G"],
         ["1er Gr.J","2e Gr.H"],["1er Gr.K","3e"],["1er Gr.G","3e"],["1er Gr.D","3e"]
       ];
-      var R16_LABELS=[["Vainq. M1","Vainq. M2"],["Vainq. M3","Vainq. M4"],["Vainq. M5","Vainq. M6"],["Vainq. M7","Vainq. M8"],
-        ["Vainq. M9","Vainq. M10"],["Vainq. M11","Vainq. M12"],["Vainq. M13","Vainq. M14"],["Vainq. M15","Vainq. M16"]];
-      var QF_LABELS=[["Vainq. 8e-1","Vainq. 8e-2"],["Vainq. 8e-3","Vainq. 8e-4"],["Vainq. 8e-5","Vainq. 8e-6"],["Vainq. 8e-7","Vainq. 8e-8"]];
+      // v1.9.14 — Appariement conforme au bracket officiel FIFA 2026 (pas M1+M2…)
+      var R16_LABELS=[["Vainq. M3","Vainq. M6"],["Vainq. M1","Vainq. M4"],["Vainq. M2","Vainq. M5"],["Vainq. M7","Vainq. M8"],
+        ["Vainq. M10","Vainq. M9"],["Vainq. M16","Vainq. M15"],["Vainq. M13","Vainq. M12"],["Vainq. M11","Vainq. M14"]];
+      var QF_LABELS=[["Vainq. 8e-1","Vainq. 8e-2"],["Vainq. 8e-5","Vainq. 8e-6"],["Vainq. 8e-3","Vainq. 8e-4"],["Vainq. 8e-7","Vainq. 8e-8"]];
       var SF_LABELS=[["Vainq. QF1","Vainq. QF2"],["Vainq. QF3","Vainq. QF4"]];
       var FIN_LABELS=["Vainq. Demi 1","Vainq. Demi 2"];
       function realTm(id,label){
