@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-16T20:54:50.601Z",
+  "lastUpdated": "2026-06-16T21:06:41.183Z",
   "data": {
     "1": {
       "s1": 2,
@@ -530,8 +530,8 @@
       "ref": "César Ramos"
     },
     "17": {
-      "s1": 2,
-      "s2": 0,
+      "s1": 3,
+      "s2": 1,
       "status": "IN_PLAY",
       "minute": null,
       "ht": [
