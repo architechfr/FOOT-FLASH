@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-16T21:45:47.053Z",
+  "lastUpdated": "2026-06-16T22:06:28.916Z",
   "data": {
     "1": {
       "s1": 2,
@@ -569,6 +569,13 @@
           "a": null
         }
       ]
+    },
+    "18": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Pierre Atcho"
     }
   },
   "meta": {
@@ -576,7 +583,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 17,
-      "TIMED": 87
+      "IN_PLAY": 1,
+      "TIMED": 86
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
