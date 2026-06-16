@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-16T21:06:41.183Z",
+  "lastUpdated": "2026-06-16T21:09:39.515Z",
   "data": {
     "1": {
       "s1": 2,
@@ -538,7 +538,37 @@
         0,
         0
       ],
-      "ref": "Alireza Faghani"
+      "ref": "Alireza Faghani",
+      "goals": [
+        {
+          "m": "66",
+          "t": 1,
+          "n": "Kylian Mbappé",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "82",
+          "t": 1,
+          "n": "Bradley Barcola",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "90+6",
+          "t": 1,
+          "n": "Kylian Mbappé",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "90+5",
+          "t": 2,
+          "n": "Ibrahim Mbaye",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
