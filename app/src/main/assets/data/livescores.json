@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-16T19:05:23.499Z",
+  "lastUpdated": "2026-06-16T19:08:22.262Z",
   "data": {
     "1": {
       "s1": 2,
@@ -67,6 +67,10 @@
       "s2": 1,
       "status": "FINISHED",
       "minute": null,
+      "ht": [
+        0,
+        1
+      ],
       "goals": [
         {
           "m": "21",
@@ -82,10 +86,6 @@
           "type": null,
           "a": null
         }
-      ],
-      "ht": [
-        0,
-        1
       ],
       "ref": "Facundo Tello"
     },
@@ -528,6 +528,13 @@
         }
       ],
       "ref": "César Ramos"
+    },
+    "17": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Alireza Faghani"
     }
   },
   "meta": {
@@ -535,7 +542,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 16,
-      "TIMED": 88
+      "IN_PLAY": 1,
+      "TIMED": 87
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
