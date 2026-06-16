@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-15T23:54:37.611Z",
+  "lastUpdated": "2026-06-16T00:09:50.697Z",
   "data": {
     "1": {
       "s1": 2,
@@ -464,21 +464,36 @@
     "15": {
       "s1": 1,
       "s2": 1,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         1,
         0
       ],
-      "ref": "Maurizio Mariani"
+      "ref": "Maurizio Mariani",
+      "goals": [
+        {
+          "m": "41",
+          "t": 1,
+          "n": "Abdulelah Al-Amri",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "80",
+          "t": 2,
+          "n": "Maxi Araújo",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 14,
-      "IN_PLAY": 1,
+      "FINISHED": 15,
       "TIMED": 89
     },
     "firstUtc": "2026-06-11T19:00:00Z",
