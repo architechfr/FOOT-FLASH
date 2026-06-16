@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-16T22:47:54.412Z",
+  "lastUpdated": "2026-06-16T22:50:53.324Z",
   "data": {
     "1": {
       "s1": 2,
@@ -572,7 +572,7 @@
     },
     "18": {
       "s1": 1,
-      "s2": 1,
+      "s2": 2,
       "status": "IN_PLAY",
       "minute": null,
       "ref": "Pierre Atcho"
