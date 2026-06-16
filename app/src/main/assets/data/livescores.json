@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-16T22:50:53.324Z",
+  "lastUpdated": "2026-06-16T23:01:51.653Z",
   "data": {
     "1": {
       "s1": 2,
@@ -538,7 +538,6 @@
         0,
         0
       ],
-      "ref": "Alireza Faghani",
       "goals": [
         {
           "m": "66",
@@ -568,13 +567,18 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Alireza Faghani"
     },
     "18": {
       "s1": 1,
       "s2": 2,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
+      "ht": [
+        1,
+        2
+      ],
       "ref": "Pierre Atcho"
     }
   },
@@ -583,7 +587,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 17,
-      "IN_PLAY": 1,
+      "PAUSED": 1,
       "TIMED": 86
     },
     "firstUtc": "2026-06-11T19:00:00Z",
