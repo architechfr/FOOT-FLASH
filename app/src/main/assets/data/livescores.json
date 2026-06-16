@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-16T03:09:34.525Z",
+  "lastUpdated": "2026-06-16T03:12:31.909Z",
   "data": {
     "1": {
       "s1": 2,
@@ -497,7 +497,37 @@
         1,
         1
       ],
-      "ref": "César Ramos"
+      "ref": "César Ramos",
+      "goals": [
+        {
+          "m": "7",
+          "t": 2,
+          "n": "Elijah Just",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "32",
+          "t": 1,
+          "n": "Ramin Rezaeian",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "54",
+          "t": 2,
+          "n": "Elijah Just",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "64",
+          "t": 1,
+          "n": "Mohammad Mohebbi",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
