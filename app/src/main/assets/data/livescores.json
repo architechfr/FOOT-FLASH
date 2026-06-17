@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-17T04:34:33.470Z",
+  "lastUpdated": "2026-06-17T05:01:03.567Z",
   "data": {
     "1": {
       "s1": 2,
@@ -627,7 +627,6 @@
         1,
         0
       ],
-      "ref": "Szymon Marciniak",
       "goals": [
         {
           "m": "17",
@@ -650,13 +649,18 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Szymon Marciniak"
     },
     "20": {
       "s1": 1,
       "s2": 0,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
+      "ht": [
+        1,
+        0
+      ],
       "ref": "Dahane Beida"
     }
   },
@@ -665,7 +669,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 19,
-      "IN_PLAY": 1,
+      "PAUSED": 1,
       "TIMED": 84
     },
     "firstUtc": "2026-06-11T19:00:00Z",
