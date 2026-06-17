@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-17T18:36:15.248Z",
+  "lastUpdated": "2026-06-17T19:05:42.611Z",
   "data": {
     "1": {
       "s1": 2,
@@ -696,21 +696,36 @@
     "21": {
       "s1": 1,
       "s2": 1,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         1,
         1
       ],
-      "ref": "Abdulrahman Al Jassim"
+      "ref": "Abdulrahman Al Jassim",
+      "goals": [
+        {
+          "m": "6",
+          "t": 1,
+          "n": "João Neves",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "45+5",
+          "t": 2,
+          "n": "Yoane Wissa",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 20,
-      "IN_PLAY": 1,
+      "FINISHED": 21,
       "TIMED": 83
     },
     "firstUtc": "2026-06-11T19:00:00Z",
