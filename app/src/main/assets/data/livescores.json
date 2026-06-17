@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-17T07:26:55.674Z",
+  "lastUpdated": "2026-06-17T08:02:20.040Z",
   "data": {
     "1": {
       "s1": 2,
@@ -661,7 +661,6 @@
         1,
         0
       ],
-      "ref": "Dahane Beida",
       "goals": [
         {
           "m": "21",
@@ -691,7 +690,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Dahane Beida"
     }
   },
   "meta": {
