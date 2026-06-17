@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-17T20:58:39.457Z",
+  "lastUpdated": "2026-06-17T21:01:38.439Z",
   "data": {
     "1": {
       "s1": 2,
@@ -702,7 +702,6 @@
         1,
         1
       ],
-      "ref": "Abdulrahman Al Jassim",
       "goals": [
         {
           "m": "6",
@@ -718,7 +717,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Abdulrahman Al Jassim"
     },
     "22": {
       "s1": 2,
