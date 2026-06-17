@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-17T05:40:38.937Z",
+  "lastUpdated": "2026-06-17T05:49:31.062Z",
   "data": {
     "1": {
       "s1": 2,
@@ -653,7 +653,7 @@
       "ref": "Szymon Marciniak"
     },
     "20": {
-      "s1": 2,
+      "s1": 3,
       "s2": 1,
       "status": "IN_PLAY",
       "minute": null,
