@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-17T02:48:25.092Z",
+  "lastUpdated": "2026-06-17T03:03:09.488Z",
   "data": {
     "1": {
       "s1": 2,
@@ -627,7 +627,30 @@
         1,
         0
       ],
-      "ref": "Szymon Marciniak"
+      "ref": "Szymon Marciniak",
+      "goals": [
+        {
+          "m": "17",
+          "t": 1,
+          "n": "Lionel Messi",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "60",
+          "t": 1,
+          "n": "Lionel Messi",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "76",
+          "t": 1,
+          "n": "Lionel Messi",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
