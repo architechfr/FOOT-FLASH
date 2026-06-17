@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-17T06:01:20.084Z",
+  "lastUpdated": "2026-06-17T06:16:05.409Z",
   "data": {
     "1": {
       "s1": 2,
@@ -653,23 +653,52 @@
       "ref": "Szymon Marciniak"
     },
     "20": {
-      "s1": 2,
+      "s1": 3,
       "s2": 1,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         1,
         0
       ],
-      "ref": "Dahane Beida"
+      "ref": "Dahane Beida",
+      "goals": [
+        {
+          "m": "21",
+          "t": 1,
+          "n": "Romano Schmid",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "76",
+          "t": 1,
+          "n": "Yazan Al-Arab",
+          "type": "CSC",
+          "a": null
+        },
+        {
+          "m": "90+12",
+          "t": 1,
+          "n": "Marko Arnautovic",
+          "type": "P",
+          "a": null
+        },
+        {
+          "m": "50",
+          "t": 2,
+          "n": "Ali Olwan",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 19,
-      "IN_PLAY": 1,
+      "FINISHED": 20,
       "TIMED": 84
     },
     "firstUtc": "2026-06-11T19:00:00Z",
