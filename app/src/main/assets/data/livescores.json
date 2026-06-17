@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-17T01:58:12.631Z",
+  "lastUpdated": "2026-06-17T02:01:10.131Z",
   "data": {
     "1": {
       "s1": 2,
@@ -579,7 +579,6 @@
         1,
         2
       ],
-      "ref": "Pierre Atcho",
       "goals": [
         {
           "m": "29",
@@ -616,13 +615,18 @@
           "type": "CSC",
           "a": null
         }
-      ]
+      ],
+      "ref": "Pierre Atcho"
     },
     "19": {
       "s1": 1,
       "s2": 0,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
+      "ht": [
+        1,
+        0
+      ],
       "ref": "Szymon Marciniak"
     }
   },
@@ -631,7 +635,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 18,
-      "TIMED": 86
+      "PAUSED": 1,
+      "TIMED": 85
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
