@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-17T17:57:53.647Z",
+  "lastUpdated": "2026-06-17T18:00:51.286Z",
   "data": {
     "1": {
       "s1": 2,
@@ -696,11 +696,11 @@
     "21": {
       "s1": 1,
       "s2": 1,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
       "ht": [
-        0,
-        0
+        1,
+        1
       ],
       "ref": "Abdulrahman Al Jassim"
     }
@@ -710,7 +710,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 20,
-      "IN_PLAY": 1,
+      "PAUSED": 1,
       "TIMED": 83
     },
     "firstUtc": "2026-06-11T19:00:00Z",
