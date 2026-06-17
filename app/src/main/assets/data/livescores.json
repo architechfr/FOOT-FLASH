@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-17T22:06:41.153Z",
+  "lastUpdated": "2026-06-17T22:12:35.334Z",
   "data": {
     "1": {
       "s1": 2,
@@ -729,7 +729,51 @@
         2,
         2
       ],
-      "ref": "Clément Turpin"
+      "ref": "Clément Turpin",
+      "goals": [
+        {
+          "m": "12",
+          "t": 1,
+          "n": "Harry Kane",
+          "type": "P",
+          "a": null
+        },
+        {
+          "m": "36",
+          "t": 2,
+          "n": "Martin Baturina",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "42",
+          "t": 1,
+          "n": "Harry Kane",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "47",
+          "t": 1,
+          "n": "Jude Bellingham",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "85",
+          "t": 1,
+          "n": "Marcus Rashford",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "45+5",
+          "t": 2,
+          "n": "Petar Musa",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
