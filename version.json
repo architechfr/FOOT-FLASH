@@ -1,5 +1,5 @@
 {
-  "versionCode": 15,
-  "version": "v1.9.18",
-  "notes": "Liste Matchs : barre de jours en haut (comme les apps de scores) qui s'ouvre sur aujourd'hui et permet de sauter direct au jour voulu, sans faire defiler tous les matchs"
+  "versionCode": 16,
+  "version": "v1.9.19",
+  "notes": "Diffusion France corrigee : les matchs de poule diffuses en clair sur M6 (Portugal-RD Congo, Angleterre-Croatie, etc.) sont enfin signales M6 et non plus seulement beIN. Repartition basee sur le programme TV Eurosport (source unique fiable)."
 }

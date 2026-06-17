@@ -2181,16 +2181,23 @@
        shareable:true}
     ];
 
-    // ═══ Diffusion FRANCE (v1.9.9) — la vraie répartition des droits ═══
+    // ═══ Diffusion FRANCE (v1.9.19) — la vraie répartition des droits ═══
     // beIN Sports : 104/104 matchs. M6 : 54 matchs en clair (TF1 : AUCUN match,
-    // une première depuis 1978). M6 confirmés à ce jour : match d'ouverture,
-    // tous les matchs des Bleus (groupes + élimination directe s'ils passent),
-    // demi-finales, petite finale et finale. Les ~46 autres matchs M6 (sélection
-    // groupes/16es/8es/quarts) seront ajoutés à M6_IDS dès que la grille officielle
-    // est connue. En attendant : on n'affiche M6 QUE sur les matchs confirmés.
-    // Confirmés via guide TV (Fanzo, 11/06) : 3 CAN-BIH, 5 QAT-SUI, 6 BRA-MAR,
-    // 9 GER-CUR, 10 NED-JPN. Pas M6 : KOR-CZE, USA-PAR, HAI-SCO, AUS-TUR.
-    var M6_IDS={1:1,3:1,5:1,6:1,9:1,10:1,17:1,42:1,61:1,101:1,102:1,103:1,104:1};
+    // une première depuis 1978). Tous les matchs des Bleus sont sur M6 (calculé
+    // via t1/t2==="FRA"). M6 = demi-finales, petite finale, finale, + les matchs
+    // des Bleus en élimination directe + les meilleures affiches 16es/8es/quarts
+    // (à ajouter dès que la grille KO est connue).
+    // Phase de groupes : 29 des ~34 affiches M6 confirmées via le programme TV
+    // Eurosport (source unique retenue ; FANZO écarté car horaires faux — ex. le
+    // 17/06 POR-COD est bien à 19h et ENG-CRO à 22h heure de Paris, pas 17h/20h).
+    // Les ~5 dernières affiches M6 de poule seront ajoutées quand M6 les annonce.
+    var M6_IDS={
+      // Phase de groupes — confirmés M6 (en clair) via Eurosport
+      1:1,9:1,13:1,14:1,17:1,18:1,21:1,22:1,25:1,26:1,29:1,30:1,31:1,33:1,34:1,
+      37:1,38:1,41:1,42:1,45:1,46:1,49:1,52:1,56:1,57:1,61:1,64:1,67:1,69:1,
+      // Élimination directe en clair sur M6
+      101:1,102:1,103:1,104:1
+    };
     function isM6Match(m){
       if(!m)return false;
       if(M6_IDS[m.id])return true;
@@ -2548,6 +2555,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.9.19",d:"17/06/2026",changes:"Diffusion France corrigée. Les matchs de poule diffusés EN CLAIR sur M6 étaient signalés « beIN Sports » uniquement : c'est réparé. 29 affiches de phase de groupes confirmées M6 (ouverture, tous les Bleus, Portugal-RD Congo, Angleterre-Croatie, États-Unis-Australie, Allemagne-Côte d'Ivoire, etc.) affichent désormais le badge 🆓 M6 en plus de 💰 beIN. Rappel 2026 : TF1 ne diffuse AUCUN match ; M6 a 54 matchs en clair, beIN les 104. Répartition basée sur le programme TV Eurosport (source unique fiable, horaires recoupés avec l'heure locale des stades) ; les 4 entrées issues d'un guide TV erroné (CAN-BIH, Qatar-Suisse, Brésil-Maroc, Pays-Bas-Japon) ont été retirées. Les ~5 dernières affiches M6 de poule seront ajoutées dès l'annonce officielle."},
       {v:"v1.9.5",d:"11/06/2026",changes:"Infirmerie recentrée sur le Mondial : les listes des 26 étant connues, l'infirmerie n'affiche plus que les joueurs SÉLECTIONNÉS. Les blessés non retenus (blessures longue durée : Ekitiké, Rodrygo, Xavi Simons, Militão, Foyth, Carboni, Panichelli, Grealish, L. Zidane) sont masqués automatiquement par croisement avec l'effectif officiel de chaque équipe (effectifs.json). De plus, un blessé disparaît automatiquement dès que sa date de retour est passée (joueur rétabli ayant rejoué) : en juin, Koundé, Saliba, Manu Koné, Yamal, Mbappé sont remis. Ne restent que les cas réellement en cours (ex. Valverde, retour ciblé au coup d'envoi)."},
       {v:"v1.9.4",d:"11/06/2026",changes:"Horaires des matchs ENFIN justes + double affichage. La source officielle (data/matches.json) stocke l'heure LOCALE du stade ; l'app la prenait pour l'heure de Paris, d'ou un decalage. Desormais chaque match est converti dans le bon fuseau du stade (Est, Centre, Pacifique, Mexique) puis affiche en double : heure locale du stade ET heure en France, ex. France-Senegal 15:00 (East Rutherford) - 21:00 en France. La conversion alimente aussi le compte a rebours, le statut en direct, le tri et l'export agenda. Stade en France ou meme fuseau : une seule heure affichee. Amicaux: bases sur leur instant UTC exact."},
       {v:"v1.9.2",d:"08/06/2026",changes:"Le VRAI tournoi s'intègre aux pronos. (1) Le tableau final se remplit tout seul : dès que les résultats réels tombent, les groupes terminés désignent leurs qualifiés, puis 16es, 8es, quarts, demis et finale s'ouvrent aux paris au fur et à mesure — exactement comme le vrai Mondial (les 3es qualifiés sont calculés quand les 12 groupes sont finis ; si les données serveur fournissent déjà les affiches, elles restent prioritaires). (2) Les pronos auto tiennent compte de la FORME DU MOMENT dans le tournoi : une équipe qui cartonne en poules part avec un bonus (jusqu'à +6), une équipe en difficulté avec un malus. (3) Le MODE EXPERT (doublon des pronos) est retiré de la Simulation — remplacé par un raccourci vers l'onglet Pronos. (4) MISES À JOUR INTÉGRÉES : l'app vérifie au démarrage si une nouvelle version existe et propose de la télécharger en 1 tap (Réglages > bannière dorée, ou bouton 🔄 Vérifier). L'installation se fait PAR-DESSUS l'ancienne version : pronos, crédits et réglages sont conservés, pas besoin de désinstaller."},
@@ -2587,7 +2595,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.18 — Barre de jours en haut de la liste Matchs (saut direct au jour, ouverture sur aujourd'hui) · 16 juin 2026";
+    var APP_VERSION="v1.9.19 — Diffusion FR corrigée : tous les matchs de poule en clair sur M6 (POR-COD, ANG-CRO, etc.) sont enfin signalés 🆓 M6, plus seulement beIN · 17 juin 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
