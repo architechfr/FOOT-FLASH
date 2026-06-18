@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T20:00:57.287Z",
+  "lastUpdated": "2026-06-18T20:09:49.011Z",
   "data": {
     "1": {
       "s1": 2,
@@ -862,6 +862,13 @@
         }
       ],
       "ref": "Tori Penso"
+    },
+    "26": {
+      "s1": null,
+      "s2": null,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "João Pinheiro"
     }
   },
   "meta": {
@@ -869,7 +876,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 25,
-      "TIMED": 79
+      "IN_PLAY": 1,
+      "TIMED": 78
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
