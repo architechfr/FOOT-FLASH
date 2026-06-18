@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T02:37:50.120Z",
+  "lastUpdated": "2026-06-18T02:46:40.743Z",
   "data": {
     "1": {
       "s1": 2,
@@ -797,7 +797,7 @@
     },
     "24": {
       "s1": 0,
-      "s2": 0,
+      "s2": 1,
       "status": "IN_PLAY",
       "minute": null,
       "ref": "Anthony Taylor"
