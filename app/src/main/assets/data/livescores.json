@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T09:57:23.433Z",
+  "lastUpdated": "2026-06-18T10:00:20.797Z",
   "data": {
     "1": {
       "s1": 2,
@@ -778,13 +778,12 @@
     "23": {
       "s1": 1,
       "s2": 0,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         0,
         0
       ],
-      "ref": "Glenn Nyberg",
       "goals": [
         {
           "m": "90+5",
@@ -793,7 +792,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Glenn Nyberg"
     },
     "24": {
       "s1": 1,
@@ -841,8 +841,7 @@
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 23,
-      "IN_PLAY": 1,
+      "FINISHED": 24,
       "TIMED": 80
     },
     "firstUtc": "2026-06-11T19:00:00Z",
