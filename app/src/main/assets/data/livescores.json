@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T21:02:55.550Z",
+  "lastUpdated": "2026-06-18T21:05:43.855Z",
   "data": {
     "1": {
       "s1": 2,
@@ -872,7 +872,44 @@
         0,
         0
       ],
-      "ref": "João Pinheiro"
+      "ref": "João Pinheiro",
+      "goals": [
+        {
+          "m": "74",
+          "t": 1,
+          "n": "Johan Manzambi",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "84",
+          "t": 1,
+          "n": "Rubén Vargas",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "90",
+          "t": 1,
+          "n": "Johan Manzambi",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "90+7",
+          "t": 1,
+          "n": "Granit Xhaka",
+          "type": "P",
+          "a": null
+        },
+        {
+          "m": "90+3",
+          "t": 2,
+          "n": "Ermin Mahmic",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
