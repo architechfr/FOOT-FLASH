@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T18:38:30.354Z",
+  "lastUpdated": "2026-06-18T20:00:57.287Z",
   "data": {
     "1": {
       "s1": 2,
@@ -845,7 +845,6 @@
         1,
         0
       ],
-      "ref": "Tori Penso",
       "goals": [
         {
           "m": "6",
@@ -861,7 +860,8 @@
           "type": "P",
           "a": null
         }
-      ]
+      ],
+      "ref": "Tori Penso"
     }
   },
   "meta": {
