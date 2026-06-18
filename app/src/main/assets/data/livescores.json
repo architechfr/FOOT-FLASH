@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T15:48:06.860Z",
+  "lastUpdated": "2026-06-18T16:05:46.735Z",
   "data": {
     "1": {
       "s1": 2,
@@ -835,6 +835,13 @@
         }
       ],
       "ref": "Anthony Taylor"
+    },
+    "25": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Tori Penso"
     }
   },
   "meta": {
@@ -842,7 +849,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 24,
-      "TIMED": 80
+      "IN_PLAY": 1,
+      "TIMED": 79
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
