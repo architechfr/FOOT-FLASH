@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T16:56:02.914Z",
+  "lastUpdated": "2026-06-18T16:59:01.621Z",
   "data": {
     "1": {
       "s1": 2,
@@ -842,7 +842,7 @@
       "status": "HT",
       "minute": null,
       "ht": [
-        0,
+        1,
         0
       ],
       "ref": "Tori Penso"
