@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-17T23:46:04.160Z",
+  "lastUpdated": "2026-06-18T00:00:50.599Z",
   "data": {
     "1": {
       "s1": 2,
@@ -729,7 +729,6 @@
         2,
         2
       ],
-      "ref": "Clément Turpin",
       "goals": [
         {
           "m": "12",
@@ -773,13 +772,18 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Clément Turpin"
     },
     "23": {
       "s1": 0,
       "s2": 0,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
+      "ht": [
+        0,
+        0
+      ],
       "ref": "Glenn Nyberg"
     }
   },
@@ -788,7 +792,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 22,
-      "IN_PLAY": 1,
+      "PAUSED": 1,
       "TIMED": 81
     },
     "firstUtc": "2026-06-11T19:00:00Z",
