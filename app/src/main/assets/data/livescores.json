@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T23:39:47.017Z",
+  "lastUpdated": "2026-06-18T23:45:42.017Z",
   "data": {
     "1": {
       "s1": 2,
@@ -912,7 +912,7 @@
       "ref": "João Pinheiro"
     },
     "27": {
-      "s1": 4,
+      "s1": 5,
       "s2": 0,
       "status": "IN_PLAY",
       "minute": null,
