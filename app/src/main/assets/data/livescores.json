@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T22:57:46.463Z",
+  "lastUpdated": "2026-06-18T23:00:45.157Z",
   "data": {
     "1": {
       "s1": 2,
@@ -872,7 +872,6 @@
         0,
         0
       ],
-      "ref": "João Pinheiro",
       "goals": [
         {
           "m": "74",
@@ -909,15 +908,16 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "João Pinheiro"
     },
     "27": {
       "s1": 3,
       "s2": 0,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
       "ht": [
-        0,
+        3,
         0
       ],
       "ref": "Cristián Garay"
@@ -928,7 +928,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 26,
-      "IN_PLAY": 1,
+      "PAUSED": 1,
       "TIMED": 77
     },
     "firstUtc": "2026-06-11T19:00:00Z",
