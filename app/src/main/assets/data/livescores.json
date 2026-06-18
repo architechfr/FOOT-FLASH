@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T01:50:37.180Z",
+  "lastUpdated": "2026-06-18T02:08:17.525Z",
   "data": {
     "1": {
       "s1": 2,
@@ -794,6 +794,13 @@
           "a": null
         }
       ]
+    },
+    "24": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Anthony Taylor"
     }
   },
   "meta": {
@@ -801,7 +808,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 23,
-      "TIMED": 81
+      "IN_PLAY": 1,
+      "TIMED": 80
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
