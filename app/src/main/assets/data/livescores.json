@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T18:04:00.220Z",
+  "lastUpdated": "2026-06-18T18:06:58.753Z",
   "data": {
     "1": {
       "s1": 2,
@@ -67,6 +67,10 @@
       "s2": 1,
       "status": "FINISHED",
       "minute": null,
+      "ht": [
+        0,
+        1
+      ],
       "goals": [
         {
           "m": "21",
@@ -82,10 +86,6 @@
           "type": null,
           "a": null
         }
-      ],
-      "ht": [
-        0,
-        1
       ],
       "ref": "Facundo Tello"
     },
@@ -845,7 +845,23 @@
         1,
         0
       ],
-      "ref": "Tori Penso"
+      "ref": "Tori Penso",
+      "goals": [
+        {
+          "m": "6",
+          "t": 1,
+          "n": "Michal Sadílek",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "83",
+          "t": 2,
+          "n": "Teboho Mokoena",
+          "type": "P",
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
