@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T20:36:19.369Z",
+  "lastUpdated": "2026-06-18T20:39:16.842Z",
   "data": {
     "1": {
       "s1": 2,
@@ -67,6 +67,10 @@
       "s2": 1,
       "status": "FINISHED",
       "minute": null,
+      "ht": [
+        0,
+        1
+      ],
       "goals": [
         {
           "m": "21",
@@ -82,10 +86,6 @@
           "type": null,
           "a": null
         }
-      ],
-      "ht": [
-        0,
-        1
       ],
       "ref": "Facundo Tello"
     },
@@ -864,10 +864,14 @@
       "ref": "Tori Penso"
     },
     "26": {
-      "s1": null,
-      "s2": null,
+      "s1": 1,
+      "s2": 0,
       "status": "IN_PLAY",
       "minute": null,
+      "ht": [
+        0,
+        0
+      ],
       "ref": "João Pinheiro"
     }
   },
