@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T16:14:41.525Z",
+  "lastUpdated": "2026-06-18T16:56:02.914Z",
   "data": {
     "1": {
       "s1": 2,
@@ -839,8 +839,12 @@
     "25": {
       "s1": 1,
       "s2": 0,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
+      "ht": [
+        0,
+        0
+      ],
       "ref": "Tori Penso"
     }
   },
@@ -849,7 +853,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 24,
-      "IN_PLAY": 1,
+      "PAUSED": 1,
       "TIMED": 79
     },
     "firstUtc": "2026-06-11T19:00:00Z",
