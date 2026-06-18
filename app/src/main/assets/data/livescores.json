@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T06:19:50.966Z",
+  "lastUpdated": "2026-06-18T06:22:48.516Z",
   "data": {
     "1": {
       "s1": 2,
@@ -67,6 +67,10 @@
       "s2": 1,
       "status": "FINISHED",
       "minute": null,
+      "ht": [
+        0,
+        1
+      ],
       "goals": [
         {
           "m": "21",
@@ -82,10 +86,6 @@
           "type": null,
           "a": null
         }
-      ],
-      "ht": [
-        0,
-        1
       ],
       "ref": "Facundo Tello"
     },
@@ -778,12 +778,13 @@
     "23": {
       "s1": 1,
       "s2": 0,
-      "status": "FINISHED",
+      "status": "IN_PLAY",
       "minute": null,
       "ht": [
         0,
         0
       ],
+      "ref": "Glenn Nyberg",
       "goals": [
         {
           "m": "90+5",
@@ -792,8 +793,7 @@
           "type": null,
           "a": null
         }
-      ],
-      "ref": "Glenn Nyberg"
+      ]
     },
     "24": {
       "s1": 1,
@@ -841,7 +841,8 @@
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 24,
+      "FINISHED": 23,
+      "IN_PLAY": 1,
       "TIMED": 80
     },
     "firstUtc": "2026-06-11T19:00:00Z",
