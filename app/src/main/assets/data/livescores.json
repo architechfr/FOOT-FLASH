@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T04:09:20.776Z",
+  "lastUpdated": "2026-06-18T04:12:18.134Z",
   "data": {
     "1": {
       "s1": 2,
@@ -798,21 +798,50 @@
     "24": {
       "s1": 1,
       "s2": 3,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         0,
         1
       ],
-      "ref": "Anthony Taylor"
+      "ref": "Anthony Taylor",
+      "goals": [
+        {
+          "m": "40",
+          "t": 2,
+          "n": "Daniel Muñoz",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "60",
+          "t": 1,
+          "n": "Abbosbek Fayzullaev",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "65",
+          "t": 2,
+          "n": "Luis Díaz",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "90+9",
+          "t": 2,
+          "n": "Jáminton Campaz",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 23,
-      "IN_PLAY": 1,
+      "FINISHED": 24,
       "TIMED": 80
     },
     "firstUtc": "2026-06-11T19:00:00Z",
