@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T21:05:43.855Z",
+  "lastUpdated": "2026-06-18T22:07:35.165Z",
   "data": {
     "1": {
       "s1": 2,
@@ -910,6 +910,13 @@
           "a": null
         }
       ]
+    },
+    "27": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Cristián Garay"
     }
   },
   "meta": {
@@ -917,7 +924,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 26,
-      "TIMED": 78
+      "IN_PLAY": 1,
+      "TIMED": 77
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
