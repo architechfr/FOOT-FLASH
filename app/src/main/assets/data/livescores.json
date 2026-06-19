@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-19T22:19:01.066Z",
+  "lastUpdated": "2026-06-19T23:00:17.155Z",
   "data": {
     "1": {
       "s1": 2,
@@ -995,7 +995,6 @@
         2,
         0
       ],
-      "ref": "Felix Zwayer",
       "goals": [
         {
           "m": "11",
@@ -1011,13 +1010,18 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Felix Zwayer"
     },
     "30": {
       "s1": 0,
       "s2": 1,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
+      "ht": [
+        0,
+        1
+      ],
       "ref": "Il'giz Tantashev"
     }
   },
@@ -1026,7 +1030,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 29,
-      "IN_PLAY": 1,
+      "PAUSED": 1,
       "TIMED": 74
     },
     "firstUtc": "2026-06-11T19:00:00Z",
