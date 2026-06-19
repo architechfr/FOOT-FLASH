@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-19T19:51:46.829Z",
+  "lastUpdated": "2026-06-19T20:00:40.823Z",
   "data": {
     "1": {
       "s1": 2,
@@ -989,10 +989,10 @@
     "29": {
       "s1": 2,
       "s2": 0,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
       "ht": [
-        0,
+        2,
         0
       ],
       "ref": "Felix Zwayer"
@@ -1003,7 +1003,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 28,
-      "IN_PLAY": 1,
+      "PAUSED": 1,
       "TIMED": 75
     },
     "firstUtc": "2026-06-11T19:00:00Z",
