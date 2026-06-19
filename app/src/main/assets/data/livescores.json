@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-19T03:04:21.056Z",
+  "lastUpdated": "2026-06-19T03:07:18.634Z",
   "data": {
     "1": {
       "s1": 2,
@@ -975,7 +975,16 @@
         0,
         0
       ],
-      "ref": "Gustavo Tejera"
+      "ref": "Gustavo Tejera",
+      "goals": [
+        {
+          "m": "50",
+          "t": 1,
+          "n": "Luis Romo",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
