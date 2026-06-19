@@ -1,5 +1,5 @@
 {
-  "versionCode": 16,
-  "version": "v1.9.19",
-  "notes": "Diffusion France corrigee : les matchs de poule diffuses en clair sur M6 (Portugal-RD Congo, Angleterre-Croatie, etc.) sont enfin signales M6 et non plus seulement beIN. Repartition basee sur le programme TV Eurosport (source unique fiable)."
+  "versionCode": 17,
+  "version": "v1.9.20",
+  "notes": "Date de la finale corrigee. Le tableau (vue Parcours) affichait par erreur la date et le lieu du premier 16e de finale (dim. 28 juin, SoFi Stadium Los Angeles) a la place de la vraie finale. La finale s'affiche desormais correctement : dim. 19 juillet 2026 au MetLife Stadium (East Rutherford / New York)."
 }

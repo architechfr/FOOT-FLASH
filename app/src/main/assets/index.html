@@ -1552,7 +1552,7 @@
     {id:101,d:"2026-07-11T21:00:00Z",t1:"TBD",t2:"TBD",st:"Demi-finale",stad:"Hard Rock Stadium",city:"Miami",s1:null,s2:null},
     {id:102,d:"2026-07-12T21:00:00Z",t1:"TBD",t2:"TBD",st:"Demi-finale",stad:"Lincoln Financial",city:"Philadelphie",s1:null,s2:null},
     {id:103,d:"2026-07-18T21:00:00Z",t1:"TBD",t2:"TBD",st:"3e place",stad:"Lincoln Financial",city:"Philadelphie",s1:null,s2:null},
-    {id:104,d:"2026-07-19T21:00:00Z",t1:"TBD",t2:"TBD",st:"FINALE",stad:"Lumen Field",city:"Seattle",s1:null,s2:null}
+    {id:104,d:"2026-07-19T21:00:00Z",t1:"TBD",t2:"TBD",st:"FINALE",stad:"MetLife Stadium",city:"East Rutherford",s1:null,s2:null}
     ];
 
     // ═══════════════════════════════════════════════════════════════════
@@ -2555,6 +2555,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.9.20",d:"19/06/2026",changes:"Date de la finale corrigée. Dans le tableau (vue Parcours), la carte 🏆 FINALE affichait par erreur « dim. 28 juin · SoFi Stadium · Los Angeles » — en réalité la date et le lieu du tout premier 16e de finale. Cause : un filtre qui confondait « FINALE » avec les tours « …de finale » (16es, 8es, quarts, demis). La carte affiche désormais la vraie finale : dim. 19 juillet 2026 · MetLife Stadium · East Rutherford (New York). Le reste du calendrier éliminatoire (16es 28 juin–3 juil, 8es 4–7 juil, quarts 9–11 juil, demis 14–15 juil, 3e place 18 juil) a été vérifié et est conforme au calendrier officiel FIFA."},
       {v:"v1.9.19",d:"17/06/2026",changes:"Diffusion France corrigée. Les matchs de poule diffusés EN CLAIR sur M6 étaient signalés « beIN Sports » uniquement : c'est réparé. 29 affiches de phase de groupes confirmées M6 (ouverture, tous les Bleus, Portugal-RD Congo, Angleterre-Croatie, États-Unis-Australie, Allemagne-Côte d'Ivoire, etc.) affichent désormais le badge 🆓 M6 en plus de 💰 beIN. Rappel 2026 : TF1 ne diffuse AUCUN match ; M6 a 54 matchs en clair, beIN les 104. Répartition basée sur le programme TV Eurosport (source unique fiable, horaires recoupés avec l'heure locale des stades) ; les 4 entrées issues d'un guide TV erroné (CAN-BIH, Qatar-Suisse, Brésil-Maroc, Pays-Bas-Japon) ont été retirées. Les ~5 dernières affiches M6 de poule seront ajoutées dès l'annonce officielle."},
       {v:"v1.9.5",d:"11/06/2026",changes:"Infirmerie recentrée sur le Mondial : les listes des 26 étant connues, l'infirmerie n'affiche plus que les joueurs SÉLECTIONNÉS. Les blessés non retenus (blessures longue durée : Ekitiké, Rodrygo, Xavi Simons, Militão, Foyth, Carboni, Panichelli, Grealish, L. Zidane) sont masqués automatiquement par croisement avec l'effectif officiel de chaque équipe (effectifs.json). De plus, un blessé disparaît automatiquement dès que sa date de retour est passée (joueur rétabli ayant rejoué) : en juin, Koundé, Saliba, Manu Koné, Yamal, Mbappé sont remis. Ne restent que les cas réellement en cours (ex. Valverde, retour ciblé au coup d'envoi)."},
       {v:"v1.9.4",d:"11/06/2026",changes:"Horaires des matchs ENFIN justes + double affichage. La source officielle (data/matches.json) stocke l'heure LOCALE du stade ; l'app la prenait pour l'heure de Paris, d'ou un decalage. Desormais chaque match est converti dans le bon fuseau du stade (Est, Centre, Pacifique, Mexique) puis affiche en double : heure locale du stade ET heure en France, ex. France-Senegal 15:00 (East Rutherford) - 21:00 en France. La conversion alimente aussi le compte a rebours, le statut en direct, le tri et l'export agenda. Stade en France ou meme fuseau : une seule heure affichee. Amicaux: bases sur leur instant UTC exact."},
@@ -2595,7 +2596,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.19 — Diffusion FR corrigée : tous les matchs de poule en clair sur M6 (POR-COD, ANG-CRO, etc.) sont enfin signalés 🆓 M6, plus seulement beIN · 17 juin 2026";
+    var APP_VERSION="v1.9.20 — Date de la finale corrigée : le tableau affichait à tort « 28 juin · Los Angeles » ; la finale est bien le 19 juillet 2026 au MetLife Stadium (New York) · 19 juin 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -10385,7 +10386,7 @@
       var r16m=MATCHES.filter(function(m){return m.st==="8e de finale"});
       var qfm=MATCHES.filter(function(m){return m.st&&m.st.indexOf("Quart")>=0});
       var sfm=MATCHES.filter(function(m){return m.st&&m.st.indexOf("Demi")>=0});
-      var finm=MATCHES.filter(function(m){return m.st&&(m.st.indexOf("Finale")>=0||m.st.indexOf("final")>=0)&&m.st.indexOf("3e")<0&&m.st.indexOf("Petite")<0});
+      var finm=MATCHES.filter(function(m){return m.st&&m.st.toUpperCase()==="FINALE"});
 
       // Known bracket matchups (FIFA 2026 structure)
       var R32_LABELS=[
