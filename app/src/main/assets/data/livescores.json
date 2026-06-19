@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-19T00:06:23.774Z",
+  "lastUpdated": "2026-06-19T00:09:22.222Z",
   "data": {
     "1": {
       "s1": 2,
@@ -67,6 +67,10 @@
       "s2": 1,
       "status": "FINISHED",
       "minute": null,
+      "ht": [
+        0,
+        1
+      ],
       "goals": [
         {
           "m": "21",
@@ -82,10 +86,6 @@
           "type": null,
           "a": null
         }
-      ],
-      "ht": [
-        0,
-        1
       ],
       "ref": "Facundo Tello"
     },
@@ -914,21 +914,64 @@
     "27": {
       "s1": 6,
       "s2": 0,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         3,
         0
       ],
-      "ref": "Cristián Garay"
+      "ref": "Cristián Garay",
+      "goals": [
+        {
+          "m": "16",
+          "t": 1,
+          "n": "Cyle Larin",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "29",
+          "t": 1,
+          "n": "Jonathan David",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "45+3",
+          "t": 1,
+          "n": "Jonathan David",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "64",
+          "t": 1,
+          "n": "Nathan Saliba",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "75",
+          "t": 1,
+          "n": "Mohamed Manai",
+          "type": "CSC",
+          "a": null
+        },
+        {
+          "m": "90+2",
+          "t": 1,
+          "n": "Jonathan David",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 26,
-      "IN_PLAY": 1,
+      "FINISHED": 27,
       "TIMED": 77
     },
     "firstUtc": "2026-06-11T19:00:00Z",
