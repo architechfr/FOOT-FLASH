@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-19T02:14:16.402Z",
+  "lastUpdated": "2026-06-19T02:17:13.690Z",
   "data": {
     "1": {
       "s1": 2,
@@ -967,7 +967,7 @@
       "ref": "Cristián Garay"
     },
     "28": {
-      "s1": 0,
+      "s1": 1,
       "s2": 0,
       "status": "IN_PLAY",
       "minute": null,
