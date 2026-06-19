@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-19T22:06:56.696Z",
+  "lastUpdated": "2026-06-19T22:09:55.443Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1015,7 +1015,7 @@
     },
     "30": {
       "s1": 0,
-      "s2": 0,
+      "s2": 1,
       "status": "IN_PLAY",
       "minute": null,
       "ref": "Il'giz Tantashev"
