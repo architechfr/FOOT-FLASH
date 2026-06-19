@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-19T18:55:23.501Z",
+  "lastUpdated": "2026-06-19T19:07:12.381Z",
   "data": {
     "1": {
       "s1": 2,
@@ -985,6 +985,13 @@
         }
       ],
       "ref": "Gustavo Tejera"
+    },
+    "29": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Felix Zwayer"
     }
   },
   "meta": {
@@ -992,7 +999,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 28,
-      "TIMED": 76
+      "IN_PLAY": 1,
+      "TIMED": 75
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
