@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-19T21:11:15.717Z",
+  "lastUpdated": "2026-06-19T22:06:56.696Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1012,6 +1012,13 @@
           "a": null
         }
       ]
+    },
+    "30": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Il'giz Tantashev"
     }
   },
   "meta": {
@@ -1019,7 +1026,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 29,
-      "TIMED": 75
+      "IN_PLAY": 1,
+      "TIMED": 74
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
