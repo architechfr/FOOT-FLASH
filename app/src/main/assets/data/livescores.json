@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-19T19:45:51.722Z",
+  "lastUpdated": "2026-06-19T19:51:46.829Z",
   "data": {
     "1": {
       "s1": 2,
@@ -987,10 +987,14 @@
       "ref": "Gustavo Tejera"
     },
     "29": {
-      "s1": 1,
+      "s1": 2,
       "s2": 0,
       "status": "IN_PLAY",
       "minute": null,
+      "ht": [
+        0,
+        0
+      ],
       "ref": "Felix Zwayer"
     }
   },
