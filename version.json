@@ -1,5 +1,5 @@
 {
-  "versionCode": 18,
-  "version": "v1.9.21",
-  "notes": "Lisibilite amelioree. (1) Nouveau bloc 'Matchs du jour' en haut de l'accueil : les matchs du jour s'affichent directement, en gros et cliquables, sans avoir a ouvrir le calendrier ni scroller. Les matchs de la nuit (avant 06h) comptent pour la veille. (2) Texte plus grand par defaut (+12%) pour tout le monde ; le reglage Taille du texte (Petit/Normal/Grand/Tres grand) agrandit desormais reellement toute l'interface."
+  "versionCode": 19,
+  "version": "v1.9.22",
+  "notes": "'Aujourd'hui' mis en avant dans l'onglet Matchs (Liste) : la barre des jours se centre automatiquement sur la pastille doree AUJ, et l'ouverture de l'onglet Matchs amene directement aux matchs du jour. A l'ouverture de l'appli, la page reste en haut pour garder le bloc 'Matchs du jour' et le compte a rebours visibles."
 }

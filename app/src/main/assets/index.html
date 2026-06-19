@@ -2582,6 +2582,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.9.22",d:"19/06/2026",changes:"« Aujourd'hui » mis en avant dans l'onglet Matchs → Liste. La barre des jours se centre automatiquement sur la pastille dorée AUJ (avant, elle restait calée sur le 11 juin et il fallait scroller pour trouver aujourd'hui). Et quand on ouvre l'onglet Matchs, la liste se positionne directement sur les matchs du jour (juste sous la barre des jours). À l'ouverture de l'appli, la page reste en haut pour garder le bloc « Matchs du jour » et le compte à rebours visibles ; le saut n'est pas imposé si on a déjà commencé à faire défiler."},
       {v:"v1.9.21",d:"19/06/2026",changes:"Lisibilité améliorée (suite aux retours d'utilisateurs). (1) Nouveau bloc « ⚽ Matchs du jour » tout en haut de l'accueil : les matchs du jour s'affichent directement, en gros et cliquables, avec l'heure FR, le score en direct et le statut — plus besoin d'ouvrir le calendrier puis de scroller. Convention « match de la nuit = match du jour » : un match qui commence après minuit (avant 06h) reste rattaché à la soirée de la veille. S'il n'y a pas de match aujourd'hui, le bloc affiche la prochaine journée. (2) Texte plus grand par défaut (+12%) pour tout le monde. Le réglage Taille du texte (Réglages → Petit / Normal / Grand / Très grand) agrandit désormais RÉELLEMENT toute l'interface (avant, il n'avait quasi aucun effet car presque tout le texte avait une taille figée)."},
       {v:"v1.9.20",d:"19/06/2026",changes:"Date de la finale corrigée. Dans le tableau (vue Parcours), la carte 🏆 FINALE affichait par erreur « dim. 28 juin · SoFi Stadium · Los Angeles » — en réalité la date et le lieu du tout premier 16e de finale. Cause : un filtre qui confondait « FINALE » avec les tours « …de finale » (16es, 8es, quarts, demis). La carte affiche désormais la vraie finale : dim. 19 juillet 2026 · MetLife Stadium · East Rutherford (New York). Le reste du calendrier éliminatoire (16es 28 juin–3 juil, 8es 4–7 juil, quarts 9–11 juil, demis 14–15 juil, 3e place 18 juil) a été vérifié et est conforme au calendrier officiel FIFA."},
       {v:"v1.9.19",d:"17/06/2026",changes:"Diffusion France corrigée. Les matchs de poule diffusés EN CLAIR sur M6 étaient signalés « beIN Sports » uniquement : c'est réparé. 29 affiches de phase de groupes confirmées M6 (ouverture, tous les Bleus, Portugal-RD Congo, Angleterre-Croatie, États-Unis-Australie, Allemagne-Côte d'Ivoire, etc.) affichent désormais le badge 🆓 M6 en plus de 💰 beIN. Rappel 2026 : TF1 ne diffuse AUCUN match ; M6 a 54 matchs en clair, beIN les 104. Répartition basée sur le programme TV Eurosport (source unique fiable, horaires recoupés avec l'heure locale des stades) ; les 4 entrées issues d'un guide TV erroné (CAN-BIH, Qatar-Suisse, Brésil-Maroc, Pays-Bas-Japon) ont été retirées. Les ~5 dernières affiches M6 de poule seront ajoutées dès l'annonce officielle."},
@@ -2624,7 +2625,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.21 — Lisibilité : bloc « Matchs du jour » en haut de l'accueil + texte plus grand par défaut (réglage Taille du texte réparé) · 19 juin 2026";
+    var APP_VERSION="v1.9.22 — La barre des jours se centre sur AUJ (doré) et l'onglet Matchs s'ouvre directement sur les matchs du jour · 19 juin 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -4985,11 +4986,30 @@
       if(V.view==="cal"&&V.calTab==="matchs"){
         var _jsig="cal/matchs/"+(V.filter||"all");
         if(_jsig!==V._matchsJumpSig){
-          var _anc=document.getElementById("nextMatchAnchor");
-          if(_anc){V._matchsJumpSig=_jsig;setTimeout(function(){
-            try{_anc.scrollIntoView({block:"start",behavior:"auto"})}catch(e){}
-            try{var _oc=document.querySelector("#ffDaybar .daychip.on"); if(_oc) _oc.scrollIntoView({inline:"center",block:"nearest"});}catch(e){}
-          },60)}
+          var _firstBoot=!V._matchsBooted; V._matchsBooted=true;
+          V._matchsJumpSig=_jsig;
+          // v1.9.22 — « Aujourd'hui » mis en avant dans la liste.
+          // (1) On centre TOUJOURS la pastille dorée AUJ dans la barre de jours
+          //     (la barre n'a pas d'images : largeur stable tout de suite).
+          // (2) On amène la section du jour en haut de la zone visible — SAUF au
+          //     tout premier affichage de l'appli, pour garder le bloc « Matchs du
+          //     jour » + le hero visibles à l'ouverture. Le saut vertical n'insiste
+          //     pas si l'utilisateur a commencé à scroller (anti-conflit), et il est
+          //     rejoué après le chargement des drapeaux (qui décalent la hauteur).
+          var _lastY=-1, _armed=true;
+          var _ffToday=function(doVScroll){
+            var _bar=document.getElementById("ffDaybar");
+            var _on=_bar&&_bar.querySelector(".daychip.on");
+            if(_bar&&_on){try{_bar.scrollLeft=Math.max(0,_on.offsetLeft-(_bar.clientWidth-_on.offsetWidth)/2);}catch(e){}}
+            if(!doVScroll||!_armed)return;
+            if(_lastY>=0 && Math.abs(window.pageYOffset-_lastY)>8){_armed=false;return;} // l'utilisateur a scrollé
+            var _sec=document.querySelector('.sec[data-today="1"]')||document.getElementById("nextMatchAnchor");
+            if(_sec){try{var _y=_sec.getBoundingClientRect().top+window.pageYOffset-56;window.scrollTo(0,Math.max(0,_y));_lastY=Math.round(window.pageYOffset);}catch(e){}}
+          };
+          var _v=!_firstBoot; // pas de saut vertical au tout premier lancement
+          setTimeout(function(){_ffToday(_v)},60);
+          setTimeout(function(){_ffToday(_v)},350);
+          setTimeout(function(){_ffToday(_v)},900);
         }
       }else{V._matchsJumpSig=null}
     }
@@ -6041,7 +6061,7 @@
         var st=matchStatus(m.d);
         if(!anchorPlaced&&st!=="done"){h+='<div id="nextMatchAnchor" style="scroll-margin-top:64px"></div>';anchorPlaced=true}
         var dt=fmtDate(m.d);
-        if(dt!==lastDate){h+='<div class="sec" id="day-'+daySeen[dt]+'" style="scroll-margin-top:58px">'+dt+"</div>";lastDate=dt}
+        if(dt!==lastDate){h+='<div class="sec" id="day-'+daySeen[dt]+'"'+(dt===activeDayKey?' data-today="1"':'')+' style="scroll-margin-top:58px">'+dt+"</div>";lastDate=dt}
         var t1=getTeam(m.t1),t2=getTeam(m.t2);
         var lv=(typeof wcLiveState==="function")?wcLiveState(m):null; // live Mondial (champ _live)
         h+='<div class="mc'+(st==="live"?" live":"")+(st==="soon"?" soon":"")+'" style="cursor:pointer" onclick="showMatchDetail('+m.id+')">';
