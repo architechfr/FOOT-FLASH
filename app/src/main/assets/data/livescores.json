@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-19T20:18:09.051Z",
+  "lastUpdated": "2026-06-19T21:11:15.717Z",
   "data": {
     "1": {
       "s1": 2,
@@ -989,21 +989,36 @@
     "29": {
       "s1": 2,
       "s2": 0,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         2,
         0
       ],
-      "ref": "Felix Zwayer"
+      "ref": "Felix Zwayer",
+      "goals": [
+        {
+          "m": "11",
+          "t": 1,
+          "n": "Cameron Burgess",
+          "type": "CSC",
+          "a": null
+        },
+        {
+          "m": "43",
+          "t": 1,
+          "n": "Alex Freeman",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 28,
-      "IN_PLAY": 1,
+      "FINISHED": 29,
       "TIMED": 75
     },
     "firstUtc": "2026-06-11T19:00:00Z",
