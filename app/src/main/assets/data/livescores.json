@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-19T04:00:19.147Z",
+  "lastUpdated": "2026-06-19T05:02:09.035Z",
   "data": {
     "1": {
       "s1": 2,
@@ -975,7 +975,6 @@
         0,
         0
       ],
-      "ref": "Gustavo Tejera",
       "goals": [
         {
           "m": "50",
@@ -984,7 +983,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Gustavo Tejera"
     }
   },
   "meta": {
