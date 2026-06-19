@@ -34,6 +34,7 @@
           --tx:#eaf1fb;
           --t2:#8fa6cb;
           --r:14px}
+        html {overflow-x:hidden}
         body {
           font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
           background:
@@ -41,7 +42,10 @@
             var(--bg);
           color:var(--tx);
           min-height:100dvh;
-          padding-top:0}
+          padding-top:0;
+          /* v1.9.21 — empêche tout défilement horizontal parasite (notamment aux
+             tailles de texte L/XL où le zoom peut faire déborder de quelques px) */
+          overflow-x:hidden}
         .ticker {margin-top:0}
         .app {
           /* v1.9.16 — remplit toute la largeur sur téléphone/tablette (plus de
@@ -614,8 +618,13 @@
         body.confort .ticker {height:42px;font-size:13px}
         body.confort .nav button {padding:10px 6px;font-size:11px}
         body.confort .sec {font-size:15px;padding:12px 10px}
-        body.text-L {font-size:16px}
-        body.text-XL {font-size:18px}
+        /* v1.9.21 — Taille du texte via zoom : agrandit RÉELLEMENT toute l'interface.
+           (Les anciennes règles font-size n'avaient quasi aucun effet car presque
+           tout le texte a une taille fixée en dur en px.) text-M = +12% par défaut. */
+        body.text-S {zoom:1}
+        body.text-M {zoom:1.12}
+        body.text-L {zoom:1.22}
+        body.text-XL {zoom:1.34}
         body.no-anim *,body.no-anim *::before,body.no-anim *::after {
           animation:none !important;transition:none !important}
         .ob-wrap {min-height:calc(100dvh - 180px);display:flex;flex-direction:column;justify-content:center;padding:10px 4px}
@@ -2329,9 +2338,8 @@
     }
     function applyTextSize(size){
       var b=document.body;
-      b.classList.remove("text-L","text-XL");
-      if(size==="L")b.classList.add("text-L");
-      else if(size==="XL")b.classList.add("text-XL");
+      b.classList.remove("text-S","text-M","text-L","text-XL");
+      b.classList.add("text-"+(size||"M"));
       saveSetting("text_size",size);
     }
     function applyAnimationPref(enabled){
@@ -2463,6 +2471,25 @@
       return loc+' <span style="opacity:.6">('+cityShort(f.city)+')</span> · '+fr+' <span style="opacity:.6">en France</span>';
     }
     function matchStatus(d){var now=Date.now(),mt=new Date(d).getTime();var diff=mt-now;if(diff<0&&diff>-7200000)return"live";if(diff>0&&diff<7200000)return"soon";if(diff<0)return"done";return"upcoming"}
+    // ═══ JOURNÉE FR — v1.9.21 ═══════════════════════════════════════════════
+    // Clé "journée" au format YYYY-MM-DD en heure de Paris, MAIS un match qui
+    // commence avant 06:00 compte pour la veille : "le match de la nuit = le
+    // match du jour". On décale donc l'instant de 6h avant de prendre la date FR.
+    function frDayKey(ms){
+      try{
+        var d=new Date(ms-6*3600000),p={};
+        new Intl.DateTimeFormat("en-CA",{timeZone:"Europe/Paris",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(d).forEach(function(x){p[x.type]=x.value;});
+        return p.year+"-"+p.month+"-"+p.day;
+      }catch(e){return new Date(ms-6*3600000).toISOString().substring(0,10);}
+    }
+    function frDayLabel(key){
+      try{
+        var p=key.split("-"),dObj=new Date(parseInt(p[0]),parseInt(p[1])-1,parseInt(p[2]));
+        var jours=["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"];
+        var mois=["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+        return jours[dObj.getDay()]+" "+dObj.getDate()+" "+mois[dObj.getMonth()];
+      }catch(e){return key;}
+    }
     function toast(m){var e=document.createElement("div");e.className="toast";e.textContent=m;document.body.appendChild(e);setTimeout(function(){e.remove()},2600)}
 
     // v2.1 — Historique de navigation pour gerer le bouton retour Android
@@ -2555,6 +2582,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.9.21",d:"19/06/2026",changes:"Lisibilité améliorée (suite aux retours d'utilisateurs). (1) Nouveau bloc « ⚽ Matchs du jour » tout en haut de l'accueil : les matchs du jour s'affichent directement, en gros et cliquables, avec l'heure FR, le score en direct et le statut — plus besoin d'ouvrir le calendrier puis de scroller. Convention « match de la nuit = match du jour » : un match qui commence après minuit (avant 06h) reste rattaché à la soirée de la veille. S'il n'y a pas de match aujourd'hui, le bloc affiche la prochaine journée. (2) Texte plus grand par défaut (+12%) pour tout le monde. Le réglage Taille du texte (Réglages → Petit / Normal / Grand / Très grand) agrandit désormais RÉELLEMENT toute l'interface (avant, il n'avait quasi aucun effet car presque tout le texte avait une taille figée)."},
       {v:"v1.9.20",d:"19/06/2026",changes:"Date de la finale corrigée. Dans le tableau (vue Parcours), la carte 🏆 FINALE affichait par erreur « dim. 28 juin · SoFi Stadium · Los Angeles » — en réalité la date et le lieu du tout premier 16e de finale. Cause : un filtre qui confondait « FINALE » avec les tours « …de finale » (16es, 8es, quarts, demis). La carte affiche désormais la vraie finale : dim. 19 juillet 2026 · MetLife Stadium · East Rutherford (New York). Le reste du calendrier éliminatoire (16es 28 juin–3 juil, 8es 4–7 juil, quarts 9–11 juil, demis 14–15 juil, 3e place 18 juil) a été vérifié et est conforme au calendrier officiel FIFA."},
       {v:"v1.9.19",d:"17/06/2026",changes:"Diffusion France corrigée. Les matchs de poule diffusés EN CLAIR sur M6 étaient signalés « beIN Sports » uniquement : c'est réparé. 29 affiches de phase de groupes confirmées M6 (ouverture, tous les Bleus, Portugal-RD Congo, Angleterre-Croatie, États-Unis-Australie, Allemagne-Côte d'Ivoire, etc.) affichent désormais le badge 🆓 M6 en plus de 💰 beIN. Rappel 2026 : TF1 ne diffuse AUCUN match ; M6 a 54 matchs en clair, beIN les 104. Répartition basée sur le programme TV Eurosport (source unique fiable, horaires recoupés avec l'heure locale des stades) ; les 4 entrées issues d'un guide TV erroné (CAN-BIH, Qatar-Suisse, Brésil-Maroc, Pays-Bas-Japon) ont été retirées. Les ~5 dernières affiches M6 de poule seront ajoutées dès l'annonce officielle."},
       {v:"v1.9.5",d:"11/06/2026",changes:"Infirmerie recentrée sur le Mondial : les listes des 26 étant connues, l'infirmerie n'affiche plus que les joueurs SÉLECTIONNÉS. Les blessés non retenus (blessures longue durée : Ekitiké, Rodrygo, Xavi Simons, Militão, Foyth, Carboni, Panichelli, Grealish, L. Zidane) sont masqués automatiquement par croisement avec l'effectif officiel de chaque équipe (effectifs.json). De plus, un blessé disparaît automatiquement dès que sa date de retour est passée (joueur rétabli ayant rejoué) : en juin, Koundé, Saliba, Manu Koné, Yamal, Mbappé sont remis. Ne restent que les cas réellement en cours (ex. Valverde, retour ciblé au coup d'envoi)."},
@@ -2596,7 +2624,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.20 — Date de la finale corrigée : le tableau affichait à tort « 28 juin · Los Angeles » ; la finale est bien le 19 juillet 2026 au MetLife Stadium (New York) · 19 juin 2026";
+    var APP_VERSION="v1.9.21 — Lisibilité : bloc « Matchs du jour » en haut de l'accueil + texte plus grand par défaut (réglage Taille du texte réparé) · 19 juin 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -4740,6 +4768,65 @@
       return h;
     }
 
+    // ═══ BLOC "MATCHS DU JOUR" (accueil) — v1.9.21 ══════════════════════════
+    // Mis tout en haut de l'accueil, en gros et cliquable, pour ne plus avoir à
+    // ouvrir le calendrier et scroller. Regroupe par "journée FR" (un match de la
+    // nuit compte pour la veille). Si aucun match aujourd'hui, montre la prochaine
+    // journée à la place.
+    function rTodayMatches(){
+      try{
+        if(typeof MATCHES==="undefined"||!MATCHES||!MATCHES.length)return "";
+        var now=Date.now(),todayKey=frDayKey(now);
+        function dk(m){var t=new Date(m.d).getTime();return isNaN(t)?null:frDayKey(t);}
+        var dayKey=todayKey,isToday=true;
+        var list=MATCHES.filter(function(m){return m&&m.d&&dk(m)===todayKey;});
+        if(!list.length){
+          var fut=MATCHES.filter(function(m){return m&&m.d&&new Date(m.d).getTime()>now;}).sort(function(a,b){return new Date(a.d)-new Date(b.d);});
+          if(!fut.length)return "";
+          dayKey=dk(fut[0]);isToday=false;
+          list=MATCHES.filter(function(m){return m&&m.d&&dk(m)===dayKey;});
+        }
+        list.sort(function(a,b){return new Date(a.d)-new Date(b.d);});
+
+        var h='<div style="background:linear-gradient(135deg,var(--s2),var(--s1));border:2px solid var(--g);border-radius:16px;padding:14px;margin:10px 0 12px">';
+        h+='<div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:12px">';
+        h+='<div style="font-size:17px;font-weight:900;color:var(--g);letter-spacing:.5px">'+(isToday?'⚽ MATCHS DU JOUR':'⚽ PROCHAINS MATCHS')+'</div>';
+        h+='<div style="font-size:13px;color:var(--t2);font-weight:700;text-transform:capitalize">'+frDayLabel(dayKey)+'</div>';
+        h+='</div>';
+
+        list.forEach(function(m){
+          var t1=getTeam(m.t1),t2=getTeam(m.t2);
+          var lv=(typeof wcLiveState==="function")?wcLiveState(m):null;
+          var ko=new Date(m.d).getTime();
+          var live=!!(lv&&!lv.fin);
+          var s1=(m.s1!=null)?m.s1:(lv?lv.s1:null);
+          var s2=(m.s2!=null)?m.s2:(lv?lv.s2:null);
+          var hasScore=(s1!=null&&s2!=null);
+          var finished=!!(lv&&lv.fin)||(hasScore&&now>ko+(String(m.st||"").indexOf("Groupe")>=0?130:205)*60000);
+
+          var status = live
+            ? '<span style="color:#ff5a5a;font-weight:900">🔴 EN DIRECT'+(lv&&lv.min?" · "+lv.min+"'":(lv&&lv.label==="Mi-temps"?" · Mi-temps":""))+'</span>'
+            : finished
+              ? '<span style="color:var(--t2);font-weight:800">✅ Terminé</span>'
+              : '<span style="color:var(--am);font-weight:800">🕐 '+fmtTimeFR(m.d,m.city)+' <span style="opacity:.7">heure FR</span></span>';
+
+          h+='<div onclick="showMatchDetail('+m.id+')" style="background:var(--s1);border:1px solid '+(live?'rgba(255,90,90,.55)':'var(--s3)')+';border-radius:12px;padding:11px 8px;margin-bottom:8px;cursor:pointer">';
+          h+='<div style="text-align:center;font-size:12px;margin-bottom:8px">'+status+' <span style="color:var(--t2);font-weight:600">· '+(m.st||"")+'</span></div>';
+          h+='<div style="display:flex;align-items:center;gap:6px">';
+          h+='<div style="flex:1;display:flex;align-items:center;justify-content:flex-end;gap:8px;text-align:right"><span style="font-size:15px;font-weight:800;color:var(--tx)">'+t1.name+'</span>'+flagImg(m.t1,32)+'</div>';
+          var center=(live||finished||hasScore)
+            ? '<span style="font-size:22px;font-weight:900;color:'+(live?'#ff5a5a':'var(--g)')+'">'+(s1!=null?s1:0)+' <span style="opacity:.5">-</span> '+(s2!=null?s2:0)+'</span>'
+            : '<span style="font-size:19px;font-weight:900;color:var(--g)">'+fmtTimeFR(m.d,m.city)+'</span>';
+          h+='<div style="min-width:70px;text-align:center">'+center+'</div>';
+          h+='<div style="flex:1;display:flex;align-items:center;gap:8px">'+flagImg(m.t2,32)+'<span style="font-size:15px;font-weight:800;color:var(--tx)">'+t2.name+'</span></div>';
+          h+='</div></div>';
+        });
+
+        h+='</div>';
+        return h;
+      }catch(e){return "";}
+    }
+
     function render(){
       normalizeMatches(); // garantit des instants absolus (heure locale stade -> UTC) avant tout affichage/compte à rebours
       var a=document.getElementById("app");
@@ -4825,6 +4912,8 @@
       }
       h+='<div style="font-size:10px;color:var(--g);font-weight:800;letter-spacing:3px;margin-top:4px;opacity:.7">FOOT FLASH</div>';
       h+='</div></div>';
+      // v1.9.21 — Matchs du jour, mis en avant tout en haut de l'accueil
+      if(V.view==="cal" && !V.selTeam){ try{ h+=rTodayMatches(); }catch(e){} }
       // v1.046 — Barre de recherche + widget équipe UNIQUEMENT sur Matchs / Groupes / Équipes
       // (pas sur Pronos, Quiz, Actus, Palmarès, Simul, Tableau, Paramètres, Stades)
       var showHomeWidgets=(V.view==="cal"||V.view==="groups"||V.view==="teams");
