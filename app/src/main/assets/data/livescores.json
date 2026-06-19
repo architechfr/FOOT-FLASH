@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-19T01:56:35.735Z",
+  "lastUpdated": "2026-06-19T02:02:29.777Z",
   "data": {
     "1": {
       "s1": 2,
@@ -920,7 +920,6 @@
         3,
         0
       ],
-      "ref": "Cristián Garay",
       "goals": [
         {
           "m": "16",
@@ -964,7 +963,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Cristián Garay"
     },
     "28": {
       "s1": 0,
