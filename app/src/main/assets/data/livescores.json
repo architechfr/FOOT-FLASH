@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-20T20:56:42.742Z",
+  "lastUpdated": "2026-06-20T20:59:40.380Z",
   "data": {
     "1": {
       "s1": 2,
@@ -67,6 +67,10 @@
       "s2": 1,
       "status": "FINISHED",
       "minute": null,
+      "ht": [
+        0,
+        1
+      ],
       "goals": [
         {
           "m": "21",
@@ -82,10 +86,6 @@
           "type": null,
           "a": null
         }
-      ],
-      "ht": [
-        0,
-        1
       ],
       "ref": "Facundo Tello"
     },
@@ -1145,8 +1145,12 @@
     "34": {
       "s1": 0,
       "s2": 1,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
+      "ht": [
+        0,
+        1
+      ],
       "ref": "Juan Benítez"
     }
   },
@@ -1155,7 +1159,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 33,
-      "IN_PLAY": 1,
+      "PAUSED": 1,
       "TIMED": 70
     },
     "firstUtc": "2026-06-11T19:00:00Z",
