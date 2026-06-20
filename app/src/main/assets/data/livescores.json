@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-20T05:23:08.443Z",
+  "lastUpdated": "2026-06-20T05:29:03.170Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1076,7 +1076,16 @@
         0,
         1
       ],
-      "ref": "Ivan Barton"
+      "ref": "Ivan Barton",
+      "goals": [
+        {
+          "m": "2",
+          "t": 2,
+          "n": "Matías Galarza",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
