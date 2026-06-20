@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-20T16:58:14.104Z",
+  "lastUpdated": "2026-06-20T17:07:07.031Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1086,6 +1086,13 @@
         }
       ],
       "ref": "Ivan Barton"
+    },
+    "33": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Michael Oliver"
     }
   },
   "meta": {
@@ -1093,7 +1100,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 32,
-      "TIMED": 72
+      "IN_PLAY": 1,
+      "TIMED": 71
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
