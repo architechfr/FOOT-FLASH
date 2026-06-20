@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-20T02:22:37.430Z",
+  "lastUpdated": "2026-06-20T02:37:23.807Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1036,7 +1036,7 @@
     "31": {
       "s1": 3,
       "s2": 0,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         3,
@@ -1049,8 +1049,7 @@
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 30,
-      "IN_PLAY": 1,
+      "FINISHED": 31,
       "TIMED": 73
     },
     "firstUtc": "2026-06-11T19:00:00Z",
