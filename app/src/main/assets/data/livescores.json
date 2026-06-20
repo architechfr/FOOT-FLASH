@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-20T05:29:03.170Z",
+  "lastUpdated": "2026-06-20T07:00:30.078Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1076,7 +1076,6 @@
         0,
         1
       ],
-      "ref": "Ivan Barton",
       "goals": [
         {
           "m": "2",
@@ -1085,7 +1084,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Ivan Barton"
     }
   },
   "meta": {
