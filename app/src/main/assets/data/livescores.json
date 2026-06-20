@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-20T17:13:05.535Z",
+  "lastUpdated": "2026-06-20T17:24:56.661Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1088,7 +1088,7 @@
       "ref": "Ivan Barton"
     },
     "33": {
-      "s1": 1,
+      "s1": 2,
       "s2": 0,
       "status": "IN_PLAY",
       "minute": null,
