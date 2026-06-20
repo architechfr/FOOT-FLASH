@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-20T22:01:38.872Z",
+  "lastUpdated": "2026-06-20T22:06:07.223Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1145,21 +1145,43 @@
     "34": {
       "s1": 2,
       "s2": 1,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         0,
         1
       ],
-      "ref": "Juan Benítez"
+      "ref": "Juan Benítez",
+      "goals": [
+        {
+          "m": "68",
+          "t": 1,
+          "n": "Deniz Undav",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "90+4",
+          "t": 1,
+          "n": "Deniz Undav",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "30",
+          "t": 2,
+          "n": "Franck Kessié",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 33,
-      "IN_PLAY": 1,
+      "FINISHED": 34,
       "TIMED": 70
     },
     "firstUtc": "2026-06-11T19:00:00Z",
