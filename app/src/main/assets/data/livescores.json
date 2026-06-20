@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-20T20:59:40.380Z",
+  "lastUpdated": "2026-06-20T21:02:37.753Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1096,7 +1096,6 @@
         2,
         0
       ],
-      "ref": "Michael Oliver",
       "goals": [
         {
           "m": "5",
@@ -1140,7 +1139,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Michael Oliver"
     },
     "34": {
       "s1": 0,
