@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-20T19:02:53.090Z",
+  "lastUpdated": "2026-06-20T19:08:48.019Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1096,7 +1096,51 @@
         2,
         0
       ],
-      "ref": "Michael Oliver"
+      "ref": "Michael Oliver",
+      "goals": [
+        {
+          "m": "5",
+          "t": 1,
+          "n": "Brian Brobbey",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "17",
+          "t": 1,
+          "n": "Brian Brobbey",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "47",
+          "t": 1,
+          "n": "Cody Gakpo",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "54",
+          "t": 1,
+          "n": "Cody Gakpo",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "59",
+          "t": 2,
+          "n": "Anthony Elanga",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "89",
+          "t": 1,
+          "n": "Crysencio Summerville",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
