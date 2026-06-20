@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-20T04:18:03.852Z",
+  "lastUpdated": "2026-06-20T04:32:52.582Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1042,7 +1042,6 @@
         3,
         0
       ],
-      "ref": "Alejandro Hernández Hernández",
       "goals": [
         {
           "m": "23",
@@ -1065,7 +1064,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Alejandro Hernández Hernández"
     },
     "32": {
       "s1": 0,
