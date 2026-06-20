@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-20T20:32:13.043Z",
+  "lastUpdated": "2026-06-20T20:35:11.994Z",
   "data": {
     "1": {
       "s1": 2,
@@ -67,6 +67,10 @@
       "s2": 1,
       "status": "FINISHED",
       "minute": null,
+      "ht": [
+        0,
+        1
+      ],
       "goals": [
         {
           "m": "21",
@@ -82,10 +86,6 @@
           "type": null,
           "a": null
         }
-      ],
-      "ht": [
-        0,
-        1
       ],
       "ref": "Facundo Tello"
     },
@@ -1144,7 +1144,7 @@
     },
     "34": {
       "s1": 0,
-      "s2": 0,
+      "s2": 1,
       "status": "IN_PLAY",
       "minute": null,
       "ref": "Juan Benítez"
