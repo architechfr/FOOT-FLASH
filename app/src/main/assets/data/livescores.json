@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-20T00:10:05.961Z",
+  "lastUpdated": "2026-06-20T00:36:35.712Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1032,6 +1032,13 @@
           "a": null
         }
       ]
+    },
+    "31": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Alejandro Hernández Hernández"
     }
   },
   "meta": {
@@ -1039,7 +1046,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 30,
-      "TIMED": 74
+      "IN_PLAY": 1,
+      "TIMED": 73
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
