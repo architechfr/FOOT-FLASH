@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-21T04:07:28.592Z",
+  "lastUpdated": "2026-06-21T04:13:22.221Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1189,7 +1189,7 @@
     },
     "36": {
       "s1": 0,
-      "s2": 0,
+      "s2": 1,
       "status": "IN_PLAY",
       "minute": null,
       "ref": "István Kovács"
