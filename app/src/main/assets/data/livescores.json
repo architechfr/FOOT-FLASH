@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-21T16:33:11.700Z",
+  "lastUpdated": "2026-06-21T16:59:41.807Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1231,8 +1231,12 @@
     "37": {
       "s1": 3,
       "s2": 0,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
+      "ht": [
+        3,
+        0
+      ],
       "ref": "Raphael Claus"
     }
   },
@@ -1241,7 +1245,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 36,
-      "IN_PLAY": 1,
+      "PAUSED": 1,
       "TIMED": 67
     },
     "firstUtc": "2026-06-11T19:00:00Z",
