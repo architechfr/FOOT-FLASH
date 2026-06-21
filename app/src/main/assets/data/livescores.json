@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-21T18:08:40.672Z",
+  "lastUpdated": "2026-06-21T18:11:38.662Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1237,7 +1237,37 @@
         3,
         0
       ],
-      "ref": "Raphael Claus"
+      "ref": "Raphael Claus",
+      "goals": [
+        {
+          "m": "10",
+          "t": 1,
+          "n": "Lamine Yamal",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "21",
+          "t": 1,
+          "n": "Mikel Oyarzabal",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "24",
+          "t": 1,
+          "n": "Mikel Oyarzabal",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "49",
+          "t": 1,
+          "n": "Hassan Al-Tambakti",
+          "type": "CSC",
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
@@ -1248,6 +1278,9 @@
       "TIMED": 67
     },
     "firstUtc": "2026-06-11T19:00:00Z",
-    "lastUtc": "2026-07-19T19:00:00Z"
+    "lastUtc": "2026-07-19T19:00:00Z",
+    "ofConflicts": [
+      "#37 fd=5-0 of=4-0"
+    ]
   }
 }
