@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-21T19:57:37.247Z",
+  "lastUpdated": "2026-06-21T20:00:35.436Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1237,7 +1237,6 @@
         3,
         0
       ],
-      "ref": "Raphael Claus",
       "goals": [
         {
           "m": "10",
@@ -1267,13 +1266,18 @@
           "type": "CSC",
           "a": null
         }
-      ]
+      ],
+      "ref": "Raphael Claus"
     },
     "38": {
       "s1": 0,
-      "s2": 1,
-      "status": "IN_PLAY",
+      "s2": 0,
+      "status": "HT",
       "minute": null,
+      "ht": [
+        0,
+        0
+      ],
       "ref": "Darío Herrera"
     }
   },
@@ -1282,7 +1286,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 37,
-      "IN_PLAY": 1,
+      "PAUSED": 1,
       "TIMED": 66
     },
     "firstUtc": "2026-06-11T19:00:00Z",
