@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-21T00:01:30.559Z",
+  "lastUpdated": "2026-06-21T00:07:24.755Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1175,6 +1175,13 @@
         }
       ],
       "ref": "Juan Benítez"
+    },
+    "35": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Ning Ma"
     }
   },
   "meta": {
@@ -1182,7 +1189,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 34,
-      "TIMED": 70
+      "IN_PLAY": 1,
+      "TIMED": 69
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
