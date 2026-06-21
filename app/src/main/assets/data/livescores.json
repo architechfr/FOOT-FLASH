@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-21T19:05:04.940Z",
+  "lastUpdated": "2026-06-21T19:08:03.814Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1268,6 +1268,13 @@
           "a": null
         }
       ]
+    },
+    "38": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Darío Herrera"
     }
   },
   "meta": {
@@ -1275,7 +1282,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 37,
-      "TIMED": 67
+      "IN_PLAY": 1,
+      "TIMED": 66
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z",
