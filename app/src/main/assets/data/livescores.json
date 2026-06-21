@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-21T20:36:13.886Z",
+  "lastUpdated": "2026-06-21T20:39:12.039Z",
   "data": {
     "1": {
       "s1": 2,
@@ -67,10 +67,6 @@
       "s2": 1,
       "status": "FINISHED",
       "minute": null,
-      "ht": [
-        0,
-        1
-      ],
       "goals": [
         {
           "m": "21",
@@ -86,6 +82,10 @@
           "type": null,
           "a": null
         }
+      ],
+      "ht": [
+        0,
+        1
       ],
       "ref": "Facundo Tello"
     },
@@ -1229,7 +1229,7 @@
       "ref": "István Kovács"
     },
     "37": {
-      "s1": 5,
+      "s1": 4,
       "s2": 0,
       "status": "FINISHED",
       "minute": null,
@@ -1290,9 +1290,6 @@
       "TIMED": 66
     },
     "firstUtc": "2026-06-11T19:00:00Z",
-    "lastUtc": "2026-07-19T19:00:00Z",
-    "ofConflicts": [
-      "#37 fd=5-0 of=4-0"
-    ]
+    "lastUtc": "2026-07-19T19:00:00Z"
   }
 }
