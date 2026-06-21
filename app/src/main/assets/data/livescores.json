@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-21T04:39:51.839Z",
+  "lastUpdated": "2026-06-21T04:57:31.975Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1190,8 +1190,12 @@
     "36": {
       "s1": 0,
       "s2": 2,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
+      "ht": [
+        0,
+        2
+      ],
       "ref": "István Kovács"
     }
   },
@@ -1200,7 +1204,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 35,
-      "IN_PLAY": 1,
+      "PAUSED": 1,
       "TIMED": 68
     },
     "firstUtc": "2026-06-11T19:00:00Z",
