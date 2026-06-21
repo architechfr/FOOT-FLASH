@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-21T22:29:05.745Z",
+  "lastUpdated": "2026-06-21T22:52:44.381Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1281,7 +1281,7 @@
       "ref": "Darío Herrera"
     },
     "39": {
-      "s1": 0,
+      "s1": 1,
       "s2": 1,
       "status": "IN_PLAY",
       "minute": null,
