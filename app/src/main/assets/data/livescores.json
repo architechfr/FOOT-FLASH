@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-21T21:08:37.958Z",
+  "lastUpdated": "2026-06-21T22:04:33.061Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1279,6 +1279,13 @@
         0
       ],
       "ref": "Darío Herrera"
+    },
+    "39": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Espen Eskås"
     }
   },
   "meta": {
@@ -1286,7 +1293,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 38,
-      "TIMED": 66
+      "IN_PLAY": 1,
+      "TIMED": 65
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
