@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-21T23:34:06.963Z",
+  "lastUpdated": "2026-06-22T00:11:44.420Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1283,21 +1283,50 @@
     "39": {
       "s1": 2,
       "s2": 2,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         2,
         1
       ],
-      "ref": "Espen Eskås"
+      "ref": "Espen Eskås",
+      "goals": [
+        {
+          "m": "44",
+          "t": 1,
+          "n": "Maxi Araújo",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "45+6",
+          "t": 1,
+          "n": "Agustín Cano",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "21",
+          "t": 2,
+          "n": "Kevin Pina",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "61",
+          "t": 2,
+          "n": "Hélio Varela",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 38,
-      "IN_PLAY": 1,
+      "FINISHED": 39,
       "TIMED": 65
     },
     "firstUtc": "2026-06-11T19:00:00Z",
