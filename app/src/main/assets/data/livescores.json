@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-22T16:52:58.310Z",
+  "lastUpdated": "2026-06-22T17:07:43.788Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1361,6 +1361,13 @@
         }
       ],
       "ref": "Omar Mohamed Al Ali"
+    },
+    "41": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Amin Omar"
     }
   },
   "meta": {
@@ -1368,7 +1375,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 40,
-      "TIMED": 64
+      "IN_PLAY": 1,
+      "TIMED": 63
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
