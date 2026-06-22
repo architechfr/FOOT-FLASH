@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-22T20:16:48.946Z",
+  "lastUpdated": "2026-06-22T21:01:45.517Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1371,7 +1371,6 @@
         1,
         0
       ],
-      "ref": "Amin Omar",
       "goals": [
         {
           "m": "38",
@@ -1387,7 +1386,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Amin Omar"
     }
   },
   "meta": {
