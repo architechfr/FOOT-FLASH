@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-22T19:05:59.868Z",
+  "lastUpdated": "2026-06-22T19:08:58.470Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1365,21 +1365,36 @@
     "41": {
       "s1": 2,
       "s2": 0,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         1,
         0
       ],
-      "ref": "Amin Omar"
+      "ref": "Amin Omar",
+      "goals": [
+        {
+          "m": "38",
+          "t": 1,
+          "n": "Lionel Messi",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "90+5",
+          "t": 1,
+          "n": "Lionel Messi",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 40,
-      "IN_PLAY": 1,
+      "FINISHED": 41,
       "TIMED": 63
     },
     "firstUtc": "2026-06-11T19:00:00Z",
