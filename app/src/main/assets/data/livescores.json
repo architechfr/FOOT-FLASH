@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-22T02:48:49.365Z",
+  "lastUpdated": "2026-06-22T03:09:27.404Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1324,21 +1324,50 @@
     "40": {
       "s1": 1,
       "s2": 3,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         1,
         0
       ],
-      "ref": "Omar Mohamed Al Ali"
+      "ref": "Omar Mohamed Al Ali",
+      "goals": [
+        {
+          "m": "15",
+          "t": 1,
+          "n": "Finn Surman",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "58",
+          "t": 2,
+          "n": "Mostafa Zico",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "67",
+          "t": 2,
+          "n": "Mohamed Salah",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "82",
+          "t": 2,
+          "n": "Trézéguet",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 39,
-      "IN_PLAY": 1,
+      "FINISHED": 40,
       "TIMED": 64
     },
     "firstUtc": "2026-06-11T19:00:00Z",
