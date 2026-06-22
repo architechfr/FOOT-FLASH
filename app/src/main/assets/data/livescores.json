@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-22T03:09:27.404Z",
+  "lastUpdated": "2026-06-22T05:01:25.192Z",
   "data": {
     "1": {
       "s1": 2,
@@ -67,10 +67,6 @@
       "s2": 1,
       "status": "FINISHED",
       "minute": null,
-      "ht": [
-        0,
-        1
-      ],
       "goals": [
         {
           "m": "21",
@@ -86,6 +82,10 @@
           "type": null,
           "a": null
         }
+      ],
+      "ht": [
+        0,
+        1
       ],
       "ref": "Facundo Tello"
     },
@@ -1330,7 +1330,6 @@
         1,
         0
       ],
-      "ref": "Omar Mohamed Al Ali",
       "goals": [
         {
           "m": "15",
@@ -1360,7 +1359,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Omar Mohamed Al Ali"
     }
   },
   "meta": {
