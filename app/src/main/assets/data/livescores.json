@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-23T01:30:06.210Z",
+  "lastUpdated": "2026-06-23T01:33:03.698Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1398,7 +1398,30 @@
         1,
         0
       ],
-      "ref": "Drew Fischer"
+      "ref": "Drew Fischer",
+      "goals": [
+        {
+          "m": "14",
+          "t": 1,
+          "n": "Kylian Mbappé",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "54",
+          "t": 1,
+          "n": "Kylian Mbappé",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "66",
+          "t": 1,
+          "n": "Ousmane Dembélé",
+          "type": null,
+          "a": null
+        }
+      ]
     },
     "43": {
       "s1": 3,
