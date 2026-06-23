@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-23T01:33:03.698Z",
+  "lastUpdated": "2026-06-23T01:36:02.091Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1398,7 +1398,6 @@
         1,
         0
       ],
-      "ref": "Drew Fischer",
       "goals": [
         {
           "m": "14",
@@ -1421,7 +1420,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Drew Fischer"
     },
     "43": {
       "s1": 3,
