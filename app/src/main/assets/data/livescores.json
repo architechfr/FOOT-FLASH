@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-23T00:01:27.319Z",
+  "lastUpdated": "2026-06-23T00:07:21.990Z",
   "data": {
     "1": {
       "s1": 2,
@@ -67,10 +67,6 @@
       "s2": 1,
       "status": "FINISHED",
       "minute": null,
-      "ht": [
-        0,
-        1
-      ],
       "goals": [
         {
           "m": "21",
@@ -86,6 +82,10 @@
           "type": null,
           "a": null
         }
+      ],
+      "ht": [
+        0,
+        1
       ],
       "ref": "Facundo Tello"
     },
@@ -1392,13 +1392,20 @@
     "42": {
       "s1": 1,
       "s2": 0,
-      "status": "HT",
+      "status": "IN_PLAY",
       "minute": null,
       "ht": [
         1,
         0
       ],
       "ref": "Drew Fischer"
+    },
+    "43": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Wilton Sampaio"
     }
   },
   "meta": {
@@ -1406,8 +1413,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 41,
-      "PAUSED": 1,
-      "TIMED": 62
+      "IN_PLAY": 2,
+      "TIMED": 61
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
