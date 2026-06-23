@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-23T03:59:19.461Z",
+  "lastUpdated": "2026-06-23T04:02:17.176Z",
   "data": {
     "1": {
       "s1": 2,
@@ -67,6 +67,10 @@
       "s2": 1,
       "status": "FINISHED",
       "minute": null,
+      "ht": [
+        0,
+        1
+      ],
       "goals": [
         {
           "m": "21",
@@ -82,10 +86,6 @@
           "type": null,
           "a": null
         }
-      ],
-      "ht": [
-        0,
-        1
       ],
       "ref": "Facundo Tello"
     },
@@ -1432,7 +1432,6 @@
         1,
         0
       ],
-      "ref": "Wilton Sampaio",
       "goals": [
         {
           "m": "43",
@@ -1469,7 +1468,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Wilton Sampaio"
     },
     "44": {
       "s1": 1,
