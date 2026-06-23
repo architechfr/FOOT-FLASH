@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-23T20:36:07.058Z",
+  "lastUpdated": "2026-06-23T20:56:49.070Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1552,6 +1552,17 @@
           "a": null
         }
       ]
+    },
+    "46": {
+      "s1": 0,
+      "s2": 0,
+      "status": "HT",
+      "minute": null,
+      "ht": [
+        0,
+        0
+      ],
+      "ref": "Said Martinez"
     }
   },
   "meta": {
@@ -1559,7 +1570,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 45,
-      "LIVE": 1,
+      "PAUSED": 1,
       "TIMED": 58
     },
     "firstUtc": "2026-06-11T19:00:00Z",
