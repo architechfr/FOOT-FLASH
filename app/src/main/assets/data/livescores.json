@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-23T00:48:41.537Z",
+  "lastUpdated": "2026-06-23T00:51:39.264Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1401,7 +1401,7 @@
       "ref": "Drew Fischer"
     },
     "43": {
-      "s1": 0,
+      "s1": 1,
       "s2": 0,
       "status": "IN_PLAY",
       "minute": null,
