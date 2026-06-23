@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-23T04:52:35.034Z",
+  "lastUpdated": "2026-06-23T05:07:19.874Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1474,21 +1474,43 @@
     "44": {
       "s1": 1,
       "s2": 2,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         1,
         0
       ],
-      "ref": "Slavko Vinčič"
+      "ref": "Slavko Vinčič",
+      "goals": [
+        {
+          "m": "36",
+          "t": 1,
+          "n": "Nizar Al-Rashdan",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "69",
+          "t": 2,
+          "n": "Nadhir Benbouali",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "82",
+          "t": 2,
+          "n": "Amine Gouiri",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 43,
-      "IN_PLAY": 1,
+      "FINISHED": 44,
       "TIMED": 60
     },
     "firstUtc": "2026-06-11T19:00:00Z",
