@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-23T03:44:33.340Z",
+  "lastUpdated": "2026-06-23T03:59:19.461Z",
   "data": {
     "1": {
       "s1": 2,
@@ -67,10 +67,6 @@
       "s2": 1,
       "status": "FINISHED",
       "minute": null,
-      "ht": [
-        0,
-        1
-      ],
       "goals": [
         {
           "m": "21",
@@ -86,6 +82,10 @@
           "type": null,
           "a": null
         }
+      ],
+      "ht": [
+        0,
+        1
       ],
       "ref": "Facundo Tello"
     },
@@ -1474,8 +1474,12 @@
     "44": {
       "s1": 1,
       "s2": 0,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
+      "ht": [
+        1,
+        0
+      ],
       "ref": "Slavko Vinčič"
     }
   },
@@ -1484,7 +1488,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 43,
-      "IN_PLAY": 1,
+      "PAUSED": 1,
       "TIMED": 60
     },
     "firstUtc": "2026-06-11T19:00:00Z",
