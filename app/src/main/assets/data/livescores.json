@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-23T02:01:10.526Z",
+  "lastUpdated": "2026-06-23T02:07:05.541Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1426,21 +1426,57 @@
     "43": {
       "s1": 3,
       "s2": 2,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         1,
         0
       ],
-      "ref": "Wilton Sampaio"
+      "ref": "Wilton Sampaio",
+      "goals": [
+        {
+          "m": "43",
+          "t": 1,
+          "n": "Marcus Holmgren Pedersen",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "48",
+          "t": 1,
+          "n": "Erling Haaland",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "53",
+          "t": 2,
+          "n": "Ismaïla Sarr",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "58",
+          "t": 1,
+          "n": "Erling Haaland",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "90+3",
+          "t": 2,
+          "n": "Ismaïla Sarr",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 42,
-      "IN_PLAY": 1,
+      "FINISHED": 43,
       "TIMED": 61
     },
     "firstUtc": "2026-06-11T19:00:00Z",
