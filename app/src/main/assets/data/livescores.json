@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-23T19:04:32.317Z",
+  "lastUpdated": "2026-06-23T19:07:30.636Z",
   "data": {
     "1": {
       "s1": 2,
@@ -67,6 +67,10 @@
       "s2": 1,
       "status": "FINISHED",
       "minute": null,
+      "ht": [
+        0,
+        1
+      ],
       "goals": [
         {
           "m": "21",
@@ -82,10 +86,6 @@
           "type": null,
           "a": null
         }
-      ],
-      "ht": [
-        0,
-        1
       ],
       "ref": "Facundo Tello"
     },
@@ -1514,7 +1514,44 @@
         3,
         0
       ],
-      "ref": "Jalal Jayed"
+      "ref": "Jalal Jayed",
+      "goals": [
+        {
+          "m": "6",
+          "t": 1,
+          "n": "Cristiano Ronaldo",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "17",
+          "t": 1,
+          "n": "Nuno Mendes",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "39",
+          "t": 1,
+          "n": "Cristiano Ronaldo",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "60",
+          "t": 1,
+          "n": "Abduvohid Nematov",
+          "type": "CSC",
+          "a": null
+        },
+        {
+          "m": "87",
+          "t": 1,
+          "n": "Rafael Leão",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
