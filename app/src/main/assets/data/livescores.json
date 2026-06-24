@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-24T22:25:45.841Z",
+  "lastUpdated": "2026-06-24T22:57:20.939Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1676,6 +1676,17 @@
           "a": null
         }
       ]
+    },
+    "51": {
+      "s1": 2,
+      "s2": 2,
+      "status": "HT",
+      "minute": null,
+      "ht": [
+        2,
+        2
+      ],
+      "ref": "Danny Makkelie"
     }
   },
   "meta": {
@@ -1683,7 +1694,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 50,
-      "LIVE": 2,
+      "PAUSED": 1,
+      "LIVE": 1,
       "TIMED": 52
     },
     "firstUtc": "2026-06-11T19:00:00Z",
