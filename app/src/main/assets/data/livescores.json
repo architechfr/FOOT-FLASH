@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-24T00:11:33.494Z",
+  "lastUpdated": "2026-06-24T01:01:41.510Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1566,12 +1566,21 @@
     },
     "47": {
       "s1": 0,
-      "s2": 0,
-      "status": "HT",
+      "s2": 1,
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         0,
         0
+      ],
+      "goals": [
+        {
+          "m": "54",
+          "t": 2,
+          "n": "Ante Budimir",
+          "type": null,
+          "a": null
+        }
       ]
     }
   },
@@ -1579,8 +1588,7 @@
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 46,
-      "LIVE": 1,
+      "FINISHED": 47,
       "TIMED": 57
     },
     "firstUtc": "2026-06-11T19:00:00Z",
