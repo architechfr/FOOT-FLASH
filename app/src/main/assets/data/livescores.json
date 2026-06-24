@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-24T19:50:19.757Z",
+  "lastUpdated": "2026-06-24T19:56:13.771Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1605,15 +1605,23 @@
     "49": {
       "s1": 0,
       "s2": 0,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
+      "ht": [
+        0,
+        0
+      ],
       "ref": "Ramon Abatti Abel"
     },
     "50": {
       "s1": 2,
       "s2": 1,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
+      "ht": [
+        2,
+        1
+      ],
       "ref": "Jesús Valenzuela"
     }
   },
@@ -1622,7 +1630,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 48,
-      "IN_PLAY": 2,
+      "PAUSED": 2,
       "TIMED": 54
     },
     "firstUtc": "2026-06-11T19:00:00Z",
