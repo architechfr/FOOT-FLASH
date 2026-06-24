@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-24T21:02:25.493Z",
+  "lastUpdated": "2026-06-24T21:05:23.251Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1639,21 +1639,50 @@
     "50": {
       "s1": 3,
       "s2": 1,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         2,
         1
       ],
-      "ref": "Jesús Valenzuela"
+      "ref": "Jesús Valenzuela",
+      "goals": [
+        {
+          "m": "29",
+          "t": 1,
+          "n": "Kerim Alajbegovic",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "34",
+          "t": 1,
+          "n": "Mahmoud Abunada",
+          "type": "CSC",
+          "a": null
+        },
+        {
+          "m": "42",
+          "t": 2,
+          "n": "Hassan Al-Haydos",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "80",
+          "t": 1,
+          "n": "Ermin Mahmic",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 49,
-      "IN_PLAY": 1,
+      "FINISHED": 50,
       "TIMED": 54
     },
     "firstUtc": "2026-06-11T19:00:00Z",
