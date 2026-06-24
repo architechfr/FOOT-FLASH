@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-24T22:57:20.939Z",
+  "lastUpdated": "2026-06-24T23:00:19.187Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1611,7 +1611,6 @@
         0,
         0
       ],
-      "ref": "Ramon Abatti Abel",
       "goals": [
         {
           "m": "46",
@@ -1634,7 +1633,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Ramon Abatti Abel"
     },
     "50": {
       "s1": 3,
@@ -1645,7 +1645,6 @@
         2,
         1
       ],
-      "ref": "Jesús Valenzuela",
       "goals": [
         {
           "m": "29",
@@ -1675,7 +1674,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Jesús Valenzuela"
     },
     "51": {
       "s1": 2,
@@ -1687,6 +1687,17 @@
         2
       ],
       "ref": "Danny Makkelie"
+    },
+    "52": {
+      "s1": 0,
+      "s2": 2,
+      "status": "HT",
+      "minute": null,
+      "ht": [
+        0,
+        2
+      ],
+      "ref": "César Ramos"
     }
   },
   "meta": {
@@ -1694,8 +1705,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 50,
-      "PAUSED": 1,
-      "LIVE": 1,
+      "PAUSED": 2,
       "TIMED": 52
     },
     "firstUtc": "2026-06-11T19:00:00Z",
