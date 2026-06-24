@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-24T20:50:34.177Z",
+  "lastUpdated": "2026-06-24T20:59:27.857Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1611,7 +1611,30 @@
         0,
         0
       ],
-      "ref": "Ramon Abatti Abel"
+      "ref": "Ramon Abatti Abel",
+      "goals": [
+        {
+          "m": "46",
+          "t": 1,
+          "n": "Rubén Vargas",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "57",
+          "t": 1,
+          "n": "Johan Manzambi",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "76",
+          "t": 2,
+          "n": "Promise David",
+          "type": null,
+          "a": null
+        }
+      ]
     },
     "50": {
       "s1": 3,
