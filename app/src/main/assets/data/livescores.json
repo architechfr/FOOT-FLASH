@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-25T23:09:54.571Z",
+  "lastUpdated": "2026-06-25T23:12:52.720Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1883,7 +1883,7 @@
     },
     "57": {
       "s1": 0,
-      "s2": 1,
+      "s2": 2,
       "status": "IN_PLAY",
       "minute": null,
       "ref": "Katia García"
