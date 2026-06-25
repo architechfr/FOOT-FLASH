@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-25T03:02:40.026Z",
+  "lastUpdated": "2026-06-25T03:05:37.559Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1775,7 +1775,16 @@
         0,
         0
       ],
-      "ref": "Facundo Tello"
+      "ref": "Facundo Tello",
+      "goals": [
+        {
+          "m": "63",
+          "t": 1,
+          "n": "Thapelo Maseko",
+          "type": null,
+          "a": null
+        }
+      ]
     },
     "54": {
       "s1": 0,
@@ -1786,7 +1795,30 @@
         0,
         0
       ],
-      "ref": "Yael Falcón"
+      "ref": "Yael Falcón",
+      "goals": [
+        {
+          "m": "55",
+          "t": 2,
+          "n": "Mateo Chávez",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "61",
+          "t": 2,
+          "n": "Julián Quiñones",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "90+4",
+          "t": 2,
+          "n": "Álvaro Fidalgo",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
