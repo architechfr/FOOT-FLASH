@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-25T20:28:50.632Z",
+  "lastUpdated": "2026-06-25T20:55:24.824Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1819,6 +1819,17 @@
         }
       ],
       "ref": "Yael Falcón"
+    },
+    "56": {
+      "s1": 1,
+      "s2": 1,
+      "status": "HT",
+      "minute": null,
+      "ht": [
+        1,
+        1
+      ],
+      "ref": "Tori Penso"
     }
   },
   "meta": {
@@ -1826,7 +1837,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 54,
-      "LIVE": 2,
+      "PAUSED": 1,
+      "LIVE": 1,
       "TIMED": 48
     },
     "firstUtc": "2026-06-11T19:00:00Z",
