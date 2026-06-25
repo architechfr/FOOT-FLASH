@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-25T00:06:53.337Z",
+  "lastUpdated": "2026-06-25T00:09:51.867Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1686,7 +1686,51 @@
         2,
         2
       ],
-      "ref": "Danny Makkelie"
+      "ref": "Danny Makkelie",
+      "goals": [
+        {
+          "m": "39",
+          "t": 1,
+          "n": "Achraf Hakimi",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "45+1",
+          "t": 1,
+          "n": "Ismael Saibari",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "10",
+          "t": 2,
+          "n": "Yassine Bounou",
+          "type": "CSC",
+          "a": null
+        },
+        {
+          "m": "43",
+          "t": 2,
+          "n": "Wilson Isidor",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "78",
+          "t": 1,
+          "n": "Soufiane Rahimi",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "89",
+          "t": 1,
+          "n": "Gessime Yassine",
+          "type": null,
+          "a": null
+        }
+      ]
     },
     "52": {
       "s1": 0,
@@ -1697,7 +1741,30 @@
         0,
         2
       ],
-      "ref": "César Ramos"
+      "ref": "César Ramos",
+      "goals": [
+        {
+          "m": "7",
+          "t": 2,
+          "n": "Vinícius Júnior",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "45+3",
+          "t": 2,
+          "n": "Vinícius Júnior",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "60",
+          "t": 2,
+          "n": "Matheus Cunha",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
