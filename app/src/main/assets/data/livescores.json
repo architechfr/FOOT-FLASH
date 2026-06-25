@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-25T23:06:56.355Z",
+  "lastUpdated": "2026-06-25T23:09:54.571Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1880,14 +1880,29 @@
           "a": null
         }
       ]
+    },
+    "57": {
+      "s1": 0,
+      "s2": 1,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Katia García"
+    },
+    "58": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Ivan Barton"
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 54,
-      "TIMED": 50
+      "FINISHED": 56,
+      "IN_PLAY": 2,
+      "TIMED": 46
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
