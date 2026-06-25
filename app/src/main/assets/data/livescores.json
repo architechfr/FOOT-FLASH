@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-25T01:54:41.423Z",
+  "lastUpdated": "2026-06-25T01:57:38.819Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1769,15 +1769,23 @@
     "53": {
       "s1": 0,
       "s2": 0,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
+      "ht": [
+        0,
+        0
+      ],
       "ref": "Facundo Tello"
     },
     "54": {
       "s1": 0,
       "s2": 0,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
+      "ht": [
+        0,
+        0
+      ],
       "ref": "Yael Falcón"
     }
   },
@@ -1786,7 +1794,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 52,
-      "IN_PLAY": 2,
+      "PAUSED": 2,
       "TIMED": 50
     },
     "firstUtc": "2026-06-11T19:00:00Z",
