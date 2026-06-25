@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-25T21:39:51.849Z",
+  "lastUpdated": "2026-06-25T21:45:46.440Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1848,8 +1848,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 54,
-      "IN_PLAY": 2,
-      "TIMED": 48
+      "TIMED": 50
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
