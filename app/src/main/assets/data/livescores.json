@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-25T23:54:54.619Z",
+  "lastUpdated": "2026-06-25T23:57:52.315Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1895,8 +1895,12 @@
     "58": {
       "s1": 0,
       "s2": 0,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
+      "ht": [
+        0,
+        0
+      ],
       "ref": "Ivan Barton"
     }
   },
@@ -1905,8 +1909,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 56,
-      "PAUSED": 1,
-      "IN_PLAY": 1,
+      "PAUSED": 2,
       "TIMED": 46
     },
     "firstUtc": "2026-06-11T19:00:00Z",
