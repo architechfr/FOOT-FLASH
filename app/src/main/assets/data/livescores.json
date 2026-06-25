@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-25T23:18:48.214Z",
+  "lastUpdated": "2026-06-25T23:54:54.619Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1884,8 +1884,12 @@
     "57": {
       "s1": 0,
       "s2": 2,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
+      "ht": [
+        0,
+        2
+      ],
       "ref": "Katia García"
     },
     "58": {
@@ -1901,7 +1905,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 56,
-      "IN_PLAY": 2,
+      "PAUSED": 1,
+      "IN_PLAY": 1,
       "TIMED": 46
     },
     "firstUtc": "2026-06-11T19:00:00Z",
