@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-25T20:55:24.824Z",
+  "lastUpdated": "2026-06-25T20:58:23.347Z",
   "data": {
     "1": {
       "s1": 2,
@@ -67,10 +67,6 @@
       "s2": 1,
       "status": "FINISHED",
       "minute": null,
-      "ht": [
-        0,
-        1
-      ],
       "goals": [
         {
           "m": "21",
@@ -86,6 +82,10 @@
           "type": null,
           "a": null
         }
+      ],
+      "ht": [
+        0,
+        1
       ],
       "ref": "Facundo Tello"
     },
@@ -1820,6 +1820,17 @@
       ],
       "ref": "Yael Falcón"
     },
+    "55": {
+      "s1": 0,
+      "s2": 1,
+      "status": "HT",
+      "minute": null,
+      "ht": [
+        0,
+        1
+      ],
+      "ref": "Glenn Nyberg"
+    },
     "56": {
       "s1": 1,
       "s2": 1,
@@ -1837,8 +1848,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 54,
-      "PAUSED": 1,
-      "LIVE": 1,
+      "PAUSED": 2,
       "TIMED": 48
     },
     "firstUtc": "2026-06-11T19:00:00Z",
