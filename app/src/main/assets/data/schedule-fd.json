@@ -441,7 +441,7 @@
   },
   "fd-537415": {
    "utc": "2026-06-29T20:30:00Z",
-   "home": "Germany",
+   "home": null,
    "away": null,
    "stage": "LAST_32"
   },
@@ -465,7 +465,7 @@
   },
   "fd-537425": {
    "utc": "2026-07-01T01:00:00Z",
-   "home": "Mexico",
+   "home": null,
    "away": null,
    "stage": "LAST_32"
   },
@@ -483,7 +483,7 @@
   },
   "fd-537421": {
    "utc": "2026-07-02T00:00:00Z",
-   "home": "United States",
+   "home": null,
    "away": null,
    "stage": "LAST_32"
   },
@@ -513,7 +513,7 @@
   },
   "fd-537427": {
    "utc": "2026-07-03T22:00:00Z",
-   "home": "Argentina",
+   "home": null,
    "away": null,
    "stage": "LAST_32"
   },
