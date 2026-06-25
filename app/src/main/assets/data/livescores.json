@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-25T01:57:38.819Z",
+  "lastUpdated": "2026-06-25T02:00:36.459Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1686,7 +1686,6 @@
         2,
         2
       ],
-      "ref": "Danny Makkelie",
       "goals": [
         {
           "m": "39",
@@ -1730,7 +1729,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Danny Makkelie"
     },
     "52": {
       "s1": 0,
@@ -1741,7 +1741,6 @@
         0,
         2
       ],
-      "ref": "César Ramos",
       "goals": [
         {
           "m": "7",
@@ -1764,7 +1763,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "César Ramos"
     },
     "53": {
       "s1": 0,
