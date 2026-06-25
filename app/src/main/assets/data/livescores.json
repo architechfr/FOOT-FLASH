@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-25T21:48:45.290Z",
+  "lastUpdated": "2026-06-25T22:04:46.270Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1823,32 +1823,70 @@
     "55": {
       "s1": 0,
       "s2": 2,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         0,
         1
       ],
-      "ref": "Glenn Nyberg"
+      "ref": "Glenn Nyberg",
+      "goals": [
+        {
+          "m": "7",
+          "t": 2,
+          "n": "Nicolas Pépé",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "64",
+          "t": 2,
+          "n": "Nicolas Pépé",
+          "type": null,
+          "a": null
+        }
+      ]
     },
     "56": {
       "s1": 2,
       "s2": 1,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         1,
         1
       ],
-      "ref": "Tori Penso"
+      "ref": "Tori Penso",
+      "goals": [
+        {
+          "m": "2",
+          "t": 2,
+          "n": "Leroy Sané",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "9",
+          "t": 1,
+          "n": "Nilson Angulo",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "77",
+          "t": 1,
+          "n": "Gonzalo Plata",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 54,
-      "IN_PLAY": 2,
+      "FINISHED": 56,
       "TIMED": 48
     },
     "firstUtc": "2026-06-11T19:00:00Z",
