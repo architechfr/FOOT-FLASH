@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-26T19:58:44.343Z",
+  "lastUpdated": "2026-06-26T20:04:38.653Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2018,6 +2018,17 @@
         3
       ],
       "ref": "Michael Oliver"
+    },
+    "62": {
+      "s1": 1,
+      "s2": 0,
+      "status": "HT",
+      "minute": null,
+      "ht": [
+        1,
+        0
+      ],
+      "ref": "Anthony Taylor"
     }
   },
   "meta": {
@@ -2025,8 +2036,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 60,
-      "PAUSED": 1,
-      "LIVE": 1,
+      "PAUSED": 2,
       "TIMED": 42
     },
     "firstUtc": "2026-06-11T19:00:00Z",
