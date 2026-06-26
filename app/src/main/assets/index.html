@@ -9919,6 +9919,22 @@
       });
       return {complete:ms.length>0&&done.length===ms.length,order:order};
     }
+    // Classement provisoire des "meilleurs 3es" à partir des vrais résultats.
+    // Départage FIFA : points > goal average (diff) > buts marqués > rang FIFA.
+    // N'inclut que les groupes ayant au moins un match joué (3e significatif).
+    function _realThirdsRanking(){
+      var arr=[];
+      ["A","B","C","D","E","F","G","H","I","J","K","L"].forEach(function(g){
+        var ms=MATCHES.filter(function(m){return m.st==="Groupe "+g});
+        var played=ms.filter(function(m){return m.s1!=null&&m.s2!=null}).length;
+        if(!played)return;            // groupe pas commencé : 3e non significatif
+        var t=_realGroupTable(g), third=t.order[2];
+        if(!third)return;
+        arr.push({id:third.id,g:g,pts:third.pts,diff:third.diff,gf:third.gf,complete:t.complete,played:played,total:ms.length});
+      });
+      arr.sort(function(a,b){return b.pts-a.pts||b.diff-a.diff||b.gf-a.gf||(((getTeam(a.id)||{}).rank||99)-(((getTeam(b.id)||{}).rank||99)))});
+      return arr;
+    }
     function resolveRealBracket(){
       try{
         var W={},R={},T3={},doneGroups=0;
@@ -9927,21 +9943,31 @@
           if(t.complete){doneGroups++;W[g]=t.order[0].id;R[g]=t.order[1].id;T3[g]=t.order[2]}
         });
         var komap={};
-        // 16es (73-88) : seulement quand les 12 groupes sont terminés
-        // (les 8 meilleurs 3es dépendent de TOUS les groupes)
-        if(doneGroups===12){
+        // 16es (73-88) : les places 1er/2e se remplissent dès qu'un groupe est
+        // terminé (indépendant des autres groupes). Les slots "meilleur 3e"
+        // attendent que LES 12 groupes soient finis : l'affectation d'un 3e à
+        // un 8e précis dépend de la combinaison exacte des 8 meilleurs 3es
+        // (table de correspondance FIFA), impossible à figer avant.
+        var allGroupsDone=(doneGroups===12);
+        var t3p=[];
+        if(allGroupsDone){
           var thirds=Object.keys(T3).map(function(g){return T3[g]}).sort(function(a,b){
             return b.pts-a.pts||b.diff-a.diff||b.gf-a.gf});
-          var t3p=thirds.slice(0,8).map(function(x){return x.id});
-          var p3=function(o){for(var i=0;i<o.length;i++){var t=T3[o[i]]&&T3[o[i]].id;var x=t3p.indexOf(t);if(x>=0){t3p.splice(x,1);return t}}return t3p.length?t3p.shift():null};
-          var br=[
-            [R["A"],R["B"]],[W["C"],R["F"]],[W["E"],p3(["A","B","C","D","F"])],[W["F"],R["C"]],
-            [R["E"],R["I"]],[W["I"],p3(["C","D","F","G","H"])],[W["A"],p3(["C","E","F","H","I"])],[W["L"],p3(["E","H","I","J","K"])],
-            [W["H"],R["J"]],[R["K"],R["L"]],[W["B"],p3(["E","F","G","I","J"])],[R["D"],R["G"]],
-            [W["J"],R["H"]],[W["K"],p3(["D","E","I","J","L"])],[W["G"],p3(["A","E","H","I","J"])],[W["D"],p3(["B","E","F","I","J"])]
-          ];
-          br.forEach(function(p,i){komap[73+i]=p});
+          t3p=thirds.slice(0,8).map(function(x){return x.id});
         }
+        var p3=function(o){
+          if(!allGroupsDone)return null;   // 3es non figés tant que les 12 groupes ne sont pas finis
+          for(var i=0;i<o.length;i++){var t=T3[o[i]]&&T3[o[i]].id;var x=t3p.indexOf(t);if(x>=0){t3p.splice(x,1);return t}}
+          return t3p.length?t3p.shift():null;
+        };
+        var br=[
+          [R["A"],R["B"]],[W["C"],R["F"]],[W["E"],p3(["A","B","C","D","F"])],[W["F"],R["C"]],
+          [R["E"],R["I"]],[W["I"],p3(["C","D","F","G","H"])],[W["A"],p3(["C","E","F","H","I"])],[W["L"],p3(["E","H","I","J","K"])],
+          [W["H"],R["J"]],[R["K"],R["L"]],[W["B"],p3(["E","F","G","I","J"])],[R["D"],R["G"]],
+          [W["J"],R["H"]],[W["K"],p3(["D","E","I","J","L"])],[W["G"],p3(["A","E","H","I","J"])],[W["D"],p3(["B","E","F","I","J"])]
+        ];
+        // n'écrase jamais avec undefined : un slot non encore connu reste "TBD"
+        br.forEach(function(p,i){komap[73+i]=[p[0]||null,p[1]||null]});
         // Tours suivants : vainqueurs réels des matchs précédents
         function mById(id){for(var i=0;i<MATCHES.length;i++)if(MATCHES[i].id===id)return MATCHES[i];return null}
         function winnerOf(id){var m=mById(id);
@@ -10543,6 +10569,30 @@
         h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:2px">';
         r32.slice(8,16).forEach(function(m,i){h+=realMc(m,i+9,R32_LABELS[i+8])});
         h+='</div></div></div>';
+      }
+
+      // Classement des 3es (favoris à la qualification) — provisoire tant que les 12 groupes ne sont pas finis
+      var thirdsRk=_realThirdsRanking();
+      if(thirdsRk.length){
+        var allComplete=(thirdsRk.length===12)&&thirdsRk.every(function(x){return x.complete});
+        h+='<div style="font-size:10px;font-weight:900;color:var(--am);margin:14px 0 4px">🥉 CLASSEMENT DES 3ES — '+(allComplete?'définitif':'provisoire')+'</div>';
+        h+='<div style="font-size:9px;color:var(--t2);margin-bottom:6px">Les <b>8 meilleurs 3es</b> se qualifient. Départage : points › goal average › buts marqués.'+(allComplete?'':' Mis à jour au fil des matchs.')+'</div>';
+        h+='<div style="background:var(--s1);border:1px solid var(--s3);border-radius:8px;overflow:hidden">';
+        h+='<div style="display:grid;grid-template-columns:20px 1fr 26px 34px 28px;gap:4px;padding:5px 8px;font-size:8px;font-weight:800;color:var(--t2);border-bottom:1px solid var(--s3)"><span>#</span><span>Équipe</span><span style="text-align:center">Pts</span><span style="text-align:center">Diff</span><span style="text-align:center">BP</span></div>';
+        thirdsRk.forEach(function(x,i){
+          var qual=i<8;
+          var nm=(getTeam(x.id)||{}).name||x.id;
+          var prov=x.complete?'':' <span style="color:var(--am);font-size:7px">'+x.played+'/'+x.total+'</span>';
+          h+='<div style="display:grid;grid-template-columns:20px 1fr 26px 34px 28px;gap:4px;padding:5px 8px;font-size:10px;align-items:center;'+(qual?'background:rgba(46,160,67,.08);':'')+(i===7?'border-bottom:2px solid var(--g);':'border-bottom:1px solid var(--s3);')+'">';
+          h+='<span style="font-size:9px;font-weight:800;color:'+(qual?'var(--g)':'var(--t2)')+'">'+(i+1)+'</span>';
+          h+='<span style="display:flex;align-items:center;gap:4px;min-width:0"><span style="font-size:8px;color:var(--t2);min-width:12px">'+x.g+'</span>'+flagImg(x.id,14)+'<span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:'+(qual?'700':'500')+'">'+nm+'</span>'+prov+'</span>';
+          h+='<span style="text-align:center;font-weight:800">'+x.pts+'</span>';
+          h+='<span style="text-align:center;color:var(--t2)">'+(x.diff>0?'+':'')+x.diff+'</span>';
+          h+='<span style="text-align:center;color:var(--t2)">'+x.gf+'</span>';
+          h+='</div>';
+        });
+        h+='</div>';
+        h+='<div style="font-size:8px;color:var(--t2);margin-top:4px">'+(allComplete?'✅ Qualification des 3es figée.':'⚠️ Ligne verte = zone de qualification. Non figé tant que les 12 groupes ne sont pas terminés (l\'affectation aux 8es suit la table FIFA).')+'</div>';
       }
 
       // 8es

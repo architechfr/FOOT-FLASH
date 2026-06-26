@@ -1,5 +1,5 @@
 {
-  "versionCode": 19,
-  "version": "v1.9.22",
-  "notes": "'Aujourd'hui' mis en avant dans l'onglet Matchs (Liste) : la barre des jours se centre automatiquement sur la pastille doree AUJ, et l'ouverture de l'onglet Matchs amene directement aux matchs du jour. A l'ouverture de l'appli, la page reste en haut pour garder le bloc 'Matchs du jour' et le compte a rebours visibles."
+  "versionCode": 20,
+  "version": "v1.9.23",
+  "notes": "Tableau des 16es : remplissage automatique des places 1er/2e de chaque groupe des qu'il est termine (sans attendre les 12 groupes). Ajout d'un classement des 3es (points, goal average, buts marques) avec la zone de qualification des 8 meilleurs, mis a jour au fil des matchs. Les cases 3e du tableau restent en attente des 12 groupes (table d'affectation FIFA)."
 }
