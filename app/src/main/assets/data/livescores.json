@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-26T02:41:17.434Z",
+  "lastUpdated": "2026-06-26T02:59:05.102Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1952,15 +1952,23 @@
     "59": {
       "s1": 2,
       "s2": 1,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
+      "ht": [
+        2,
+        1
+      ],
       "ref": "Mustapha Ghorbal"
     },
     "60": {
       "s1": 0,
       "s2": 0,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
+      "ht": [
+        0,
+        0
+      ],
       "ref": "Clément Turpin"
     }
   },
@@ -1969,7 +1977,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 58,
-      "IN_PLAY": 2,
+      "PAUSED": 2,
       "TIMED": 44
     },
     "firstUtc": "2026-06-11T19:00:00Z",
