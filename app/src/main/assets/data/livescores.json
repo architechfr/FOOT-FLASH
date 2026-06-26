@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-26T04:07:11.455Z",
+  "lastUpdated": "2026-06-26T04:10:09.365Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1950,9 +1950,9 @@
       "ref": "Ivan Barton"
     },
     "59": {
-      "s1": 2,
+      "s1": 3,
       "s2": 2,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         2,
@@ -1976,8 +1976,8 @@
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 54,
-      "TIMED": 50
+      "FINISHED": 60,
+      "TIMED": 44
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
