@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-26T00:59:52.442Z",
+  "lastUpdated": "2026-06-26T01:05:47.209Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1925,21 +1925,36 @@
     "58": {
       "s1": 1,
       "s2": 1,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         0,
         0
       ],
-      "ref": "Ivan Barton"
+      "ref": "Ivan Barton",
+      "goals": [
+        {
+          "m": "56",
+          "t": 1,
+          "n": "Daizen Maeda",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "62",
+          "t": 2,
+          "n": "Anthony Elanga",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 57,
-      "IN_PLAY": 1,
+      "FINISHED": 58,
       "TIMED": 46
     },
     "firstUtc": "2026-06-11T19:00:00Z",
