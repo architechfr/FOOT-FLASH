@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-26T04:10:09.365Z",
+  "lastUpdated": "2026-06-26T04:13:07.405Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1958,7 +1958,44 @@
         2,
         1
       ],
-      "ref": "Mustapha Ghorbal"
+      "ref": "Mustapha Ghorbal",
+      "goals": [
+        {
+          "m": "10",
+          "t": 1,
+          "n": "Arda Güler",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "31",
+          "t": 1,
+          "n": "Baris Alper Yilmaz",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "90+8",
+          "t": 1,
+          "n": "Kaan Ayhan",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "3",
+          "t": 2,
+          "n": "Auston Trusty",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "49",
+          "t": 2,
+          "n": "Sebastian Berhalter",
+          "type": null,
+          "a": null
+        }
+      ]
     },
     "60": {
       "s1": 0,
