@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-26T03:13:53.251Z",
+  "lastUpdated": "2026-06-26T03:16:52.003Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1951,8 +1951,8 @@
     },
     "59": {
       "s1": 2,
-      "s2": 1,
-      "status": "HT",
+      "s2": 2,
+      "status": "IN_PLAY",
       "minute": null,
       "ht": [
         2,
@@ -1963,7 +1963,7 @@
     "60": {
       "s1": 0,
       "s2": 0,
-      "status": "HT",
+      "status": "IN_PLAY",
       "minute": null,
       "ht": [
         0,
@@ -1977,7 +1977,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 58,
-      "LIVE": 2,
+      "IN_PLAY": 2,
       "TIMED": 44
     },
     "firstUtc": "2026-06-11T19:00:00Z",
