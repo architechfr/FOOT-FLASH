@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-26T05:47:37.502Z",
+  "lastUpdated": "2026-06-26T06:01:28.550Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1958,7 +1958,6 @@
         2,
         1
       ],
-      "ref": "Mustapha Ghorbal",
       "goals": [
         {
           "m": "10",
@@ -1995,7 +1994,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Mustapha Ghorbal"
     },
     "60": {
       "s1": 0,
