@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-26T21:05:54.269Z",
+  "lastUpdated": "2026-06-26T21:08:51.635Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2065,7 +2065,44 @@
         1,
         0
       ],
-      "ref": "Anthony Taylor"
+      "ref": "Anthony Taylor",
+      "goals": [
+        {
+          "m": "4",
+          "t": 1,
+          "n": "Habib Diarra",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "56",
+          "t": 1,
+          "n": "Ismaïla Sarr",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "59",
+          "t": 1,
+          "n": "Pape Gueye",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "71",
+          "t": 1,
+          "n": "Pape Gueye",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "82",
+          "t": 1,
+          "n": "Iliman Ndiaye",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
