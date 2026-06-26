@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-25T23:57:52.315Z",
+  "lastUpdated": "2026-06-26T00:00:49.683Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1829,7 +1829,6 @@
         0,
         1
       ],
-      "ref": "Glenn Nyberg",
       "goals": [
         {
           "m": "7",
@@ -1845,7 +1844,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Glenn Nyberg"
     },
     "56": {
       "s1": 2,
@@ -1856,7 +1856,6 @@
         1,
         1
       ],
-      "ref": "Tori Penso",
       "goals": [
         {
           "m": "2",
@@ -1879,7 +1878,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Tori Penso"
     },
     "57": {
       "s1": 0,
