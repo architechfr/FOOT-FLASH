@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-26T00:36:16.350Z",
+  "lastUpdated": "2026-06-26T00:59:52.442Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1884,13 +1884,43 @@
     "57": {
       "s1": 1,
       "s2": 3,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         0,
         2
       ],
-      "ref": "Katia García"
+      "ref": "Katia García",
+      "goals": [
+        {
+          "m": "3",
+          "t": 2,
+          "n": "Ellyes Skhiri",
+          "type": "CSC",
+          "a": null
+        },
+        {
+          "m": "7",
+          "t": 2,
+          "n": "Brian Brobbey",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "54",
+          "t": 1,
+          "n": "Hazem Mastouri",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "62",
+          "t": 2,
+          "n": "Jan Paul van Hecke",
+          "type": null,
+          "a": null
+        }
+      ]
     },
     "58": {
       "s1": 1,
@@ -1908,8 +1938,8 @@
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 56,
-      "IN_PLAY": 2,
+      "FINISHED": 57,
+      "IN_PLAY": 1,
       "TIMED": 46
     },
     "firstUtc": "2026-06-11T19:00:00Z",
