@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-26T00:12:39.523Z",
+  "lastUpdated": "2026-06-26T00:18:33.690Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1882,7 +1882,7 @@
       "ref": "Tori Penso"
     },
     "57": {
-      "s1": 0,
+      "s1": 1,
       "s2": 2,
       "status": "IN_PLAY",
       "minute": null,
