@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-26T02:59:05.102Z",
+  "lastUpdated": "2026-06-26T03:02:03.000Z",
   "data": {
     "1": {
       "s1": 2,
@@ -1890,7 +1890,6 @@
         0,
         2
       ],
-      "ref": "Katia García",
       "goals": [
         {
           "m": "3",
@@ -1920,7 +1919,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Katia García"
     },
     "58": {
       "s1": 1,
@@ -1931,7 +1931,6 @@
         0,
         0
       ],
-      "ref": "Ivan Barton",
       "goals": [
         {
           "m": "56",
@@ -1947,7 +1946,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Ivan Barton"
     },
     "59": {
       "s1": 2,
