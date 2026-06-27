@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T05:04:22.143Z",
+  "lastUpdated": "2026-06-27T05:07:19.762Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2144,7 +2144,51 @@
         0,
         1
       ],
-      "ref": "Adham Makhadmeh"
+      "ref": "Adham Makhadmeh",
+      "goals": [
+        {
+          "m": "28",
+          "t": 2,
+          "n": "Leandro Trossard",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "50",
+          "t": 2,
+          "n": "Leandro Trossard",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "66",
+          "t": 2,
+          "n": "Kevin De Bruyne",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "84",
+          "t": 1,
+          "n": "Elijah Just",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "86",
+          "t": 2,
+          "n": "Romelu Lukaku",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "90+4",
+          "t": 2,
+          "n": "Alexis Saelemaekers",
+          "type": null,
+          "a": null
+        }
+      ]
     },
     "66": {
       "s1": 1,
