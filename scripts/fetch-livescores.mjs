@@ -41,6 +41,8 @@ const TEAM_ALIASES = {
 function matchTeam(code, fdName, fdTla){
   if(fdTla && String(fdTla).toUpperCase()===String(code).toUpperCase()) return true;
   var n = norm(fdName);
+  if(!n) return false; // nom vide (KO sans équipe encore assignée) → AUCUNE correspondance
+                       // (sinon a.includes("") renvoyait true et matchait n'importe quelle équipe)
   var aliases = (TEAM_ALIASES[code]||[code]).map(norm);
   return aliases.some(a => n===a || n.includes(a) || a.includes(n));
 }
@@ -189,11 +191,16 @@ async function main(){
       else if(t2 && !t1) t1 = pair.find(c => c!==t2) || null;
       if(t1||t2) resolved[k.id] = { t1:t1||null, t2:t2||null };
     }
-    // ko-bracket.json (écrit seulement si changé)
-    const koData = {};
-    for(const id of Object.keys(resolved)){ const r=resolved[id]; if(r.t1||r.t2) koData[id]={t1:r.t1,t2:r.t2}; }
+    // ko-bracket.json — FUSION : on ne perd jamais un appariement déjà résolu si
+    // le flux renvoie temporairement des équipes vides (instabilité constatée de
+    // football-data sur les tours KO). On n'ajoute/complète que des équipes connues.
     const KO_OUT = path.join(DATA_DIR, "ko-bracket.json");
     const prevKO = readJson(KO_OUT, null);
+    const koData = Object.assign({}, (prevKO && prevKO.data) || {});
+    for(const id of Object.keys(resolved)){ const r=resolved[id]; const cur=koData[id]||{};
+      const t1=r.t1||cur.t1||null, t2=r.t2||cur.t2||null;
+      if(t1||t2) koData[id]={t1:t1, t2:t2};
+    }
     if(JSON.stringify(prevKO && prevKO.data || null) !== JSON.stringify(koData)){
       fs.writeFileSync(KO_OUT, JSON.stringify({ source:"football-data.org (UTC-map)", lastUpdated:new Date().toISOString(), data:koData }, null, 1));
       console.log("🗺️ ko-bracket.json mis à jour ("+Object.keys(koData).length+" matchs KO).");
