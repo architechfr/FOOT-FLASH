@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T05:07:19.762Z",
+  "lastUpdated": "2026-06-27T05:10:17.551Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2193,24 +2193,42 @@
     "66": {
       "s1": 1,
       "s2": 2,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         1,
         1
       ],
-      "ref": "Szymon Marciniak"
+      "ref": "Szymon Marciniak",
+      "goals": [
+        {
+          "m": "5",
+          "t": 1,
+          "n": "Mahmoud Saber",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "14",
+          "t": 2,
+          "n": "Ramin Rezaeian",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 65,
-      "IN_PLAY": 1,
+      "FINISHED": 66,
       "TIMED": 38
     },
     "firstUtc": "2026-06-11T19:00:00Z",
-    "lastUtc": "2026-07-19T19:00:00Z"
+    "lastUtc": "2026-07-19T19:00:00Z",
+    "ofConflicts": [
+      "#66 fd=1-2 of=1-1"
+    ]
   }
 }
