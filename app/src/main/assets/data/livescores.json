@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T21:52:48.856Z",
+  "lastUpdated": "2026-06-27T21:55:46.575Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2220,9 +2220,24 @@
     "67": {
       "s1": 0,
       "s2": 0,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
+      "ht": [
+        0,
+        0
+      ],
       "ref": "Abdulrahman Al Jassim"
+    },
+    "68": {
+      "s1": 1,
+      "s2": 0,
+      "status": "HT",
+      "minute": null,
+      "ht": [
+        1,
+        0
+      ],
+      "ref": "Drew Fischer"
     }
   },
   "meta": {
@@ -2230,8 +2245,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 66,
-      "IN_PLAY": 1,
-      "LIVE": 1,
+      "PAUSED": 2,
       "TIMED": 36
     },
     "firstUtc": "2026-06-11T19:00:00Z",
