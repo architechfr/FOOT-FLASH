@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T04:34:50.899Z",
+  "lastUpdated": "2026-06-27T04:52:32.456Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2136,7 +2136,7 @@
       "ref": "Ismail Elfath"
     },
     "65": {
-      "s1": 0,
+      "s1": 1,
       "s2": 3,
       "status": "IN_PLAY",
       "minute": null,
