@@ -1,5 +1,5 @@
 {
-  "versionCode": 24,
-  "version": "v1.9.27",
-  "notes": "Navigation simplifiee. La barre du bas passe de 10 onglets a 5 onglets coeur (Matchs, Tableau, Pronos, Equipes, Reglages) + un menu 'Plus' qui regroupe le peripherique (Groupes, Simul, Jeu, Actus, Palmares). Plus lisible et centre sur le suivi du tournoi. (Inclut v1.9.26 : liste centree sur aujourd'hui/a venir, et v1.9.25 : tableau eliminatoire fiable via le flux officiel FIFA.)"
+  "versionCode": 25,
+  "version": "v1.9.28",
+  "notes": "Retour des onglets complets dans la barre du bas (le menu 'Plus' creait une 2e ligne quasi vide, sans interet). On garde l'essentiel des dernieres versions : tableau eliminatoire fiable via le flux officiel FIFA (France-Suede inscrit), liste centree sur aujourd'hui/a venir (matchs passes replies), acces direct au Tableau final."
 }
