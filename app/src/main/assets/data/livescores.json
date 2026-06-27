@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T22:51:13.092Z",
+  "lastUpdated": "2026-06-27T23:00:06.453Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2192,7 +2192,7 @@
     },
     "66": {
       "s1": 1,
-      "s2": 1,
+      "s2": 2,
       "status": "FINISHED",
       "minute": null,
       "ht": [
@@ -2226,7 +2226,23 @@
         0,
         0
       ],
-      "ref": "Abdulrahman Al Jassim"
+      "ref": "Abdulrahman Al Jassim",
+      "goals": [
+        {
+          "m": "62",
+          "t": 2,
+          "n": "Jude Bellingham",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "67",
+          "t": 2,
+          "n": "Harry Kane",
+          "type": null,
+          "a": null
+        }
+      ]
     },
     "68": {
       "s1": 2,
@@ -2244,11 +2260,14 @@
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 66,
-      "IN_PLAY": 2,
-      "TIMED": 36
+      "FINISHED": 64,
+      "TIMED": 38,
+      "IN_PLAY": 2
     },
     "firstUtc": "2026-06-11T19:00:00Z",
-    "lastUtc": "2026-07-19T19:00:00Z"
+    "lastUtc": "2026-07-19T19:00:00Z",
+    "ofConflicts": [
+      "#66 fd=1-2 of=1-1"
+    ]
   }
 }
