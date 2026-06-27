@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T23:00:06.453Z",
+  "lastUpdated": "2026-06-27T23:03:04.637Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2192,7 +2192,7 @@
     },
     "66": {
       "s1": 1,
-      "s2": 2,
+      "s2": 1,
       "status": "FINISHED",
       "minute": null,
       "ht": [
@@ -2220,7 +2220,7 @@
     "67": {
       "s1": 0,
       "s2": 2,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         0,
@@ -2253,21 +2253,41 @@
         1,
         0
       ],
-      "ref": "Drew Fischer"
+      "ref": "Drew Fischer",
+      "goals": [
+        {
+          "m": "31",
+          "t": 1,
+          "n": "Petar Sucic",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "73",
+          "t": 2,
+          "n": "Derrick Luckassen",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "83",
+          "t": 1,
+          "n": "Nikola Vlasic",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 64,
-      "TIMED": 38,
-      "IN_PLAY": 2
+      "FINISHED": 67,
+      "IN_PLAY": 1,
+      "TIMED": 36
     },
     "firstUtc": "2026-06-11T19:00:00Z",
-    "lastUtc": "2026-07-19T19:00:00Z",
-    "ofConflicts": [
-      "#66 fd=1-2 of=1-1"
-    ]
+    "lastUtc": "2026-07-19T19:00:00Z"
   }
 }
