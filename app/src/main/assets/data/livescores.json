@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T19:26:36.220Z",
+  "lastUpdated": "2026-06-27T19:29:33.892Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2192,7 +2192,7 @@
     },
     "66": {
       "s1": 1,
-      "s2": 2,
+      "s2": 1,
       "status": "FINISHED",
       "minute": null,
       "ht": [
@@ -2222,13 +2222,10 @@
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 64,
-      "TIMED": 40
+      "FINISHED": 66,
+      "TIMED": 38
     },
     "firstUtc": "2026-06-11T19:00:00Z",
-    "lastUtc": "2026-07-19T19:00:00Z",
-    "ofConflicts": [
-      "#66 fd=1-2 of=1-1"
-    ]
+    "lastUtc": "2026-07-19T19:00:00Z"
   }
 }
