@@ -2582,6 +2582,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.9.26",d:"27/06/2026",changes:"Suivi recentré sur le présent (retours d'usage). (1) La liste des matchs s'ouvre désormais sur AUJOURD'HUI / les matchs à venir : les matchs déjà joués ne sont plus déroulés en premier — ils sont repliés et accessibles en un tap (bouton « ▾ Voir les matchs déjà joués », ou en touchant un jour passé dans la barre des jours). On ne met plus le passé en avant, mais il reste consultable à tout moment. (2) Accès direct au 🏅 Tableau final mis en avant sur l'accueil dès que la phase à élimination se dessine (le hub de la fin du tournoi : qui affronte qui, 16es → finale). (3) Une fois la phase de poules terminée, l'onglet Groupes propose d'aller au Tableau (les classements deviennent de l'historique)."},
       {v:"v1.9.25",d:"27/06/2026",changes:"Tableau éliminatoire fixé et fiabilisé. L'arbre des 16es se construisait à partir d'une grille interne erronée : les appariements 1ers/2es étaient décalés (ex. la France apparaissait au mauvais stade et avec le mauvais adversaire), et les libellés de repli (« 1er Gr.X », « 3e »…) étaient eux aussi décalés. Désormais le tableau suit les VRAIS appariements officiels FIFA, fournis par la même source que les scores (football-data) et reliés à chaque match par l'horaire : les 1ers, 2es ET les meilleurs 3es sont exacts, les stades et heures sont justes, les libellés des cases encore à déterminer sont corrects, et la progression 8es → quarts → demis → finale est conforme. Concrètement, France (1re du groupe I) affronte bien la Suède (3e du groupe F) le mardi 30 juin à 23h (heure de Paris) au MetLife Stadium. Le tableau se met à jour tout seul, en continu, comme les scores."},
       {v:"v1.9.22",d:"19/06/2026",changes:"« Aujourd'hui » mis en avant dans l'onglet Matchs → Liste. La barre des jours se centre automatiquement sur la pastille dorée AUJ (avant, elle restait calée sur le 11 juin et il fallait scroller pour trouver aujourd'hui). Et quand on ouvre l'onglet Matchs, la liste se positionne directement sur les matchs du jour (juste sous la barre des jours). À l'ouverture de l'appli, la page reste en haut pour garder le bloc « Matchs du jour » et le compte à rebours visibles ; le saut n'est pas imposé si on a déjà commencé à faire défiler."},
       {v:"v1.9.21",d:"19/06/2026",changes:"Lisibilité améliorée (suite aux retours d'utilisateurs). (1) Nouveau bloc « ⚽ Matchs du jour » tout en haut de l'accueil : les matchs du jour s'affichent directement, en gros et cliquables, avec l'heure FR, le score en direct et le statut — plus besoin d'ouvrir le calendrier puis de scroller. Convention « match de la nuit = match du jour » : un match qui commence après minuit (avant 06h) reste rattaché à la soirée de la veille. S'il n'y a pas de match aujourd'hui, le bloc affiche la prochaine journée. (2) Texte plus grand par défaut (+12%) pour tout le monde. Le réglage Taille du texte (Réglages → Petit / Normal / Grand / Très grand) agrandit désormais RÉELLEMENT toute l'interface (avant, il n'avait quasi aucun effet car presque tout le texte avait une taille figée)."},
@@ -2626,7 +2627,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.25 — Tableau éliminatoire fiabilisé : vrais appariements officiels FIFA (France-Suède le 30/06 au MetLife), 1ers/2es/3es et libellés exacts, mise à jour automatique · 27 juin 2026";
+    var APP_VERSION="v1.9.26 — Suivi recentré : la liste ouvre sur aujourd'hui/à venir (matchs passés repliés), accès direct au Tableau final · 27 juin 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -4946,6 +4947,11 @@
       h+='</div></div>';
       // v1.9.21 — Matchs du jour, mis en avant tout en haut de l'accueil
       if(V.view==="cal" && !V.selTeam){ try{ h+=rTodayMatches(); }catch(e){} }
+      // v1.9.26 — Dès que la phase à élimination se dessine, accès direct au Tableau
+      // (le hub de la fin du tournoi), juste sous les matchs du jour.
+      if(V.view==="cal" && !V.selTeam && typeof MATCHES!=="undefined" && MATCHES && MATCHES.some(function(m){return m.id>=73 && m.t1 && m.t1!=="TBD"})){
+        h+='<div onclick="go(\'bracket\')" style="display:flex;align-items:center;gap:10px;margin:6px 0 10px;padding:12px 14px;background:linear-gradient(90deg,var(--g),#caa63f);color:#000;border-radius:12px;cursor:pointer;font-weight:900;box-shadow:0 2px 8px rgba(0,0,0,.25)"><span style="font-size:20px">🏅</span><div style="flex:1;min-width:0"><div style="font-size:14px">Tableau final — phase à élimination</div><div style="font-size:11px;font-weight:700;opacity:.85">Qui affronte qui · 16es → finale</div></div><span style="font-size:18px">›</span></div>';
+      }
       // v1.046 — Barre de recherche + widget équipe UNIQUEMENT sur Matchs / Groupes / Équipes
       // (pas sur Pronos, Quiz, Actus, Palmarès, Simul, Tableau, Paramètres, Stades)
       var showHomeWidgets=(V.view==="cal"||V.view==="groups"||V.view==="teams");
@@ -5047,6 +5053,9 @@
     // v1.9.18 — saut vers les matchs d'un jour depuis la barre de jours
     function ffJumpDay(i){
       var el=document.getElementById("day-"+i);
+      // v1.9.26 — si on tape un jour passé alors que les matchs joués sont repliés,
+      // on déplie d'abord puis on saute.
+      if(!el && !V.showPast){ V.showPast=true; render(); el=document.getElementById("day-"+i); }
       if(el){ try{el.scrollIntoView({block:"start",behavior:"smooth"})}catch(e){ try{scrollTo(0, Math.max(0, el.getBoundingClientRect().top+window.pageYOffset-60))}catch(_){} } }
       var bar=document.getElementById("ffDaybar");
       if(bar){ var b=bar.querySelectorAll(".daychip"); for(var k=0;k<b.length;k++) b[k].classList.remove("on"); }
@@ -6086,11 +6095,23 @@
         });
         h+='</div>';
       }
-      // v1.9.14 — repère le 1er match à venir / en cours pour s'y positionner auto.
+      // v1.9.26 — Liste centrée sur AUJOURD'HUI / À VENIR : les matchs déjà joués
+      // sont repliés par défaut (1 tap pour les afficher). On ne met plus le passé
+      // en avant ; il reste accessible (bouton + barre de jours qui déplie au besoin).
+      var firstUp=-1;
+      for(var _u=0;_u<matches.length;_u++){ if(matchStatus(matches[_u].d)!=="done"){ firstUp=_u; break; } }
+      if(firstUp<0) firstUp=matches.length; // tout est terminé
+      if(firstUp>0 && !V.showPast){
+        h+='<button onclick="V.showPast=true;render()" style="width:100%;padding:9px;margin-bottom:8px;background:var(--s1);border:1px solid var(--s3);border-radius:10px;color:var(--t2);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">▾ Voir les '+firstUp+' matchs déjà joués</button>';
+      }
       var lastDate="",anchorPlaced=false;
-      matches.forEach(function(m){
+      matches.forEach(function(m,idx){
+        if(idx<firstUp && !V.showPast) return; // passé replié par défaut
         var st=matchStatus(m.d);
-        if(!anchorPlaced&&st!=="done"){h+='<div id="nextMatchAnchor" style="scroll-margin-top:64px"></div>';anchorPlaced=true}
+        if(!anchorPlaced&&st!=="done"){
+          if(V.showPast && firstUp>0) h+='<button onclick="V.showPast=false;render()" style="width:100%;padding:9px;margin:4px 0 8px;background:var(--s1);border:1px solid var(--s3);border-radius:10px;color:var(--t2);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">▴ Masquer les matchs déjà joués</button>';
+          h+='<div id="nextMatchAnchor" style="scroll-margin-top:64px"></div>';anchorPlaced=true
+        }
         var dt=fmtDate(m.d);
         if(dt!==lastDate){h+='<div class="sec" id="day-'+daySeen[dt]+'"'+(dt===activeDayKey?' data-today="1"':'')+' style="scroll-margin-top:58px">'+dt+"</div>";lastDate=dt}
         var t1=getTeam(m.t1),t2=getTeam(m.t2);
@@ -6269,6 +6290,15 @@
       var groups={};
       TEAMS.forEach(function(t){if(!groups[t.group])groups[t.group]=[];groups[t.group].push(t)});
       var h="";
+      // v1.9.26 — Poules terminées : les groupes deviennent de l'historique → on
+      // pousse vers le Tableau (le hub de la suite du tournoi).
+      try{
+        var _gm=MATCHES.filter(function(m){return m.st&&m.st.indexOf("Groupe")===0});
+        var _gd=_gm.filter(function(m){return m.s1!=null});
+        if(_gm.length && _gd.length===_gm.length){
+          h+='<div onclick="go(\'bracket\')" style="display:flex;align-items:center;gap:10px;margin-bottom:10px;padding:11px 13px;background:var(--gw);border:1px solid var(--g);border-radius:11px;cursor:pointer"><span style="font-size:18px">🏅</span><div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:800;color:var(--g)">Phase de poules terminée</div><div style="font-size:11px;color:var(--t2)">Place aux 16es → voir le Tableau final</div></div><span style="font-size:16px;color:var(--g)">›</span></div>';
+        }
+      }catch(e){}
       Object.keys(groups).sort().forEach(function(g){
         h+='<div class="sec">Groupe '+g+"</div>";
         h+='<table class="grp-t"><tr><th>Équipe</th><th>Pts</th><th>J</th><th>G</th><th>N</th><th>P</th><th>Diff</th></tr>';
