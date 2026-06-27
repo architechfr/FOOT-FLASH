@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T03:20:59.427Z",
+  "lastUpdated": "2026-06-27T03:59:20.445Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2137,16 +2137,24 @@
     },
     "65": {
       "s1": 0,
-      "s2": 0,
-      "status": "IN_PLAY",
+      "s2": 1,
+      "status": "HT",
       "minute": null,
+      "ht": [
+        0,
+        1
+      ],
       "ref": "Adham Makhadmeh"
     },
     "66": {
       "s1": 1,
       "s2": 1,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
+      "ht": [
+        1,
+        1
+      ],
       "ref": "Szymon Marciniak"
     }
   },
@@ -2155,8 +2163,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 64,
-      "LIVE": 1,
-      "IN_PLAY": 1,
+      "PAUSED": 2,
       "TIMED": 38
     },
     "firstUtc": "2026-06-11T19:00:00Z",
