@@ -2582,6 +2582,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.9.24",d:"27/06/2026",changes:"Tableau éliminatoire fixé et fiabilisé. L'arbre des 16es se construisait à partir d'une grille interne erronée : les appariements 1ers/2es étaient décalés (ex. la France apparaissait au mauvais stade et avec le mauvais adversaire). Désormais le tableau suit les VRAIS appariements officiels FIFA, fournis par la même source que les scores (football-data) et reliés à chaque match par l'horaire : les 1ers, 2es ET les meilleurs 3es sont exacts, les stades et heures sont justes, et la progression 8es → quarts → demis → finale est conforme. Concrètement, France (1re du groupe I) affronte bien la Suède (3e du groupe F) le mardi 30 juin à 23h (heure de Paris) au MetLife Stadium. Le tableau se met à jour tout seul, en continu, comme les scores."},
       {v:"v1.9.22",d:"19/06/2026",changes:"« Aujourd'hui » mis en avant dans l'onglet Matchs → Liste. La barre des jours se centre automatiquement sur la pastille dorée AUJ (avant, elle restait calée sur le 11 juin et il fallait scroller pour trouver aujourd'hui). Et quand on ouvre l'onglet Matchs, la liste se positionne directement sur les matchs du jour (juste sous la barre des jours). À l'ouverture de l'appli, la page reste en haut pour garder le bloc « Matchs du jour » et le compte à rebours visibles ; le saut n'est pas imposé si on a déjà commencé à faire défiler."},
       {v:"v1.9.21",d:"19/06/2026",changes:"Lisibilité améliorée (suite aux retours d'utilisateurs). (1) Nouveau bloc « ⚽ Matchs du jour » tout en haut de l'accueil : les matchs du jour s'affichent directement, en gros et cliquables, avec l'heure FR, le score en direct et le statut — plus besoin d'ouvrir le calendrier puis de scroller. Convention « match de la nuit = match du jour » : un match qui commence après minuit (avant 06h) reste rattaché à la soirée de la veille. S'il n'y a pas de match aujourd'hui, le bloc affiche la prochaine journée. (2) Texte plus grand par défaut (+12%) pour tout le monde. Le réglage Taille du texte (Réglages → Petit / Normal / Grand / Très grand) agrandit désormais RÉELLEMENT toute l'interface (avant, il n'avait quasi aucun effet car presque tout le texte avait une taille figée)."},
       {v:"v1.9.20",d:"19/06/2026",changes:"Date de la finale corrigée. Dans le tableau (vue Parcours), la carte 🏆 FINALE affichait par erreur « dim. 28 juin · SoFi Stadium · Los Angeles » — en réalité la date et le lieu du tout premier 16e de finale. Cause : un filtre qui confondait « FINALE » avec les tours « …de finale » (16es, 8es, quarts, demis). La carte affiche désormais la vraie finale : dim. 19 juillet 2026 · MetLife Stadium · East Rutherford (New York). Le reste du calendrier éliminatoire (16es 28 juin–3 juil, 8es 4–7 juil, quarts 9–11 juil, demis 14–15 juil, 3e place 18 juil) a été vérifié et est conforme au calendrier officiel FIFA."},
@@ -2625,7 +2626,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.22 — La barre des jours se centre sur AUJ (doré) et l'onglet Matchs s'ouvre directement sur les matchs du jour · 19 juin 2026";
+    var APP_VERSION="v1.9.24 — Tableau éliminatoire fiabilisé : vrais appariements officiels FIFA (France-Suède le 30/06 au MetLife), 1ers/2es/3es exacts, mise à jour automatique · 27 juin 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -4304,6 +4305,35 @@
     loadLiveScores();
     setInterval(loadLiveScores, 60000); // re-lit le fichier toutes les 60 s
 
+    // Tableau KO (16e→finale) résolu par football-data et mappé par heure UTC
+    // (ko-bracket.json). Source officielle des appariements — y compris les
+    // meilleurs 3es (vraie table FIFA), que l'app ne peut pas déduire seule.
+    // Prioritaire : écrase les slots calculés localement par resolveRealBracket.
+    var KO_BRACKET = {};
+    function applyKoBracket(){
+      if(!KO_BRACKET || typeof MATCHES==="undefined" || !MATCHES) return;
+      Object.keys(KO_BRACKET).forEach(function(id){
+        var o=KO_BRACKET[id]; if(!o) return;
+        var m=MATCHES.find(function(x){return String(x.id)===String(id)}); if(!m) return;
+        if(o.t1 && o.t1!=="TBD") m.t1=o.t1;
+        if(o.t2 && o.t2!=="TBD") m.t2=o.t2;
+      });
+    }
+    function loadKoBracket(){
+      try{
+        fetch(DATA_REMOTE_BASE+"ko-bracket.json?t="+Date.now())
+          .then(function(r){return r.json()})
+          .then(function(j){
+            if(j && j.data){
+              KO_BRACKET = j.data; applyKoBracket();
+              try{ if(typeof render==="function" && typeof V!=="undefined" && !V.detail) render(); }catch(e){}
+            }
+          }).catch(function(){});
+      }catch(e){}
+    }
+    loadKoBracket();
+    setInterval(loadKoBracket, 60000);
+
     // Bouton "Rafraîchir" : vide le cache et retente
     function ffRefreshData(){
       try {
@@ -4839,6 +4869,7 @@
       // v1.9.2 — remplit les slots TBD du tableau avec les vraies équipes
       // qualifiées dès que les résultats réels le permettent (~1ms)
       try{if(typeof resolveRealBracket==="function")resolveRealBracket()}catch(e){}
+      try{if(typeof applyKoBracket==="function")applyKoBracket()}catch(e){} // flux officiel prioritaire (3es inclus)
       var h="";
       // v1.046 — Interception onboarding au premier lancement
       if(shouldShowOnboarding()&&V.view!=="onboarding"){V.view="onboarding";V.obStep=V.obStep||0}
@@ -9935,40 +9966,29 @@
       arr.sort(function(a,b){return b.pts-a.pts||b.diff-a.diff||b.gf-a.gf||(((getTeam(a.id)||{}).rank||99)-(((getTeam(b.id)||{}).rank||99)))});
       return arr;
     }
+    // Grille KO OFFICIELLE FIFA 2026, transcrite des descripteurs t1from/t2from
+    // de matches.json (source vérifiée : #77 = Winner I vs 3e C/D/F/G/H au
+    // MetLife = France-Suède). Tokens : W:g = 1er groupe g · RU:g = 2e groupe g
+    // · M:n = vainqueur match n · L:n = perdant match n · T = meilleur 3e
+    // (laissé en TBD : non déductible localement, rempli par le flux via
+    // ko-bracket.json / applyKoBracket).
+    var KO_SLOTS = {
+      73:["RU:A","RU:B"],74:["W:E","T"],75:["W:F","RU:C"],76:["W:C","RU:F"],
+      77:["W:I","T"],78:["RU:E","RU:I"],79:["W:A","T"],80:["W:L","T"],
+      81:["W:D","T"],82:["W:G","T"],83:["RU:K","RU:L"],84:["W:H","RU:J"],
+      85:["W:B","T"],86:["W:J","RU:H"],87:["W:K","T"],88:["RU:D","RU:G"],
+      89:["M:74","M:77"],90:["M:73","M:75"],91:["M:76","M:78"],92:["M:79","M:80"],
+      93:["M:83","M:84"],94:["M:81","M:82"],95:["M:86","M:88"],96:["M:85","M:87"],
+      97:["M:89","M:90"],98:["M:93","M:94"],99:["M:91","M:92"],100:["M:95","M:96"],
+      101:["M:97","M:98"],102:["M:99","M:100"],103:["L:101","L:102"],104:["M:101","M:102"]
+    };
     function resolveRealBracket(){
       try{
-        var W={},R={},T3={},doneGroups=0;
+        var W={},R={};
         ["A","B","C","D","E","F","G","H","I","J","K","L"].forEach(function(g){
           var t=_realGroupTable(g);
-          if(t.complete){doneGroups++;W[g]=t.order[0].id;R[g]=t.order[1].id;T3[g]=t.order[2]}
+          if(t.complete){W[g]=t.order[0].id;R[g]=t.order[1].id}
         });
-        var komap={};
-        // 16es (73-88) : les places 1er/2e se remplissent dès qu'un groupe est
-        // terminé (indépendant des autres groupes). Les slots "meilleur 3e"
-        // attendent que LES 12 groupes soient finis : l'affectation d'un 3e à
-        // un 8e précis dépend de la combinaison exacte des 8 meilleurs 3es
-        // (table de correspondance FIFA), impossible à figer avant.
-        var allGroupsDone=(doneGroups===12);
-        var t3p=[];
-        if(allGroupsDone){
-          var thirds=Object.keys(T3).map(function(g){return T3[g]}).sort(function(a,b){
-            return b.pts-a.pts||b.diff-a.diff||b.gf-a.gf});
-          t3p=thirds.slice(0,8).map(function(x){return x.id});
-        }
-        var p3=function(o){
-          if(!allGroupsDone)return null;   // 3es non figés tant que les 12 groupes ne sont pas finis
-          for(var i=0;i<o.length;i++){var t=T3[o[i]]&&T3[o[i]].id;var x=t3p.indexOf(t);if(x>=0){t3p.splice(x,1);return t}}
-          return t3p.length?t3p.shift():null;
-        };
-        var br=[
-          [R["A"],R["B"]],[W["C"],R["F"]],[W["E"],p3(["A","B","C","D","F"])],[W["F"],R["C"]],
-          [R["E"],R["I"]],[W["I"],p3(["C","D","F","G","H"])],[W["A"],p3(["C","E","F","H","I"])],[W["L"],p3(["E","H","I","J","K"])],
-          [W["H"],R["J"]],[R["K"],R["L"]],[W["B"],p3(["E","F","G","I","J"])],[R["D"],R["G"]],
-          [W["J"],R["H"]],[W["K"],p3(["D","E","I","J","L"])],[W["G"],p3(["A","E","H","I","J"])],[W["D"],p3(["B","E","F","I","J"])]
-        ];
-        // n'écrase jamais avec undefined : un slot non encore connu reste "TBD"
-        br.forEach(function(p,i){komap[73+i]=[p[0]||null,p[1]||null]});
-        // Tours suivants : vainqueurs réels des matchs précédents
         function mById(id){for(var i=0;i<MATCHES.length;i++)if(MATCHES[i].id===id)return MATCHES[i];return null}
         function winnerOf(id){var m=mById(id);
           if(!m||m.t1==="TBD"||m.t2==="TBD"||m.s1==null||m.s2==null||m.s1===m.s2)return null;
@@ -9976,19 +9996,18 @@
         function loserOf(id){var m=mById(id);
           if(!m||m.t1==="TBD"||m.t2==="TBD"||m.s1==null||m.s2==null||m.s1===m.s2)return null;
           return m.s1>m.s2?m.t2:m.t1}
-        var i;
-        for(i=0;i<8;i++)komap[89+i]=[winnerOf(73+2*i),winnerOf(74+2*i)];   // 8es
-        for(i=0;i<4;i++)komap[97+i]=[winnerOf(89+2*i),winnerOf(90+2*i)];   // quarts
-        komap[101]=[winnerOf(97),winnerOf(98)];                            // demi 1
-        komap[102]=[winnerOf(99),winnerOf(100)];                           // demi 2
-        komap[103]=[loserOf(101),loserOf(102)];                            // 3e place
-        komap[104]=[winnerOf(101),winnerOf(102)];                          // finale
-        Object.keys(komap).forEach(function(idStr){
-          var pair=komap[idStr];
-          var m=mById(+idStr);
-          if(!m)return;
-          if(m.t1==="TBD"&&pair[0])m.t1=pair[0];
-          if(m.t2==="TBD"&&pair[1])m.t2=pair[1];
+        function tok(t){var p=t.split(":");
+          if(p[0]==="W")return W[p[1]]||null;
+          if(p[0]==="RU")return R[p[1]]||null;
+          if(p[0]==="M")return winnerOf(+p[1]);
+          if(p[0]==="L")return loserOf(+p[1]);
+          return null; // "T" (meilleur 3e) → rempli par le flux
+        }
+        Object.keys(KO_SLOTS).forEach(function(idStr){
+          var m=mById(+idStr);if(!m)return;
+          var s=KO_SLOTS[idStr],a=tok(s[0]),b=tok(s[1]);
+          if(m.t1==="TBD"&&a)m.t1=a;
+          if(m.t2==="TBD"&&b)m.t2=b;
         });
       }catch(e){}
     }

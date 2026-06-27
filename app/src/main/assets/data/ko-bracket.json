@@ -1,0 +1,46 @@
+{
+ "source": "football-data.org (UTC-map)",
+ "lastUpdated": "2026-06-27T10:02:31.000Z",
+ "data": {
+  "73": {
+   "t1": "RSA",
+   "t2": "CAN"
+  },
+  "74": {
+   "t1": "GER",
+   "t2": null
+  },
+  "75": {
+   "t1": "NED",
+   "t2": "MAR"
+  },
+  "76": {
+   "t1": "BRA",
+   "t2": "JPN"
+  },
+  "78": {
+   "t1": "CIV",
+   "t2": null
+  },
+  "79": {
+   "t1": "MEX",
+   "t2": null
+  },
+  "81": {
+   "t1": "USA",
+   "t2": "BIH"
+  },
+  "85": {
+   "t1": "SUI",
+   "t2": null
+  },
+  "86": {
+   "t1": "ARG",
+   "t2": null
+  },
+  "88": {
+   "t1": "AUS",
+   "t2": null
+  }
+ }
+}

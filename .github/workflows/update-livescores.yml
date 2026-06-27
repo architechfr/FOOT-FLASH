@@ -48,7 +48,7 @@ jobs:
             node scripts/fetch-lineups.mjs || true
             node scripts/push-scores-to-supabase.mjs || true
             if ! git diff --quiet -- app/src/main/assets/data/ || [ -n "$(git status --porcelain app/src/main/assets/data/)" ]; then
-              git add app/src/main/assets/data/livescores.json app/src/main/assets/data/schedule-fd.json app/src/main/assets/data/lineups.json
+              git add app/src/main/assets/data/livescores.json app/src/main/assets/data/schedule-fd.json app/src/main/assets/data/lineups.json app/src/main/assets/data/ko-bracket.json
               git commit -m "Auto: scores Mondial (livescores.json)" || true
               git pull --rebase origin main || true
               git push || echo "⚠️ push KO (retry au tour suivant)"

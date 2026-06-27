@@ -110,6 +110,103 @@ async function main(){
     }
   } catch(e){ console.warn("schedule-fd:", e.message); }
 
+  // ═══════════════════════════════════════════════════════════
+  // Tableau KO (16e→finale) piloté par football-data — mappé par HEURE UTC.
+  // Les équipes des KO sont "TBD" côté app : le rapprochement par nom est
+  // impossible. On relie chaque match KO de l'app à sa fixture fd via l'heure
+  // UTC (le créneau/stade est unique), puis on résout les vraies équipes
+  // (1ers/2es ET 3es, déjà placés par la VRAIE table FIFA dans la source) en
+  // s'appuyant sur les descripteurs t1from/t2from de matches.json pour
+  // l'orientation t1/t2. Résultat → ko-bracket.json (lu par l'app) + injection
+  // dans appMatches pour que scores/buteurs suivent via le pipeline existant.
+  try {
+    const CITY_OFFSET = { // heure d'été 2026 (US/CA en DST ; Mexique sans DST)
+      "Los Angeles":-7,"Santa Clara":-7,"Seattle":-7,"Vancouver":-7,
+      "Guadalajara":-6,"Mexico City":-6,"Monterrey":-6,
+      "Arlington":-5,"Houston":-5,"Kansas City":-5,
+      "Atlanta":-4,"Foxborough":-4,"East Rutherford":-4,"Philadelphia":-4,"Miami":-4,"Toronto":-4
+    };
+    const koUtc = (d, city) => {
+      const off = CITY_OFFSET[city]; if(off==null || !d) return null;
+      const iso = d + ":00" + (off<0?"-":"+") + String(Math.abs(off)).padStart(2,"0") + ":00";
+      const t = new Date(iso).getTime(); return isNaN(t) ? null : t;
+    };
+    const mtRaw = readJson(path.join(DATA_DIR,"matches.json"), {data:[]});
+    const allM = Array.isArray(mtRaw.data) ? mtRaw.data : [];
+    // code app → groupe (depuis les matchs de poule, équipes connues)
+    const grpOf = {};
+    for(const m of allM){ const g=/^Groupe\s+([A-L])$/.exec(m.st||""); if(g){ grpOf[m.t1]=g[1]; grpOf[m.t2]=g[1]; } }
+    // classement réel d'un groupe à partir des scores déjà publiés (out.data)
+    const groupRank = g => {
+      const ms = allM.filter(m => m.st==="Groupe "+g);
+      const T = {}; ms.forEach(m => [m.t1,m.t2].forEach(t => { if(!T[t]) T[t]={id:t,pts:0,diff:0,gf:0}; }));
+      let done = 0;
+      for(const m of ms){ const e=out.data[String(m.id)]; if(!e||e.s1==null||e.s2==null) continue; done++;
+        const a=m.t1,b=m.t2,x=e.s1,y=e.s2; T[a].gf+=x;T[b].gf+=y;T[a].diff+=x-y;T[b].diff+=y-x;
+        if(x>y)T[a].pts+=3; else if(x<y)T[b].pts+=3; else {T[a].pts++;T[b].pts++;} }
+      const order = Object.values(T).sort((p,q)=> q.pts-p.pts || q.diff-p.diff || q.gf-p.gf);
+      return { complete: ms.length>0 && done===ms.length, W: order[0]&&order[0].id, R: order[1]&&order[1].id };
+    };
+    const GR = {}; "ABCDEFGHIJKL".split("").forEach(g => GR[g]=groupRank(g));
+    const fdToCode = (name,tla) => { if(!name&&!tla) return null;
+      for(const code of Object.keys(TEAM_ALIASES)) if(matchTeam(code,name,tla)) return code; return null; };
+    const KO_ST = {LAST_32:1,LAST_16:1,QUARTER_FINALS:1,SEMI_FINALS:1,THIRD_PLACE:1,FINAL:1};
+    const fdKO = fixtures.filter(fx => KO_ST[String(fx.stage||"").toUpperCase()]).map(fx => ({
+      ko: new Date(fx.utcDate).getTime(),
+      h: fdToCode(fx.homeTeam&&(fx.homeTeam.name||fx.homeTeam.shortName), fx.homeTeam&&fx.homeTeam.tla),
+      a: fdToCode(fx.awayTeam&&(fx.awayTeam.name||fx.awayTeam.shortName), fx.awayTeam&&fx.awayTeam.tla)
+    }));
+    const appKO = allM.filter(m => m.id>=73 && m.t1from && m.t2from)
+                      .map(m => ({ id:m.id, t1from:m.t1from, t2from:m.t2from, ko:koUtc(m.d, m.city) }))
+                      .sort((p,q)=> p.id-q.id);
+    const resolved = {}; // idApp -> {t1,t2}
+    const winLose = (idApp, want) => { // 'W' | 'L' d'un match KO déjà résolu + scoré
+      const r=resolved[idApp], e=out.data[String(idApp)];
+      if(!r||!r.t1||!r.t2||!e||e.s1==null||e.s2==null||e.s1===e.s2) return null;
+      const w = e.s1>e.s2 ? r.t1 : r.t2, l = e.s1>e.s2 ? r.t2 : r.t1; return want==="W"?w:l;
+    };
+    const resolveTok = tok => {
+      let m;
+      if((m=/^(Winner|Runner-up)\s+([A-L])$/.exec(tok))){ const gr=GR[m[2]]; if(!gr||!gr.complete) return {grp:m[2]}; return {code: m[1]==="Winner"?gr.W:gr.R, grp:m[2]}; }
+      if((m=/^Winner Match (\d+)$/.exec(tok))) return {code: winLose(+m[1],"W")};
+      if((m=/^Loser Match (\d+)$/.exec(tok)))  return {code: winLose(+m[1],"L")};
+      return {}; // "3rd ..." ou inconnu → côté à déduire par élimination
+    };
+    for(const k of appKO){
+      if(k.ko==null) continue;
+      const fx = fdKO.find(f => Math.abs(f.ko-k.ko) < 3*3600000);
+      if(!fx) continue;
+      const pair = [fx.h, fx.a].filter(Boolean);
+      if(!pair.length) continue;
+      const r1=resolveTok(k.t1from), r2=resolveTok(k.t2from);
+      const pick = tok => {
+        if(tok.code) return pair.indexOf(tok.code)>=0 ? tok.code : null;
+        if(tok.grp){ for(const c of pair) if(grpOf[c]===tok.grp) return c; }
+        return null;
+      };
+      let t1=pick(r1), t2=pick(r2);
+      if(t1 && !t2) t2 = pair.find(c => c!==t1) || null;       // l'autre côté (souvent le 3e)
+      else if(t2 && !t1) t1 = pair.find(c => c!==t2) || null;
+      if(t1||t2) resolved[k.id] = { t1:t1||null, t2:t2||null };
+    }
+    // ko-bracket.json (écrit seulement si changé)
+    const koData = {};
+    for(const id of Object.keys(resolved)){ const r=resolved[id]; if(r.t1||r.t2) koData[id]={t1:r.t1,t2:r.t2}; }
+    const KO_OUT = path.join(DATA_DIR, "ko-bracket.json");
+    const prevKO = readJson(KO_OUT, null);
+    if(JSON.stringify(prevKO && prevKO.data || null) !== JSON.stringify(koData)){
+      fs.writeFileSync(KO_OUT, JSON.stringify({ source:"football-data.org (UTC-map)", lastUpdated:new Date().toISOString(), data:koData }, null, 1));
+      console.log("🗺️ ko-bracket.json mis à jour ("+Object.keys(koData).length+" matchs KO).");
+    }
+    // injection des KO entièrement résolus → scores/buteurs via le pipeline existant
+    for(const id of Object.keys(resolved)){ const r=resolved[id];
+      if(r.t1 && r.t2 && !appMatches.find(m => m.id===+id)){
+        const am = allM.find(m => m.id===+id);
+        appMatches.push({ id:+id, t1:r.t1, t2:r.t2, ko: am ? koUtc(am.d, am.city) : null });
+      }
+    }
+  } catch(e){ console.warn("ko-bracket:", e.message); }
+
   // Position football-data → poste app (G/D/M/F)
   const posMap = p => { p = String(p||"").toLowerCase();
     if(p.includes("keeper")) return "G";
