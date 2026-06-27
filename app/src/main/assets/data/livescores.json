@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T02:07:04.946Z",
+  "lastUpdated": "2026-06-27T02:10:03.138Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2124,15 +2124,24 @@
         0,
         1
       ],
-      "ref": "Ismail Elfath"
+      "ref": "Ismail Elfath",
+      "goals": [
+        {
+          "m": "42",
+          "t": 2,
+          "n": "Álex Baena",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 64,
-      "TIMED": 40
+      "FINISHED": 62,
+      "TIMED": 42
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
