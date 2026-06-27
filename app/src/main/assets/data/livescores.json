@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T00:50:27.167Z",
+  "lastUpdated": "2026-06-27T00:59:19.869Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2107,8 +2107,12 @@
     "63": {
       "s1": 0,
       "s2": 0,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
+      "ht": [
+        0,
+        0
+      ],
       "ref": "François Letexier"
     },
     "64": {
@@ -2124,7 +2128,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 62,
-      "LIVE": 2,
+      "LIVE": 1,
+      "PAUSED": 1,
       "TIMED": 40
     },
     "firstUtc": "2026-06-11T19:00:00Z",
