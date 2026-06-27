@@ -2561,7 +2561,7 @@
     function go(v){
       // Si on change reellement de vue, empiler l'etat courant dans la pile
       if(V.view!==v||V.selTeam)navPush();
-      stopQTimer();V.view=v;V.selTeam=null;scrollTo(0,0);render();
+      stopQTimer();V.view=v;V.selTeam=null;V.moreOpen=false;scrollTo(0,0);render();
     }
     function goTeam(id){
       if(!id||id==="TBD"||id.match(/^\d/))return;
@@ -2582,6 +2582,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.9.27",d:"27/06/2026",changes:"Navigation simplifiée (retours d'usage). La barre du bas passait 10 onglets en revue — trop chargé. Elle se concentre désormais sur 5 onglets cœur pour suivre le tournoi : 📅 Matchs · 🏅 Tableau · 🎯 Pronos · 👥 Équipes · ⚙️ Réglages. Le reste (🏆 Groupes, 🎮 Simul, 🕹️ Jeu, 📰 Actus, 📜 Palmarès) est regroupé dans un menu « ⋯ Plus » accessible d'un tap. Plus rien ne disparaît : tout reste accessible, mais l'essentiel est mis en avant."},
       {v:"v1.9.26",d:"27/06/2026",changes:"Suivi recentré sur le présent (retours d'usage). (1) La liste des matchs s'ouvre désormais sur AUJOURD'HUI / les matchs à venir : les matchs déjà joués ne sont plus déroulés en premier — ils sont repliés et accessibles en un tap (bouton « ▾ Voir les matchs déjà joués », ou en touchant un jour passé dans la barre des jours). On ne met plus le passé en avant, mais il reste consultable à tout moment. (2) Accès direct au 🏅 Tableau final mis en avant sur l'accueil dès que la phase à élimination se dessine (le hub de la fin du tournoi : qui affronte qui, 16es → finale). (3) Une fois la phase de poules terminée, l'onglet Groupes propose d'aller au Tableau (les classements deviennent de l'historique)."},
       {v:"v1.9.25",d:"27/06/2026",changes:"Tableau éliminatoire fixé et fiabilisé. L'arbre des 16es se construisait à partir d'une grille interne erronée : les appariements 1ers/2es étaient décalés (ex. la France apparaissait au mauvais stade et avec le mauvais adversaire), et les libellés de repli (« 1er Gr.X », « 3e »…) étaient eux aussi décalés. Désormais le tableau suit les VRAIS appariements officiels FIFA, fournis par la même source que les scores (football-data) et reliés à chaque match par l'horaire : les 1ers, 2es ET les meilleurs 3es sont exacts, les stades et heures sont justes, les libellés des cases encore à déterminer sont corrects, et la progression 8es → quarts → demis → finale est conforme. Concrètement, France (1re du groupe I) affronte bien la Suède (3e du groupe F) le mardi 30 juin à 23h (heure de Paris) au MetLife Stadium. Le tableau se met à jour tout seul, en continu, comme les scores."},
       {v:"v1.9.22",d:"19/06/2026",changes:"« Aujourd'hui » mis en avant dans l'onglet Matchs → Liste. La barre des jours se centre automatiquement sur la pastille dorée AUJ (avant, elle restait calée sur le 11 juin et il fallait scroller pour trouver aujourd'hui). Et quand on ouvre l'onglet Matchs, la liste se positionne directement sur les matchs du jour (juste sous la barre des jours). À l'ouverture de l'appli, la page reste en haut pour garder le bloc « Matchs du jour » et le compte à rebours visibles ; le saut n'est pas imposé si on a déjà commencé à faire défiler."},
@@ -2627,7 +2628,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.26 — Suivi recentré : la liste ouvre sur aujourd'hui/à venir (matchs passés repliés), accès direct au Tableau final · 27 juin 2026";
+    var APP_VERSION="v1.9.27 — Navigation simplifiée : 5 onglets cœur (Matchs, Tableau, Pronos, Équipes, Réglages) + menu « Plus » · 27 juin 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -5011,9 +5012,27 @@
 
       // (footer global retiré — infos uniquement dans Réglages → À propos)
 
+      // v1.9.27 — Barre dégraissée : 5 onglets cœur + menu « Plus » (au lieu de 10).
+      // Cœur = suivre le tournoi (Matchs, Tableau, Pronos, Équipes) + Réglages.
+      // Plus = périphérique (Groupes, Simul, Jeu, Actus, Palmarès).
+      var FF_MORE=[["groups","🏆",t("groupes")],["simul","🎮",t("simul")],["game","🕹️","Jeu"],["news","📰",t("actus")],["history","📜",t("palmares")]];
+      var moreOn=FF_MORE.some(function(it){return V.view===it[0]});
       h+='<div class="nav"><div class="nav-i">';
-      h+=nb("cal","📅",t("matchs"))+nb("groups","🏆",t("groupes"))+nb("teams","👥",t("equipes"))+nb("bracket","🏅",t("tableau"))+nb("simul","🎮",t("simul"))+nb("prono","🎯",t("pronos"))+nb("game","🕹️","Jeu")+nb("news","📰",t("actus"))+nb("history","📜",t("palmares"))+nb("settings","⚙️","Réglages");
+      h+=nb("cal","📅",t("matchs"))+nb("bracket","🏅",t("tableau"))+nb("prono","🎯",t("pronos"))+nb("teams","👥",t("equipes"))+nb("settings","⚙️","Réglages");
+      h+='<button class="'+(moreOn?"on":"")+'" onclick="V.moreOpen=!V.moreOpen;render()"><span class="ic">⋯</span>Plus</button>';
       h+="</div></div>";
+      // Feuille « Plus » (au-dessus de la barre)
+      if(V.moreOpen){
+        h+='<div onclick="V.moreOpen=false;render()" style="position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.45)"></div>';
+        h+='<div style="position:fixed;left:0;right:0;bottom:0;z-index:61;background:var(--s1);border-top:1px solid var(--s3);border-radius:16px 16px 0 0;padding:8px 12px 18px;max-width:480px;margin:0 auto;box-shadow:0 -4px 16px rgba(0,0,0,.35)">';
+        h+='<div style="width:36px;height:4px;background:var(--s3);border-radius:3px;margin:6px auto 12px"></div>';
+        h+='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">';
+        FF_MORE.forEach(function(it){
+          var on=V.view===it[0];
+          h+='<div onclick="go(\''+it[0]+'\')" style="display:flex;flex-direction:column;align-items:center;gap:5px;padding:14px 6px;background:'+(on?'var(--gw)':'var(--s2)')+';border:1px solid '+(on?'var(--g)':'var(--s3)')+';border-radius:12px;cursor:pointer"><span style="font-size:24px">'+it[1]+'</span><span style="font-size:11px;font-weight:700;color:'+(on?'var(--g)':'var(--tx)')+'">'+it[2]+'</span></div>';
+        });
+        h+='</div></div>';
+      }
       a.innerHTML=h;
       if(V.view==="quiz"&&!qDone)startQTimer();else stopQTimer();
       if(window._tickerItems)setTimeout(updateTicker,50);

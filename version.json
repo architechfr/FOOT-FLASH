@@ -1,5 +1,5 @@
 {
-  "versionCode": 23,
-  "version": "v1.9.26",
-  "notes": "Suivi recentre sur le present. La liste des matchs s'ouvre desormais sur AUJOURD'HUI / a venir : les matchs deja joues sont replies (1 tap pour les afficher, ou via la barre des jours) au lieu d'etre montres en premier. Acces direct au Tableau final mis en avant des le debut de la phase a elimination. Quand les poules sont finies, l'onglet Groupes pousse vers le Tableau. Plus tout le correctif v1.9.25 (tableau eliminatoire fiable via le flux officiel FIFA)."
+  "versionCode": 24,
+  "version": "v1.9.27",
+  "notes": "Navigation simplifiee. La barre du bas passe de 10 onglets a 5 onglets coeur (Matchs, Tableau, Pronos, Equipes, Reglages) + un menu 'Plus' qui regroupe le peripherique (Groupes, Simul, Jeu, Actus, Palmares). Plus lisible et centre sur le suivi du tournoi. (Inclut v1.9.26 : liste centree sur aujourd'hui/a venir, et v1.9.25 : tableau eliminatoire fiable via le flux officiel FIFA.)"
 }
