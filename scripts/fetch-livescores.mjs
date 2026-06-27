@@ -201,6 +201,14 @@ async function main(){
       const t1=r.t1||cur.t1||null, t2=r.t2||cur.t2||null;
       if(t1||t2) koData[id]={t1:t1, t2:t2};
     }
+    // Appariements KO CONFIRMÉS officiellement (sources + maths) mais que le flux
+    // tarde parfois à (re)publier — bracket KO remis à zéro tant que les 12 groupes
+    // ne sont pas finis. Inscrits ici en filet : ne régressent jamais. Le flux, dès
+    // qu'il les fournit, donne le même résultat (priorité au flux s'il est présent).
+    const KO_CONFIRMED = { "77": { t1:"FRA", t2:"SWE" } }; // France 1er I × Suède 3e F (30/06, MetLife)
+    for(const id of Object.keys(KO_CONFIRMED)){ const c=KO_CONFIRMED[id], cur=koData[id]||{};
+      koData[id] = { t1: cur.t1||c.t1||null, t2: cur.t2||c.t2||null };
+    }
     if(JSON.stringify(prevKO && prevKO.data || null) !== JSON.stringify(koData)){
       fs.writeFileSync(KO_OUT, JSON.stringify({ source:"football-data.org (UTC-map)", lastUpdated:new Date().toISOString(), data:koData }, null, 1));
       console.log("🗺️ ko-bracket.json mis à jour ("+Object.keys(koData).length+" matchs KO).");
