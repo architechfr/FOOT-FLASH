@@ -2582,7 +2582,7 @@
     }
 
     var APP_CHANGELOG=[
-      {v:"v1.9.24",d:"27/06/2026",changes:"Tableau éliminatoire fixé et fiabilisé. L'arbre des 16es se construisait à partir d'une grille interne erronée : les appariements 1ers/2es étaient décalés (ex. la France apparaissait au mauvais stade et avec le mauvais adversaire). Désormais le tableau suit les VRAIS appariements officiels FIFA, fournis par la même source que les scores (football-data) et reliés à chaque match par l'horaire : les 1ers, 2es ET les meilleurs 3es sont exacts, les stades et heures sont justes, et la progression 8es → quarts → demis → finale est conforme. Concrètement, France (1re du groupe I) affronte bien la Suède (3e du groupe F) le mardi 30 juin à 23h (heure de Paris) au MetLife Stadium. Le tableau se met à jour tout seul, en continu, comme les scores."},
+      {v:"v1.9.25",d:"27/06/2026",changes:"Tableau éliminatoire fixé et fiabilisé. L'arbre des 16es se construisait à partir d'une grille interne erronée : les appariements 1ers/2es étaient décalés (ex. la France apparaissait au mauvais stade et avec le mauvais adversaire), et les libellés de repli (« 1er Gr.X », « 3e »…) étaient eux aussi décalés. Désormais le tableau suit les VRAIS appariements officiels FIFA, fournis par la même source que les scores (football-data) et reliés à chaque match par l'horaire : les 1ers, 2es ET les meilleurs 3es sont exacts, les stades et heures sont justes, les libellés des cases encore à déterminer sont corrects, et la progression 8es → quarts → demis → finale est conforme. Concrètement, France (1re du groupe I) affronte bien la Suède (3e du groupe F) le mardi 30 juin à 23h (heure de Paris) au MetLife Stadium. Le tableau se met à jour tout seul, en continu, comme les scores."},
       {v:"v1.9.22",d:"19/06/2026",changes:"« Aujourd'hui » mis en avant dans l'onglet Matchs → Liste. La barre des jours se centre automatiquement sur la pastille dorée AUJ (avant, elle restait calée sur le 11 juin et il fallait scroller pour trouver aujourd'hui). Et quand on ouvre l'onglet Matchs, la liste se positionne directement sur les matchs du jour (juste sous la barre des jours). À l'ouverture de l'appli, la page reste en haut pour garder le bloc « Matchs du jour » et le compte à rebours visibles ; le saut n'est pas imposé si on a déjà commencé à faire défiler."},
       {v:"v1.9.21",d:"19/06/2026",changes:"Lisibilité améliorée (suite aux retours d'utilisateurs). (1) Nouveau bloc « ⚽ Matchs du jour » tout en haut de l'accueil : les matchs du jour s'affichent directement, en gros et cliquables, avec l'heure FR, le score en direct et le statut — plus besoin d'ouvrir le calendrier puis de scroller. Convention « match de la nuit = match du jour » : un match qui commence après minuit (avant 06h) reste rattaché à la soirée de la veille. S'il n'y a pas de match aujourd'hui, le bloc affiche la prochaine journée. (2) Texte plus grand par défaut (+12%) pour tout le monde. Le réglage Taille du texte (Réglages → Petit / Normal / Grand / Très grand) agrandit désormais RÉELLEMENT toute l'interface (avant, il n'avait quasi aucun effet car presque tout le texte avait une taille figée)."},
       {v:"v1.9.20",d:"19/06/2026",changes:"Date de la finale corrigée. Dans le tableau (vue Parcours), la carte 🏆 FINALE affichait par erreur « dim. 28 juin · SoFi Stadium · Los Angeles » — en réalité la date et le lieu du tout premier 16e de finale. Cause : un filtre qui confondait « FINALE » avec les tours « …de finale » (16es, 8es, quarts, demis). La carte affiche désormais la vraie finale : dim. 19 juillet 2026 · MetLife Stadium · East Rutherford (New York). Le reste du calendrier éliminatoire (16es 28 juin–3 juil, 8es 4–7 juil, quarts 9–11 juil, demis 14–15 juil, 3e place 18 juil) a été vérifié et est conforme au calendrier officiel FIFA."},
@@ -2626,7 +2626,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.24 — Tableau éliminatoire fiabilisé : vrais appariements officiels FIFA (France-Suède le 30/06 au MetLife), 1ers/2es/3es exacts, mise à jour automatique · 27 juin 2026";
+    var APP_VERSION="v1.9.25 — Tableau éliminatoire fiabilisé : vrais appariements officiels FIFA (France-Suède le 30/06 au MetLife), 1ers/2es/3es et libellés exacts, mise à jour automatique · 27 juin 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -10543,15 +10543,21 @@
       var finm=MATCHES.filter(function(m){return m.st&&m.st.toUpperCase()==="FINALE"});
 
       // Known bracket matchups (FIFA 2026 structure)
+      // v1.9.24 — Libellés DANS L'ORDRE DES MATCHS (#73→#88), transcrits des
+      // descripteurs officiels t1from/t2from de matches.json. (Avant : ordre
+      // « arbre » décalé → un créneau TBD affichait le mauvais libellé, ex.
+      // #77 = « 1er I vs 3e » montré comme « 2e E vs 2e I ».)
       var R32_LABELS=[
-        ["2e Gr.A","2e Gr.B"],["1er Gr.C","2e Gr.F"],["1er Gr.E","3e"],["1er Gr.F","2e Gr.C"],
-        ["2e Gr.E","2e Gr.I"],["1er Gr.I","3e"],["1er Gr.A","3e"],["1er Gr.L","3e"],
-        ["1er Gr.H","2e Gr.J"],["2e Gr.K","2e Gr.L"],["1er Gr.B","3e"],["2e Gr.D","2e Gr.G"],
-        ["1er Gr.J","2e Gr.H"],["1er Gr.K","3e"],["1er Gr.G","3e"],["1er Gr.D","3e"]
+        ["2e Gr.A","2e Gr.B"],["1er Gr.E","3e"],["1er Gr.F","2e Gr.C"],["1er Gr.C","2e Gr.F"],
+        ["1er Gr.I","3e"],["2e Gr.E","2e Gr.I"],["1er Gr.A","3e"],["1er Gr.L","3e"],
+        ["1er Gr.D","3e"],["1er Gr.G","3e"],["2e Gr.K","2e Gr.L"],["1er Gr.H","2e Gr.J"],
+        ["1er Gr.B","3e"],["1er Gr.J","2e Gr.H"],["1er Gr.K","3e"],["2e Gr.D","2e Gr.G"]
       ];
-      // v1.9.14 — Appariement conforme au bracket officiel FIFA 2026 (pas M1+M2…)
-      var R16_LABELS=[["Vainq. M3","Vainq. M6"],["Vainq. M1","Vainq. M4"],["Vainq. M2","Vainq. M5"],["Vainq. M7","Vainq. M8"],
-        ["Vainq. M10","Vainq. M9"],["Vainq. M16","Vainq. M15"],["Vainq. M13","Vainq. M12"],["Vainq. M11","Vainq. M14"]];
+      // 8es (#89→#96) dans l'ordre des matchs — arbre officiel FIFA 2026.
+      // M89=M2×M5 · M90=M1×M3 · M91=M4×M6 · M92=M7×M8 · M93=M11×M12 ·
+      // M94=M9×M10 · M95=M14×M16 · M96=M13×M15 (M_k = k-ième 16e, #72+k).
+      var R16_LABELS=[["Vainq. M2","Vainq. M5"],["Vainq. M1","Vainq. M3"],["Vainq. M4","Vainq. M6"],["Vainq. M7","Vainq. M8"],
+        ["Vainq. M11","Vainq. M12"],["Vainq. M9","Vainq. M10"],["Vainq. M14","Vainq. M16"],["Vainq. M13","Vainq. M15"]];
       var QF_LABELS=[["Vainq. 8e-1","Vainq. 8e-2"],["Vainq. 8e-5","Vainq. 8e-6"],["Vainq. 8e-3","Vainq. 8e-4"],["Vainq. 8e-7","Vainq. 8e-8"]];
       var SF_LABELS=[["Vainq. QF1","Vainq. QF2"],["Vainq. QF3","Vainq. QF4"]];
       var FIN_LABELS=["Vainq. Demi 1","Vainq. Demi 2"];

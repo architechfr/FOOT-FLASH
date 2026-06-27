@@ -1,5 +1,5 @@
 {
-  "versionCode": 21,
-  "version": "v1.9.24",
+  "versionCode": 22,
+  "version": "v1.9.25",
   "notes": "Tableau eliminatoire FIXE et FIABLE. L'arbre des 16es etait calcule avec une grille interne erronee (appariements 1ers/2es decales, ex. la France placee au mauvais stade). Desormais le tableau suit les VRAIS appariements officiels FIFA fournis par la source de scores (football-data), mappes par horaire : 1ers, 2es ET meilleurs 3es exacts, stades et heures justes, progression 8es->finale conforme. Mise a jour automatique en continu comme les scores."
 }
