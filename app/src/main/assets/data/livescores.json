@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-28T20:58:05.156Z",
+  "lastUpdated": "2026-06-28T21:04:00.286Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2429,21 +2429,29 @@
     "73": {
       "s1": 0,
       "s2": 1,
-      "status": "HT",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         0,
         0
       ],
-      "ref": "João Pinheiro"
+      "ref": "João Pinheiro",
+      "goals": [
+        {
+          "m": "90+2",
+          "t": 2,
+          "n": "Stephan Eustáquio",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 72,
-      "PAUSED": 1,
+      "FINISHED": 73,
       "TIMED": 31
     },
     "firstUtc": "2026-06-11T19:00:00Z",
