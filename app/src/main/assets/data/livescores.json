@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-28T02:38:04.164Z",
+  "lastUpdated": "2026-06-28T02:55:49.034Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2330,6 +2330,17 @@
         }
       ]
     },
+    "71": {
+      "s1": 1,
+      "s2": 1,
+      "status": "HT",
+      "minute": null,
+      "ht": [
+        1,
+        1
+      ],
+      "ref": "Il'giz Tantashev"
+    },
     "72": {
       "s1": 0,
       "s2": 2,
@@ -2344,7 +2355,7 @@
     "statuses": {
       "FINISHED": 70,
       "IN_PLAY": 1,
-      "LIVE": 1,
+      "PAUSED": 1,
       "TIMED": 32
     },
     "firstUtc": "2026-06-11T19:00:00Z",
