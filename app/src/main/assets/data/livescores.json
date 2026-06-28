@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-28T21:04:00.286Z",
+  "lastUpdated": "2026-06-28T23:00:10.400Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2435,7 +2435,6 @@
         0,
         0
       ],
-      "ref": "João Pinheiro",
       "goals": [
         {
           "m": "90+2",
@@ -2444,7 +2443,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "João Pinheiro"
     }
   },
   "meta": {
