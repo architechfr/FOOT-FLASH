@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-28T00:45:29.897Z",
+  "lastUpdated": "2026-06-28T01:00:23.170Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2226,7 +2226,6 @@
         0,
         0
       ],
-      "ref": "Abdulrahman Al Jassim",
       "goals": [
         {
           "m": "62",
@@ -2242,7 +2241,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Abdulrahman Al Jassim"
     },
     "68": {
       "s1": 2,
@@ -2253,7 +2253,6 @@
         1,
         0
       ],
-      "ref": "Drew Fischer",
       "goals": [
         {
           "m": "31",
@@ -2276,7 +2275,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Drew Fischer"
     },
     "69": {
       "s1": 0,
