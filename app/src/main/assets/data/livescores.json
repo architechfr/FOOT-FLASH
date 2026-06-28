@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-28T01:38:38.048Z",
+  "lastUpdated": "2026-06-28T01:41:36.245Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2298,7 +2298,37 @@
         0,
         1
       ],
-      "ref": "Felix Zwayer"
+      "ref": "Felix Zwayer",
+      "goals": [
+        {
+          "m": "68",
+          "t": 1,
+          "n": "Yoane Wissa",
+          "type": "P",
+          "a": null
+        },
+        {
+          "m": "78",
+          "t": 1,
+          "n": "Fiston Mayele",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "90+1",
+          "t": 1,
+          "n": "Yoane Wissa",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "10",
+          "t": 2,
+          "n": "Eldor Shomurodov",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
