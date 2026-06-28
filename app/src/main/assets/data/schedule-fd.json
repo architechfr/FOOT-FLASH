@@ -448,7 +448,7 @@
   "fd-537415": {
    "utc": "2026-06-29T20:30:00Z",
    "home": "Germany",
-   "away": "Paraguay",
+   "away": null,
    "stage": "LAST_32"
   },
   "fd-537418": {
@@ -460,31 +460,31 @@
   "fd-537424": {
    "utc": "2026-06-30T17:00:00Z",
    "home": "Ivory Coast",
-   "away": "Norway",
+   "away": null,
    "stage": "LAST_32"
   },
   "fd-537416": {
    "utc": "2026-06-30T21:00:00Z",
-   "home": "France",
-   "away": "Sweden",
+   "home": null,
+   "away": null,
    "stage": "LAST_32"
   },
   "fd-537425": {
    "utc": "2026-07-01T01:00:00Z",
    "home": "Mexico",
-   "away": "Ecuador",
+   "away": null,
    "stage": "LAST_32"
   },
   "fd-537426": {
    "utc": "2026-07-01T16:00:00Z",
-   "home": "England",
-   "away": "Congo DR",
+   "home": null,
+   "away": null,
    "stage": "LAST_32"
   },
   "fd-537422": {
    "utc": "2026-07-01T20:00:00Z",
-   "home": "Belgium",
-   "away": "Senegal",
+   "home": null,
+   "away": null,
    "stage": "LAST_32"
   },
   "fd-537421": {
@@ -495,38 +495,38 @@
   },
   "fd-537420": {
    "utc": "2026-07-02T19:00:00Z",
-   "home": "Spain",
-   "away": "Austria",
+   "home": null,
+   "away": null,
    "stage": "LAST_32"
   },
   "fd-537419": {
    "utc": "2026-07-02T23:00:00Z",
-   "home": "Portugal",
-   "away": "Croatia",
+   "home": null,
+   "away": null,
    "stage": "LAST_32"
   },
   "fd-537429": {
    "utc": "2026-07-03T03:00:00Z",
    "home": "Switzerland",
-   "away": "Algeria",
+   "away": null,
    "stage": "LAST_32"
   },
   "fd-537428": {
    "utc": "2026-07-03T18:00:00Z",
    "home": "Australia",
-   "away": "Egypt",
+   "away": null,
    "stage": "LAST_32"
   },
   "fd-537427": {
    "utc": "2026-07-03T22:00:00Z",
    "home": "Argentina",
-   "away": "Cape Verde Islands",
+   "away": null,
    "stage": "LAST_32"
   },
   "fd-537430": {
    "utc": "2026-07-04T01:30:00Z",
-   "home": "Colombia",
-   "away": "Ghana",
+   "home": null,
+   "away": null,
    "stage": "LAST_32"
   },
   "fd-537376": {
