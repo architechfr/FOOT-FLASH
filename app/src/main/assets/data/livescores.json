@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-28T06:43:29.213Z",
+  "lastUpdated": "2026-06-28T19:06:06.352Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2425,6 +2425,13 @@
         }
       ],
       "ref": "István Kovács"
+    },
+    "73": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "João Pinheiro"
     }
   },
   "meta": {
@@ -2432,7 +2439,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 72,
-      "TIMED": 32
+      "IN_PLAY": 1,
+      "TIMED": 31
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
