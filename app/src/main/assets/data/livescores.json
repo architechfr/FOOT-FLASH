@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-28T00:24:40.317Z",
+  "lastUpdated": "2026-06-28T00:30:37.457Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2288,6 +2288,17 @@
         0
       ],
       "ref": "Alireza Faghani"
+    },
+    "70": {
+      "s1": 0,
+      "s2": 1,
+      "status": "HT",
+      "minute": null,
+      "ht": [
+        0,
+        1
+      ],
+      "ref": "Felix Zwayer"
     }
   },
   "meta": {
@@ -2295,8 +2306,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 68,
-      "PAUSED": 1,
-      "LIVE": 1,
+      "PAUSED": 2,
       "TIMED": 34
     },
     "firstUtc": "2026-06-11T19:00:00Z",
