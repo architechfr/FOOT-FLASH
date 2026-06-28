@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-28T01:00:23.170Z",
+  "lastUpdated": "2026-06-28T01:09:17.101Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2290,7 +2290,7 @@
       "ref": "Alireza Faghani"
     },
     "70": {
-      "s1": 0,
+      "s1": 1,
       "s2": 1,
       "status": "IN_PLAY",
       "minute": null,
