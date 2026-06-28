@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-28T03:28:32.447Z",
+  "lastUpdated": "2026-06-28T03:31:30.395Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2298,7 +2298,6 @@
         0,
         1
       ],
-      "ref": "Felix Zwayer",
       "goals": [
         {
           "m": "68",
@@ -2328,7 +2327,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Felix Zwayer"
     },
     "71": {
       "s1": 2,
