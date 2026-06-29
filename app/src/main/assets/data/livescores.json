@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-29T17:06:29.769Z",
+  "lastUpdated": "2026-06-29T17:35:59.509Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2448,7 +2448,7 @@
     },
     "76": {
       "s1": 0,
-      "s2": 0,
+      "s2": 1,
       "status": "IN_PLAY",
       "minute": null,
       "ref": "Maurizio Mariani"
