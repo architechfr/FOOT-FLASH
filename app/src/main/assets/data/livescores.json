@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-28T23:00:10.400Z",
+  "lastUpdated": "2026-06-29T17:06:29.769Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2445,6 +2445,13 @@
         }
       ],
       "ref": "João Pinheiro"
+    },
+    "76": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Maurizio Mariani"
     }
   },
   "meta": {
@@ -2452,7 +2459,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 73,
-      "TIMED": 31
+      "IN_PLAY": 1,
+      "TIMED": 30
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
