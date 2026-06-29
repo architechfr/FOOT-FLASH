@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-29T20:35:28.454Z",
+  "lastUpdated": "2026-06-29T20:38:26.030Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2446,6 +2446,13 @@
       ],
       "ref": "João Pinheiro"
     },
+    "74": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Jalal Jayed"
+    },
     "76": {
       "s1": 2,
       "s2": 1,
@@ -2486,7 +2493,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 74,
-      "LIVE": 1,
+      "IN_PLAY": 1,
       "TIMED": 29
     },
     "firstUtc": "2026-06-11T19:00:00Z",
