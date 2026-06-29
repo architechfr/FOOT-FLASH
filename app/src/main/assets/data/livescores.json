@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-29T19:04:16.620Z",
+  "lastUpdated": "2026-06-29T19:10:11.785Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2449,21 +2449,43 @@
     "76": {
       "s1": 2,
       "s2": 1,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         0,
         1
       ],
-      "ref": "Maurizio Mariani"
+      "ref": "Maurizio Mariani",
+      "goals": [
+        {
+          "m": "56",
+          "t": 1,
+          "n": "Casemiro",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "90+5",
+          "t": 1,
+          "n": "Gabriel Martinelli",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "29",
+          "t": 2,
+          "n": "Kaishu Sano",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 73,
-      "IN_PLAY": 1,
+      "FINISHED": 74,
       "TIMED": 30
     },
     "firstUtc": "2026-06-11T19:00:00Z",
