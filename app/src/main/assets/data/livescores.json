@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-29T23:30:14.381Z",
+  "lastUpdated": "2026-06-29T23:33:12.591Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2447,15 +2447,31 @@
       "ref": "João Pinheiro"
     },
     "74": {
-      "s1": 4,
+      "s1": 5,
       "s2": 5,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         0,
         1
       ],
-      "ref": "Jalal Jayed"
+      "ref": "Jalal Jayed",
+      "goals": [
+        {
+          "m": "42",
+          "t": 2,
+          "n": "Julio Enciso",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "54",
+          "t": 1,
+          "n": "Kai Havertz",
+          "type": null,
+          "a": null
+        }
+      ]
     },
     "76": {
       "s1": 2,
@@ -2496,11 +2512,13 @@
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 74,
-      "IN_PLAY": 1,
+      "FINISHED": 75,
       "TIMED": 29
     },
     "firstUtc": "2026-06-11T19:00:00Z",
-    "lastUtc": "2026-07-19T19:00:00Z"
+    "lastUtc": "2026-07-19T19:00:00Z",
+    "ofConflicts": [
+      "#74 fd=5-5 of=1-1"
+    ]
   }
 }
