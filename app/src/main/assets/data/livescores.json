@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-30T18:50:56.938Z",
+  "lastUpdated": "2026-06-30T19:05:39.619Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2543,21 +2543,43 @@
     "78": {
       "s1": 1,
       "s2": 2,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         0,
         1
       ],
-      "ref": "Jesús Valenzuela"
+      "ref": "Jesús Valenzuela",
+      "goals": [
+        {
+          "m": "39",
+          "t": 2,
+          "n": "Antonio Nusa",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "74",
+          "t": 1,
+          "n": "Amad Diallo",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "86",
+          "t": 2,
+          "n": "Erling Haaland",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 76,
-      "IN_PLAY": 1,
+      "FINISHED": 77,
       "TIMED": 27
     },
     "firstUtc": "2026-06-11T19:00:00Z",
