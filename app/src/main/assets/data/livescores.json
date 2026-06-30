@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-30T01:05:16.403Z",
+  "lastUpdated": "2026-06-30T01:08:14.635Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2473,6 +2473,13 @@
       ],
       "ref": "Jalal Jayed"
     },
+    "75": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Wilton Sampaio"
+    },
     "76": {
       "s1": 2,
       "s2": 1,
@@ -2513,7 +2520,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 75,
-      "LIVE": 1,
+      "IN_PLAY": 1,
       "TIMED": 28
     },
     "firstUtc": "2026-06-11T19:00:00Z",
