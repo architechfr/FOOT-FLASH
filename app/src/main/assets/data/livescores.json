@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-30T04:37:20.689Z",
+  "lastUpdated": "2026-06-30T04:40:18.469Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2474,7 +2474,7 @@
       "ref": "Jalal Jayed"
     },
     "75": {
-      "s1": 4,
+      "s1": 3,
       "s2": 4,
       "status": "FINISHED",
       "minute": null,
@@ -2546,7 +2546,7 @@
     "lastUtc": "2026-07-19T19:00:00Z",
     "ofConflicts": [
       "#74 fd=4-5 of=1-1",
-      "#75 fd=4-4 of=1-1"
+      "#75 fd=3-4 of=1-1"
     ]
   }
 }
