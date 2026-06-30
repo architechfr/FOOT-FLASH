@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-30T21:01:03.923Z",
+  "lastUpdated": "2026-06-30T21:04:00.826Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2549,7 +2549,6 @@
         0,
         1
       ],
-      "ref": "Jesús Valenzuela",
       "goals": [
         {
           "m": "39",
@@ -2572,15 +2571,16 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Jesús Valenzuela"
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 76,
-      "TIMED": 28
+      "FINISHED": 77,
+      "TIMED": 27
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
