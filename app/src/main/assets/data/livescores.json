@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-30T23:01:01.277Z",
+  "lastUpdated": "2026-06-30T23:03:58.410Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2549,7 +2549,30 @@
         1,
         0
       ],
-      "ref": "Danny Makkelie"
+      "ref": "Danny Makkelie",
+      "goals": [
+        {
+          "m": "45",
+          "t": 1,
+          "n": "Kylian Mbappé",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "53",
+          "t": 1,
+          "n": "Bradley Barcola",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "74",
+          "t": 1,
+          "n": "Kylian Mbappé",
+          "type": null,
+          "a": null
+        }
+      ]
     },
     "78": {
       "s1": 1,
