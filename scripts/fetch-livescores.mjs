@@ -14,7 +14,6 @@ import fs from "node:fs";
 import path from "node:path";
 
 const KEY = process.env.FOOTBALLDATA_KEY;
-if(!KEY){ console.error("❌ FOOTBALLDATA_KEY manquante (secret)."); process.exit(1); }
 const COMP = process.env.COMP || "WC";
 const API = "https://api.football-data.org/v4/competitions/" + COMP + "/matches";
 
@@ -49,6 +48,36 @@ function matchTeam(code, fdName, fdTla){
 
 function readJson(p, fb){ try{ return JSON.parse(fs.readFileSync(p,"utf8")); }catch(e){ return fb; } }
 
+// ── Score "du jeu" + tirs au but + prolongation, à partir du node score de
+// football-data.org. ATTENTION : score.fullTime ADDITIONNE la séance de tirs au
+// but au score du jeu (ex. EC96 Allemagne 7-6 = 1-1 a.p. + t.a.b. 6-5). On isole
+// donc : play = score à la fin du jeu (90'/120', SANS t.a.b.) ; pen = la séance ;
+// dur = "AET" (prolongation, sans t.a.b.) ou "PEN" (tirs au but) ou null.
+// Réf. : https://docs.football-data.org/general/v4/overtime.html
+// Exporté pour test unitaire (scripts/test-scores.mjs).
+export function splitScore(score){
+  const sc = score || {};
+  const ft = sc.fullTime || {};
+  const dur = String(sc.duration||"REGULAR").toUpperCase();
+  let h = (ft.home==null)?null:ft.home, a = (ft.away==null)?null:ft.away;
+  let penH=null, penA=null, tag=null;
+  if(dur==="PENALTY_SHOOTOUT"){
+    const p = sc.penalties || {};
+    penH = (p.home==null)?null:p.home; penA = (p.away==null)?null:p.away;
+    // score du jeu = fullTime − tirs au but (repli : regularTime + extraTime)
+    if(penH!=null && h!=null) h -= penH;
+    if(penA!=null && a!=null) a -= penA;
+    if((h==null || a==null) && sc.regularTime){
+      const rt = sc.regularTime, et = sc.extraTime || {home:0,away:0};
+      h = (rt.home||0)+(et.home||0); a = (rt.away||0)+(et.away||0);
+    }
+    tag = "PEN";
+  } else if(dur==="EXTRA_TIME"){
+    tag = "AET"; // fullTime = score réel (prolongation incluse, pas de t.a.b.)
+  }
+  return { h:h, a:a, penH:penH, penA:penA, dur:tag };
+}
+
 function loadAppMatches(){
   var mt = readJson(path.join(DATA_DIR,"matches.json"), {data:[]});
   var arr = Array.isArray(mt.data)?mt.data:(Array.isArray(mt)?mt:[]);
@@ -57,6 +86,7 @@ function loadAppMatches(){
 }
 
 async function main(){
+  if(!KEY){ console.error("❌ FOOTBALLDATA_KEY manquante (secret)."); process.exit(1); }
   const appMatches = loadAppMatches();
   let payload;
   try {
@@ -164,8 +194,13 @@ async function main(){
     const resolved = {}; // idApp -> {t1,t2}
     const winLose = (idApp, want) => { // 'W' | 'L' d'un match KO déjà résolu + scoré
       const r=resolved[idApp], e=out.data[String(idApp)];
-      if(!r||!r.t1||!r.t2||!e||e.s1==null||e.s2==null||e.s1===e.s2) return null;
-      const w = e.s1>e.s2 ? r.t1 : r.t2, l = e.s1>e.s2 ? r.t2 : r.t1; return want==="W"?w:l;
+      if(!r||!r.t1||!r.t2||!e||e.s1==null||e.s2==null) return null;
+      let x=e.s1, y=e.s2;
+      if(x===y){ // nul dans le jeu → départage aux tirs au but
+        if(e.pen1!=null && e.pen2!=null && e.pen1!==e.pen2){ x=e.pen1; y=e.pen2; }
+        else return null; // pas encore de séance connue
+      }
+      const w = x>y ? r.t1 : r.t2, l = x>y ? r.t2 : r.t1; return want==="W"?w:l;
     };
     const resolveTok = tok => {
       let m;
@@ -248,11 +283,18 @@ async function main(){
     if(!m) continue;
 
     const t1IsHome = matchTeam(m.t1, hN, hTla);
-    const sc = (fx.score && fx.score.fullTime) || {};
-    const gh = (sc.home==null)?null:sc.home, ga = (sc.away==null)?null:sc.away;
+    // Score du jeu (sans t.a.b.) + séance de t.a.b. + prolongation (cf. splitScore)
+    const sp = splitScore(fx.score);
+    const gh = sp.h, ga = sp.a;
     const s1 = t1IsHome ? gh : ga, s2 = t1IsHome ? ga : gh;
     const status = isFin ? "FINISHED" : (st==="PAUSED" ? "HT" : "IN_PLAY");
     const entry = { s1:s1, s2:s2, status:status, minute:(fx.minute!=null)?String(fx.minute):null };
+    // Prolongation / tirs au but (matchs à élimination directe)
+    if(sp.dur) entry.dur = sp.dur;
+    if(sp.penH!=null && sp.penA!=null){
+      entry.pen1 = t1IsHome ? sp.penH : sp.penA;
+      entry.pen2 = t1IsHome ? sp.penA : sp.penH;
+    }
 
     // Score à la mi-temps (déjà dans la liste, aucune requête en plus)
     const htSc = fx.score && fx.score.halfTime;
@@ -318,7 +360,7 @@ async function main(){
     // enrichissements API-Football (goals/cards/minute…) ET score (football-data
     // renvoie parfois fullTime=null à l'instant de la bascule FINISHED — vu le
     // 11/06 sur MEX-RSA : le 2-0 avait été écrasé par null).
-    for(const k of ["s1","s2","goals","cards","minute","ht","ref"]){
+    for(const k of ["s1","s2","goals","cards","minute","ht","ref","dur","pen1","pen2"]){
       if(entry[k]==null && prev[k]!=null) entry[k] = prev[k];
     }
     if(JSON.stringify(prev) !== JSON.stringify(entry)){
@@ -359,8 +401,11 @@ async function main(){
           (matchTeam(m.t1, ev.strAwayTeam) && matchTeam(m.t2, ev.strHomeTeam)));
         if(!m) continue;
         const t1Home = matchTeam(m.t1, ev.strHomeTeam);
-        out.data[String(m.id)] = Object.assign({}, out.data[String(m.id)]||{}, {
-          s1: t1Home?hs:as, s2: t1Home?as:hs, status:"FINISHED", src:"tsdb" });
+        // Prolongation / t.a.b. d'après le statut TheSportsDB (séance non chiffrée ici)
+        const durT = st==="PEN" ? "PEN" : st==="AET" ? "AET" : null;
+        out.data[String(m.id)] = Object.assign({}, out.data[String(m.id)]||{}, Object.assign(
+          { s1: t1Home?hs:as, s2: t1Home?as:hs, status:"FINISHED", src:"tsdb" },
+          durT ? { dur:durT } : {} ));
         changed = true;
         console.log("🟣 TheSportsDB : résultat #"+m.id+" publié.");
       }
@@ -413,6 +458,19 @@ async function main(){
           }
           const ht = x.score && x.score.ht;
           if(!e2.ht && ht && ht[0]!=null){ e2.ht = t1Home ? [ht[0],ht[1]] : [ht[1],ht[0]]; changed = true; }
+          // Prolongation / tirs au but (openfootball : ft=90', et=après prolong., p=séance).
+          // openfootball n'additionne PAS les t.a.b. au score (contrairement à football-data).
+          const sP = x.score || {}, etArr = sP.et, penArr = sP.p;
+          if(Array.isArray(etArr) && etArr[0]!=null){ // score du jeu = fin de prolongation
+            const es1 = t1Home?etArr[0]:etArr[1], es2 = t1Home?etArr[1]:etArr[0];
+            if(e2.s1!==es1 || e2.s2!==es2){ e2.s1=es1; e2.s2=es2; changed = true; }
+          }
+          if(Array.isArray(penArr) && penArr[0]!=null){
+            e2.pen1 = t1Home?penArr[0]:penArr[1]; e2.pen2 = t1Home?penArr[1]:penArr[0];
+            if(e2.dur!=="PEN"){ e2.dur = "PEN"; changed = true; }
+          } else if(Array.isArray(etArr) && etArr[0]!=null && !e2.dur){
+            e2.dur = "AET"; changed = true;
+          }
         }
       }
       if(filled) console.log("🟢 openfootball : "+filled+" résultat(s) complété(s).");
@@ -430,4 +488,8 @@ async function main(){
   fs.writeFileSync(OUT, JSON.stringify(out, null, 2));
   console.log("💾 livescores.json mis à jour.");
 }
-main().catch(e => { console.error("❌", e); process.exit(1); });
+// Exécution directe uniquement (pas à l'import, ex. depuis le test unitaire).
+import { fileURLToPath } from "node:url";
+if(process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)){
+  main().catch(e => { console.error("❌", e); process.exit(1); });
+}

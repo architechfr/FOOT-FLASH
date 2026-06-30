@@ -2582,6 +2582,8 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.9.30",d:"30/06/2026",changes:"Prolongations & tirs au but enfin indiqués (élimination directe). Un match nul à la fin du jeu décidé aux penaltys (ex. Allemagne–Paraguay) affichait un score faux du type « 5–6 » : la source de données (football-data) ADDITIONNE la séance de tirs au but au score du match (1–1 a.p. + t.a.b. 4–5 = 5–6 affiché), sans aucune mention. Désormais on sépare proprement : le score affiché est celui du JEU (90'/120', ici 1–1) et la séance de tirs au but est indiquée à part (« 🥅 Tirs au but 4–5 · vainqueur : … »), ainsi que la mention « ⏱ après prolongation » quand il y a prolongation sans penaltys. Visible sur la fiche match, les cartes de la liste et le bloc « Matchs du jour ». Le bon qualifié avance dans le tableau final même quand le match s'est joué aux tirs au but (avant, un 1–1 pouvait bloquer ou désigner le mauvais qualifié). S'applique automatiquement aux prochains matchs à élimination directe — et corrige rétroactivement les matchs déjà joués au prochain rafraîchissement des scores."},
+      {v:"v1.9.29",d:"27/06/2026",changes:"Infirmerie & données joueurs corrigées (retours d'usage). (1) Un joueur RÉTABLI n'est plus affiché comme blessé : Koundé, Saliba, Manu Koné, Mbappé (et Yamal, Valverde…) sont opérationnels depuis le début du tournoi — leur date de retour étant passée, le badge « blessé » disparaît partout (fiche équipe, fiche joueur). (2) Le nombre de sélections n'affiche plus un « 0 » trompeur quand la donnée manque (cas de beaucoup de joueurs dont les caps n'ont pas été renseignés, ex. Maxence Lacroix) : on indique « — » / « sél. n.c. » au lieu d'asséner un faux zéro."},
       {v:"v1.9.28",d:"27/06/2026",changes:"Retour de tous les onglets dans la barre du bas. La tentative de regrouper les onglets sous un menu « Plus » créait une 2e ligne quasi vide (juste « Plus »), sans intérêt — annulée. On retrouve la barre complète habituelle (Matchs, Groupes, Équipes, Tableau, Simul, Pronos, Jeu, Actus, Palmarès, Réglages)."},
       {v:"v1.9.26",d:"27/06/2026",changes:"Suivi recentré sur le présent (retours d'usage). (1) La liste des matchs s'ouvre désormais sur AUJOURD'HUI / les matchs à venir : les matchs déjà joués ne sont plus déroulés en premier — ils sont repliés et accessibles en un tap (bouton « ▾ Voir les matchs déjà joués », ou en touchant un jour passé dans la barre des jours). On ne met plus le passé en avant, mais il reste consultable à tout moment. (2) Accès direct au 🏅 Tableau final mis en avant sur l'accueil dès que la phase à élimination se dessine (le hub de la fin du tournoi : qui affronte qui, 16es → finale). (3) Une fois la phase de poules terminée, l'onglet Groupes propose d'aller au Tableau (les classements deviennent de l'historique)."},
       {v:"v1.9.25",d:"27/06/2026",changes:"Tableau éliminatoire fixé et fiabilisé. L'arbre des 16es se construisait à partir d'une grille interne erronée : les appariements 1ers/2es étaient décalés (ex. la France apparaissait au mauvais stade et avec le mauvais adversaire), et les libellés de repli (« 1er Gr.X », « 3e »…) étaient eux aussi décalés. Désormais le tableau suit les VRAIS appariements officiels FIFA, fournis par la même source que les scores (football-data) et reliés à chaque match par l'horaire : les 1ers, 2es ET les meilleurs 3es sont exacts, les stades et heures sont justes, les libellés des cases encore à déterminer sont corrects, et la progression 8es → quarts → demis → finale est conforme. Concrètement, France (1re du groupe I) affronte bien la Suède (3e du groupe F) le mardi 30 juin à 23h (heure de Paris) au MetLife Stadium. Le tableau se met à jour tout seul, en continu, comme les scores."},
@@ -2628,7 +2630,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.28 — Retour de tous les onglets dans la barre (menu « Plus » annulé) · 27 juin 2026";
+    var APP_VERSION="v1.9.29 — Infirmerie corrigée (joueurs rétablis retirés) + plus de « 0 sélections » trompeur · 27 juin 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -3026,7 +3028,7 @@
         h += '<div class="fm-pick-av">'+initials+'</div>';
         h += '<div style="flex:1;min-width:0">';
         h += '<div class="fm-pick-n">'+p.n+(p.cap?' <span style="color:var(--g)">(C)</span>':'')+'</div>';
-        h += '<div class="fm-pick-c">'+p.club+' · '+p.caps+' sel'+(p.g?' · '+p.g+' buts':'')+'</div>';
+        h += '<div class="fm-pick-c">'+p.club+(p.caps>0?' · '+p.caps+' sél':'')+(p.g?' · '+p.g+' buts':'')+'</div>';
         h += '</div>';
         h += '<span class="fm-pick-badge" style="background:rgba(255,255,255,.08);color:'+posColors[p.p]+'">'+p.p+'</span>';
         h += '<span class="fm-pick-ov">'+p._ov+'</span>';
@@ -4284,10 +4286,13 @@
             var _nFin = ["FT","FINISHED","AET","PEN","AWARDED"].indexOf(_nSt)>=0;
             m._live = { s1:o.s1, s2:o.s2, status:(_pFin&&!_nFin)?m._live.status:o.status,
                         minute:(o.minute!=null?String(o.minute):null),
-                        ht:o.ht||null, goals:o.goals||null, cards:o.cards||null, ref:o.ref||null };
+                        ht:o.ht||null, goals:o.goals||null, cards:o.cards||null, ref:o.ref||null,
+                        // Prolongation (AET) / tirs au but (PEN) + séance — élimination directe
+                        dur:o.dur||null, pen1:(o.pen1!=null?o.pen1:null), pen2:(o.pen2!=null?o.pen2:null) };
             m._liveSrc = "fd"; // football-data prioritaire sur le score (TheSportsDB ne complète que statut/minute)
             // À la fin du match : on fige le score officiel → classement + pronos se calculent tout seuls
-            if(fin){ if(o.s1!=null) m.s1=o.s1; if(o.s2!=null) m.s2=o.s2; }
+            if(fin){ if(o.s1!=null) m.s1=o.s1; if(o.s2!=null) m.s2=o.s2;
+              if(o.pen1!=null) m.pen1=o.pen1; if(o.pen2!=null) m.pen2=o.pen2; if(o.dur) m.dur=o.dur; }
           }
         }
       });
@@ -4512,7 +4517,9 @@
       var target=_normName(playerName);
       for(var i=0;i<INJURIES.length;i++){
         if(INJURIES[i].teamId===teamId && _normName(INJURIES[i].playerName)===target){
-          return INJURIES[i];
+          // v1.9.29 — ne signale plus comme blessé un joueur RÉTABLI (date de retour
+          // passée, a rejoué) : Koundé, Saliba, Koné, Mbappé… sont opérationnels.
+          return _injuryActive(INJURIES[i]) ? INJURIES[i] : null;
         }
       }
       return null;
@@ -4852,7 +4859,13 @@
             : '<span style="font-size:19px;font-weight:900;color:var(--g)">'+fmtTimeFR(m.d,m.city)+'</span>';
           h+='<div style="min-width:70px;text-align:center">'+center+'</div>';
           h+='<div style="flex:1;display:flex;align-items:center;gap:8px">'+flagImg(m.t2,32)+'<span style="font-size:15px;font-weight:800;color:var(--tx)">'+t2.name+'</span></div>';
-          h+='</div></div>';
+          h+='</div>';
+          // Prolongation / tirs au but (élimination directe)
+          var _hd=m.dur||(m._live&&m._live.dur);
+          var _hp1=(m.pen1!=null?m.pen1:(m._live&&m._live.pen1!=null?m._live.pen1:null)), _hp2=(m.pen2!=null?m.pen2:(m._live&&m._live.pen2!=null?m._live.pen2:null));
+          if(_hd==="PEN"&&_hp1!=null&&_hp2!=null)h+='<div style="text-align:center;font-size:10px;font-weight:800;color:var(--g);margin-top:5px">🥅 t.a.b. '+_hp1+'–'+_hp2+'</div>';
+          else if(_hd==="AET")h+='<div style="text-align:center;font-size:10px;font-weight:700;color:var(--am);margin-top:5px">⏱ après prolongation</div>';
+          h+='</div>';
         });
 
         h+='</div>';
@@ -6128,6 +6141,11 @@
         else if(lv&&lv.s1!=null&&lv.s2!=null)h+='<div class="mc-score" style="color:var(--rd)">'+lv.s1+" - "+lv.s2+"</div>";
         else h+='<div class="mc-vs">VS</div>';
         h+='<div class="mc-team" onclick="event.stopPropagation();goTeam(\''+m.t2+'\')"><div class="mc-flag">'+flagImg(m.t2,36)+'</div><div class="mc-name" style="text-decoration:underline;text-decoration-color:rgba(255,255,255,.2)">'+t2.name+"</div></div></div>";
+        // Prolongation / tirs au but (élimination directe)
+        var _cd=m.dur||(m._live&&m._live.dur);
+        var _cp1=(m.pen1!=null?m.pen1:(m._live&&m._live.pen1!=null?m._live.pen1:null)), _cp2=(m.pen2!=null?m.pen2:(m._live&&m._live.pen2!=null?m._live.pen2:null));
+        if(_cd==="PEN"&&_cp1!=null&&_cp2!=null)h+='<div style="text-align:center;font-size:10px;font-weight:800;color:var(--g);margin:1px 0">🥅 t.a.b. '+_cp1+'–'+_cp2+'</div>';
+        else if(_cd==="AET")h+='<div style="text-align:center;font-size:10px;font-weight:700;color:var(--am);margin:1px 0">⏱ après prolongation</div>';
         // v1.9.11 — dernier buteur sur la carte (match en cours ou terminé)
         if(m._live&&m._live.goals&&m._live.goals.length){
           var _lg=m._live.goals[m._live.goals.length-1];
@@ -6893,7 +6911,7 @@
               injBadge = '<span style="display:inline-flex;align-items:center;gap:3px;padding:1px 6px;border-radius:99px;background:'+(injury.status==="out"?"rgba(255,23,68,.2)":injury.status==="doubt"?"rgba(255,179,0,.2)":"rgba(231,196,92,.2)")+';color:'+info.color+';font-size:9px;font-weight:900;margin-left:6px;vertical-align:middle;line-height:1.3" title="'+info.label+' — '+injury.injury+'">'+info.icon+(pct!==null?' '+pct+'%':'')+'</span>';
             }
             h+='<div class="pc-name">'+p.n+capBadge+injBadge+'<div style="font-size:10px;color:var(--t2)">'+p.club+(injury?' <span style="color:'+info.color+';font-weight:700">· '+injury.injury+'</span>':'')+"</div></div>";
-            h+='<div class="pc-stat">'+p.caps+" sel"+(p.g?" · "+p.g+" buts":"")+'</div><span style="color:var(--t2);font-size:14px">›</span></div>';
+            h+='<div class="pc-stat">'+(p.caps>0?p.caps+" sél":"sél. n.c.")+(p.g?" · "+p.g+" buts":"")+'</div><span style="color:var(--t2);font-size:14px">›</span></div>';
           });
         });
       }
@@ -10021,12 +10039,16 @@
           if(t.complete){W[g]=t.order[0].id;R[g]=t.order[1].id}
         });
         function mById(id){for(var i=0;i<MATCHES.length;i++)if(MATCHES[i].id===id)return MATCHES[i];return null}
-        function winnerOf(id){var m=mById(id);
-          if(!m||m.t1==="TBD"||m.t2==="TBD"||m.s1==null||m.s2==null||m.s1===m.s2)return null;
-          return m.s1>m.s2?m.t1:m.t2}
-        function loserOf(id){var m=mById(id);
-          if(!m||m.t1==="TBD"||m.t2==="TBD"||m.s1==null||m.s2==null||m.s1===m.s2)return null;
-          return m.s1>m.s2?m.t2:m.t1}
+        // Côté vainqueur (1=t1, 2=t2) : sur le score du jeu, et aux tirs au but si nul.
+        function _koSide(m){
+          if(!m||m.t1==="TBD"||m.t2==="TBD"||m.s1==null||m.s2==null)return null;
+          if(m.s1>m.s2)return 1; if(m.s2>m.s1)return 2;
+          var p1=(m.pen1!=null?m.pen1:(m._live&&m._live.pen1)), p2=(m.pen2!=null?m.pen2:(m._live&&m._live.pen2));
+          if(p1!=null&&p2!=null&&p1!==p2)return p1>p2?1:2;
+          return null; // nul sans séance connue → indéterminé
+        }
+        function winnerOf(id){var s=_koSide(mById(id));return s==null?null:(s===1?mById(id).t1:mById(id).t2)}
+        function loserOf(id){var s=_koSide(mById(id));return s==null?null:(s===1?mById(id).t2:mById(id).t1)}
         function tok(t){var p=t.split(":");
           if(p[0]==="W")return W[p[1]]||null;
           if(p[0]==="RU")return R[p[1]]||null;
@@ -11795,7 +11817,7 @@
       h+='<div style="font-size:24px;font-weight:900;margin-top:10px;color:#fff">'+p.n+'</div>';
       h+='<div style="font-size:14px;color:var(--g);font-weight:700;margin-top:4px">'+p.club+'</div>';
       h+='<div style="display:flex;gap:12px;justify-content:center;margin-top:10px">';
-      h+='<div style="background:var(--s2);padding:4px 12px;border-radius:8px;font-size:12px"><span style="font-weight:900;color:var(--g)">'+p.caps+'</span> <span style="color:var(--t2)">selections</span></div>';
+      h+='<div style="background:var(--s2);padding:4px 12px;border-radius:8px;font-size:12px"><span style="font-weight:900;color:var(--g)">'+(p.caps>0?p.caps:'—')+'</span> <span style="color:var(--t2)">sélections</span></div>';
       h+='<div style="background:var(--s2);padding:4px 12px;border-radius:8px;font-size:12px"><span style="font-weight:900;color:var(--g)">'+p.g+'</span> <span style="color:var(--t2)">buts</span></div>';
       var _wcDisp = getDisplayedWC(p);
       if(_wcDisp>0)h+='<div style="background:var(--s2);padding:4px 12px;border-radius:8px;font-size:12px"><span style="font-weight:900;color:var(--g)">'+_wcDisp+'</span> <span style="color:var(--t2)">Coupes du Monde</span></div>';
@@ -11815,12 +11837,12 @@
       h+='<div style="font-size:10px;color:var(--t2);font-weight:700">NOTE GLOBALE</div>';
       h+='<div style="font-size:8px;color:var(--t2);margin-top:2px;opacity:.7">MàJ '+RATINGS_VERSION.date+'</div>';
       h+='</div>';
-      h+='<div style="flex:1;background:var(--s1);border:1px solid var(--s3);border-radius:12px;padding:14px;text-align:center"><div style="font-size:12px;font-weight:800;color:'+levelColor+';margin-bottom:4px">'+level+'</div><div style="font-size:10px;color:var(--t2)">'+p.caps+' selections</div><div style="font-size:10px;color:var(--t2)">'+p.g+' buts</div></div>';
+      h+='<div style="flex:1;background:var(--s1);border:1px solid var(--s3);border-radius:12px;padding:14px;text-align:center"><div style="font-size:12px;font-weight:800;color:'+levelColor+';margin-bottom:4px">'+level+'</div><div style="font-size:10px;color:var(--t2)">'+(p.caps>0?p.caps+' sélections':'sél. n.c.')+'</div><div style="font-size:10px;color:var(--t2)">'+p.g+' buts</div></div>';
       h+='</div>';
 
         h+='<div class="pl-info"><div style="font-size:12px;font-weight:800;color:var(--g);margin-bottom:10px">📊 STATS EN SELECTION</div>';
       var stats=[
-        {l:"Selections",v:p.caps,icon:"🏟️"},
+        {l:"Sélections",v:(p.caps>0?p.caps:'—'),icon:"🏟️"},
         {l:"Buts",v:p.g,icon:"⚽"},
         {l:"Ratio buts/match",v:ratio,icon:"📈"},
         {l:"Coupes du Monde",v:getDisplayedWC(p),icon:"🌍"},
@@ -14734,6 +14756,17 @@
       else if(_lv && _lv.soft) h += '<div style="text-align:center;margin:2px 0 6px"><span style="font-size:11px;font-weight:800;color:var(--t2)">🏁 Fin de match · score en attente de confirmation officielle</span></div>';
       // v1.9.11 — Buteurs sous le score (flux détaillé football-data)
       var _ev=m._live||{};
+      // Prolongation / tirs au but (élimination directe). Le score affiché ci-dessus
+      // est celui du JEU (sans la séance) ; on précise ici a.p. / t.a.b. + vainqueur.
+      var _dur = m.dur || _ev.dur || (_lv&&_lv.dur);
+      var _p1 = (m.pen1!=null?m.pen1:(_ev.pen1!=null?_ev.pen1:null));
+      var _p2 = (m.pen2!=null?m.pen2:(_ev.pen2!=null?_ev.pen2:null));
+      if(_dur==="PEN" && _p1!=null && _p2!=null){
+        var _pw = _p1>_p2 ? (tA?tA.name:m.t1) : (tB?tB.name:m.t2);
+        h += '<div style="text-align:center;font-size:11px;font-weight:900;color:var(--g);margin:1px 0 5px">🥅 Tirs au but '+_p1+'–'+_p2+' · vainqueur : '+_pw+'</div>';
+      } else if(_dur==="AET"){
+        h += '<div style="text-align:center;font-size:11px;font-weight:800;color:var(--am);margin:1px 0 5px">⏱ après prolongation</div>';
+      }
       if(_ev.ht && (m.s1!==null||(_lv&&_lv.s1!=null))) h += '<div style="text-align:center;font-size:10px;color:var(--t2);margin-bottom:4px">(mi-temps '+_ev.ht[0]+' - '+_ev.ht[1]+')</div>';
       if(_ev.goals && _ev.goals.length){
         var _g1=_ev.goals.filter(function(g){return g.t===1}),_g2=_ev.goals.filter(function(g){return g.t===2});

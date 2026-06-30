@@ -1,5 +1,5 @@
 {
-  "versionCode": 25,
-  "version": "v1.9.28",
-  "notes": "Retour des onglets complets dans la barre du bas (le menu 'Plus' creait une 2e ligne quasi vide, sans interet). On garde l'essentiel des dernieres versions : tableau eliminatoire fiable via le flux officiel FIFA (France-Suede inscrit), liste centree sur aujourd'hui/a venir (matchs passes replies), acces direct au Tableau final."
+  "versionCode": 27,
+  "version": "v1.9.30",
+  "notes": "Prolongations & tirs au but enfin indiques (elimination directe). Un match nul decide aux penaltys affichait un score faux (ex. 5-6) car football-data additionne la seance au score du jeu. Desormais on separe : score du JEU (90'/120') affiche, et la seance de t.a.b. indiquee a part (Tirs au but 4-5, vainqueur), plus la mention 'apres prolongation'. Visible sur la fiche match, les cartes et le bloc Matchs du jour. Le bon qualifie avance dans le tableau final meme aux t.a.b. S'applique aux prochains matchs et corrige les matchs deja joues au prochain rafraichissement."
 }
