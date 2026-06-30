@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-30T03:50:02.836Z",
+  "lastUpdated": "2026-06-30T03:53:00.102Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2474,8 +2474,8 @@
       "ref": "Jalal Jayed"
     },
     "75": {
-      "s1": 1,
-      "s2": 1,
+      "s1": 4,
+      "s2": 2,
       "status": "FINISHED",
       "minute": null,
       "ht": [
