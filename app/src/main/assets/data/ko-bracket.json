@@ -1,6 +1,6 @@
 {
  "source": "football-data.org (UTC-map)",
- "lastUpdated": "2026-06-29T06:04:09.644Z",
+ "lastUpdated": "2026-06-30T06:04:18.134Z",
  "data": {
   "73": {
    "t1": "RSA",
@@ -66,8 +66,16 @@
    "t1": "AUS",
    "t2": "EGY"
   },
+  "89": {
+   "t1": "PAR",
+   "t2": null
+  },
   "90": {
    "t1": "CAN",
+   "t2": "MAR"
+  },
+  "91": {
+   "t1": "BRA",
    "t2": null
   }
  }
