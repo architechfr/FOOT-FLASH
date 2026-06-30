@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-30T05:55:39.267Z",
+  "lastUpdated": "2026-06-30T05:58:23.398Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2447,10 +2447,13 @@
       "ref": "João Pinheiro"
     },
     "74": {
-      "s1": 4,
-      "s2": 5,
+      "s1": 1,
+      "s2": 1,
       "status": "FINISHED",
       "minute": null,
+      "dur": "PEN",
+      "pen1": 3,
+      "pen2": 4,
       "ht": [
         0,
         1
@@ -2474,10 +2477,13 @@
       "ref": "Jalal Jayed"
     },
     "75": {
-      "s1": 3,
-      "s2": 4,
+      "s1": 1,
+      "s2": 1,
       "status": "FINISHED",
       "minute": null,
+      "dur": "PEN",
+      "pen1": 2,
+      "pen2": 3,
       "ht": [
         0,
         0
@@ -2545,8 +2551,7 @@
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z",
     "ofConflicts": [
-      "#74 fd=4-5 of=1-1",
-      "#75 fd=3-4 of=1-1"
+      "#74 fd=0-1 of=1-1"
     ]
   }
 }
