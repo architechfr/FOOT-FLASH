@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-30T03:55:57.301Z",
+  "lastUpdated": "2026-06-30T03:58:54.748Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2474,15 +2474,31 @@
       "ref": "Jalal Jayed"
     },
     "75": {
-      "s1": 4,
-      "s2": 3,
+      "s1": 3,
+      "s2": 4,
       "status": "FINISHED",
       "minute": null,
       "ht": [
         0,
         0
       ],
-      "ref": "Wilton Sampaio"
+      "ref": "Wilton Sampaio",
+      "goals": [
+        {
+          "m": "72",
+          "t": 1,
+          "n": "Cody Gakpo",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "90+1",
+          "t": 2,
+          "n": "Issa Diop",
+          "type": null,
+          "a": null
+        }
+      ]
     },
     "76": {
       "s1": 2,
@@ -2529,7 +2545,8 @@
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z",
     "ofConflicts": [
-      "#74 fd=4-5 of=1-1"
+      "#74 fd=4-5 of=1-1",
+      "#75 fd=3-4 of=1-1"
     ]
   }
 }
