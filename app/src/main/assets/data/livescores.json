@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-01T22:56:56.809Z",
+  "lastUpdated": "2026-07-01T22:59:53.715Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2679,7 +2679,6 @@
         1
       ],
       "ref": "Said Martinez",
-      "dur": "AET",
       "goals": [
         {
           "m": "86",
@@ -2716,7 +2715,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "dur": "AET"
     }
   },
   "meta": {
