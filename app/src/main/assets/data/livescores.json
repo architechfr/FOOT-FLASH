@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-01T02:19:56.986Z",
+  "lastUpdated": "2026-07-01T02:22:54.762Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2620,9 +2620,9 @@
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 77,
-      "TIMED": 26,
-      "LIVE": 1
+      "FINISHED": 78,
+      "LIVE": 1,
+      "TIMED": 25
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z"
