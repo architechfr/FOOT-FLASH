@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-01T22:05:23.365Z",
+  "lastUpdated": "2026-07-01T22:11:16.786Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2672,8 +2672,9 @@
     "82": {
       "s1": 2,
       "s2": 2,
-      "status": "HT",
+      "status": "IN_PLAY",
       "minute": null,
+      "dur": "AET",
       "ht": [
         0,
         1
@@ -2686,7 +2687,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 80,
-      "PAUSED": 1,
+      "IN_PLAY": 1,
       "TIMED": 23
     },
     "firstUtc": "2026-06-11T19:00:00Z",
