@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-01T17:17:15.207Z",
+  "lastUpdated": "2026-07-01T17:43:41.757Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2636,7 +2636,7 @@
       "ref": "Slavko Vinčič"
     },
     "80": {
-      "s1": 0,
+      "s1": 1,
       "s2": 1,
       "status": "IN_PLAY",
       "minute": null,
