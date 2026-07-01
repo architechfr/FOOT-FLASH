@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-01T07:27:09.777Z",
+  "lastUpdated": "2026-07-01T07:30:08.009Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2617,7 +2617,6 @@
         2,
         0
       ],
-      "ref": "Slavko Vinčič",
       "goals": [
         {
           "m": "31",
@@ -2633,7 +2632,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Slavko Vinčič"
     }
   },
   "meta": {
