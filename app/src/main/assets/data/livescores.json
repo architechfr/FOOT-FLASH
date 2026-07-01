@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-01T17:55:26.769Z",
+  "lastUpdated": "2026-07-01T18:07:11.870Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2638,21 +2638,43 @@
     "80": {
       "s1": 2,
       "s2": 1,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         0,
         1
       ],
-      "ref": "Adham Makhadmeh"
+      "ref": "Adham Makhadmeh",
+      "goals": [
+        {
+          "m": "7",
+          "t": 2,
+          "n": "Brian Cipenga",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "75",
+          "t": 1,
+          "n": "Harry Kane",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "86",
+          "t": 1,
+          "n": "Harry Kane",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 79,
-      "IN_PLAY": 1,
+      "FINISHED": 80,
       "TIMED": 24
     },
     "firstUtc": "2026-06-11T19:00:00Z",
