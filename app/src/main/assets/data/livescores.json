@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-30T23:18:42.788Z",
+  "lastUpdated": "2026-07-01T01:00:33.354Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2549,7 +2549,6 @@
         1,
         0
       ],
-      "ref": "Danny Makkelie",
       "goals": [
         {
           "m": "45",
@@ -2572,7 +2571,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Danny Makkelie"
     },
     "78": {
       "s1": 1,
