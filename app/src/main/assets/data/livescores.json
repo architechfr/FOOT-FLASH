@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-01T16:06:42.127Z",
+  "lastUpdated": "2026-07-01T16:59:37.236Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2634,6 +2634,17 @@
         }
       ],
       "ref": "Slavko Vinčič"
+    },
+    "80": {
+      "s1": 0,
+      "s2": 1,
+      "status": "HT",
+      "minute": null,
+      "ht": [
+        0,
+        1
+      ],
+      "ref": "Adham Makhadmeh"
     }
   },
   "meta": {
@@ -2641,7 +2652,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 79,
-      "LIVE": 1,
+      "PAUSED": 1,
       "TIMED": 24
     },
     "firstUtc": "2026-06-11T19:00:00Z",
