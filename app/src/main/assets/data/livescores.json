@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-01T18:07:11.870Z",
+  "lastUpdated": "2026-07-01T20:00:42.964Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2644,7 +2644,6 @@
         0,
         1
       ],
-      "ref": "Adham Makhadmeh",
       "goals": [
         {
           "m": "7",
@@ -2667,7 +2666,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Adham Makhadmeh"
     }
   },
   "meta": {
