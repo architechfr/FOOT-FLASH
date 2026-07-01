@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-01T21:19:03.290Z",
+  "lastUpdated": "2026-07-01T21:53:36.306Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2670,7 +2670,7 @@
       "ref": "Adham Makhadmeh"
     },
     "82": {
-      "s1": 0,
+      "s1": 1,
       "s2": 2,
       "status": "IN_PLAY",
       "minute": null,
