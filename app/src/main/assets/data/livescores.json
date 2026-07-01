@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-01T22:28:58.004Z",
+  "lastUpdated": "2026-07-01T22:49:32.470Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2670,16 +2670,16 @@
       "ref": "Adham Makhadmeh"
     },
     "82": {
-      "s1": 2,
+      "s1": 3,
       "s2": 2,
       "status": "HT",
       "minute": null,
-      "dur": "AET",
       "ht": [
         0,
         1
       ],
-      "ref": "Said Martinez"
+      "ref": "Said Martinez",
+      "dur": "AET"
     }
   },
   "meta": {
