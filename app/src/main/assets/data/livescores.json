@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-02T00:04:11.019Z",
+  "lastUpdated": "2026-07-02T00:07:08.058Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2669,6 +2669,13 @@
       ],
       "ref": "Adham Makhadmeh"
     },
+    "81": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Raphael Claus"
+    },
     "82": {
       "s1": 3,
       "s2": 2,
@@ -2724,7 +2731,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 81,
-      "TIMED": 23
+      "IN_PLAY": 1,
+      "TIMED": 22
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z",
