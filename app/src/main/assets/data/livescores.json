@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-02T02:11:06.829Z",
+  "lastUpdated": "2026-07-02T02:14:03.958Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2672,13 +2672,29 @@
     "81": {
       "s1": 2,
       "s2": 0,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         1,
         0
       ],
-      "ref": "Raphael Claus"
+      "ref": "Raphael Claus",
+      "goals": [
+        {
+          "m": "45",
+          "t": 1,
+          "n": "Folarin Balogun",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "82",
+          "t": 1,
+          "n": "Malik Tillman",
+          "type": null,
+          "a": null
+        }
+      ]
     },
     "82": {
       "s1": 3,
@@ -2734,8 +2750,7 @@
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 81,
-      "IN_PLAY": 1,
+      "FINISHED": 82,
       "TIMED": 22
     },
     "firstUtc": "2026-06-11T19:00:00Z",
