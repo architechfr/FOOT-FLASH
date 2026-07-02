@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-02T20:54:47.100Z",
+  "lastUpdated": "2026-07-02T20:57:44.601Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2746,7 +2746,7 @@
       "ref": "Said Martinez"
     },
     "84": {
-      "s1": 2,
+      "s1": 3,
       "s2": 0,
       "status": "IN_PLAY",
       "minute": null,
