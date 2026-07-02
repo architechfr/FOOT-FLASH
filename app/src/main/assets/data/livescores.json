@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-02T21:00:42.615Z",
+  "lastUpdated": "2026-07-02T21:03:40.092Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2748,21 +2748,43 @@
     "84": {
       "s1": 3,
       "s2": 0,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         1,
         0
       ],
-      "ref": "Glenn Nyberg"
+      "ref": "Glenn Nyberg",
+      "goals": [
+        {
+          "m": "36",
+          "t": 1,
+          "n": "Mikel Oyarzabal",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "66",
+          "t": 1,
+          "n": "Pedro Porro",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "89",
+          "t": 1,
+          "n": "Mikel Oyarzabal",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 82,
-      "IN_PLAY": 1,
+      "FINISHED": 83,
       "TIMED": 21
     },
     "firstUtc": "2026-06-11T19:00:00Z",
