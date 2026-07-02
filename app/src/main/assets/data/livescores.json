@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-02T03:57:15.484Z",
+  "lastUpdated": "2026-07-02T04:00:12.638Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2678,7 +2678,6 @@
         1,
         0
       ],
-      "ref": "Raphael Claus",
       "goals": [
         {
           "m": "45",
@@ -2694,13 +2693,15 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Raphael Claus"
     },
     "82": {
       "s1": 3,
       "s2": 2,
       "status": "FINISHED",
       "minute": null,
+      "dur": "AET",
       "ht": [
         0,
         1
@@ -2742,8 +2743,7 @@
           "a": null
         }
       ],
-      "ref": "Said Martinez",
-      "dur": "AET"
+      "ref": "Said Martinez"
     }
   },
   "meta": {
