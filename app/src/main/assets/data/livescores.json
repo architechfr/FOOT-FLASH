@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-02T23:53:25.419Z",
+  "lastUpdated": "2026-07-02T23:56:23.009Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2748,8 +2748,12 @@
     "83": {
       "s1": 0,
       "s2": 0,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
+      "ht": [
+        0,
+        0
+      ],
       "ref": "Espen Eskås"
     },
     "84": {
@@ -2792,7 +2796,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 83,
-      "IN_PLAY": 1,
+      "PAUSED": 1,
       "TIMED": 20
     },
     "firstUtc": "2026-06-11T19:00:00Z",
