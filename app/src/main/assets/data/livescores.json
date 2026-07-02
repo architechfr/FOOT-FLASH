@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-02T00:10:06.286Z",
+  "lastUpdated": "2026-07-02T00:13:03.584Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2681,7 +2681,6 @@
       "s2": 2,
       "status": "FINISHED",
       "minute": null,
-      "dur": "AET",
       "ht": [
         0,
         1
@@ -2723,7 +2722,8 @@
           "a": null
         }
       ],
-      "ref": "Said Martinez"
+      "ref": "Said Martinez",
+      "dur": "AET"
     }
   },
   "meta": {
