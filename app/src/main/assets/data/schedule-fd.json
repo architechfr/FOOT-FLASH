@@ -549,8 +549,8 @@
   },
   "fd-537378": {
    "utc": "2026-07-06T00:00:00Z",
-   "home": null,
-   "away": null,
+   "home": "Mexico",
+   "away": "England",
    "stage": "LAST_16"
   },
   "fd-537379": {
@@ -561,8 +561,8 @@
   },
   "fd-537380": {
    "utc": "2026-07-07T00:00:00Z",
-   "home": null,
-   "away": null,
+   "home": "United States",
+   "away": "Belgium",
    "stage": "LAST_16"
   },
   "fd-537381": {
