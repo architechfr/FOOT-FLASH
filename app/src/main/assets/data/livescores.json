@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-02T23:03:09.094Z",
+  "lastUpdated": "2026-07-02T23:06:06.717Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2745,6 +2745,13 @@
       ],
       "ref": "Said Martinez"
     },
+    "83": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Espen Eskås"
+    },
     "84": {
       "s1": 3,
       "s2": 0,
@@ -2785,7 +2792,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 83,
-      "TIMED": 21
+      "IN_PLAY": 1,
+      "TIMED": 20
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z",
