@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-03T03:13:46.305Z",
+  "lastUpdated": "2026-07-03T03:16:43.087Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2814,7 +2814,7 @@
       "ref": "Glenn Nyberg"
     },
     "85": {
-      "s1": 0,
+      "s1": 1,
       "s2": 0,
       "status": "IN_PLAY",
       "minute": null,
