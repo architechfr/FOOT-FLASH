@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-03T05:03:07.774Z",
+  "lastUpdated": "2026-07-03T05:06:05.569Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2822,7 +2822,23 @@
         1,
         0
       ],
-      "ref": "Yael Falcón"
+      "ref": "Yael Falcón",
+      "goals": [
+        {
+          "m": "10",
+          "t": 1,
+          "n": "Breel Embolo",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "46",
+          "t": 1,
+          "n": "Dan Ndoye",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
