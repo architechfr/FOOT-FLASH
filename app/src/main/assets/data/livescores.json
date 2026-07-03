@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-03T19:20:48.914Z",
+  "lastUpdated": "2026-07-03T19:23:45.857Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2841,7 +2841,7 @@
       "ref": "Yael Falcón"
     },
     "88": {
-      "s1": 0,
+      "s1": 1,
       "s2": 1,
       "status": "IN_PLAY",
       "minute": null,
