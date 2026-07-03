@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-03T20:58:23.511Z",
+  "lastUpdated": "2026-07-03T21:01:20.867Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2841,18 +2841,34 @@
       "ref": "Yael Falcón"
     },
     "88": {
-      "s1": 2,
-      "s2": 4,
+      "s1": 1,
+      "s2": 1,
       "status": "FINISHED",
       "minute": null,
       "dur": "PEN",
-      "pen1": 1,
-      "pen2": 1,
+      "pen1": 2,
+      "pen2": 4,
       "ht": [
         0,
         1
       ],
-      "ref": "Gustavo Tejera"
+      "ref": "Gustavo Tejera",
+      "goals": [
+        {
+          "m": "13",
+          "t": 2,
+          "n": "Emam Ashour",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "55",
+          "t": 1,
+          "n": "Mohamed Hany",
+          "type": "CSC",
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
@@ -2865,7 +2881,8 @@
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z",
     "ofConflicts": [
-      "#82 fd=3-2 of=2-2"
+      "#82 fd=3-2 of=2-2",
+      "#88 fd=-1-1 of=1-1"
     ]
   }
 }
