@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-03T22:52:36.297Z",
+  "lastUpdated": "2026-07-03T22:55:33.399Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2843,8 +2843,12 @@
     "86": {
       "s1": 1,
       "s2": 0,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
+      "ht": [
+        1,
+        0
+      ],
       "ref": "Drew Fischer"
     },
     "88": {
@@ -2883,7 +2887,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 86,
-      "IN_PLAY": 1,
+      "PAUSED": 1,
       "TIMED": 17
     },
     "firstUtc": "2026-06-11T19:00:00Z",
