@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-03T18:15:53.081Z",
+  "lastUpdated": "2026-07-03T18:18:49.895Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2842,7 +2842,7 @@
     },
     "88": {
       "s1": 0,
-      "s2": 0,
+      "s2": 1,
       "status": "IN_PLAY",
       "minute": null,
       "ref": "Gustavo Tejera"
