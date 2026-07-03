@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-03T01:13:16.217Z",
+  "lastUpdated": "2026-07-03T01:16:13.631Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2748,13 +2748,36 @@
     "83": {
       "s1": 2,
       "s2": 2,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         0,
         0
       ],
-      "ref": "Espen Eskås"
+      "ref": "Espen Eskås",
+      "goals": [
+        {
+          "m": "68",
+          "t": 1,
+          "n": "Cristiano Ronaldo",
+          "type": "P",
+          "a": null
+        },
+        {
+          "m": "90+4",
+          "t": 1,
+          "n": "Gonçalo Ramos",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "53",
+          "t": 2,
+          "n": "Ivan Perisic",
+          "type": null,
+          "a": null
+        }
+      ]
     },
     "84": {
       "s1": 3,
@@ -2795,14 +2818,14 @@
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 83,
-      "IN_PLAY": 1,
+      "FINISHED": 84,
       "TIMED": 20
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z",
     "ofConflicts": [
-      "#82 fd=3-2 of=2-2"
+      "#82 fd=3-2 of=2-2",
+      "#83 fd=2-2 of=2-1"
     ]
   }
 }
