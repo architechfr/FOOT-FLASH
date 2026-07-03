@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-03T20:55:26.119Z",
+  "lastUpdated": "2026-07-03T20:58:23.511Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2841,9 +2841,9 @@
       "ref": "Yael Falcón"
     },
     "88": {
-      "s1": 1,
-      "s2": 1,
-      "status": "IN_PLAY",
+      "s1": 2,
+      "s2": 4,
+      "status": "FINISHED",
       "minute": null,
       "dur": "PEN",
       "pen1": 1,
@@ -2859,8 +2859,7 @@
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 85,
-      "IN_PLAY": 1,
+      "FINISHED": 86,
       "TIMED": 18
     },
     "firstUtc": "2026-06-11T19:00:00Z",
