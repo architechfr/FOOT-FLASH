@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-03T04:09:49.082Z",
+  "lastUpdated": "2026-07-03T04:12:45.883Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2814,9 +2814,9 @@
       "ref": "Glenn Nyberg"
     },
     "85": {
-      "s1": 1,
+      "s1": 2,
       "s2": 0,
-      "status": "HT",
+      "status": "IN_PLAY",
       "minute": null,
       "ht": [
         1,
@@ -2830,7 +2830,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 84,
-      "PAUSED": 1,
+      "IN_PLAY": 1,
       "TIMED": 19
     },
     "firstUtc": "2026-06-11T19:00:00Z",
