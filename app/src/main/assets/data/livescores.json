@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-03T18:54:11.704Z",
+  "lastUpdated": "2026-07-03T18:57:08.681Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2843,8 +2843,12 @@
     "88": {
       "s1": 0,
       "s2": 1,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
+      "ht": [
+        0,
+        1
+      ],
       "ref": "Gustavo Tejera"
     }
   },
@@ -2853,7 +2857,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 85,
-      "IN_PLAY": 1,
+      "PAUSED": 1,
       "TIMED": 18
     },
     "firstUtc": "2026-06-11T19:00:00Z",
