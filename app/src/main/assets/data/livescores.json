@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-03T06:11:10.198Z",
+  "lastUpdated": "2026-07-03T06:17:03.599Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2822,7 +2822,6 @@
         1,
         0
       ],
-      "ref": "Yael Falcón",
       "goals": [
         {
           "m": "10",
@@ -2838,7 +2837,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Yael Falcón"
     }
   },
   "meta": {
