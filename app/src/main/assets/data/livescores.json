@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-04T00:10:09.180Z",
+  "lastUpdated": "2026-07-04T00:13:06.276Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2841,10 +2841,11 @@
       "ref": "Yael Falcón"
     },
     "86": {
-      "s1": 1,
+      "s1": 2,
       "s2": 1,
-      "status": "HT",
+      "status": "IN_PLAY",
       "minute": null,
+      "dur": "AET",
       "ht": [
         1,
         0
@@ -2887,7 +2888,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 86,
-      "PAUSED": 1,
+      "IN_PLAY": 1,
       "TIMED": 17
     },
     "firstUtc": "2026-06-11T19:00:00Z",
