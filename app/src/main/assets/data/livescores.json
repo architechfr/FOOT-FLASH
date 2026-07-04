@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-04T03:39:26.694Z",
+  "lastUpdated": "2026-07-04T03:42:24.060Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2898,7 +2898,16 @@
         1,
         0
       ],
-      "ref": "Clément Turpin"
+      "ref": "Clément Turpin",
+      "goals": [
+        {
+          "m": "14",
+          "t": 1,
+          "n": "Jhon Arias",
+          "type": null,
+          "a": null
+        }
+      ]
     },
     "88": {
       "s1": 1,
@@ -2943,6 +2952,7 @@
     "ofConflicts": [
       "#82 fd=3-2 of=2-2",
       "#86 fd=3-2 of=1-1",
+      "#87 fd=2-0 of=1-0",
       "#88 fd=-1-1 of=1-1"
     ]
   }
