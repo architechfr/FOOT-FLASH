@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-04T00:45:33.473Z",
+  "lastUpdated": "2026-07-04T00:48:30.193Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2850,7 +2850,44 @@
         1,
         0
       ],
-      "ref": "Drew Fischer"
+      "ref": "Drew Fischer",
+      "goals": [
+        {
+          "m": "29",
+          "t": 1,
+          "n": "Lionel Messi",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "59",
+          "t": 2,
+          "n": "Deroy Duarte",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "92",
+          "t": 1,
+          "n": "Lisandro Martínez",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "103",
+          "t": 2,
+          "n": "Sidny Lopes Cabral",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "111",
+          "t": 1,
+          "n": "Diney Borges",
+          "type": "CSC",
+          "a": null
+        }
+      ]
     },
     "88": {
       "s1": 1,
