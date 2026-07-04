@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-04T01:35:04.321Z",
+  "lastUpdated": "2026-07-04T01:38:02.783Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2889,6 +2889,13 @@
         }
       ]
     },
+    "87": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Clément Turpin"
+    },
     "88": {
       "s1": 1,
       "s2": 1,
@@ -2925,7 +2932,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 87,
-      "TIMED": 17
+      "IN_PLAY": 1,
+      "TIMED": 16
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z",
