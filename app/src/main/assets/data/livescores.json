@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-04T21:03:49.148Z",
+  "lastUpdated": "2026-07-04T21:06:46.902Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2939,6 +2939,13 @@
       ],
       "ref": "Gustavo Tejera"
     },
+    "89": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Il'giz Tantashev"
+    },
     "90": {
       "s1": 0,
       "s2": 3,
@@ -2979,7 +2986,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 89,
-      "TIMED": 15
+      "IN_PLAY": 1,
+      "TIMED": 14
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z",
