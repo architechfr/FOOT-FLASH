@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-04T19:05:06.310Z",
+  "lastUpdated": "2026-07-04T19:08:04.911Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2941,14 +2941,37 @@
     },
     "90": {
       "s1": 0,
-      "s2": 2,
+      "s2": 3,
       "status": "IN_PLAY",
       "minute": null,
       "ht": [
         0,
         0
       ],
-      "ref": "Michael Oliver"
+      "ref": "Michael Oliver",
+      "goals": [
+        {
+          "m": "50",
+          "t": 2,
+          "n": "Azzedine Ounahi",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "82",
+          "t": 2,
+          "n": "Azzedine Ounahi",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "90+8",
+          "t": 2,
+          "n": "Soufiane Rahimi",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
