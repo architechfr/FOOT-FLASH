@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-04T23:03:45.370Z",
+  "lastUpdated": "2026-07-04T23:06:42.288Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2948,7 +2948,16 @@
         0,
         0
       ],
-      "ref": "Il'giz Tantashev"
+      "ref": "Il'giz Tantashev",
+      "goals": [
+        {
+          "m": "70",
+          "t": 2,
+          "n": "Kylian Mbappé",
+          "type": "P",
+          "a": null
+        }
+      ]
     },
     "90": {
       "s1": 0,
