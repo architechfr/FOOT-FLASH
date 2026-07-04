@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-04T05:27:03.624Z",
+  "lastUpdated": "2026-07-04T05:30:01.898Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2898,7 +2898,6 @@
         1,
         0
       ],
-      "ref": "Clément Turpin",
       "goals": [
         {
           "m": "14",
@@ -2907,7 +2906,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Clément Turpin"
     },
     "88": {
       "s1": 1,
