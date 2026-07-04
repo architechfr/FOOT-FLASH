@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-04T05:18:12.335Z",
+  "lastUpdated": "2026-07-04T05:21:09.494Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2890,7 +2890,7 @@
       "ref": "Drew Fischer"
     },
     "87": {
-      "s1": 1,
+      "s1": 2,
       "s2": 0,
       "status": "FINISHED",
       "minute": null,
@@ -2952,6 +2952,7 @@
     "ofConflicts": [
       "#82 fd=3-2 of=2-2",
       "#86 fd=3-2 of=1-1",
+      "#87 fd=2-0 of=1-0",
       "#88 fd=-1-1 of=1-1"
     ]
   }
