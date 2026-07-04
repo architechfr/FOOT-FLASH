@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-04T00:36:43.057Z",
+  "lastUpdated": "2026-07-04T00:39:39.802Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2845,12 +2845,12 @@
       "s2": 2,
       "status": "HT",
       "minute": null,
+      "dur": "AET",
       "ht": [
         1,
         0
       ],
-      "ref": "Drew Fischer",
-      "dur": "AET"
+      "ref": "Drew Fischer"
     },
     "88": {
       "s1": 1,
