@@ -555,8 +555,8 @@
   },
   "fd-537379": {
    "utc": "2026-07-06T19:00:00Z",
-   "home": "Portugal",
-   "away": "Spain",
+   "home": null,
+   "away": null,
    "stage": "LAST_16"
   },
   "fd-537380": {
@@ -567,14 +567,14 @@
   },
   "fd-537381": {
    "utc": "2026-07-07T16:00:00Z",
-   "home": "Argentina",
-   "away": "Egypt",
+   "home": null,
+   "away": null,
    "stage": "LAST_16"
   },
   "fd-537382": {
    "utc": "2026-07-07T20:00:00Z",
-   "home": "Switzerland",
-   "away": "Colombia",
+   "home": null,
+   "away": null,
    "stage": "LAST_16"
   },
   "fd-537383": {
