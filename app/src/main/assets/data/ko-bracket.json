@@ -1,6 +1,6 @@
 {
  "source": "football-data.org (UTC-map)",
- "lastUpdated": "2026-07-02T06:14:32.619Z",
+ "lastUpdated": "2026-07-04T06:05:26.504Z",
  "data": {
   "73": {
    "t1": "RSA",
@@ -82,9 +82,21 @@
    "t1": "MEX",
    "t2": "ENG"
   },
+  "93": {
+   "t1": "POR",
+   "t2": "ESP"
+  },
   "94": {
    "t1": "USA",
    "t2": "BEL"
+  },
+  "95": {
+   "t1": "ARG",
+   "t2": "EGY"
+  },
+  "96": {
+   "t1": "SUI",
+   "t2": "COL"
   }
  }
 }
