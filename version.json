@@ -1,5 +1,5 @@
 {
-  "versionCode": 30,
-  "version": "v1.9.34",
-  "notes": "La Simulation suit enfin le vrai tournoi. Les groupes reellement termines sont importes depuis les resultats officiels et verrouilles (impossible de choisir d'autres qualifies), les 8 meilleurs 3es sont les vrais qualifies, les matchs a elimination deja joues (16es, 8es...) affichent les vraies affiches et leurs vainqueurs officiels verrouilles. La Simulation auto ne tire au sort QUE les matchs restants, en partant de l'etat reel du tableau. Un bandeau 'Synchronise avec le vrai tournoi' indique combien de matchs sont actes. Fini les enormites du type 'Republique tcheque 1re du groupe A' alors qu'on est deja en 8es de finale."
+  "versionCode": 31,
+  "version": "v1.9.40",
+  "notes": "Calendrier embarque realigne sur le calendrier officiel FIFA (8es les 4-7 juillet, quarts 9-12, demies 14-15, finale 19 juillet, bons stades) : plus de matchs non joues affiches 'termines' ni de faux prochain match. Garde-fou : un match sans score n'est plus jamais marque TERMINE. Recits de presse sur les fiches match, simulateur minute par minute avec suspense et animations, Favoris du Mondial simules sur le vrai tableau, forces recalibrees (Portugal/Angleterre/Espagne rehausses, bonus domicile Mexique/USA, Bresil ajuste)."
 }
