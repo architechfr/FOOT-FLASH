@@ -1,5 +1,5 @@
 {
-  "versionCode": 43,
-  "version": "v1.9.53",
-  "notes": "LA FATIGUE entre dans les pronos : kilometres reellement parcourus entre les villes de match (Vancouver-Miami = 4500 km !), changements d'hotel, minutes de prolongation subies et jours de repos avant le prochain match — malus jusqu'a -3 applique aux % de titre et au simulateur, detail chiffre dans la fiche de chaque equipe (Pronos > Favoris). Inclut aussi : tri % titre / force brute, le duel qui vient avec % de passer le tour, parcours simule tour par tour et analyse presse des 25 journaux."
+  "versionCode": 44,
+  "version": "v1.9.54",
+  "notes": "LE COUT DU VOYAGE : nouveau classement dans Pronos — les equipes encore en vie triees par kilometres reellement parcourus (barre visuelle, changements de ville, prolongations subies, repos, malus applique). Et sur chaque FICHE DE MATCH A VENIR : la fatigue comparee des deux equipes cote a cote avec le badge PLUS FRAIS. Le critere fatigue pese sur les % de titre et le simulateur ; tout est chiffre et transparent."
 }
