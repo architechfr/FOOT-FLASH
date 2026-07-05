@@ -1,5 +1,5 @@
 {
-  "versionCode": 28,
-  "version": "v1.9.32",
-  "notes": "Le tableau final ressemble enfin a un vrai tableau : un arbre de bracket horizontal avec des traits qui relient chaque affiche a la suivante (16es -> 8es -> quarts -> demies -> Finale doree au centre). On fait defiler lateralement jusqu'a la finale, chaque case reste cliquable (drapeau, nom, score, vainqueur en vert, t.a.b., date FR). Le classement des meilleurs 3es disparait automatiquement des que la phase a elimination directe est lancee (au stade des quarts il n'a plus d'interet) : il ne s'affiche plus que pendant la phase de groupes."
+  "versionCode": 29,
+  "version": "v1.9.33",
+  "notes": "L'app se met a l'heure du VRAI tournoi. (1) Le classement des meilleurs 3es revient 'pour memoire' : volet repliable sous le tableau final, classement fige avec les 8 qualifies reels et les elimines. (2) Quiz a jour : 22 nouvelles questions sur les faits marquants reels du Mondial (Paraguay-Allemagne aux t.a.b., epopee du Maroc, conte de fees du Cap-Vert, triples de Messi/Dembele/David, remontada belge, France-Maroc en quart...). (3) Fiches joueurs : encart 'Mondial 2026 en cours' avec les buts reels du joueur, calcules automatiquement depuis les resultats officiels. (4) Pronos/simulation : l'algorithme integre la forme reelle du tournoi et les notes presse des effectifs. (5) Records actualises : le record de Klose est tombe, Messi (20) et Mbappe (19) l'ont depasse."
 }
