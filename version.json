@@ -1,5 +1,5 @@
 {
-  "versionCode": 33,
-  "version": "v1.9.42",
-  "notes": "18 questions de quiz exclusives tirees des journaux (Klopp futur selectionneur allemand, 20 cartons NED-MAR, panenka de Salah, record d'Olise au rythme de Pele 1970...), bouton Partager le scenario simule (score + buteurs, pret pour WhatsApp), dates du hub Pronos corrigees (8es 4-7/07, quarts 9-12, demies 14-15). Et tout le lot du jour : pronos realistes avec amortisseur de surprise et facteur arbitrage, calendrier realigne, recits de presse, simulateur minute par minute anime."
+  "versionCode": 34,
+  "version": "v1.9.43",
+  "notes": "Favoris du Mondial credibles : l'aleatoire diminue au fil des tours — la surprise vit en 8es, mais quarts, demies et finale se jouent de plus en plus au merite (fini le Maroc 2e favori au titre). Inclut aussi les 18 questions de quiz tirees des journaux, le bouton Partager le scenario simule, les dates du hub Pronos corrigees, le facteur arbitrage Argentine/Messi et le calendrier realigne."
 }

@@ -2640,6 +2640,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.9.43",d:"05/07/2026",changes:"Favoris du Mondial : l'aléa diminue au fil des tours (retour d'usage : « le Maroc 2e, champion du monde ça paraît peu crédible »). L'amortisseur de surprise de la v1.9.41 traitait tous les tours pareil : un outsider en forme avec un tableau favorable (le Maroc, aidé par le fait qu'Espagne et Portugal s'entretuent dès les 8es) pouvait grimper au 2e rang des favoris. Correction dans l'esprit des classes de favoris : la surprise vit en 8es (aléa fort), mais plus on avance, plus la force brute et le pedigree parlent — quarts plus fiables, demies encore plus, finale presque au mérite (plafonds 85→92%). Un Maroc peut toujours sortir la France UN soir de quart, mais enchaîner quart-demie-finale contre des cadors redevient ce que c'est : un exploit rarissime. La hiérarchie des favoris redevient crédible sans tuer les surprises match par match."},
       {v:"v1.9.42",d:"05/07/2026",changes:"Tour d'horizon expert de l'app — premiers fruits. (1) QUIZ : 18 nouvelles questions exclusives tirées des 25 journaux du dossier presse — les pépites que les résultats bruts ne racontent pas : Klopp attendu comme sélectionneur de l'Allemagne, démission de Koeman le soir même, les 20 cartons de Pays-Bas–Maroc, le CSC du gardien Verbruggen PENDANT la séance de t.a.b., la panenka de Salah, le récital de Mpasi contre l'Angleterre, Eustáquio et son but dédié à ses parents, le record d'Olise au rythme de Pelé 1970, Modric parti à 40 ans, Ramos l'homme des fins de match, le VAR à la 90e+13… (2) PARTAGE DU SIMULATEUR : au coup de sifflet final, bouton « 📤 Partager ce scénario » — score, buteurs minute par minute et lien de l'app, prêt à coller dans le groupe WhatsApp. (3) DATES CORRIGÉES dans le hub Pronos (8es 4-7 juillet, quarts 9-12, demies 14-15 — les anciens libellés dataient d'avant le calendrier officiel)."},
       {v:"v1.9.41",d:"05/07/2026",changes:"Pronostics moins sûrs d'eux, plus vrais (retours d'usage : « le % de la France est trop confiant » et « l'Argentine a l'arbitrage pour elle, Messi est protégé »). (1) AMORTISSEUR DE SURPRISE : dans le calcul des % de titre, chaque match à élimination directe est désormais traité comme ce qu'il est — un match sec où tout peut arriver. La probabilité du favori est tirée vers 50% et PLAFONNÉE à 85% : fini les France à 90% de passer chaque tour qui gonflaient de tour en tour. Les gros favoris baissent, les outsiders remontent — plus conforme à la vraie histoire des Coupes du monde. (2) FACTEUR ARBITRAGE 🧑‍⚖️ : l'Argentine reçoit un bonus « décisions favorables » (Messi protégé, penaltys et coups francs obtenus — voir le penalty généreux contre le Cap-Vert), le Brésil un plus léger (prestige). Appliqué aux % de titre ET au simulateur minute par minute, où la ligne d'avant-match l'annonce désormais."},
       {v:"v1.9.40",d:"05/07/2026",changes:"Téléphone enfin d'accord avec le PC (retour d'usage : affichage différent selon l'appareil). Deux causes trouvées et corrigées. (1) Le CALENDRIER EMBARQUÉ de secours (utilisé quand le calendrier en ligne n'est pas encore chargé) datait d'avant le calendrier officiel FIFA : 8es datés 3-4 juillet (d'où des matchs non joués affichés « terminés ») et France-Maroc annoncé le 7 juillet à la place du 9. Il est réaligné sur le vrai calendrier : 8es les 4-7 juillet (Brésil-Norvège dim. 22h FR, Mexique-Angleterre lun. 2h, Portugal-Espagne lun. 21h, USA-Belgique mar. 2h, Argentine-Égypte mar. 18h, Suisse-Colombie mar. 22h), quarts 9-12, demies 14-15, finale 19 juillet — avec les bons stades. (2) LA MISE À JOUR AUTO NE SE DÉCLENCHAIT PLUS : le téléphone ne recharge la nouvelle version que quand version.json change, et il n'avait pas suivi les dernières évolutions — réparé, et le rituel de publication est corrigé pour que ça n'arrive plus. Ferme et rouvre l'app une fois : tout doit être identique au PC."},
@@ -2700,7 +2701,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.42 — 18 questions quiz exclusives (presse), partage du scénario simulé, dates du hub Pronos corrigées · 5 juillet 2026";
+    var APP_VERSION="v1.9.43 — Favoris crédibles : l'aléa diminue au fil des tours (surprise en 8es, mérite en finale) · 5 juillet 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -7468,18 +7469,23 @@
           return s;
         }
         var pc={};
-        function P(a,b){ // p(a élimine b) — le nul se résout au prorata (t.a.b.)
-          var k=a+"|"+b; if(pc[k]!=null)return pc[k];
+        // v1.9.43 — AMORTISSEUR PROGRESSIF (retour d'usage : « le Maroc 2e, pas crédible »).
+        // v1.9.41 aplatissait tous les tours pareil → les outsiders au parcours favorable
+        // grimpaient trop haut. Réalité du foot : la surprise vit en 8es, mais plus on
+        // avance, plus la force brute et le pedigree parlent (philosophie des classes
+        // de favoris v1.8.5 : un classe 2 peut sortir un cador UN soir, pas trois de suite).
+        // 8es : aléa fort (0.75) · quarts 0.83 · demies 0.90 · finale 0.95.
+        function P(a,b,stg){ // p(a élimine b) — le nul se résout au prorata (t.a.b.)
+          var k=a+"|"+b+"|"+stg; if(pc[k]!=null)return pc[k];
           var pr=computeOutcomeProbabilities(strength(a),strength(b));
           var t=pr.home+pr.away, p=t>0?pr.home/t:0.5;
-          // v1.9.41 — AMORTISSEUR DE SURPRISE : un match KO sec reste un match sec.
-          // Le foot est un sport à petits scores : le favori gagne moins souvent que
-          // sa force ne le suggère. On tire p vers 50% et on le borne à 85% max —
-          // sans quoi les % de titre des gros (France…) gonflaient de tour en tour.
-          p = 0.5 + (p-0.5)*0.78;
-          p = Math.max(0.15, Math.min(0.85, p));
+          var damp=[0.75,0.83,0.90,0.95][stg]!=null?[0.75,0.83,0.90,0.95][stg]:0.8;
+          var cap =[0.85,0.87,0.90,0.92][stg]!=null?[0.85,0.87,0.90,0.92][stg]:0.85;
+          p = 0.5 + (p-0.5)*damp;
+          p = Math.max(1-cap, Math.min(cap, p));
           pc[k]=p; return p;
         }
+        function stageOf(id){ return id<=96?0 : id<=100?1 : id<=102?2 : 3; }
         var ids=[89,90,91,92,93,94,95,96,97,98,99,100,101,102,104];
         var fixed={}, alive={};
         ids.forEach(function(id){
@@ -7506,7 +7512,7 @@
             if(!a&&!b){res[id]=null;continue;}
             if(!a){res[id]=b;continue;}
             if(!b){res[id]=a;continue;}
-            res[id]=(Math.random()<P(a,b))?a:b;
+            res[id]=(Math.random()<P(a,b,stageOf(id)))?a:b;
           }
           var champ=res[104]; if(champ)wins[champ]=(wins[champ]||0)+1;
         }
