@@ -2582,6 +2582,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.9.31",d:"05/07/2026",changes:"Tableau final enfin lisible (retour d'usage : « qui rencontre qui ? »). Les cartes du bracket étaient minuscules (4 par ligne, texte 8-9px), sans scores ni indication du qualifié. Refonte complète : cartes 2 fois plus larges (2 par ligne), chaque équipe sur sa ligne avec drapeau + nom + SCORE, le vainqueur en vert/gras avec ✔ et le perdant grisé (éliminé), tirs au but affichés sous le score (🥅 t.a.b.), en-tête de carte avec numéro du match (M1…M16, 8e-1…8e-8, QF1…QF4) et date/heure FR ou « ✅ Terminé ». Un encart « 💡 Comment lire » explique la logique (le vainqueur avance, « Vainq. M5 » = gagnant du match M5), chaque tour affiche ses dates (16es 28 juin→3 juil, 8es 4→7 juil, quarts 9→11 juil, demis 14→15 juil) et une phrase de liaison vers le tour suivant. Les cases vides indiquent clairement « ⏳ Meilleur 3e » ou « ⏳ 1er Gr.E » au lieu d'un cryptique « 3e ». Tape une carte pour ouvrir le détail du match."},
       {v:"v1.9.30",d:"30/06/2026",changes:"Prolongations & tirs au but enfin indiqués (élimination directe). Un match nul à la fin du jeu décidé aux penaltys (ex. Allemagne–Paraguay) affichait un score faux du type « 5–6 » : la source de données (football-data) ADDITIONNE la séance de tirs au but au score du match (1–1 a.p. + t.a.b. 4–5 = 5–6 affiché), sans aucune mention. Désormais on sépare proprement : le score affiché est celui du JEU (90'/120', ici 1–1) et la séance de tirs au but est indiquée à part (« 🥅 Tirs au but 4–5 · vainqueur : … »), ainsi que la mention « ⏱ après prolongation » quand il y a prolongation sans penaltys. Visible sur la fiche match, les cartes de la liste et le bloc « Matchs du jour ». Le bon qualifié avance dans le tableau final même quand le match s'est joué aux tirs au but (avant, un 1–1 pouvait bloquer ou désigner le mauvais qualifié). S'applique automatiquement aux prochains matchs à élimination directe — et corrige rétroactivement les matchs déjà joués au prochain rafraîchissement des scores."},
       {v:"v1.9.29",d:"27/06/2026",changes:"Infirmerie & données joueurs corrigées (retours d'usage). (1) Un joueur RÉTABLI n'est plus affiché comme blessé : Koundé, Saliba, Manu Koné, Mbappé (et Yamal, Valverde…) sont opérationnels depuis le début du tournoi — leur date de retour étant passée, le badge « blessé » disparaît partout (fiche équipe, fiche joueur). (2) Le nombre de sélections n'affiche plus un « 0 » trompeur quand la donnée manque (cas de beaucoup de joueurs dont les caps n'ont pas été renseignés, ex. Maxence Lacroix) : on indique « — » / « sél. n.c. » au lieu d'asséner un faux zéro."},
       {v:"v1.9.28",d:"27/06/2026",changes:"Retour de tous les onglets dans la barre du bas. La tentative de regrouper les onglets sous un menu « Plus » créait une 2e ligne quasi vide (juste « Plus »), sans intérêt — annulée. On retrouve la barre complète habituelle (Matchs, Groupes, Équipes, Tableau, Simul, Pronos, Jeu, Actus, Palmarès, Réglages)."},
@@ -2630,7 +2631,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.29 — Infirmerie corrigée (joueurs rétablis retirés) + plus de « 0 sélections » trompeur · 27 juin 2026";
+    var APP_VERSION="v1.9.31 — Tableau final lisible : scores, vainqueur ✔, cartes larges, numéros de match · 5 juillet 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -10601,10 +10602,10 @@
       // « arbre » décalé → un créneau TBD affichait le mauvais libellé, ex.
       // #77 = « 1er I vs 3e » montré comme « 2e E vs 2e I ».)
       var R32_LABELS=[
-        ["2e Gr.A","2e Gr.B"],["1er Gr.E","3e"],["1er Gr.F","2e Gr.C"],["1er Gr.C","2e Gr.F"],
-        ["1er Gr.I","3e"],["2e Gr.E","2e Gr.I"],["1er Gr.A","3e"],["1er Gr.L","3e"],
-        ["1er Gr.D","3e"],["1er Gr.G","3e"],["2e Gr.K","2e Gr.L"],["1er Gr.H","2e Gr.J"],
-        ["1er Gr.B","3e"],["1er Gr.J","2e Gr.H"],["1er Gr.K","3e"],["2e Gr.D","2e Gr.G"]
+        ["2e Gr.A","2e Gr.B"],["1er Gr.E","Meilleur 3e"],["1er Gr.F","2e Gr.C"],["1er Gr.C","2e Gr.F"],
+        ["1er Gr.I","Meilleur 3e"],["2e Gr.E","2e Gr.I"],["1er Gr.A","Meilleur 3e"],["1er Gr.L","Meilleur 3e"],
+        ["1er Gr.D","Meilleur 3e"],["1er Gr.G","Meilleur 3e"],["2e Gr.K","2e Gr.L"],["1er Gr.H","2e Gr.J"],
+        ["1er Gr.B","Meilleur 3e"],["1er Gr.J","2e Gr.H"],["1er Gr.K","Meilleur 3e"],["2e Gr.D","2e Gr.G"]
       ];
       // 8es (#89→#96) dans l'ordre des matchs — arbre officiel FIFA 2026.
       // M89=M2×M5 · M90=M1×M3 · M91=M4×M6 · M92=M7×M8 · M93=M11×M12 ·
@@ -10614,38 +10615,58 @@
       var QF_LABELS=[["Vainq. 8e-1","Vainq. 8e-2"],["Vainq. 8e-5","Vainq. 8e-6"],["Vainq. 8e-3","Vainq. 8e-4"],["Vainq. 8e-7","Vainq. 8e-8"]];
       var SF_LABELS=[["Vainq. QF1","Vainq. QF2"],["Vainq. QF3","Vainq. QF4"]];
       var FIN_LABELS=["Vainq. Demi 1","Vainq. Demi 2"];
-      function realTm(id,label){
+      // v1.9.31 — Cartes lisibles : nom + score sur la même ligne, vainqueur en
+      // gras/vert avec ✔, perdant estompé, t.a.b. affichés, en-tête M# + date.
+      function realTm(id,label,score,win,lose){
         if(!id||id==="TBD"||!getTeam(id)||getTeam(id).name==="?"){
-          return '<div style="padding:2px 4px;font-size:8px;color:var(--t2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+(label||"?")+'</div>';
+          return '<div style="display:flex;align-items:center;gap:4px;padding:4px 6px;font-size:10px;color:var(--t2);min-height:18px"><span style="opacity:.6">⏳</span><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+(label||"À déterminer")+'</span></div>';
         }
-        return '<div onclick="event.stopPropagation();goTeam(\''+id+'\')" style="display:flex;align-items:center;gap:3px;padding:2px 4px;font-size:9px;white-space:nowrap;overflow:hidden;cursor:pointer">'+flagImg(id,11)+' <span style="text-decoration:underline;text-decoration-color:rgba(255,255,255,.15)">'+getTeam(id).name+'</span></div>';
+        return '<div onclick="event.stopPropagation();goTeam(\''+id+'\')" style="display:flex;align-items:center;gap:5px;padding:4px 6px;font-size:11px;cursor:pointer;min-width:0;'+(lose?'opacity:.45;':'')+(win?'font-weight:800;':'font-weight:600;')+'">'
+          +flagImg(id,14)
+          +'<span style="flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+getTeam(id).name+'</span>'
+          +(win?'<span style="color:var(--g);font-size:9px">✔</span>':'')
+          +(score!=null?'<span style="font-weight:900;min-width:13px;text-align:right;color:'+(win?'var(--g)':(lose?'var(--t2)':'var(--tx)'))+'">'+score+'</span>':'')
+        +'</div>';
       }
-      function realMc(m,num,labels){
-        var hasScore=m.s1!==null&&m.s1!==undefined;
+      function realMc(m,tag,labels){
+        var played=m.s1!==null&&m.s1!==undefined&&m.s2!==null&&m.s2!==undefined;
         var l1=labels?labels[0]:"?",l2=labels?labels[1]:"?";
-        var dateLine='';
-        if(m.d){
-          try{
-            var d=fmtDate(m.d), hFr=fmtTimeFR(m.d,m.city);
-            dateLine='<div style="font-size:7px;font-weight:700;color:var(--am);padding:2px 3px;border-top:1px solid var(--s3);text-align:center;line-height:1.1">📅 '+d+' · '+hFr+' <span style="opacity:.7">FR</span></div>';
-          }catch(e){}
-        }
-        return '<div style="background:var(--s1);border:1px solid '+(hasScore?'var(--g)':'var(--s3)')+';border-radius:4px;overflow:hidden;min-width:0">'
-          +(num?'<div style="font-size:6px;color:var(--t2);padding:1px 3px 0">M'+num+'</div>':'')
-          +realTm(m.t1,l1)+realTm(m.t2,l2)+dateLine+'</div>';
+        var p1=(m.pen1!=null?m.pen1:(m._live&&m._live.pen1!=null?m._live.pen1:null));
+        var p2=(m.pen2!=null?m.pen2:(m._live&&m._live.pen2!=null?m._live.pen2:null));
+        var w=0;
+        if(played){ if(m.s1>m.s2)w=1; else if(m.s2>m.s1)w=2; else if(p1!=null&&p2!=null&&p1!==p2)w=(p1>p2?1:2); }
+        var dateTxt='';
+        if(m.d){try{dateTxt=fmtDate(m.d)+' · '+fmtTimeFR(m.d,m.city);}catch(e){}}
+        var head='<div style="display:flex;justify-content:space-between;align-items:center;gap:4px;padding:3px 6px;border-bottom:1px solid var(--s3);background:rgba(128,128,128,.07)">'
+          +'<span style="font-size:8px;font-weight:900;color:var(--am);letter-spacing:.5px">'+(tag||'')+'</span>'
+          +'<span style="font-size:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:'+(played?'var(--t2)':'var(--am)')+'">'+(played?'✅ Terminé':(dateTxt?'📅 '+dateTxt+' FR':'À venir'))+'</span>'
+        +'</div>';
+        var tab=(played&&m.s1===m.s2&&p1!=null&&p2!=null)?'<div style="font-size:8px;color:var(--am);text-align:center;padding:2px 4px;border-top:1px dashed var(--s3)">🥅 t.a.b. '+p1+'–'+p2+'</div>':'';
+        return '<div onclick="showMatchDetail('+m.id+')" style="background:var(--s1);border:1px solid '+(played?'var(--s3)':'rgba(231,196,92,.45)')+';border-radius:8px;overflow:hidden;min-width:0;cursor:pointer">'
+          +head
+          +realTm(m.t1,l1,played?m.s1:null,w===1,w===2)
+          +realTm(m.t2,l2,played?m.s2:null,w===2,w===1)
+          +tab
+        +'</div>';
       }
+
+      // Comment lire le tableau
+      h+='<div style="background:var(--s1);border:1px solid var(--s3);border-radius:8px;padding:8px 10px;margin-bottom:10px;font-size:10px;color:var(--t2);line-height:1.5">'
+        +'💡 <b style="color:var(--tx)">Comment lire :</b> chaque carte = 1 match. Le <b style="color:var(--g)">vainqueur ✔</b> avance au tour suivant (ex. « Vainq. M5 » = le gagnant du match M5). Le perdant (grisé) est éliminé. Tape une carte pour le détail du match.'
+      +'</div>';
 
       // 16es
       if(r32.length){
-        h+='<div style="font-size:10px;font-weight:900;color:var(--am);margin:8px 0 4px">⚔️ 16ES DE FINALE — '+r32.length+' matchs</div>';
+        h+='<div style="font-size:11px;font-weight:900;color:var(--am);margin:8px 0 2px">⚔️ 16ES DE FINALE <span style="font-weight:600;color:var(--t2)">· '+r32.length+' matchs · 28 juin → 3 juil.</span></div>';
+        h+='<div style="font-size:9px;color:var(--t2);margin-bottom:5px">Les vainqueurs (M1→M16) se retrouvent en 8es de finale ci-dessous.</div>';
         h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">';
-        h+='<div><div style="text-align:center;font-size:9px;font-weight:900;color:var(--g);padding:3px;background:var(--s1);border-radius:4px;margin-bottom:3px">🏟 GAUCHE</div>';
-        h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:2px">';
-        r32.slice(0,8).forEach(function(m,i){h+=realMc(m,i+1,R32_LABELS[i])});
+        h+='<div><div style="text-align:center;font-size:9px;font-weight:900;color:var(--g);padding:3px;background:var(--s1);border-radius:4px;margin-bottom:4px">◀ MOITIÉ GAUCHE</div>';
+        h+='<div style="display:grid;gap:4px">';
+        r32.slice(0,8).forEach(function(m,i){h+=realMc(m,"M"+(i+1),R32_LABELS[i])});
         h+='</div></div>';
-        h+='<div><div style="text-align:center;font-size:9px;font-weight:900;color:var(--g);padding:3px;background:var(--s1);border-radius:4px;margin-bottom:3px">DROIT 🏟</div>';
-        h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:2px">';
-        r32.slice(8,16).forEach(function(m,i){h+=realMc(m,i+9,R32_LABELS[i+8])});
+        h+='<div><div style="text-align:center;font-size:9px;font-weight:900;color:var(--g);padding:3px;background:var(--s1);border-radius:4px;margin-bottom:4px">MOITIÉ DROITE ▶</div>';
+        h+='<div style="display:grid;gap:4px">';
+        r32.slice(8,16).forEach(function(m,i){h+=realMc(m,"M"+(i+9),R32_LABELS[i+8])});
         h+='</div></div></div>';
       }
 
@@ -10675,31 +10696,34 @@
 
       // 8es
       if(r16m.length){
-        h+='<div style="font-size:10px;font-weight:900;color:var(--am);margin:8px 0 4px">🏅 8ES DE FINALE — '+r16m.length+' matchs</div>';
+        h+='<div style="font-size:11px;font-weight:900;color:var(--am);margin:12px 0 2px">🏅 8ES DE FINALE <span style="font-weight:600;color:var(--t2)">· '+r16m.length+' matchs · 4 → 7 juil.</span></div>';
+        h+='<div style="font-size:9px;color:var(--t2);margin-bottom:5px">« Vainq. M2 » = vainqueur du 16e M2 ci-dessus. Les vainqueurs (8e-1→8e-8) vont en quarts.</div>';
         h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">';
-        h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:3px">';
-        r16m.slice(0,4).forEach(function(m,i){h+=realMc(m,null,R16_LABELS[i])});
-        h+='</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:3px">';
-        r16m.slice(4,8).forEach(function(m,i){h+=realMc(m,null,R16_LABELS[i+4])});
+        h+='<div style="display:grid;gap:4px">';
+        r16m.slice(0,4).forEach(function(m,i){h+=realMc(m,"8e-"+(i+1),R16_LABELS[i])});
+        h+='</div><div style="display:grid;gap:4px">';
+        r16m.slice(4,8).forEach(function(m,i){h+=realMc(m,"8e-"+(i+5),R16_LABELS[i+4])});
         h+='</div></div>';
       }
 
       // QF
       if(qfm.length){
-        h+='<div style="font-size:10px;font-weight:900;color:var(--am);margin:8px 0 4px">⚡ QUARTS DE FINALE — '+qfm.length+' matchs</div>';
+        h+='<div style="font-size:11px;font-weight:900;color:var(--am);margin:12px 0 2px">⚡ QUARTS DE FINALE <span style="font-weight:600;color:var(--t2)">· '+qfm.length+' matchs · 9 → 11 juil.</span></div>';
+        h+='<div style="font-size:9px;color:var(--t2);margin-bottom:5px">« Vainq. 8e-1 » = vainqueur du 8e n°1 ci-dessus. Les vainqueurs (QF1→QF4) vont en demi-finales.</div>';
         h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">';
-        h+='<div style="display:grid;gap:3px">';
-        qfm.slice(0,2).forEach(function(m,i){h+=realMc(m,null,QF_LABELS[i])});
-        h+='</div><div style="display:grid;gap:3px">';
-        qfm.slice(2,4).forEach(function(m,i){h+=realMc(m,null,QF_LABELS[i+2])});
+        h+='<div style="display:grid;gap:4px">';
+        qfm.slice(0,2).forEach(function(m,i){h+=realMc(m,"QF"+(i+1),QF_LABELS[i])});
+        h+='</div><div style="display:grid;gap:4px">';
+        qfm.slice(2,4).forEach(function(m,i){h+=realMc(m,"QF"+(i+3),QF_LABELS[i+2])});
         h+='</div></div>';
       }
 
       // SF
       if(sfm.length){
-        h+='<div style="font-size:10px;font-weight:900;color:var(--am);margin:8px 0 4px">🔥 DEMI-FINALES</div>';
+        h+='<div style="font-size:11px;font-weight:900;color:var(--am);margin:12px 0 2px">🔥 DEMI-FINALES <span style="font-weight:600;color:var(--t2)">· 14 → 15 juil.</span></div>';
+        h+='<div style="font-size:9px;color:var(--t2);margin-bottom:5px">Les 2 vainqueurs se retrouvent en finale le 19 juillet.</div>';
         h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">';
-        sfm.forEach(function(m,i){h+=realMc(m,null,SF_LABELS[i])});
+        sfm.forEach(function(m,i){h+=realMc(m,"Demi "+(i+1),SF_LABELS[i])});
         h+='</div>';
       }
 
