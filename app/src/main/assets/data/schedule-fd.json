@@ -470,7 +470,7 @@
    "stage": "LAST_32"
   },
   "fd-537425": {
-   "utc": "2026-07-01T01:00:00Z",
+   "utc": "2026-07-01T02:00:00Z",
    "home": "Mexico",
    "away": "Ecuador",
    "stage": "LAST_32"
@@ -532,49 +532,49 @@
   "fd-537376": {
    "utc": "2026-07-04T17:00:00Z",
    "home": "Canada",
-   "away": null,
+   "away": "Morocco",
    "stage": "LAST_16"
   },
   "fd-537375": {
    "utc": "2026-07-04T21:00:00Z",
-   "home": null,
-   "away": null,
+   "home": "Paraguay",
+   "away": "France",
    "stage": "LAST_16"
   },
   "fd-537377": {
    "utc": "2026-07-05T20:00:00Z",
-   "home": null,
-   "away": null,
+   "home": "Brazil",
+   "away": "Norway",
    "stage": "LAST_16"
   },
   "fd-537378": {
    "utc": "2026-07-06T00:00:00Z",
-   "home": null,
-   "away": null,
+   "home": "Mexico",
+   "away": "England",
    "stage": "LAST_16"
   },
   "fd-537379": {
    "utc": "2026-07-06T19:00:00Z",
-   "home": null,
-   "away": null,
+   "home": "Portugal",
+   "away": "Spain",
    "stage": "LAST_16"
   },
   "fd-537380": {
    "utc": "2026-07-07T00:00:00Z",
-   "home": null,
-   "away": null,
+   "home": "United States",
+   "away": "Belgium",
    "stage": "LAST_16"
   },
   "fd-537381": {
    "utc": "2026-07-07T16:00:00Z",
-   "home": null,
-   "away": null,
+   "home": "Argentina",
+   "away": "Egypt",
    "stage": "LAST_16"
   },
   "fd-537382": {
    "utc": "2026-07-07T20:00:00Z",
-   "home": null,
-   "away": null,
+   "home": "Switzerland",
+   "away": "Colombia",
    "stage": "LAST_16"
   },
   "fd-537383": {

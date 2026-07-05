@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-30T05:55:39.267Z",
+  "lastUpdated": "2026-07-05T00:15:26.680Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2447,10 +2447,13 @@
       "ref": "João Pinheiro"
     },
     "74": {
-      "s1": 4,
-      "s2": 5,
+      "s1": 1,
+      "s2": 1,
       "status": "FINISHED",
       "minute": null,
+      "dur": "PEN",
+      "pen1": 3,
+      "pen2": 4,
       "ht": [
         0,
         1
@@ -2474,10 +2477,13 @@
       "ref": "Jalal Jayed"
     },
     "75": {
-      "s1": 3,
-      "s2": 4,
+      "s1": 1,
+      "s2": 1,
       "status": "FINISHED",
       "minute": null,
+      "dur": "PEN",
+      "pen1": 2,
+      "pen2": 3,
       "ht": [
         0,
         0
@@ -2533,20 +2539,473 @@
         }
       ],
       "ref": "Maurizio Mariani"
+    },
+    "77": {
+      "s1": 3,
+      "s2": 0,
+      "status": "FINISHED",
+      "minute": null,
+      "ht": [
+        1,
+        0
+      ],
+      "goals": [
+        {
+          "m": "45",
+          "t": 1,
+          "n": "Kylian Mbappé",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "53",
+          "t": 1,
+          "n": "Bradley Barcola",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "74",
+          "t": 1,
+          "n": "Kylian Mbappé",
+          "type": null,
+          "a": null
+        }
+      ],
+      "ref": "Danny Makkelie"
+    },
+    "78": {
+      "s1": 1,
+      "s2": 2,
+      "status": "FINISHED",
+      "minute": null,
+      "ht": [
+        0,
+        1
+      ],
+      "goals": [
+        {
+          "m": "39",
+          "t": 2,
+          "n": "Antonio Nusa",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "74",
+          "t": 1,
+          "n": "Amad Diallo",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "86",
+          "t": 2,
+          "n": "Erling Haaland",
+          "type": null,
+          "a": null
+        }
+      ],
+      "ref": "Jesús Valenzuela"
+    },
+    "79": {
+      "s1": 2,
+      "s2": 0,
+      "status": "FINISHED",
+      "minute": null,
+      "ht": [
+        2,
+        0
+      ],
+      "goals": [
+        {
+          "m": "31",
+          "t": 1,
+          "n": "Julián Quiñones",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "45+1",
+          "t": 1,
+          "n": "Raúl Jiménez",
+          "type": null,
+          "a": null
+        }
+      ],
+      "ref": "Slavko Vinčič"
+    },
+    "80": {
+      "s1": 2,
+      "s2": 1,
+      "status": "FINISHED",
+      "minute": null,
+      "ht": [
+        0,
+        1
+      ],
+      "goals": [
+        {
+          "m": "7",
+          "t": 2,
+          "n": "Brian Cipenga",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "75",
+          "t": 1,
+          "n": "Harry Kane",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "86",
+          "t": 1,
+          "n": "Harry Kane",
+          "type": null,
+          "a": null
+        }
+      ],
+      "ref": "Adham Makhadmeh"
+    },
+    "81": {
+      "s1": 2,
+      "s2": 0,
+      "status": "FINISHED",
+      "minute": null,
+      "ht": [
+        1,
+        0
+      ],
+      "goals": [
+        {
+          "m": "45",
+          "t": 1,
+          "n": "Folarin Balogun",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "82",
+          "t": 1,
+          "n": "Malik Tillman",
+          "type": null,
+          "a": null
+        }
+      ],
+      "ref": "Raphael Claus"
+    },
+    "82": {
+      "s1": 3,
+      "s2": 2,
+      "status": "FINISHED",
+      "minute": null,
+      "dur": "AET",
+      "ht": [
+        0,
+        1
+      ],
+      "goals": [
+        {
+          "m": "86",
+          "t": 1,
+          "n": "Romelu Lukaku",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "89",
+          "t": 1,
+          "n": "Youri Tielemans",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "120+5",
+          "t": 1,
+          "n": "Youri Tielemans",
+          "type": "P",
+          "a": null
+        },
+        {
+          "m": "25",
+          "t": 2,
+          "n": "Habib Diarra",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "51",
+          "t": 2,
+          "n": "Ismaïla Sarr",
+          "type": null,
+          "a": null
+        }
+      ],
+      "ref": "Said Martinez"
+    },
+    "83": {
+      "s1": 2,
+      "s2": 1,
+      "status": "FINISHED",
+      "minute": null,
+      "ht": [
+        0,
+        0
+      ],
+      "goals": [
+        {
+          "m": "68",
+          "t": 1,
+          "n": "Cristiano Ronaldo",
+          "type": "P",
+          "a": null
+        },
+        {
+          "m": "90+4",
+          "t": 1,
+          "n": "Gonçalo Ramos",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "53",
+          "t": 2,
+          "n": "Ivan Perisic",
+          "type": null,
+          "a": null
+        }
+      ],
+      "ref": "Espen Eskås"
+    },
+    "84": {
+      "s1": 3,
+      "s2": 0,
+      "status": "FINISHED",
+      "minute": null,
+      "ht": [
+        1,
+        0
+      ],
+      "goals": [
+        {
+          "m": "36",
+          "t": 1,
+          "n": "Mikel Oyarzabal",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "66",
+          "t": 1,
+          "n": "Pedro Porro",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "89",
+          "t": 1,
+          "n": "Mikel Oyarzabal",
+          "type": null,
+          "a": null
+        }
+      ],
+      "ref": "Glenn Nyberg"
+    },
+    "85": {
+      "s1": 2,
+      "s2": 0,
+      "status": "FINISHED",
+      "minute": null,
+      "ht": [
+        1,
+        0
+      ],
+      "goals": [
+        {
+          "m": "10",
+          "t": 1,
+          "n": "Breel Embolo",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "46",
+          "t": 1,
+          "n": "Dan Ndoye",
+          "type": null,
+          "a": null
+        }
+      ],
+      "ref": "Yael Falcón"
+    },
+    "86": {
+      "s1": 3,
+      "s2": 2,
+      "status": "FINISHED",
+      "minute": null,
+      "dur": "AET",
+      "ht": [
+        1,
+        0
+      ],
+      "goals": [
+        {
+          "m": "29",
+          "t": 1,
+          "n": "Lionel Messi",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "59",
+          "t": 2,
+          "n": "Deroy Duarte",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "92",
+          "t": 1,
+          "n": "Lisandro Martínez",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "103",
+          "t": 2,
+          "n": "Sidny Lopes Cabral",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "111",
+          "t": 1,
+          "n": "Diney Borges",
+          "type": "CSC",
+          "a": null
+        }
+      ],
+      "ref": "Drew Fischer"
+    },
+    "87": {
+      "s1": 1,
+      "s2": 0,
+      "status": "FINISHED",
+      "minute": null,
+      "ht": [
+        1,
+        0
+      ],
+      "goals": [
+        {
+          "m": "14",
+          "t": 1,
+          "n": "Jhon Arias",
+          "type": null,
+          "a": null
+        }
+      ],
+      "ref": "Clément Turpin"
+    },
+    "88": {
+      "s1": 1,
+      "s2": 1,
+      "status": "FINISHED",
+      "minute": null,
+      "dur": "PEN",
+      "pen1": 2,
+      "pen2": 4,
+      "ht": [
+        0,
+        1
+      ],
+      "goals": [
+        {
+          "m": "13",
+          "t": 2,
+          "n": "Emam Ashour",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "55",
+          "t": 1,
+          "n": "Mohamed Hany",
+          "type": "CSC",
+          "a": null
+        }
+      ],
+      "ref": "Gustavo Tejera"
+    },
+    "89": {
+      "s1": 0,
+      "s2": 1,
+      "status": "FINISHED",
+      "minute": null,
+      "ht": [
+        0,
+        0
+      ],
+      "ref": "Il'giz Tantashev",
+      "goals": [
+        {
+          "m": "70",
+          "t": 2,
+          "n": "Kylian Mbappé",
+          "type": "P",
+          "a": null
+        }
+      ]
+    },
+    "90": {
+      "s1": 0,
+      "s2": 3,
+      "status": "FINISHED",
+      "minute": null,
+      "ht": [
+        0,
+        0
+      ],
+      "goals": [
+        {
+          "m": "50",
+          "t": 2,
+          "n": "Azzedine Ounahi",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "82",
+          "t": 2,
+          "n": "Azzedine Ounahi",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "90+8",
+          "t": 2,
+          "n": "Soufiane Rahimi",
+          "type": null,
+          "a": null
+        }
+      ],
+      "ref": "Michael Oliver"
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 76,
-      "TIMED": 28
+      "FINISHED": 90,
+      "TIMED": 14
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z",
     "ofConflicts": [
-      "#74 fd=4-5 of=1-1",
-      "#75 fd=3-4 of=1-1"
+      "#82 fd=3-2 of=2-2",
+      "#86 fd=3-2 of=1-1"
     ]
   }
 }
