@@ -2640,6 +2640,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.9.52",d:"05/07/2026",changes:"Favoris : deux lectures + le duel qui vient (retours d'usage : « l'Espagne et le Portugal sont plus favoris que le Maroc » et « le Maroc va jouer la France, comment tu proposes ça ? »). (1) DEUX TRIS AU CHOIX : 🏆 % de titre sur le tableau réel (l'Espagne et le Portugal s'entretuent dès ce soir en 8e — leurs chances individuelles se divisent, c'est mathématique) OU 💪 Force brute (et là l'Espagne 85 et le Portugal 84 dominent bien le Maroc 71, conforme à l'intuition). Les deux points de vue coexistent, chacun est juste dans sa logique. (2) 🤜🤛 LE DUEL QUI VIENT : la fiche dépliée de chaque équipe affiche son prochain adversaire réel et son % de passer CE tour précis — le Maroc montre ses ~38% de battre la France en quart : son % de titre contient déjà ce duel, rien n'est caché. (3) Rappel pédagogique : la France est déjà en quart (4 victoires pour le titre), l'Argentine doit encore passer son 8e (5 victoires) — voilà pourquoi ~19% contre ~10%."},
       {v:"v1.9.51",d:"05/07/2026",changes:"L'algo s'explique — la stat devient une expérience (retour d'usage : « il faut que l'utilisateur comprenne comment l'algo dit France favorite, et pourquoi »). (1) Sous le podium des Favoris, un encart « 💡 Pourquoi la France en tête ? » résume force, presse et chemin. (2) Dans le classement complet, TAPE UNE ÉQUIPE : sa fiche dépliée montre désormais son 🛣️ PARCOURS SIMULÉ tour par tour (probabilité d'atteindre les quarts, les demies, la finale, le titre — calculée sur les 3000 tirages du vrai tableau), 📰 CE QUE DIT LA PRESSE (l'analyse tirée des 25 journaux épluchés, avec le bonus/malus appliqué), 🧑‍⚖️ le facteur arbitrage (Argentine : Messi protégé +1.5) et 📈 la forme réelle du tournoi chiffrée. On comprend d'un coup d'œil pourquoi le Maroc est si haut (Espagne et Portugal s'éliminent entre eux dès les 8es !) et ce qui sépare un favori d'un outsider. La richesse des journaux, enfin visible là où elle travaille."},
       {v:"v1.9.50",d:"05/07/2026",changes:"Les récits de presse enfin VISIBLES (retour d'usage : « je n'ai pas vu la richesse de ces données »). Les fiches des matchs joués de la phase finale cachent des trésors extraits de 25 journaux — récit du match, tournant, homme du match, NOTES DES JOUEURS (France-Suède complet : Olise 9, Mbappé 8…), stats xG/affluence/arbitre et anecdotes exclusives (le vestiaire portugais dédiant sa victoire à Diogo Jota, les parents d'Eustáquio, la panenka de Salah…) — mais rien ne signalait leur existence. Désormais, dans l'onglet Matchs, chaque match qui possède son récit affiche « 📰 Récit & anecdotes » en doré à côté de TERMINÉ. Ouvre la fiche et descends sous le fil du match : bloc « 📰 LE RÉCIT ». Disponible sur les 16 seizièmes + les 2 premiers 8es ; les récits des matchs suivants arriveront avec les journaux des 6-8 juillet."},
       {v:"v1.9.49",d:"05/07/2026",changes:"TOUTE l'histoire de la Coupe du monde, racontée (dernier chantier du programme du jour). Chacune des 22 éditions du Palmarès a désormais son RÉCIT — le moment qui l'a définie : la Main de Dieu et le But du Siècle (1986), le Miracle de Berne (1954), le Maracanazo (1950), la nuit de Séville avec Battiston (1982), le coup de boule de Zidane (2006), le Mineirazo 7-1 (2014), le but fantôme de Wembley (1966), Pelé à 17 ans (1958), le football total trahi (1974), jusqu'à la finale Messi-Mbappé de 2022… — plus le 👟 MEILLEUR BUTEUR de chaque édition (Fontaine 13, Kocsis 11, Gerd Müller 10, Eusébio 9…). L'onglet Palmarès devient une vraie encyclopédie du Mondial : palmarès vivant 2026 en haut, 96 ans d'histoire en dessous."},
@@ -2709,7 +2710,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.51 — L'algo s'explique : parcours simulé tour par tour + analyse presse/arbitrage/forme par équipe, badge 📰 sur les récits · 5 juillet 2026";
+    var APP_VERSION="v1.9.52 — Favoris : tri % titre / force brute + « le duel qui vient » avec % de passer le tour · 5 juillet 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -7592,8 +7593,21 @@
       var h='<div style="background:var(--s1);border:1px solid var(--g);border-radius:12px;padding:14px;margin-bottom:12px">';
       var brMode=!!(arr[0]&&arr[0].bracketMode);
       h+='<div style="font-size:14px;font-weight:900;color:var(--g);margin-bottom:2px">🏆 Favoris du Mondial</div>';
-      if(brMode) h+='<div style="font-size:10px;color:var(--t2);margin-bottom:12px">% de titre simulé sur le <b style="color:var(--am)">VRAI tableau restant</b> (3000 tirages) : le chemin de chaque équipe compte — un tableau dur fait baisser le %, un éliminé tombe à 0.</div>';
+      if(brMode) h+='<div style="font-size:10px;color:var(--t2);margin-bottom:8px">% de titre simulé sur le <b style="color:var(--am)">VRAI tableau restant</b> (3000 tirages) : le chemin de chaque équipe compte — un tableau dur fait baisser le %, un éliminé tombe à 0.</div>';
       else h+='<div style="font-size:10px;color:var(--t2);margin-bottom:12px">Indice de force 0-100 · probabilite de titre estimee</div>';
+      // v1.9.52 — Deux lectures possibles (retour d'usage : « pour moi l'Espagne et le
+      // Portugal sont plus favoris que le Maroc ») : % de titre (le tableau compte —
+      // ESP et POR s'entretuent en 8e, leurs % individuels se divisent) OU force brute.
+      if(brMode){
+        if(!V.favSort)V.favSort="prob";
+        h+='<div style="display:flex;gap:4px;margin-bottom:10px">';
+        [["prob","🏆 % titre · tableau réel"],["force","💪 Force brute"]].forEach(function(o){
+          var on=V.favSort===o[0];
+          h+='<button onclick="V.favSort=\''+o[0]+'\';render()" style="flex:1;padding:7px;border:1px solid '+(on?'var(--g)':'var(--s3)')+';border-radius:8px;background:'+(on?'var(--gw)':'var(--s1)')+';color:'+(on?'var(--g)':'var(--t2)')+';font-size:10px;font-weight:800;cursor:pointer;font-family:inherit">'+o[1]+'</button>';
+        });
+        h+='</div>';
+        if(V.favSort==="force") arr=arr.slice().sort(function(a,b){return b.skills-a.skills});
+      }
       var medals=["🥇","🥈","🥉"];
       h+='<div style="display:flex;gap:6px;margin-bottom:10px">';
       for(var p=0;p<3&&p<arr.length;p++){
@@ -7658,6 +7672,23 @@
                 h+='<div style="flex:1;background:var(--s1);border-radius:6px;padding:5px 2px"><div style="font-size:13px;font-weight:900;color:var(--g)">'+st[1]+'%</div><div style="font-size:8px;color:var(--t2)">'+st[0]+'</div></div>';
               });
               h+='</div></div>';
+              // v1.9.52 — LE DUEL QUI VIENT : prochain adversaire réel + % de passer
+              // CE tour précis (réponse au « le Maroc va jouer la France, comment tu
+              // proposes ça ? » : le % de titre contient déjà ce duel).
+              var _nm=null;
+              for(var _i2=89;_i2<=104&&!_nm;_i2++){
+                var _mm2=null; for(var _j2=0;_j2<MATCHES.length;_j2++){ if(MATCHES[_j2].id===_i2){_mm2=MATCHES[_j2];break;} }
+                if(_mm2&&_mm2.s1==null&&(_mm2.t1===y.id||_mm2.t2===y.id))_nm=_mm2;
+              }
+              if(_nm){
+                var _opp=_nm.t1===y.id?_nm.t2:_nm.t1;
+                var _oppN=(_opp&&_opp!=="TBD"&&getTeam(_opp))?getTeam(_opp).name:"adversaire à déterminer";
+                var _s2=_nm.id<=96?0:_nm.id<=100?1:_nm.id<=102?2:3;
+                var _curC=_s2===0?_N:((_oc.reach[["qf","sf","f"][_s2-1]]||{})[y.id]||0);
+                var _nxtC=_s2===3?((_oc.v[y.id]||0)/100*_N):((_oc.reach[["qf","sf","f"][_s2]]||{})[y.id]||0);
+                var _pass=_curC>0?Math.round(_nxtC/_curC*100):0;
+                h+='<div style="margin-top:6px;font-size:10px;color:var(--tx)">🤜🤛 <b style="color:var(--am)">Le duel qui vient :</b> '+(_nm.st||'')+' vs <b>'+_oppN+'</b> — <b style="color:var(--g)">'+_pass+'%</b> de chances de passer ce tour</div>';
+              }
             }
             var _pr=(typeof SIM_PRESS!=="undefined")?SIM_PRESS[y.id]:null;
             var _rf=(typeof SIM_REF!=="undefined")?SIM_REF[y.id]:null;

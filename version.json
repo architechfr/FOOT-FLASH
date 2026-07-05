@@ -1,5 +1,5 @@
 {
-  "versionCode": 41,
-  "version": "v1.9.51",
-  "notes": "L'ALGO S'EXPLIQUE : dans Pronos > Favoris, tape une equipe du classement complet pour voir son parcours simule tour par tour (quarts/demies/finale/titre sur 3000 tirages du vrai tableau), l'analyse de la presse tiree des 25 journaux (avec bonus/malus), le facteur arbitrage et la forme reelle chiffree — on comprend enfin pourquoi la France est favorite et pourquoi le Maroc est si haut (Espagne et Portugal s'eliminent entre eux en 8es). Badge 'Recit & anecdotes' sur les matchs qui ont leur recit de presse, et histoire complete des 22 editions dans le Palmares."
+  "versionCode": 42,
+  "version": "v1.9.52",
+  "notes": "Favoris : DEUX LECTURES au choix — % de titre sur le vrai tableau (l'Espagne et le Portugal s'entretuent en 8e, leurs chances se divisent) ou FORCE BRUTE (la, Espagne et Portugal dominent bien le Maroc, conforme a l'intuition). Et sur chaque equipe depliee : LE DUEL QUI VIENT (prochain adversaire reel + % de passer ce tour — le Maroc affiche ses ~38% de battre la France), le parcours simule tour par tour, l'analyse presse des 25 journaux, l'arbitrage et la forme chiffree. L'algo n'a plus de boite noire."
 }
