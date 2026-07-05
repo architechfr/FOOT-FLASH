@@ -1,6 +1,6 @@
 {
  "source": "football-data.org (UTC-map)",
- "lastUpdated": "2026-07-04T06:05:26.504Z",
+ "lastUpdated": "2026-07-05T06:08:50.682Z",
  "data": {
   "73": {
    "t1": "RSA",
@@ -97,6 +97,10 @@
   "96": {
    "t1": "SUI",
    "t2": "COL"
+  },
+  "97": {
+   "t1": "FRA",
+   "t2": "MAR"
   }
  }
 }
