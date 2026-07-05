@@ -2626,6 +2626,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.9.36",d:"05/07/2026",changes:"Les Favoris du Mondial tiennent enfin compte du TABLEAU (retour d'usage : « l'Argentine n'est pas favorite avec le tableau qu'elle a ! »). Avant, le % de titre était un simple indice de force : il ignorait totalement le chemin réel de chaque équipe. Désormais, dès la phase à élimination directe, la probabilité de titre est SIMULÉE sur le vrai tableau restant (3000 tirages de l'arbre officiel) : les matchs joués sont figés sur les vainqueurs réels, chaque match à venir est tiré selon les forces (force + forme du tournoi + presse), et le nul se tranche comme aux tirs au but. Concrètement : une équipe avec un tableau dur (ex. Argentine, promise à Espagne ou Portugal dès la demie) voit son % baisser ; une équipe au tableau dégagé grimpe ; un ÉLIMINÉ tombe à 0 et est étiqueté « éliminé » dans le classement complet. Le classement est retrié par ce nouveau %, l'indice de force reste affiché à titre indicatif. Recalcul automatique toutes les 2 minutes — le classement évolue en direct au fil des 8es, quarts et demies."},
       {v:"v1.9.35",d:"05/07/2026",changes:"Les journaux entrent dans l'app + SIMULATEUR MINUTE PAR MINUTE. (1) 📰 LE RÉCIT : chaque match joué de la phase finale a désormais sa vraie feuille de match enrichie, construite à partir des faits extraits de 25 journaux (L'Équipe, France Football…) : récit du match, tournant, homme du match, notes des joueurs (France-Suède complet !), stats (xG, affluence, arbitre) et anecdotes (Klopp futur sélectionneur de l'Allemagne, démission de Koeman, record de cartons Pays-Bas–Maroc, panenka de Salah…). Visible sur la fiche match, sous le fil du match (fichier data/match-reports.json, mis à jour via GitHub Pages). (2) 🎬 SIMULATEUR : sur tout match À VENIR, bouton « Simuler ce match minute par minute » — le match se joue sous tes yeux (commentaire français, buts, VAR, cartons, pauses fraîcheur dans les villes chaudes, prolongation et tirs au but tireur par tireur). Le moteur utilise les forces/faiblesses réelles : notes d'équipe, forme du tournoi (buts pour/contre), buteurs réels pondérés, distribution RÉELLE des minutes de but du Mondial (les fins de match folles de 2026 pèsent leur poids) et un ajustement presse par équipe. Contrôles lecture/pause/vitesse/fin, re-simulation en 1 tap, et HISTORIQUE persistant : l'app retient tes simulations (% de victoires par équipe sur ce match). Jamais proposé sur un match déjà joué — la compétition avance, l'app aussi. Moteur générique conservé pour les prochaines apps (Ligue 1, Euro 2028…)."},
       {v:"v1.9.34",d:"05/07/2026",changes:"La SIMULATION suit enfin le vrai tournoi (retour d'usage : elle affichait des enormites du type « Republique tcheque 1re du groupe A » alors qu'on est deja en 8es !). Desormais : (1) les groupes reellement termines sont importes depuis les resultats OFFICIELS et verrouilles 🔒 — impossible de choisir d'autres qualifies ; (2) les 8 meilleurs 3es sont les vrais qualifies officiels, plus une selection manuelle ; (3) les matchs a elimination deja joues (16es, 8es...) affichent les VRAIES affiches et leurs vainqueurs officiels verrouilles 🔒 — on ne re-simule jamais le passe ; (4) la « Simulation auto » ne tire au sort QUE les matchs restants (le futur), en partant de l'etat reel du tableau ; (5) un bandeau « 📡 Synchronise avec le vrai tournoi » indique combien de matchs sont actes ; (6) le bouton Reinitialiser re-synchronise au lieu de ramener un passe fantaisiste, et le compteur « 36/24 » est corrige. La simulation reste un jeu pour pronostiquer LA SUITE — plus jamais une machine a reecrire l'histoire."},
       {v:"v1.9.33",d:"05/07/2026",changes:"L'app se met à l'heure du VRAI tournoi (analyse complète au 5 juillet). (1) CLASSEMENT DES 3ES DE RETOUR « pour mémoire » : masqué brutalement en phase finale par la v1.9.32, il est désormais conservé dans un volet repliable sous le tableau — classement final figé, avec les 8 qualifiés ✔ réels (affectation officielle) et les éliminés. (2) QUIZ À JOUR : 12 nouvelles questions (mode Libre) + 10 (mode Chrono) sur les faits marquants RÉELS du Mondial en cours — le Paraguay qui sort l'Allemagne aux t.a.b., le Maroc tombeur des Pays-Bas puis du Canada (3-0), le conte de fées du Cap-Vert (0-0 contre l'Espagne, 2e devant l'Uruguay), les triplés de Messi (Algérie), Dembélé (Norvège) et Jonathan David (Qatar), la remontada belge contre le Sénégal, France-Maroc en quart (remake 2022)… (3) FICHES JOUEURS : nouvel encart « 🏆 Mondial 2026 — en cours » avec les buts RÉELS du joueur dans le tournoi (dont pénaltys), calculés automatiquement depuis les résultats officiels — aucun décalage possible avec la réalité. (4) PRONOS/SIMULATION : l'algorithme intègre désormais la forme RÉELLE du tournoi (résultats officiels, bonus/malus jusqu'à ±14%) et les « notes presse » des effectifs (moyenne des 5 meilleures notes, barème Ballon d'Or) — une équipe qui cartonne comme le Maroc pèse plus lourd qu'avant dans les simulations. (5) RECORDS & ANECDOTES ACTUALISÉS : le record de Klose (16 buts) est tombé — Messi (20) et Mbappé (19) l'ont dépassé pendant ce Mondial, fiches records mises à jour ; anecdotes Haaland (5 buts pour son 1er Mondial) et Mbappé réécrites au présent ; 2 nouvelles anecdotes (Paraguay-Allemagne, Cap-Vert)."},
@@ -2679,7 +2680,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.35 — Récits de presse sur les fiches match + simulateur minute par minute · 5 juillet 2026";
+    var APP_VERSION="v1.9.36 — Favoris du Mondial simulés sur le VRAI tableau : le chemin de chaque équipe compte · 5 juillet 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -7405,7 +7406,85 @@
       var K=9.15, sum=0;
       for(var j=0;j<arr.length;j++){ arr[j].w=Math.exp(arr[j].skills/K); sum+=arr[j].w; }
       for(var m=0;m<arr.length;m++){ arr[m].titleProb=sum>0?(arr[m].w/sum*100):0; }
+      // v1.9.36 — Dès la phase à élimination directe, la probabilité de titre est
+      // SIMULÉE SUR LE VRAI TABLEAU (Monte-Carlo) : le chemin réel de chaque équipe
+      // compte (adversaires probables en 8e/quart/demie), les éliminés tombent à 0.
+      var odds=(typeof ffBracketTitleOdds==="function")?ffBracketTitleOdds():null;
+      if(odds){
+        arr.forEach(function(x){ var o=odds[x.id]; x.out=(o==null); x.titleProb=(o!=null)?o:0; x.bracketMode=true; });
+        arr.sort(function(a,b){ return (b.titleProb-a.titleProb) || (b.skills-a.skills); });
+      }
       return arr;
+    }
+
+    // v1.9.36 — % de titre par simulation du TABLEAU RÉEL restant (8es → finale).
+    // 3000 tirages de l'arbre KO_SLOTS : matchs joués = vainqueurs réels figés,
+    // matchs à venir = probabilités force+forme+presse, nul tranché comme aux t.a.b.
+    var _brOddsCache=null;
+    function ffBracketTitleOdds(){
+      try{
+        if(_brOddsCache && Date.now()-_brOddsCache.t<120000) return _brOddsCache.v;
+        function mById(id){for(var i=0;i<MATCHES.length;i++)if(MATCHES[i].id===id)return MATCHES[i];return null}
+        // Phase KO pas commencée ou données absentes → on garde l'ancien modèle
+        var m89=mById(89); if(!m89) return null;
+        var any16=MATCHES.some(function(m){return m.st==="16e de finale"&&m.s1!=null});
+        if(!any16) return null;
+        function realWinner(m){
+          if(!m||m.t1==="TBD"||m.t2==="TBD"||m.s1==null||m.s2==null)return null;
+          if(m.s1>m.s2)return m.t1; if(m.s2>m.s1)return m.t2;
+          var p1=(m.pen1!=null?m.pen1:(m._live&&m._live.pen1)), p2=(m.pen2!=null?m.pen2:(m._live&&m._live.pen2));
+          if(p1!=null&&p2!=null&&p1!==p2)return p1>p2?m.t1:m.t2;
+          return null;
+        }
+        function strength(id){
+          var s=computeTeamSkills(id).skills;
+          try{ s+=compFormAdj(id); }catch(e){}
+          try{ if(typeof SIM_PRESS!=="undefined"&&SIM_PRESS[id]) s+=SIM_PRESS[id].b; }catch(e){}
+          return s;
+        }
+        var pc={};
+        function P(a,b){ // p(a élimine b) — le nul se résout au prorata (t.a.b.)
+          var k=a+"|"+b; if(pc[k]!=null)return pc[k];
+          var pr=computeOutcomeProbabilities(strength(a),strength(b));
+          var t=pr.home+pr.away; pc[k]=t>0?pr.home/t:0.5; return pc[k];
+        }
+        var ids=[89,90,91,92,93,94,95,96,97,98,99,100,101,102,104];
+        var fixed={}, alive={};
+        ids.forEach(function(id){
+          var m=mById(id); if(!m)return;
+          if(m.t1&&m.t1!=="TBD")alive[m.t1]=1;
+          if(m.t2&&m.t2!=="TBD")alive[m.t2]=1;
+          var w=realWinner(m);
+          if(w){ fixed[id]=w; var l=(w===m.t1)?m.t2:m.t1; if(l&&l!=="TBD")delete alive[l]; }
+        });
+        var N=3000, wins={};
+        for(var it=0;it<N;it++){
+          var res={};
+          for(var i=0;i<ids.length;i++){
+            var id=ids[i];
+            if(fixed[id]){res[id]=fixed[id];continue;}
+            var m=mById(id), s=KO_SLOTS[id];
+            function slot(ix){
+              var t=(ix===0?m.t1:m.t2);
+              if(t&&t!=="TBD")return t;
+              var tk=s[ix].split(":");
+              return tk[0]==="M"?(res[+tk[1]]||null):null;
+            }
+            var a=slot(0), b=slot(1);
+            if(!a&&!b){res[id]=null;continue;}
+            if(!a){res[id]=b;continue;}
+            if(!b){res[id]=a;continue;}
+            res[id]=(Math.random()<P(a,b))?a:b;
+          }
+          var champ=res[104]; if(champ)wins[champ]=(wins[champ]||0)+1;
+        }
+        if(!Object.keys(wins).length) return null;
+        var out={};
+        Object.keys(alive).forEach(function(k){out[k]=0;}); // en vie mais jamais titré en simu → 0.0% (≠ éliminé)
+        Object.keys(wins).forEach(function(k){out[k]=wins[k]/N*100;});
+        _brOddsCache={t:Date.now(),v:out};
+        return out;
+      }catch(e){ return null; }
     }
     function favTier(s){
       if(s>=78)return {label:"Pretendants au titre",icon:"🏆",col:"#FFD700"};
@@ -7431,8 +7510,10 @@
       var arr=computeFavoritesRanking();
       if(!arr.length)return "";
       var h='<div style="background:var(--s1);border:1px solid var(--g);border-radius:12px;padding:14px;margin-bottom:12px">';
+      var brMode=!!(arr[0]&&arr[0].bracketMode);
       h+='<div style="font-size:14px;font-weight:900;color:var(--g);margin-bottom:2px">🏆 Favoris du Mondial</div>';
-      h+='<div style="font-size:10px;color:var(--t2);margin-bottom:12px">Indice de force 0-100 · probabilite de titre estimee</div>';
+      if(brMode) h+='<div style="font-size:10px;color:var(--t2);margin-bottom:12px">% de titre simulé sur le <b style="color:var(--am)">VRAI tableau restant</b> (3000 tirages) : le chemin de chaque équipe compte — un tableau dur fait baisser le %, un éliminé tombe à 0.</div>';
+      else h+='<div style="font-size:10px;color:var(--t2);margin-bottom:12px">Indice de force 0-100 · probabilite de titre estimee</div>';
       var medals=["🥇","🥈","🥉"];
       h+='<div style="display:flex;gap:6px;margin-bottom:10px">';
       for(var p=0;p<3&&p<arr.length;p++){
@@ -7462,7 +7543,9 @@
         h+='<span style="font-size:12px;font-weight:700;min-width:0;flex:0 0 30%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+y.name+'</span>';
         h+=favBar(y.skills, tier.col);
         h+='<span style="font-size:12px;font-weight:900;color:var(--tx);min-width:26px;text-align:right">'+Math.round(y.skills)+'</span>';
-        h+='<span style="font-size:11px;font-weight:700;color:var(--g);min-width:42px;text-align:right">'+y.titleProb.toFixed(1)+'%</span>';
+        h+=(brMode&&y.out)
+          ?'<span style="font-size:9px;font-weight:700;color:var(--t2);min-width:42px;text-align:right">éliminé</span>'
+          :'<span style="font-size:11px;font-weight:700;color:var(--g);min-width:42px;text-align:right">'+(brMode&&y.titleProb<0.05?'&lt;0,1':y.titleProb.toFixed(1))+'%</span>';
         h+='</div>';
         h+='<div id="favbd'+i+'" style="display:none;margin:8px 0 4px;padding:8px 10px;background:var(--s2);border-radius:8px">';
         h+='<div style="font-size:10px;color:var(--t2);margin-bottom:6px">Pourquoi cet indice ?</div>';
