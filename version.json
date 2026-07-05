@@ -1,5 +1,5 @@
 {
-  "versionCode": 45,
-  "version": "v1.9.55",
-  "notes": "Fatigue integree PARTOUT : en plus du simulateur et des % de titre, elle pese maintenant sur le prono auto et les probabilites 1N2 de chaque fiche match (comme la chaleur et l'avantage du pays hote). Libelles clarifies : '1 prolongation jouee' au lieu de '+30 min', km avec separateur de milliers. Classement du Cout du voyage dans Pronos et Fatigue comparee (badge PLUS FRAIS) sur chaque match a venir."
+  "versionCode": 46,
+  "version": "v1.9.56",
+  "notes": "LA PEPITE DU JOUR : une anecdote 'Le saviez-vous ?' qui change chaque jour, affichee en haut de l'accueil a la place du texte FOOT FLASH, cliquable vers le module complet Anecdotes & Records. Inclut aussi : fatigue integree partout (simulateur, % de titre, prono auto de chaque match), libelles clarifies (1 prolongation jouee), classement du Cout du voyage et Fatigue comparee sur les matchs a venir."
 }

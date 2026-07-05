@@ -2640,6 +2640,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.9.56",d:"05/07/2026",changes:"LA PÉPITE DU JOUR en haut de l'accueil (retour d'usage : « Le saviez-vous est trop bien, il faut un meilleur accès »). Le texte décoratif « FOOT FLASH » du bandeau d'accueil cède sa place à une anecdote qui CHANGE CHAQUE JOUR — records en danger, histoires de légende, faits du tournoi en cours — cliquable pour ouvrir le module complet Anecdotes & Records (Le saviez-vous). La rubrique passe du fond de l'accueil au premier écran que tu vois en ouvrant l'app : une raison de revenir chaque matin. L'ancienne tuile d'accès reste en place plus bas pour ceux qui scrollent."},
       {v:"v1.9.55",d:"05/07/2026",changes:"Fatigue : intégration complète + lisibilité (retours d'usage). (1) La fatigue pèse désormais sur TOUS les calculs : elle était déjà dans le simulateur minute par minute et les % de titre (Favoris) — elle entre maintenant aussi dans le PRONO AUTO de chaque fiche match et les probabilités 1N2 affichées (via l'ajustement contextuel, comme la chaleur et l'avantage du pays hôte). Une équipe cramée par les voyages verra son prono baisser partout, de façon cohérente. (2) LISIBILITÉ : le cryptique « ⏱ +30 min » devient « ⏱ 1 prolongation jouée » (tu avais bien deviné : ce sont les 30 minutes de prolongation subies, comptées par match allé en prolongation ou aux t.a.b.) — corrigé dans le classement du Coût du voyage, la Fatigue comparée des fiches match et le détail des Favoris. Les km s'affichent aussi avec le séparateur de milliers (9 235 km)."},
       {v:"v1.9.54",d:"05/07/2026",changes:"Le voyage devient lisible (retour d'usage : « un tableau des km parcourus serait intéressant, et dans pronostic on donne des infos par équipe »). (1) ✈️ LE COÛT DU VOYAGE : nouveau classement dans l'onglet Pronos — toutes les équipes encore en vie, triées par kilomètres réellement parcourus, avec barre visuelle, nombre de changements de ville 🏨, minutes de prolongation subies ⏱, jours de repos 😴 et le malus appliqué aux pronos. On voit d'un coup d'œil qui a traversé le continent trois fois et qui a dormi dans le même hôtel. (2) ✈️ FATIGUE COMPARÉE sur chaque FICHE DE MATCH À VENIR : les deux équipes côte à côte (km, villes, prolongations, repos), avec le badge « PLUS FRAIS » sur celle qui arrive le mieux — l'info par équipe, exactement là où on fait son pronostic."},
       {v:"v1.9.53",d:"05/07/2026",changes:"LA FATIGUE entre dans l'équation (retour d'usage). Dans ce Mondial à trois pays, un Vancouver→Miami c'est 4 500 km — et certaines équipes enchaînent les traversées de continent pendant que d'autres restent posées. Nouveau critère calculé pour chaque équipe : ✈️ KILOMÈTRES réellement parcourus entre ses villes de match (distances réelles, y compris le voyage vers le prochain stade), 🏨 CHANGEMENTS DE VILLE (donc d'hôtel), ⏱ MINUTES DE PROLONGATION subies (une prolongation + t.a.b. laisse des traces) et 😴 JOURS DE REPOS avant le prochain match. Les équipes plus chargées que la moyenne du plateau prennent un malus (jusqu'à -3) appliqué aux % de titre ET au simulateur minute par minute — qui l'annonce dans son avant-match quand une équipe arrive cramée. Le détail chiffré est visible dans la fiche dépliée de chaque équipe (Pronos → Favoris) : km, hôtels, prolongations, repos, malus."},
@@ -2713,7 +2714,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.55 — Fatigue intégrée partout (prono auto compris) + libellés clairs (« 1 prolongation jouée ») · 5 juillet 2026";
+    var APP_VERSION="v1.9.56 — 💡 La pépite du jour : une anecdote qui change chaque jour en haut de l'accueil, accès direct aux Anecdotes & Records · 5 juillet 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -5086,7 +5087,25 @@
           h+='<div style="font-size:13px;color:var(--g);font-weight:900;margin:6px 0;letter-spacing:1px">⚽ EN COURS !</div>';
         }
       }
-      h+='<div style="font-size:10px;color:var(--g);font-weight:800;letter-spacing:3px;margin-top:4px;opacity:.7">FOOT FLASH</div>';
+      // v1.9.56 — Le « FOOT FLASH » décoratif cède sa place à la pépite du jour
+      // (retour d'usage : la rubrique Le saviez-vous mérite un accès de premier plan).
+      // Anecdote tournante : change chaque jour, tap → module Anecdotes & Records.
+      var _dayStory=null;
+      try{
+        if(typeof ANECDOTES_DATA!=="undefined" && ANECDOTES_DATA.length){
+          var _dayN=Math.floor(Date.now()/86400000);
+          _dayStory=ANECDOTES_DATA[_dayN%ANECDOTES_DATA.length];
+        }
+      }catch(e){}
+      if(_dayStory){
+        h+='<div onclick="V.view=\'stories\';V.storiesTab=\'home\';V.storiesOpen=null;scrollTo(0,0);render()" style="cursor:pointer;margin:8px auto 2px;max-width:520px;background:rgba(0,0,0,.45);border:1px solid rgba(231,196,92,.45);border-radius:12px;padding:8px 14px;text-align:center">';
+        h+='<div style="font-size:9px;font-weight:900;color:var(--g);letter-spacing:2px;margin-bottom:3px">💡 LE SAVIEZ-VOUS ? <span style="opacity:.6;letter-spacing:0">— la pépite du jour</span></div>';
+        h+='<div style="font-size:11px;font-weight:700;color:#fff;line-height:1.4">'+(_dayStory.shortText||_dayStory.title)+'</div>';
+        h+='<div style="font-size:9px;color:var(--g);margin-top:3px;font-weight:800">Toutes les anecdotes & records ›</div>';
+        h+='</div>';
+      } else {
+        h+='<div style="font-size:10px;color:var(--g);font-weight:800;letter-spacing:3px;margin-top:4px;opacity:.7">FOOT FLASH</div>';
+      }
       h+='</div></div>';
       // v1.9.21 — Matchs du jour, mis en avant tout en haut de l'accueil
       if(V.view==="cal" && !V.selTeam){ try{ h+=rTodayMatches(); }catch(e){} }
