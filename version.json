@@ -1,5 +1,5 @@
 {
-  "versionCode": 34,
-  "version": "v1.9.43",
-  "notes": "Favoris du Mondial credibles : l'aleatoire diminue au fil des tours — la surprise vit en 8es, mais quarts, demies et finale se jouent de plus en plus au merite (fini le Maroc 2e favori au titre). Inclut aussi les 18 questions de quiz tirees des journaux, le bouton Partager le scenario simule, les dates du hub Pronos corrigees, le facteur arbitrage Argentine/Messi et le calendrier realigne."
+  "versionCode": 35,
+  "version": "v1.9.45",
+  "notes": "Grosse fournee de fiabilite : calendrier de secours embarque entierement realigne sur les 104 matchs officiels (fini les scores rattaches aux mauvais matchs, les heures fausses dans l'export Agenda, France-Suede au mauvais jour), buts tries par minute sur toutes les fiches, quarts de la Simulation debloques match par match (France-Maroc s'affiche des maintenant, verrouille), question quiz Klose reformulee (Messi 20 buts est passe par la), favoris credibles (aleatoire decroissant par tour), facteur arbitrage Argentine."
 }
