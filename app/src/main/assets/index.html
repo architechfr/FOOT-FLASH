@@ -706,6 +706,38 @@
         .bk-winner{background:var(--g);color:#000;font-size:11px;font-weight:900;text-align:center;padding:8px;border-radius:8px;margin-top:6px;width:100%;letter-spacing:1px}
         .bk-podium{display:flex;gap:8px;justify-content:center;margin-top:8px;font-size:10px;font-weight:700}
 
+        /* ═══ TABLEAU FINAL — vrai arbre de bracket (scroll horizontal) ════ */
+        .ffb-wrap{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;padding:2px 2px 12px;scrollbar-width:thin}
+        .ffb{display:flex;align-items:stretch;gap:16px;min-width:max-content}
+        .ffb-round{display:flex;flex-direction:column;flex:0 0 auto;width:142px}
+        .ffb-round.col-fin{width:150px}
+        .ffb-rh{font-size:9px;font-weight:900;color:var(--am);text-align:center;text-transform:uppercase;letter-spacing:.6px;padding:5px 2px 6px;position:sticky;top:0;background:var(--bg);z-index:2;white-space:nowrap}
+        .ffb-cards{flex:1;display:flex;flex-direction:column;justify-content:space-around}
+        .ffb-match{flex:1;display:flex;flex-direction:column;justify-content:center;position:relative}
+        /* connecteurs coudés : sortie à droite de chaque carte vers le tour suivant */
+        .ffb-round:not(.col-fin) .ffb-match::after{content:'';position:absolute;left:100%;width:8px;height:50%;border-right:2px solid var(--s3)}
+        .ffb-round:not(.col-fin) .ffb-match:nth-child(odd)::after{top:50%;border-top:2px solid var(--s3)}
+        .ffb-round:not(.col-fin) .ffb-match:nth-child(even)::after{bottom:50%;border-bottom:2px solid var(--s3)}
+        /* trait horizontal entrant (à gauche de chaque carte sauf 1er tour) */
+        .ffb-round:not(.col-r32) .ffb-match::before{content:'';position:absolute;right:100%;top:50%;width:8px;height:2px;background:var(--s3)}
+        .ffb-card{background:var(--s1);border:1px solid var(--s3);border-radius:7px;overflow:hidden;cursor:pointer;margin:3px 0}
+        .ffb-card.upc{border-color:rgba(231,196,92,.4)}
+        .ffb-chd{display:flex;justify-content:space-between;align-items:center;gap:3px;padding:2px 5px;background:rgba(128,128,128,.08);border-bottom:1px solid var(--s3)}
+        .ffb-tag{font-size:7px;font-weight:900;color:var(--am);letter-spacing:.4px;white-space:nowrap}
+        .ffb-st{font-size:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .ffb-tm{display:flex;align-items:center;gap:4px;padding:3px 5px;font-size:10px;min-width:0}
+        .ffb-tm .nm{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .ffb-tm .sc{font-weight:900;min-width:11px;text-align:right}
+        .ffb-tm.win{font-weight:800}
+        .ffb-tm.win .sc{color:var(--g)}
+        .ffb-tm.lose{opacity:.42}
+        .ffb-tm.tbd{color:var(--t2);font-size:9px;font-style:italic}
+        .ffb-tab{font-size:7px;color:var(--am);text-align:center;padding:1px 4px;border-top:1px dashed var(--s3)}
+        .ffb-card.fin{border:2px solid var(--g);background:linear-gradient(135deg,rgba(231,196,92,.12),rgba(201,154,46,.05))}
+        .ffb-card.fin .ffb-chd{background:rgba(231,196,92,.16)}
+        .ffb-card.fin .ffb-tag{color:var(--g)}
+        .ffb-hint{font-size:9px;color:var(--t2);text-align:center;padding:0 0 6px}
+
         /* ═══ v1.047 PRONOSTICS REFONTE ═══════════════════════════════════ */
         .prn-hero{background:linear-gradient(135deg,#224a7d,#15335a);border-radius:14px;padding:16px;margin-bottom:14px;color:#fff}
         .prn-hero-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
@@ -2582,6 +2614,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.9.32",d:"05/07/2026",changes:"Le TABLEAU FINAL ressemble enfin à un vrai tableau (retour d'usage : « ça ne ressemble à rien »). Avant : de longues listes de cartes empilées par tour, séparées par un gros « Classement des 3es » — impossible de suivre le fil d'un tour à l'autre. Désormais c'est un VRAI arbre de bracket, à l'horizontale, avec des traits qui relient chaque affiche à la suivante : 16es → 8es → quarts → demies → 🏆 Finale (dorée) au bout. On fait défiler latéralement jusqu'à la finale. Chaque case reste une affiche cliquable (drapeau + nom + score, vainqueur ✔ en vert, perdant grisé, t.a.b. indiqués, date FR). Et le « Classement des meilleurs 3es » disparaît automatiquement dès que la phase à élimination directe est lancée : au stade des quarts, il n'a plus aucun intérêt et n'encombre plus le tableau (il ne s'affiche que pendant la phase de groupes, quand il sert vraiment)."},
       {v:"v1.9.31",d:"05/07/2026",changes:"Tableau final enfin lisible (retour d'usage : « qui rencontre qui ? »). Les cartes du bracket étaient minuscules (4 par ligne, texte 8-9px), sans scores ni indication du qualifié. Refonte complète : cartes 2 fois plus larges (2 par ligne), chaque équipe sur sa ligne avec drapeau + nom + SCORE, le vainqueur en vert/gras avec ✔ et le perdant grisé (éliminé), tirs au but affichés sous le score (🥅 t.a.b.), en-tête de carte avec numéro du match (M1…M16, 8e-1…8e-8, QF1…QF4) et date/heure FR ou « ✅ Terminé ». Un encart « 💡 Comment lire » explique la logique (le vainqueur avance, « Vainq. M5 » = gagnant du match M5), chaque tour affiche ses dates (16es 28 juin→3 juil, 8es 4→7 juil, quarts 9→11 juil, demis 14→15 juil) et une phrase de liaison vers le tour suivant. Les cases vides indiquent clairement « ⏳ Meilleur 3e » ou « ⏳ 1er Gr.E » au lieu d'un cryptique « 3e ». Tape une carte pour ouvrir le détail du match."},
       {v:"v1.9.30",d:"30/06/2026",changes:"Prolongations & tirs au but enfin indiqués (élimination directe). Un match nul à la fin du jeu décidé aux penaltys (ex. Allemagne–Paraguay) affichait un score faux du type « 5–6 » : la source de données (football-data) ADDITIONNE la séance de tirs au but au score du match (1–1 a.p. + t.a.b. 4–5 = 5–6 affiché), sans aucune mention. Désormais on sépare proprement : le score affiché est celui du JEU (90'/120', ici 1–1) et la séance de tirs au but est indiquée à part (« 🥅 Tirs au but 4–5 · vainqueur : … »), ainsi que la mention « ⏱ après prolongation » quand il y a prolongation sans penaltys. Visible sur la fiche match, les cartes de la liste et le bloc « Matchs du jour ». Le bon qualifié avance dans le tableau final même quand le match s'est joué aux tirs au but (avant, un 1–1 pouvait bloquer ou désigner le mauvais qualifié). S'applique automatiquement aux prochains matchs à élimination directe — et corrige rétroactivement les matchs déjà joués au prochain rafraîchissement des scores."},
       {v:"v1.9.29",d:"27/06/2026",changes:"Infirmerie & données joueurs corrigées (retours d'usage). (1) Un joueur RÉTABLI n'est plus affiché comme blessé : Koundé, Saliba, Manu Koné, Mbappé (et Yamal, Valverde…) sont opérationnels depuis le début du tournoi — leur date de retour étant passée, le badge « blessé » disparaît partout (fiche équipe, fiche joueur). (2) Le nombre de sélections n'affiche plus un « 0 » trompeur quand la donnée manque (cas de beaucoup de joueurs dont les caps n'ont pas été renseignés, ex. Maxence Lacroix) : on indique « — » / « sél. n.c. » au lieu d'asséner un faux zéro."},
@@ -2631,7 +2664,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.31 — Tableau final lisible : scores, vainqueur ✔, cartes larges, numéros de match · 5 juillet 2026";
+    var APP_VERSION="v1.9.32 — Tableau final en vrai arbre de bracket (traits + finale au centre), classement des 3es masqué en phase finale · 5 juillet 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -10596,86 +10629,108 @@
       var sfm=MATCHES.filter(function(m){return m.st&&m.st.indexOf("Demi")>=0});
       var finm=MATCHES.filter(function(m){return m.st&&m.st.toUpperCase()==="FINALE"});
 
-      // Known bracket matchups (FIFA 2026 structure)
-      // v1.9.24 — Libellés DANS L'ORDRE DES MATCHS (#73→#88), transcrits des
-      // descripteurs officiels t1from/t2from de matches.json. (Avant : ordre
-      // « arbre » décalé → un créneau TBD affichait le mauvais libellé, ex.
-      // #77 = « 1er I vs 3e » montré comme « 2e E vs 2e I ».)
+      // Libellés officiels FIFA 2026 (t1from/t2from de matches.json), indexés
+      // par position du match dans son tour (ordre des ids #73→#104).
       var R32_LABELS=[
         ["2e Gr.A","2e Gr.B"],["1er Gr.E","Meilleur 3e"],["1er Gr.F","2e Gr.C"],["1er Gr.C","2e Gr.F"],
         ["1er Gr.I","Meilleur 3e"],["2e Gr.E","2e Gr.I"],["1er Gr.A","Meilleur 3e"],["1er Gr.L","Meilleur 3e"],
         ["1er Gr.D","Meilleur 3e"],["1er Gr.G","Meilleur 3e"],["2e Gr.K","2e Gr.L"],["1er Gr.H","2e Gr.J"],
         ["1er Gr.B","Meilleur 3e"],["1er Gr.J","2e Gr.H"],["1er Gr.K","Meilleur 3e"],["2e Gr.D","2e Gr.G"]
       ];
-      // 8es (#89→#96) dans l'ordre des matchs — arbre officiel FIFA 2026.
-      // M89=M2×M5 · M90=M1×M3 · M91=M4×M6 · M92=M7×M8 · M93=M11×M12 ·
-      // M94=M9×M10 · M95=M14×M16 · M96=M13×M15 (M_k = k-ième 16e, #72+k).
       var R16_LABELS=[["Vainq. M2","Vainq. M5"],["Vainq. M1","Vainq. M3"],["Vainq. M4","Vainq. M6"],["Vainq. M7","Vainq. M8"],
         ["Vainq. M11","Vainq. M12"],["Vainq. M9","Vainq. M10"],["Vainq. M14","Vainq. M16"],["Vainq. M13","Vainq. M15"]];
       var QF_LABELS=[["Vainq. 8e-1","Vainq. 8e-2"],["Vainq. 8e-5","Vainq. 8e-6"],["Vainq. 8e-3","Vainq. 8e-4"],["Vainq. 8e-7","Vainq. 8e-8"]];
       var SF_LABELS=[["Vainq. QF1","Vainq. QF2"],["Vainq. QF3","Vainq. QF4"]];
       var FIN_LABELS=["Vainq. Demi 1","Vainq. Demi 2"];
-      // v1.9.31 — Cartes lisibles : nom + score sur la même ligne, vainqueur en
-      // gras/vert avec ✔, perdant estompé, t.a.b. affichés, en-tête M# + date.
-      function realTm(id,label,score,win,lose){
+
+      // Maps id → {label, tag} pour retrouver les infos une fois l'arbre ordonné
+      var mById={}, mLbl={}, mTag={};
+      MATCHES.forEach(function(m){mById[m.id]=m});
+      r32.forEach(function(m,i){mLbl[m.id]=R32_LABELS[i]||["?","?"];mTag[m.id]="16e M"+(i+1)});
+      r16m.forEach(function(m,i){mLbl[m.id]=R16_LABELS[i]||["?","?"];mTag[m.id]="8e-"+(i+1)});
+      qfm.forEach(function(m,i){mLbl[m.id]=QF_LABELS[i]||["?","?"];mTag[m.id]="QF"+(i+1)});
+      sfm.forEach(function(m,i){mLbl[m.id]=SF_LABELS[i]||["?","?"];mTag[m.id]="Demi "+(i+1)});
+      if(finm[0]){mLbl[finm[0].id]=FIN_LABELS;mTag[finm[0].id]="FINALE"}
+
+      // Ordre « arbre » : DFS depuis la finale via KO_SLOTS (tokens M:n = matchs
+      // qui alimentent le créneau). cols[0]=16es … cols[4]=finale, chaque
+      // colonne rangée de haut en bas pour que chaque paire pointe vers son match.
+      function childrenOf(id){
+        var s=(typeof KO_SLOTS!=="undefined")?KO_SLOTS[id]:null; if(!s)return[];
+        var out=[]; s.forEach(function(t){var p=(""+t).split(":");if(p[0]==="M")out.push(+p[1])}); return out;
+      }
+      var cols=[[],[],[],[],[]];
+      (function walk(id,depth){
+        if(depth>4||cols[4-depth]==null)return;
+        cols[4-depth].push(id);
+        childrenOf(id).forEach(function(k){walk(k,depth+1)});
+      })(finm[0]?finm[0].id:104,0);
+      // Repli si la structure n'a pas pu être bâtie (KO_SLOTS absent)
+      if(!cols[0].length){
+        cols=[r32.map(function(m){return m.id}),r16m.map(function(m){return m.id}),
+              qfm.map(function(m){return m.id}),sfm.map(function(m){return m.id}),
+              finm.map(function(m){return m.id})];
+      }
+
+      function ffbTeam(id,label,score,win,lose){
         if(!id||id==="TBD"||!getTeam(id)||getTeam(id).name==="?"){
-          return '<div style="display:flex;align-items:center;gap:4px;padding:4px 6px;font-size:10px;color:var(--t2);min-height:18px"><span style="opacity:.6">⏳</span><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+(label||"À déterminer")+'</span></div>';
+          return '<div class="ffb-tm tbd"><span class="nm">'+(label||"à déterminer")+'</span></div>';
         }
-        return '<div onclick="event.stopPropagation();goTeam(\''+id+'\')" style="display:flex;align-items:center;gap:5px;padding:4px 6px;font-size:11px;cursor:pointer;min-width:0;'+(lose?'opacity:.45;':'')+(win?'font-weight:800;':'font-weight:600;')+'">'
-          +flagImg(id,14)
-          +'<span style="flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+getTeam(id).name+'</span>'
-          +(win?'<span style="color:var(--g);font-size:9px">✔</span>':'')
-          +(score!=null?'<span style="font-weight:900;min-width:13px;text-align:right;color:'+(win?'var(--g)':(lose?'var(--t2)':'var(--tx)'))+'">'+score+'</span>':'')
+        return '<div class="ffb-tm '+(win?'win':'')+(lose?' lose':'')+'" onclick="event.stopPropagation();goTeam(\''+id+'\')">'
+          +flagImg(id,13)
+          +'<span class="nm">'+getTeam(id).name+'</span>'
+          +(win?'<span style="color:var(--g);font-size:8px">✔</span>':'')
+          +(score!=null?'<span class="sc" style="color:'+(win?'var(--g)':(lose?'var(--t2)':'var(--tx)'))+'">'+score+'</span>':'')
         +'</div>';
       }
-      function realMc(m,tag,labels){
+      function ffbCard(id){
+        var m=mById[id]; if(!m)return'';
+        var isFin=m.st&&m.st.toUpperCase()==="FINALE";
         var played=m.s1!==null&&m.s1!==undefined&&m.s2!==null&&m.s2!==undefined;
-        var l1=labels?labels[0]:"?",l2=labels?labels[1]:"?";
+        var lab=mLbl[id]||["?","?"], tag=mTag[id]||'';
         var p1=(m.pen1!=null?m.pen1:(m._live&&m._live.pen1!=null?m._live.pen1:null));
         var p2=(m.pen2!=null?m.pen2:(m._live&&m._live.pen2!=null?m._live.pen2:null));
-        var w=0;
-        if(played){ if(m.s1>m.s2)w=1; else if(m.s2>m.s1)w=2; else if(p1!=null&&p2!=null&&p1!==p2)w=(p1>p2?1:2); }
-        var dateTxt='';
-        if(m.d){try{dateTxt=fmtDate(m.d)+' · '+fmtTimeFR(m.d,m.city);}catch(e){}}
-        var head='<div style="display:flex;justify-content:space-between;align-items:center;gap:4px;padding:3px 6px;border-bottom:1px solid var(--s3);background:rgba(128,128,128,.07)">'
-          +'<span style="font-size:8px;font-weight:900;color:var(--am);letter-spacing:.5px">'+(tag||'')+'</span>'
-          +'<span style="font-size:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:'+(played?'var(--t2)':'var(--am)')+'">'+(played?'✅ Terminé':(dateTxt?'📅 '+dateTxt+' FR':'À venir'))+'</span>'
-        +'</div>';
-        var tab=(played&&m.s1===m.s2&&p1!=null&&p2!=null)?'<div style="font-size:8px;color:var(--am);text-align:center;padding:2px 4px;border-top:1px dashed var(--s3)">🥅 t.a.b. '+p1+'–'+p2+'</div>':'';
-        return '<div onclick="showMatchDetail('+m.id+')" style="background:var(--s1);border:1px solid '+(played?'var(--s3)':'rgba(231,196,92,.45)')+';border-radius:8px;overflow:hidden;min-width:0;cursor:pointer">'
-          +head
-          +realTm(m.t1,l1,played?m.s1:null,w===1,w===2)
-          +realTm(m.t2,l2,played?m.s2:null,w===2,w===1)
+        var w=0; if(played){if(m.s1>m.s2)w=1;else if(m.s2>m.s1)w=2;else if(p1!=null&&p2!=null&&p1!==p2)w=(p1>p2?1:2)}
+        var st;
+        if(played)st='<span style="color:var(--t2)">✅</span>';
+        else{var d='';try{if(m.d)d=fmtDate(m.d)}catch(e){}st='<span style="color:var(--am)">'+(d?'📅 '+d:'à venir')+'</span>'}
+        var tab=(played&&m.s1===m.s2&&p1!=null&&p2!=null)?'<div class="ffb-tab">t.a.b. '+p1+'–'+p2+'</div>':'';
+        return '<div class="ffb-card'+(isFin?' fin':'')+(played?'':' upc')+'" onclick="showMatchDetail('+m.id+')">'
+          +'<div class="ffb-chd"><span class="ffb-tag">'+(isFin?'🏆 FINALE':tag)+'</span><span class="ffb-st">'+st+'</span></div>'
+          +ffbTeam(m.t1,lab[0],played?m.s1:null,w===1,w===2)
+          +ffbTeam(m.t2,lab[1],played?m.s2:null,w===2,w===1)
           +tab
         +'</div>';
       }
 
-      // Comment lire le tableau
-      h+='<div style="background:var(--s1);border:1px solid var(--s3);border-radius:8px;padding:8px 10px;margin-bottom:10px;font-size:10px;color:var(--t2);line-height:1.5">'
-        +'💡 <b style="color:var(--tx)">Comment lire :</b> chaque carte = 1 match. Le <b style="color:var(--g)">vainqueur ✔</b> avance au tour suivant (ex. « Vainq. M5 » = le gagnant du match M5). Le perdant (grisé) est éliminé. Tape une carte pour le détail du match.'
-      +'</div>';
+      // Hint scroll + légende
+      h+='<div class="ffb-hint">👆 Touche une affiche pour le détail · fais défiler horizontalement ↔ jusqu\'à la finale 🏆</div>';
 
-      // 16es
-      if(r32.length){
-        h+='<div style="font-size:11px;font-weight:900;color:var(--am);margin:8px 0 2px">⚔️ 16ES DE FINALE <span style="font-weight:600;color:var(--t2)">· '+r32.length+' matchs · 28 juin → 3 juil.</span></div>';
-        h+='<div style="font-size:9px;color:var(--t2);margin-bottom:5px">Les vainqueurs (M1→M16) se retrouvent en 8es de finale ci-dessous.</div>';
-        h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">';
-        h+='<div><div style="text-align:center;font-size:9px;font-weight:900;color:var(--g);padding:3px;background:var(--s1);border-radius:4px;margin-bottom:4px">◀ MOITIÉ GAUCHE</div>';
-        h+='<div style="display:grid;gap:4px">';
-        r32.slice(0,8).forEach(function(m,i){h+=realMc(m,"M"+(i+1),R32_LABELS[i])});
+      // L'arbre lui-même
+      var COL_NAMES=["16es","8es","Quarts","Demies","Finale"];
+      var COL_CLS=["col-r32","","","","col-fin"];
+      h+='<div class="ffb-wrap"><div class="ffb">';
+      cols.forEach(function(colIds,ci){
+        if(!colIds||!colIds.length)return;
+        h+='<div class="ffb-round '+COL_CLS[ci]+'">';
+        h+='<div class="ffb-rh">'+COL_NAMES[ci]+'</div>';
+        h+='<div class="ffb-cards">';
+        colIds.forEach(function(id){h+='<div class="ffb-match">'+ffbCard(id)+'</div>'});
         h+='</div></div>';
-        h+='<div><div style="text-align:center;font-size:9px;font-weight:900;color:var(--g);padding:3px;background:var(--s1);border-radius:4px;margin-bottom:4px">MOITIÉ DROITE ▶</div>';
-        h+='<div style="display:grid;gap:4px">';
-        r32.slice(8,16).forEach(function(m,i){h+=realMc(m,"M"+(i+9),R32_LABELS[i+8])});
-        h+='</div></div></div>';
-      }
+      });
+      h+='</div></div>';
 
-      // Classement des 3es (favoris à la qualification) — provisoire tant que les 12 groupes ne sont pas finis
+      // Classement des 3es — utile UNIQUEMENT pendant la phase de groupes.
+      // Dès que les 8es ont de vraies équipes (phase à élim. lancée), on le masque
+      // (au stade des quarts, le « meilleur 3e » n'a plus d'intérêt).
       var thirdsRk=_realThirdsRanking();
-      if(thirdsRk.length){
-        var allComplete=(thirdsRk.length===12)&&thirdsRk.every(function(x){return x.complete});
-        h+='<div style="font-size:10px;font-weight:900;color:var(--am);margin:14px 0 4px">🥉 CLASSEMENT DES 3ES — '+(allComplete?'définitif':'provisoire')+'</div>';
-        h+='<div style="font-size:9px;color:var(--t2);margin-bottom:6px">Les <b>8 meilleurs 3es</b> se qualifient. Départage : points › goal average › buts marqués.'+(allComplete?'':' Mis à jour au fil des matchs.')+'</div>';
+      var koStarted=r16m.concat(qfm,sfm).some(function(m){
+        return (m.s1!=null&&m.s2!=null)||(m.t1&&m.t1!=="TBD"&&getTeam(m.t1)&&getTeam(m.t1).name!=="?");
+      });
+      var allComplete=(thirdsRk.length===12)&&thirdsRk.every(function(x){return x.complete});
+      if(thirdsRk.length&&!koStarted&&!allComplete){
+        h+='<div style="font-size:10px;font-weight:900;color:var(--am);margin:16px 0 4px">🥉 CLASSEMENT DES 3ES — provisoire</div>';
+        h+='<div style="font-size:9px;color:var(--t2);margin-bottom:6px">Les <b>8 meilleurs 3es</b> se qualifient pour les 16es. Départage : points › goal average › buts marqués. Mis à jour au fil des matchs.</div>';
         h+='<div style="background:var(--s1);border:1px solid var(--s3);border-radius:8px;overflow:hidden">';
         h+='<div style="display:grid;grid-template-columns:20px 1fr 26px 34px 28px;gap:4px;padding:5px 8px;font-size:8px;font-weight:800;color:var(--t2);border-bottom:1px solid var(--s3)"><span>#</span><span>Équipe</span><span style="text-align:center">Pts</span><span style="text-align:center">Diff</span><span style="text-align:center">BP</span></div>';
         thirdsRk.forEach(function(x,i){
@@ -10691,62 +10746,7 @@
           h+='</div>';
         });
         h+='</div>';
-        h+='<div style="font-size:8px;color:var(--t2);margin-top:4px">'+(allComplete?'✅ Qualification des 3es figée.':'⚠️ Ligne verte = zone de qualification. Non figé tant que les 12 groupes ne sont pas terminés (l\'affectation aux 8es suit la table FIFA).')+'</div>';
-      }
-
-      // 8es
-      if(r16m.length){
-        h+='<div style="font-size:11px;font-weight:900;color:var(--am);margin:12px 0 2px">🏅 8ES DE FINALE <span style="font-weight:600;color:var(--t2)">· '+r16m.length+' matchs · 4 → 7 juil.</span></div>';
-        h+='<div style="font-size:9px;color:var(--t2);margin-bottom:5px">« Vainq. M2 » = vainqueur du 16e M2 ci-dessus. Les vainqueurs (8e-1→8e-8) vont en quarts.</div>';
-        h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">';
-        h+='<div style="display:grid;gap:4px">';
-        r16m.slice(0,4).forEach(function(m,i){h+=realMc(m,"8e-"+(i+1),R16_LABELS[i])});
-        h+='</div><div style="display:grid;gap:4px">';
-        r16m.slice(4,8).forEach(function(m,i){h+=realMc(m,"8e-"+(i+5),R16_LABELS[i+4])});
-        h+='</div></div>';
-      }
-
-      // QF
-      if(qfm.length){
-        h+='<div style="font-size:11px;font-weight:900;color:var(--am);margin:12px 0 2px">⚡ QUARTS DE FINALE <span style="font-weight:600;color:var(--t2)">· '+qfm.length+' matchs · 9 → 11 juil.</span></div>';
-        h+='<div style="font-size:9px;color:var(--t2);margin-bottom:5px">« Vainq. 8e-1 » = vainqueur du 8e n°1 ci-dessus. Les vainqueurs (QF1→QF4) vont en demi-finales.</div>';
-        h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">';
-        h+='<div style="display:grid;gap:4px">';
-        qfm.slice(0,2).forEach(function(m,i){h+=realMc(m,"QF"+(i+1),QF_LABELS[i])});
-        h+='</div><div style="display:grid;gap:4px">';
-        qfm.slice(2,4).forEach(function(m,i){h+=realMc(m,"QF"+(i+3),QF_LABELS[i+2])});
-        h+='</div></div>';
-      }
-
-      // SF
-      if(sfm.length){
-        h+='<div style="font-size:11px;font-weight:900;color:var(--am);margin:12px 0 2px">🔥 DEMI-FINALES <span style="font-weight:600;color:var(--t2)">· 14 → 15 juil.</span></div>';
-        h+='<div style="font-size:9px;color:var(--t2);margin-bottom:5px">Les 2 vainqueurs se retrouvent en finale le 19 juillet.</div>';
-        h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">';
-        sfm.forEach(function(m,i){h+=realMc(m,"Demi "+(i+1),SF_LABELS[i])});
-        h+='</div>';
-      }
-
-      // Finale
-      if(finm.length){
-        h+='<div style="background:var(--s1);border:2px solid var(--g);border-radius:12px;padding:14px;text-align:center;margin-top:8px">';
-        h+='<div style="font-size:12px;font-weight:900;color:var(--g);letter-spacing:3px;margin-bottom:6px">🏆 FINALE</div>';
-        var fm=finm[0];
-        h+='<div style="display:flex;align-items:center;justify-content:center;gap:8px">';
-        var ft1=getTeam(fm.t1),ft2=getTeam(fm.t2);
-        var ft1n=(ft1&&ft1.name&&ft1.name!=="?")?flagImg(fm.t1,24)+'<div style="font-size:12px;font-weight:800">'+ft1.name+'</div>':'<div style="font-size:10px;color:var(--t2)">'+FIN_LABELS[0]+'</div>';
-        var ft2n=(ft2&&ft2.name&&ft2.name!=="?")?flagImg(fm.t2,24)+'<div style="font-size:12px;font-weight:800">'+ft2.name+'</div>':'<div style="font-size:10px;color:var(--t2)">'+FIN_LABELS[1]+'</div>';
-        h+='<div>'+ft1n+'</div>';
-        h+='<div style="font-size:14px;font-weight:900;color:var(--g)">VS</div>';
-        h+='<div>'+ft2n+'</div>';
-        h+='</div>';
-        if(fm.d){
-          try{
-            h+='<div style="font-size:10px;font-weight:800;color:var(--am);margin-top:8px">📅 '+fmtDate(fm.d)+' · '+fmtTimeFR(fm.d,fm.city)+' <span style="opacity:.7">heure FR</span></div>';
-            if(fm.stad||fm.city)h+='<div style="font-size:9px;color:var(--t2);margin-top:2px">📍 '+(fm.stad?fm.stad+(fm.city?' · ':''):'')+(fm.city||'')+'</div>';
-          }catch(e){}
-        }
-        h+='</div>';
+        h+='<div style="font-size:8px;color:var(--t2);margin-top:4px">⚠️ Ligne verte = zone de qualification. Non figé tant que les 12 groupes ne sont pas terminés.</div>';
       }
 
       // v1.9.13 — Stats du tournoi (alimentées par les faits de jeu connus :
