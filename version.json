@@ -1,5 +1,5 @@
 {
-  "versionCode": 27,
-  "version": "v1.9.30",
-  "notes": "Prolongations & tirs au but enfin indiques (elimination directe). Un match nul decide aux penaltys affichait un score faux (ex. 5-6) car football-data additionne la seance au score du jeu. Desormais on separe : score du JEU (90'/120') affiche, et la seance de t.a.b. indiquee a part (Tirs au but 4-5, vainqueur), plus la mention 'apres prolongation'. Visible sur la fiche match, les cartes et le bloc Matchs du jour. Le bon qualifie avance dans le tableau final meme aux t.a.b. S'applique aux prochains matchs et corrige les matchs deja joues au prochain rafraichissement."
+  "versionCode": 30,
+  "version": "v1.9.34",
+  "notes": "La Simulation suit enfin le vrai tournoi. Les groupes reellement termines sont importes depuis les resultats officiels et verrouilles (impossible de choisir d'autres qualifies), les 8 meilleurs 3es sont les vrais qualifies, les matchs a elimination deja joues (16es, 8es...) affichent les vraies affiches et leurs vainqueurs officiels verrouilles. La Simulation auto ne tire au sort QUE les matchs restants, en partant de l'etat reel du tableau. Un bandeau 'Synchronise avec le vrai tournoi' indique combien de matchs sont actes. Fini les enormites du type 'Republique tcheque 1re du groupe A' alors qu'on est deja en 8es de finale."
 }

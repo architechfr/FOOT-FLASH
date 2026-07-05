@@ -706,6 +706,38 @@
         .bk-winner{background:var(--g);color:#000;font-size:11px;font-weight:900;text-align:center;padding:8px;border-radius:8px;margin-top:6px;width:100%;letter-spacing:1px}
         .bk-podium{display:flex;gap:8px;justify-content:center;margin-top:8px;font-size:10px;font-weight:700}
 
+        /* ═══ TABLEAU FINAL — vrai arbre de bracket (scroll horizontal) ════ */
+        .ffb-wrap{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;padding:2px 2px 12px;scrollbar-width:thin}
+        .ffb{display:flex;align-items:stretch;gap:16px;min-width:max-content}
+        .ffb-round{display:flex;flex-direction:column;flex:0 0 auto;width:142px}
+        .ffb-round.col-fin{width:150px}
+        .ffb-rh{font-size:9px;font-weight:900;color:var(--am);text-align:center;text-transform:uppercase;letter-spacing:.6px;padding:5px 2px 6px;position:sticky;top:0;background:var(--bg);z-index:2;white-space:nowrap}
+        .ffb-cards{flex:1;display:flex;flex-direction:column;justify-content:space-around}
+        .ffb-match{flex:1;display:flex;flex-direction:column;justify-content:center;position:relative}
+        /* connecteurs coudés : sortie à droite de chaque carte vers le tour suivant */
+        .ffb-round:not(.col-fin) .ffb-match::after{content:'';position:absolute;left:100%;width:8px;height:50%;border-right:2px solid var(--s3)}
+        .ffb-round:not(.col-fin) .ffb-match:nth-child(odd)::after{top:50%;border-top:2px solid var(--s3)}
+        .ffb-round:not(.col-fin) .ffb-match:nth-child(even)::after{bottom:50%;border-bottom:2px solid var(--s3)}
+        /* trait horizontal entrant (à gauche de chaque carte sauf 1er tour) */
+        .ffb-round:not(.col-r32) .ffb-match::before{content:'';position:absolute;right:100%;top:50%;width:8px;height:2px;background:var(--s3)}
+        .ffb-card{background:var(--s1);border:1px solid var(--s3);border-radius:7px;overflow:hidden;cursor:pointer;margin:3px 0}
+        .ffb-card.upc{border-color:rgba(231,196,92,.4)}
+        .ffb-chd{display:flex;justify-content:space-between;align-items:center;gap:3px;padding:2px 5px;background:rgba(128,128,128,.08);border-bottom:1px solid var(--s3)}
+        .ffb-tag{font-size:7px;font-weight:900;color:var(--am);letter-spacing:.4px;white-space:nowrap}
+        .ffb-st{font-size:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .ffb-tm{display:flex;align-items:center;gap:4px;padding:3px 5px;font-size:10px;min-width:0}
+        .ffb-tm .nm{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .ffb-tm .sc{font-weight:900;min-width:11px;text-align:right}
+        .ffb-tm.win{font-weight:800}
+        .ffb-tm.win .sc{color:var(--g)}
+        .ffb-tm.lose{opacity:.42}
+        .ffb-tm.tbd{color:var(--t2);font-size:9px;font-style:italic}
+        .ffb-tab{font-size:7px;color:var(--am);text-align:center;padding:1px 4px;border-top:1px dashed var(--s3)}
+        .ffb-card.fin{border:2px solid var(--g);background:linear-gradient(135deg,rgba(231,196,92,.12),rgba(201,154,46,.05))}
+        .ffb-card.fin .ffb-chd{background:rgba(231,196,92,.16)}
+        .ffb-card.fin .ffb-tag{color:var(--g)}
+        .ffb-hint{font-size:9px;color:var(--t2);text-align:center;padding:0 0 6px}
+
         /* ═══ v1.047 PRONOSTICS REFONTE ═══════════════════════════════════ */
         .prn-hero{background:linear-gradient(135deg,#224a7d,#15335a);border-radius:14px;padding:16px;margin-bottom:14px;color:#fff}
         .prn-hero-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
@@ -1753,18 +1785,18 @@
        tags:["lampard","2010","gol-fantasma","goal-line","allemagne","angleterre"],year:2010,
        relatedTeams:["ENG","GER"],relatedPlayers:["Lampard"],relatedTournament:"2010",
        contentMode:"stable",status:"active",availability:"always",shareable:true},
-      {id:"anec-028",category:"edition26",title:"Mbappé peut-il dépasser Pelé ?",
-       shortText:"À 27 ans en 2026, Mbappé vise déjà plusieurs records historiques.",
-       fullText:"Mbappé compte déjà 12 buts en CdM (Russie 2018, Qatar 2022) et une finale gagnée. En 2026, il peut rattraper Pelé (12 buts) et viser le top du classement (Klose 16, Ronaldo 15). À suivre selon le parcours français.",
-       tags:["mbappe","2026","record","france","pele"],year:2026,
-       relatedTeams:["FRA"],relatedPlayers:["Mbappé"],relatedTournament:"2026",
-       contentMode:"evolving",status:"active",availability:"pre_tournament",shareable:true},
-      {id:"anec-029",category:"edition26",title:"Haaland, enfin au Mondial ?",
-       shortText:"Erling Haaland n'a jamais disputé de CdM. La Norvège peut enfin y être en 2026.",
-       fullText:"Malgré son statut de superstar européenne, Haaland n'a jamais joué de Coupe du Monde : la Norvège a manqué 2018 et 2022. Les éliminatoires 2026 donnent une fenêtre historique. Un Haaland en forme + une Norvège qualifiée = scénario spectaculaire à suivre.",
+      {id:"anec-028",category:"edition26",title:"Mbappé et Messi font tomber Klose",
+       shortText:"Mondial 2026 : les 16 buts de Klose sont dépassés — Messi et Mbappé réécrivent l'histoire.",
+       fullText:"Arrivé au Mondial 2026 avec 12 buts en CdM, Mbappé en a inscrit 7 en un mois — trois doublés (Sénégal, Irak, Suède) puis le penalty décisif contre le Paraguay en 8es : 19 en carrière au 5 juillet, record de Klose (16) pulvérisé. Mais Messi a fait encore plus fort : 13 + 7 = 20 buts en carrière — nouveau recordman absolu. Et le tournoi n'est pas fini : compteurs en direct dans l'onglet Tableau.",
+       tags:["mbappe","messi","2026","record","klose"],year:2026,
+       relatedTeams:["FRA","ARG"],relatedPlayers:["Mbappé","Messi"],relatedTournament:"2026",
+       contentMode:"evolving",status:"active",availability:"always",shareable:true},
+      {id:"anec-029",category:"edition26",title:"Haaland, un premier Mondial réussi",
+       shortText:"Premier Mondial pour Haaland : 5 buts et une Norvège en 8es de finale.",
+       fullText:"Après avoir manqué 2018 et 2022 avec la Norvège, Haaland découvre enfin la Coupe du Monde en 2026 — et répond présent : doublé contre l'Irak, doublé contre le Sénégal, puis le but de la qualification contre la Côte d'Ivoire en 16es (2-1). 5 buts au moment d'affronter le Brésil en 8es de finale.",
        tags:["haaland","2026","norvege","premiere"],year:2026,
        relatedTeams:["NOR"],relatedPlayers:["Haaland"],relatedTournament:"2026",
-       contentMode:"evolving",status:"active",availability:"pre_tournament",shareable:true},
+       contentMode:"evolving",status:"active",availability:"always",shareable:true},
       {id:"anec-030",category:"legendes",title:"Garrincha, champion sans Pelé",
        shortText:"En 1962, Pelé se blesse tôt. Garrincha porte le Brésil au titre presque seul.",
        fullText:"Mondial 1962 au Chili. Pelé se blesse dès le 2e match. C'est Garrincha, l'ailier aux jambes torses, qui prend le relais : dribbles diaboliques, buts décisifs, et un 2e titre mondial pour le Brésil. Il finit co-meilleur buteur du tournoi.",
@@ -1974,23 +2006,35 @@
        fullText:"Vainqueur en 2022, Lionel Messi aurait 39 ans pendant le Mondial 2026. S'il est sélectionné, ce serait son 6e tournoi — un record — et très probablement son ultime Coupe du Monde. L'Argentine tentera de conserver son titre.",
        tags:["messi","2026","argentine","record"],year:2026,
        relatedTeams:["ARG"],relatedPlayers:["Messi"],relatedTournament:"2026",
-       contentMode:"evolving",status:"active",availability:"pre_tournament",shareable:true}
+       contentMode:"evolving",status:"active",availability:"pre_tournament",shareable:true},
+      {id:"anec-065",category:"edition26",title:"Le Paraguay fait tomber l'Allemagne",
+       shortText:"16es 2026 : l'Allemagne, impressionnante en poules (7-1), sort dès son 1er match couperet aux t.a.b.",
+       fullText:"Le choc du premier tour à élimination directe 2026. L'Allemagne avait écrasé Curaçao 7-1 et gagné son groupe ; le Paraguay s'était glissé parmi les meilleurs 3es. Résultat : 1-1 (Enciso puis Havertz), et une séance de tirs au but remportée 4-3 par les Paraguayens. La Mannschaft éliminée dès les 16es, avant de voir le Paraguay tomber avec les honneurs contre la France (0-1) en 8es.",
+       tags:["paraguay","allemagne","2026","surprise","tab"],year:2026,
+       relatedTeams:["PAR","GER"],relatedPlayers:["Havertz","Enciso"],relatedTournament:"2026",
+       contentMode:"stable",status:"active",availability:"always",shareable:true},
+      {id:"anec-066",category:"edition26",title:"Le conte de fées du Cap-Vert",
+       shortText:"1re participation, et quel parcours : 0-0 contre l'Espagne, 2e du groupe devant l'Uruguay.",
+       fullText:"Pour sa première Coupe du Monde, le Cap-Vert a écrit l'une des plus belles pages de 2026 : 0-0 contre l'Espagne d'entrée, 2-2 contre l'Uruguay, victoire 1-0 sur l'Arabie Saoudite — 2e du groupe H devant l'Uruguay, éliminé avec 2 points. En 16es, les Requins Bleus ont même poussé l'Argentine de Messi en prolongation (2-3 a.p.). Chapeau.",
+       tags:["cap-vert","2026","surprise","espagne","uruguay"],year:2026,
+       relatedTeams:["CPV","ESP","URU","ARG"],relatedPlayers:[],relatedTournament:"2026",
+       contentMode:"stable",status:"active",availability:"always",shareable:true}
     ];
 
     var RECORDS_DATA=[
       {id:"rec-001",category:"buteurs",title:"Meilleur buteur tous Mondiaux confondus",
-       label:"Buts en CdM",holder:"Miroslav Klose",holderTeam:"GER",value:"16 buts",
-       context:"Sur 4 éditions (2002 → 2014).",year:2014,
-       contentMode:"stable",status:"active",watchLevel:null,
-       shortText:"Klose a dépassé Ronaldo (15) en demi-finale 2014 contre le Brésil.",
-       fullText:"Miroslav Klose, 16 buts en CdM entre 2002 et 2014. Il a dépassé Ronaldo 'R9' (15) lors du 7-1 historique contre le Brésil en demi-finale 2014. Aucun joueur en activité n'en approche actuellement.",
+       label:"Buts en CdM",holder:"Lionel Messi",holderTeam:"ARG",value:"20 buts (au 5 juil. 2026, tournoi en cours)",
+       context:"Record de Klose (16, 2002→2014) battu pendant le Mondial 2026.",year:2026,
+       contentMode:"evolving",status:"active",watchLevel:"high",
+       shortText:"Le record historique de Klose (16) est tombé en 2026 : Messi est à 20 buts, Mbappé à 19.",
+       fullText:"Miroslav Klose détenait le record avec 16 buts (2002-2014). Il est tombé pendant le Mondial 2026 : Lionel Messi, arrivé à 13, compte 20 buts en carrière au 5 juillet (7 dans ce tournoi, dont un triplé contre l'Algérie) ; Kylian Mbappé, arrivé à 12, en compte 19 (7 aussi). Le duel continue tant que leurs équipes avancent — classement des buteurs en direct dans l'onglet Tableau.",
        shareable:true},
-      {id:"rec-002",category:"buteurs",title:"Menace 2026 : Messi peut-il atteindre Klose ?",
-       label:"Buts en CdM",holder:"Miroslav Klose (record) / Messi (13 buts)",holderTeam:"GER",
-       value:"16 → menacé par 13",context:"Messi est à 3 buts du record historique.",year:2022,
-       contentMode:"evolving",status:"watch",watchLevel:"medium",
-       shortText:"Messi (13 buts) est à 3 buts du record de Klose si l'Argentine va loin en 2026.",
-       fullText:"Lionel Messi compte 13 buts en Mondiaux après 2022. À 38 ans en 2026, il lui faut 3 buts pour égaler Klose et 4 pour devenir le recordman absolu. Un exploit possible si l'Argentine atteint les demi-finales.",
+      {id:"rec-002",category:"buteurs",title:"2026 : le duel Messi-Mbappé au sommet",
+       label:"Buts en CdM",holder:"Messi 20 · Mbappé 19 (Klose 16 dépassé)",holderTeam:"ARG",
+       value:"7 buts chacun dans ce Mondial",context:"À égalité au classement des buteurs 2026 (au 5 juillet).",year:2026,
+       contentMode:"evolving",status:"watch",watchLevel:"high",
+       shortText:"Messi et Mbappé : 7 buts chacun dans ce Mondial, et le record de Klose déjà pulvérisé.",
+       fullText:"Le scénario rêvé : Messi (39 ans, 6e Mondial) et Mbappé (27 ans) comptent chacun 7 buts au 5 juillet 2026 et dominent le classement des buteurs, loin devant Haaland et Kane (5). En carrière, Messi (20) et Mbappé (19) ont tous deux dépassé Klose (16). L'Argentine affronte l'Égypte, la France retrouve le Maroc en quart : chaque match peut faire basculer le duel.",
        shareable:true},
       {id:"rec-003",category:"finale",title:"Plus de titres mondiaux",
        label:"Coupes du monde gagnées",holder:"Brésil",holderTeam:"BRA",value:"5 titres",
@@ -2582,7 +2626,10 @@
     }
 
     var APP_CHANGELOG=[
-      {v:"v1.9.32",d:"05/07/2026",changes:"Les journaux entrent dans l'app + SIMULATEUR MINUTE PAR MINUTE. (1) 📰 LE RÉCIT : chaque match joué de la phase finale a désormais sa vraie feuille de match enrichie, construite à partir des faits extraits de 25 journaux (L'Équipe, France Football…) : récit du match, tournant, homme du match, notes des joueurs (France-Suède complet !), stats (xG, affluence, arbitre) et anecdotes (Klopp futur sélectionneur de l'Allemagne, démission de Koeman, record de cartons Pays-Bas–Maroc, panenka de Salah…). Visible sur la fiche match, sous le fil du match (fichier data/match-reports.json, mis à jour via GitHub Pages). (2) 🎬 SIMULATEUR : sur tout match À VENIR, bouton « Simuler ce match minute par minute » — le match se joue sous tes yeux (commentaire français, buts, VAR, cartons, pauses fraîcheur dans les villes chaudes, prolongation et tirs au but tireur par tireur). Le moteur utilise les forces/faiblesses réelles : notes d'équipe, forme du tournoi (buts pour/contre), buteurs réels pondérés, distribution RÉELLE des minutes de but du Mondial (les fins de match folles de 2026 pèsent leur poids) et un ajustement presse par équipe. Contrôles lecture/pause/vitesse/fin, re-simulation en 1 tap, et HISTORIQUE persistant : l'app retient tes simulations (% de victoires par équipe sur ce match). Jamais proposé sur un match déjà joué — la compétition avance, l'app aussi. Moteur générique conservé pour les prochaines apps (Ligue 1, Euro 2028…)."},
+      {v:"v1.9.35",d:"05/07/2026",changes:"Les journaux entrent dans l'app + SIMULATEUR MINUTE PAR MINUTE. (1) 📰 LE RÉCIT : chaque match joué de la phase finale a désormais sa vraie feuille de match enrichie, construite à partir des faits extraits de 25 journaux (L'Équipe, France Football…) : récit du match, tournant, homme du match, notes des joueurs (France-Suède complet !), stats (xG, affluence, arbitre) et anecdotes (Klopp futur sélectionneur de l'Allemagne, démission de Koeman, record de cartons Pays-Bas–Maroc, panenka de Salah…). Visible sur la fiche match, sous le fil du match (fichier data/match-reports.json, mis à jour via GitHub Pages). (2) 🎬 SIMULATEUR : sur tout match À VENIR, bouton « Simuler ce match minute par minute » — le match se joue sous tes yeux (commentaire français, buts, VAR, cartons, pauses fraîcheur dans les villes chaudes, prolongation et tirs au but tireur par tireur). Le moteur utilise les forces/faiblesses réelles : notes d'équipe, forme du tournoi (buts pour/contre), buteurs réels pondérés, distribution RÉELLE des minutes de but du Mondial (les fins de match folles de 2026 pèsent leur poids) et un ajustement presse par équipe. Contrôles lecture/pause/vitesse/fin, re-simulation en 1 tap, et HISTORIQUE persistant : l'app retient tes simulations (% de victoires par équipe sur ce match). Jamais proposé sur un match déjà joué — la compétition avance, l'app aussi. Moteur générique conservé pour les prochaines apps (Ligue 1, Euro 2028…)."},
+      {v:"v1.9.34",d:"05/07/2026",changes:"La SIMULATION suit enfin le vrai tournoi (retour d'usage : elle affichait des enormites du type « Republique tcheque 1re du groupe A » alors qu'on est deja en 8es !). Desormais : (1) les groupes reellement termines sont importes depuis les resultats OFFICIELS et verrouilles 🔒 — impossible de choisir d'autres qualifies ; (2) les 8 meilleurs 3es sont les vrais qualifies officiels, plus une selection manuelle ; (3) les matchs a elimination deja joues (16es, 8es...) affichent les VRAIES affiches et leurs vainqueurs officiels verrouilles 🔒 — on ne re-simule jamais le passe ; (4) la « Simulation auto » ne tire au sort QUE les matchs restants (le futur), en partant de l'etat reel du tableau ; (5) un bandeau « 📡 Synchronise avec le vrai tournoi » indique combien de matchs sont actes ; (6) le bouton Reinitialiser re-synchronise au lieu de ramener un passe fantaisiste, et le compteur « 36/24 » est corrige. La simulation reste un jeu pour pronostiquer LA SUITE — plus jamais une machine a reecrire l'histoire."},
+      {v:"v1.9.33",d:"05/07/2026",changes:"L'app se met à l'heure du VRAI tournoi (analyse complète au 5 juillet). (1) CLASSEMENT DES 3ES DE RETOUR « pour mémoire » : masqué brutalement en phase finale par la v1.9.32, il est désormais conservé dans un volet repliable sous le tableau — classement final figé, avec les 8 qualifiés ✔ réels (affectation officielle) et les éliminés. (2) QUIZ À JOUR : 12 nouvelles questions (mode Libre) + 10 (mode Chrono) sur les faits marquants RÉELS du Mondial en cours — le Paraguay qui sort l'Allemagne aux t.a.b., le Maroc tombeur des Pays-Bas puis du Canada (3-0), le conte de fées du Cap-Vert (0-0 contre l'Espagne, 2e devant l'Uruguay), les triplés de Messi (Algérie), Dembélé (Norvège) et Jonathan David (Qatar), la remontada belge contre le Sénégal, France-Maroc en quart (remake 2022)… (3) FICHES JOUEURS : nouvel encart « 🏆 Mondial 2026 — en cours » avec les buts RÉELS du joueur dans le tournoi (dont pénaltys), calculés automatiquement depuis les résultats officiels — aucun décalage possible avec la réalité. (4) PRONOS/SIMULATION : l'algorithme intègre désormais la forme RÉELLE du tournoi (résultats officiels, bonus/malus jusqu'à ±14%) et les « notes presse » des effectifs (moyenne des 5 meilleures notes, barème Ballon d'Or) — une équipe qui cartonne comme le Maroc pèse plus lourd qu'avant dans les simulations. (5) RECORDS & ANECDOTES ACTUALISÉS : le record de Klose (16 buts) est tombé — Messi (20) et Mbappé (19) l'ont dépassé pendant ce Mondial, fiches records mises à jour ; anecdotes Haaland (5 buts pour son 1er Mondial) et Mbappé réécrites au présent ; 2 nouvelles anecdotes (Paraguay-Allemagne, Cap-Vert)."},
+      {v:"v1.9.32",d:"05/07/2026",changes:"Le TABLEAU FINAL ressemble enfin à un vrai tableau (retour d'usage : « ça ne ressemble à rien »). Avant : de longues listes de cartes empilées par tour, séparées par un gros « Classement des 3es » — impossible de suivre le fil d'un tour à l'autre. Désormais c'est un VRAI arbre de bracket, à l'horizontale, avec des traits qui relient chaque affiche à la suivante : 16es → 8es → quarts → demies → 🏆 Finale (dorée) au bout. On fait défiler latéralement jusqu'à la finale. Chaque case reste une affiche cliquable (drapeau + nom + score, vainqueur ✔ en vert, perdant grisé, t.a.b. indiqués, date FR). Et le « Classement des meilleurs 3es » disparaît automatiquement dès que la phase à élimination directe est lancée : au stade des quarts, il n'a plus aucun intérêt et n'encombre plus le tableau (il ne s'affiche que pendant la phase de groupes, quand il sert vraiment)."},
       {v:"v1.9.31",d:"05/07/2026",changes:"Tableau final enfin lisible (retour d'usage : « qui rencontre qui ? »). Les cartes du bracket étaient minuscules (4 par ligne, texte 8-9px), sans scores ni indication du qualifié. Refonte complète : cartes 2 fois plus larges (2 par ligne), chaque équipe sur sa ligne avec drapeau + nom + SCORE, le vainqueur en vert/gras avec ✔ et le perdant grisé (éliminé), tirs au but affichés sous le score (🥅 t.a.b.), en-tête de carte avec numéro du match (M1…M16, 8e-1…8e-8, QF1…QF4) et date/heure FR ou « ✅ Terminé ». Un encart « 💡 Comment lire » explique la logique (le vainqueur avance, « Vainq. M5 » = gagnant du match M5), chaque tour affiche ses dates (16es 28 juin→3 juil, 8es 4→7 juil, quarts 9→11 juil, demis 14→15 juil) et une phrase de liaison vers le tour suivant. Les cases vides indiquent clairement « ⏳ Meilleur 3e » ou « ⏳ 1er Gr.E » au lieu d'un cryptique « 3e ». Tape une carte pour ouvrir le détail du match."},
       {v:"v1.9.30",d:"30/06/2026",changes:"Prolongations & tirs au but enfin indiqués (élimination directe). Un match nul à la fin du jeu décidé aux penaltys (ex. Allemagne–Paraguay) affichait un score faux du type « 5–6 » : la source de données (football-data) ADDITIONNE la séance de tirs au but au score du match (1–1 a.p. + t.a.b. 4–5 = 5–6 affiché), sans aucune mention. Désormais on sépare proprement : le score affiché est celui du JEU (90'/120', ici 1–1) et la séance de tirs au but est indiquée à part (« 🥅 Tirs au but 4–5 · vainqueur : … »), ainsi que la mention « ⏱ après prolongation » quand il y a prolongation sans penaltys. Visible sur la fiche match, les cartes de la liste et le bloc « Matchs du jour ». Le bon qualifié avance dans le tableau final même quand le match s'est joué aux tirs au but (avant, un 1–1 pouvait bloquer ou désigner le mauvais qualifié). S'applique automatiquement aux prochains matchs à élimination directe — et corrige rétroactivement les matchs déjà joués au prochain rafraîchissement des scores."},
       {v:"v1.9.29",d:"27/06/2026",changes:"Infirmerie & données joueurs corrigées (retours d'usage). (1) Un joueur RÉTABLI n'est plus affiché comme blessé : Koundé, Saliba, Manu Koné, Mbappé (et Yamal, Valverde…) sont opérationnels depuis le début du tournoi — leur date de retour étant passée, le badge « blessé » disparaît partout (fiche équipe, fiche joueur). (2) Le nombre de sélections n'affiche plus un « 0 » trompeur quand la donnée manque (cas de beaucoup de joueurs dont les caps n'ont pas été renseignés, ex. Maxence Lacroix) : on indique « — » / « sél. n.c. » au lieu d'asséner un faux zéro."},
@@ -2632,7 +2679,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.32 — Récits de presse sur les fiches match + simulateur minute par minute · 5 juillet 2026";
+    var APP_VERSION="v1.9.35 — Récits de presse sur les fiches match + simulateur minute par minute · 5 juillet 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -3908,6 +3955,32 @@
         cs.forEach(function(c){ if(c.c==="R") r++; else y++; });
       });
       return {y:y, r:r};
+    }
+    // ⚽ v1.9.32 — Stats Mondial 2026 d'UN joueur, agrégées automatiquement
+    // depuis les faits de jeu du flux officiel (aucune saisie manuelle).
+    // Rapprochement de noms tolérant (accents/casse/traits d'union), car la
+    // source écrit parfois différemment (ex. « Krejcí » vs « Krejčí »).
+    function _normPlayerName(s){
+      s=(s||"").toLowerCase();
+      try{s=s.normalize("NFD").replace(/[\u0300-\u036f]/g,"")}catch(e){}
+      return s.replace(/[^a-z ]/g," ").replace(/\s+/g," ").trim();
+    }
+    function tournamentPlayerStats(teamId, playerName){
+      var target=_normPlayerName(playerName), out={g:0,pen:0,matches:[]};
+      if(!target)return out;
+      if(typeof MATCHES!=="undefined" && MATCHES) MATCHES.forEach(function(m){
+        var gs=m._live&&m._live.goals; if(!gs)return;
+        gs.forEach(function(g){
+          if(g.type==="CSC")return; // un csc n'est pas un but du joueur
+          var team=g.t===1?m.t1:m.t2; if(team!==teamId)return;
+          var n=_normPlayerName(g.n);
+          if(n===target||(n.length>3&&(target.indexOf(n)>=0||n.indexOf(target)>=0))){
+            out.g++; if(g.type==="P")out.pen++;
+            if(out.matches.indexOf(m.id)<0)out.matches.push(m.id);
+          }
+        });
+      });
+      return out;
     }
 
     // Re-render léger si on est sur une vue qui montre les amicaux
@@ -7970,6 +8043,17 @@
 
 
     var QUIZ=[
+    // ── Mondial 2026 EN COURS — faits acquis (phase de groupes + 16es), v1.9.32 ──
+    {q:"Qui a elimine l'Allemagne des les 16es de finale du Mondial 2026 ?",a:["Paraguay","Uruguay","Japon","Suisse"],c:0,cat:"Mondial2026"},
+    {q:"Quelle equipe le Maroc a-t-il sortie aux tirs au but en 16es de finale 2026 ?",a:["Pays-Bas","Belgique","Espagne","Portugal"],c:0,cat:"Mondial2026"},
+    {q:"Contre quelle equipe Messi a-t-il signe un triple en phase de groupes 2026 ?",a:["Algerie","Autriche","Jordanie","Cap-Vert"],c:0,cat:"Mondial2026"},
+    {q:"Quel Francais a inscrit un triple en 1re mi-temps contre la Norvege (4-1) en 2026 ?",a:["Ousmane Dembele","Kylian Mbappe","Bradley Barcola","Desire Doue"],c:0,cat:"Mondial2026"},
+    {q:"Quel match de la phase de groupes 2026 a ete le plus prolifique avec 8 buts ?",a:["Allemagne-Curacao","Canada-Qatar","Suede-Tunisie","Pays-Bas-Suede"],c:0,cat:"Mondial2026"},
+    {q:"Quel petit poucet a tenu l'Espagne en echec (0-0) et fini 2e de son groupe devant l'Uruguay en 2026 ?",a:["Cap-Vert","Curacao","Haiti","Jordanie"],c:0,cat:"Mondial2026"},
+    {q:"Quel attaquant canadien a signe un triple lors du 6-0 contre le Qatar en 2026 ?",a:["Jonathan David","Cyle Larin","Alphonso Davies","Tajon Buchanan"],c:0,cat:"Mondial2026"},
+    {q:"Menee 0-2 par le Senegal en 16es 2026, quelle equipe s'est imposee 3-2 apres prolongation ?",a:["Belgique","Angleterre","Suisse","Colombie"],c:0,cat:"Mondial2026"},
+    {q:"Qui l'Egypte a-t-elle elimine aux tirs au but en 16es de finale 2026 ?",a:["Australie","Argentine","Suisse","Colombie"],c:0,cat:"Mondial2026"},
+    {q:"Quel pays hote a ete balaye 3-0 par le Maroc en 8es de finale 2026 ?",a:["Canada","Mexique","Etats-Unis","Panama"],c:0,cat:"Mondial2026"},
     {q:"Quel pays detient le record de victoires en Coupe du Monde ?",a:["Bresil","Allemagne","Italie","Argentine"],c:0,cat:"Histoire"},
     {q:"Quel pays a perdu le plus de finales de Coupe du Monde ?",a:["Allemagne","Argentine","Pays-Bas","Bresil"],c:2,cat:"Histoire"},
     {q:"En quelle annee la France a-t-elle remporte son premier titre mondial ?",a:["1998","1986","2002","1994"],c:0,cat:"Histoire"},
@@ -8493,8 +8577,74 @@
      explanation:"Edition 2026, du 11 juin au 19 juillet.",
      tags:["annee"],era:"2026",status:"active",questionType:"stable",availability:"always"},
 
+    // ==================== MONDIAL 2026 EN COURS (v1.9.32) ====================
+    // Faits ACQUIS du tournoi reel (groupes termines + 16es joues au 5 juillet).
+    // Verifies contre le flux officiel de resultats — ces faits ne changeront plus.
+    {id:"w26_101",category:"mondial_2026",difficulty:"easy",
+     question:"Qui a elimine l'Allemagne des les 16es de finale du Mondial 2026 ?",
+     choices:["Le Paraguay","L'Uruguay","Le Japon","La Suisse"],answerIndex:0,
+     explanation:"1-1 puis 4-3 aux tirs au but : l'enorme surprise du premier tour a elimination directe, alors que l'Allemagne avait ecrase Curacao 7-1 en poules.",
+     tags:["allemagne","paraguay","16es","surprise"],era:"2026",status:"active",questionType:"stable",availability:"always"},
+    {id:"w26_102",category:"mondial_2026",difficulty:"medium",
+     question:"Quelle equipe le Maroc a-t-il sortie aux tirs au but en 16es de finale 2026 ?",
+     choices:["Les Pays-Bas","La Belgique","Le Portugal","L'Espagne"],answerIndex:0,
+     explanation:"1-1 puis 3-2 aux tirs au but face aux Pays-Bas. Le Maroc a ensuite balaye le Canada 3-0 en 8es pour rejoindre les quarts.",
+     tags:["maroc","pays-bas","16es"],era:"2026",status:"active",questionType:"stable",availability:"always"},
+    {id:"w26_103",category:"mondial_2026",difficulty:"easy",
+     question:"Contre quelle equipe Lionel Messi a-t-il signe un triple en phase de groupes 2026 ?",
+     choices:["L'Algerie","L'Autriche","La Jordanie","Le Cap-Vert"],answerIndex:0,
+     explanation:"Triple (17e, 60e, 76e) lors du 3-0 contre l'Algerie en ouverture du groupe J. A 39 ans, pour son 6e Mondial — record.",
+     tags:["messi","triple","argentine"],era:"2026",status:"active",questionType:"stable",availability:"always"},
+    {id:"w26_104",category:"mondial_2026",difficulty:"medium",
+     question:"Quel joueur francais a inscrit un triple en premiere mi-temps contre la Norvege (4-1) en phase de groupes 2026 ?",
+     choices:["Ousmane Dembele","Kylian Mbappe","Bradley Barcola","Desire Doue"],answerIndex:0,
+     explanation:"Dembele frappe aux 7e, 20e et 32e minutes — triple boucle avant la pause. Doue ajoutera le 4e but dans le temps additionnel.",
+     tags:["dembele","france","triple"],era:"2026",status:"active",questionType:"stable",availability:"always"},
+    {id:"w26_105",category:"mondial_2026",difficulty:"easy",
+     question:"Quel match de la phase de groupes 2026 a ete le plus prolifique avec 8 buts ?",
+     choices:["Allemagne-Curacao (7-1)","Canada-Qatar (6-0)","Suede-Tunisie (5-1)","Pays-Bas-Suede (5-1)"],answerIndex:0,
+     explanation:"7-1 pour l'Allemagne avec un double de Havertz. Ironie du sort : la Mannschaft sera eliminee des les 16es par le Paraguay.",
+     tags:["allemagne","curacao","record"],era:"2026",status:"active",questionType:"stable",availability:"always"},
+    {id:"w26_106",category:"mondial_2026",difficulty:"medium",
+     question:"Quel petit poucet a tenu l'Espagne en echec (0-0) et termine 2e de son groupe devant l'Uruguay en 2026 ?",
+     choices:["Le Cap-Vert","Curacao","Haiti","La Jordanie"],answerIndex:0,
+     explanation:"Le Cap-Vert, 1re participation : nul contre l'Espagne, 2e du groupe H devant l'Uruguay (elimine avec 2 points), puis prolongation arrachee a l'Argentine en 16es.",
+     tags:["cap-vert","espagne","surprise"],era:"2026",status:"active",questionType:"stable",availability:"always"},
+    {id:"w26_107",category:"mondial_2026",difficulty:"medium",
+     question:"Quel attaquant canadien a signe un triple lors du 6-0 contre le Qatar en 2026 ?",
+     choices:["Jonathan David","Cyle Larin","Alphonso Davies","Tajon Buchanan"],answerIndex:0,
+     explanation:"Triple de Jonathan David (29e, 45+3e, 90+2e) dans la plus large victoire du Canada en Coupe du Monde.",
+     tags:["canada","david","triple"],era:"2026",status:"active",questionType:"stable",availability:"always"},
+    {id:"w26_108",category:"mondial_2026",difficulty:"hard",
+     question:"Menee 0-2 face au Senegal en 16es de finale 2026, quelle equipe s'est imposee 3-2 apres prolongation ?",
+     choices:["La Belgique","L'Angleterre","La Suisse","La Colombie"],answerIndex:0,
+     explanation:"Lukaku (86e) et Tielemans (89e) arrachent la prolongation, puis Tielemans transforme un penalty a la 120+5e. Renversement historique.",
+     tags:["belgique","senegal","remontada"],era:"2026",status:"active",questionType:"stable",availability:"always"},
+    {id:"w26_109",category:"mondial_2026",difficulty:"medium",
+     question:"Qui l'Egypte a-t-elle elimine aux tirs au but en 16es de finale 2026 ?",
+     choices:["L'Australie","L'Argentine","La Suisse","La Colombie"],answerIndex:0,
+     explanation:"1-1 puis 4-2 aux tirs au but contre l'Australie. L'Egypte defie ensuite l'Argentine en 8es de finale.",
+     tags:["egypte","australie","tab"],era:"2026",status:"active",questionType:"stable",availability:"always"},
+    {id:"w26_110",category:"mondial_2026",difficulty:"easy",
+     question:"Quel pays hote a ete balaye 3-0 par le Maroc en 8es de finale 2026 ?",
+     choices:["Le Canada","Le Mexique","Les Etats-Unis","Le Panama"],answerIndex:0,
+     explanation:"Double d'Ounahi et but de Rahimi : le Canada, tombeur de l'Afrique du Sud en 16es, est nettement domine. Le Maroc file en quarts.",
+     tags:["maroc","canada","8es"],era:"2026",status:"active",questionType:"stable",availability:"always"},
+    {id:"w26_111",category:"mondial_2026",difficulty:"medium",
+     question:"Quelle affiche des quarts de finale 2026 est un remake de la demi-finale 2022 ?",
+     choices:["France-Maroc","Argentine-Croatie","France-Belgique","Espagne-Portugal"],answerIndex:0,
+     explanation:"La France (tombeuse du Paraguay) et le Maroc (tombeur du Canada) se retrouvent en quart, quatre ans apres la demi-finale de Doha gagnee 2-0 par les Bleus.",
+     tags:["france","maroc","quart"],era:"2026",status:"active",questionType:"stable",availability:"always"},
+    {id:"w26_112",category:"mondial_2026",difficulty:"hard",
+     question:"Combien de buts la France a-t-elle inscrits pendant sa phase de groupes 2026 ?",
+     choices:["10","6","8","12"],answerIndex:0,
+     explanation:"3-1 contre le Senegal, 3-0 contre l'Irak et 4-1 contre la Norvege : 10 buts, meilleure attaque des poules a egalite avec l'Allemagne et les Pays-Bas.",
+     tags:["france","groupes","attaque"],era:"2026",status:"active",questionType:"stable",availability:"always"},
+
     // ==================== EVOLVING TEMPLATES ====================
     // Pre-filled inactive templates: flip status to "active" once you fill in the real choices
+    // NB v1.9.32 : le template "buteur en tete" reste inactif — Messi et Mbappe
+    // sont a egalite (7 buts chacun au 5 juillet), la question serait ambigue.
     {id:"w26_buteur_in",category:"mondial_2026",difficulty:"easy",
      question:"Qui est actuellement en tete du classement des buteurs du Mondial 2026 ?",
      choices:["[A completer]","[B]","[C]","[D]"],answerIndex:0,
@@ -9384,12 +9534,97 @@
       document.body.appendChild(el);
     }
 
+    // ═══ v1.9.34 — LA SIMULATION SUIT LE VRAI TOURNOI ═══════════════════
+    // Les étapes déjà jouées (groupes, 16es, 8es…) sont importées depuis les
+    // résultats OFFICIELS et verrouillées 🔒 : impossible d'inventer un passé
+    // alternatif (ex. « République tchèque 1re du groupe A »). On ne
+    // pronostique QUE les matchs restants.
+    // Mapping créneau simulation → id du vrai match (grille FIFA officielle,
+    // cohérent avec KO_SLOTS et r16pairs) :
+    var SIM_REAL_MATCH={r1:73,r2:76,r3:74,r4:75,r5:78,r6:77,r7:79,r8:80,r9:84,r10:83,r11:85,r12:88,r13:86,r14:87,r15:82,r16:81,
+      h0:89,h1:90,h2:91,h3:92,h4:93,h5:94,h6:95,h7:96,q0:97,q1:98,q2:99,q3:100,s0:101,s1:102,"final":104};
+    function _simRealMatch(slot){
+      var id=SIM_REAL_MATCH[slot]; if(!id)return null;
+      for(var i=0;i<MATCHES.length;i++)if(MATCHES[i].id===id)return MATCHES[i];
+      return null;
+    }
+    function _realKOWinnerOf(m){
+      if(!m||!m.t1||!m.t2||m.t1==="TBD"||m.t2==="TBD"||m.s1==null||m.s2==null)return null;
+      if(m.s1>m.s2)return m.t1; if(m.s2>m.s1)return m.t2;
+      var p1=(m.pen1!=null?m.pen1:(m._live&&m._live.pen1!=null?m._live.pen1:null));
+      var p2=(m.pen2!=null?m.pen2:(m._live&&m._live.pen2!=null?m._live.pen2:null));
+      if(p1!=null&&p2!=null&&p1!==p2)return p1>p2?m.t1:m.t2;
+      return null;
+    }
+    // {créneau: vainqueur} pour tous les matchs à élimination déjà joués
+    function realityLockedSlots(){
+      var out={};
+      Object.keys(SIM_REAL_MATCH).forEach(function(slot){
+        var w=_realKOWinnerOf(_simRealMatch(slot)); if(w)out[slot]=w;
+      });
+      return out;
+    }
+    function _realGroupsDone(){
+      var done=true;
+      ["A","B","C","D","E","F","G","H","I","J","K","L"].forEach(function(g){
+        try{ if(!_realGroupTable(g).complete)done=false }catch(e){done=false}
+      });
+      return done;
+    }
+    function syncSimWithReality(){
+      try{
+        if(!V.simPicks)V.simPicks={};
+        if(!V.simKO)V.simKO={};
+        var r32real=MATCHES.filter(function(m){return m.st==="16e de finale"&&m.t1&&m.t1!=="TBD"});
+        var inR32={}; r32real.forEach(function(m){inR32[m.t1]=1;inR32[m.t2]=1});
+        // 1. Groupes réels terminés → picks forcés aux qualifiés officiels.
+        //    Le 3e retenu est celui qui a RÉELLEMENT disputé un 16e (affiches
+        //    officielles), à défaut le 3e du classement calculé.
+        ["A","B","C","D","E","F","G","H","I","J","K","L"].forEach(function(g){
+          var t=_realGroupTable(g); if(!t.complete)return;
+          var first=t.order[0].id, second=t.order[1].id;
+          var third=null;
+          t.order.forEach(function(row,i){ if(i>=2&&!third&&inR32[row.id])third=row.id });
+          if(!third)third=t.order[2]?t.order[2].id:null;
+          var real=[first,second,third];
+          var cur=V.simPicks[g]||[];
+          if(cur[0]!==real[0]||cur[1]!==real[1]||cur[2]!==real[2])V.simPicks[g]=real;
+        });
+        // 2. Les 8 vrais 3es qualifiés = équipes des 16es qui ne sont ni 1res ni 2es
+        if(_realGroupsDone()&&r32real.length===16){
+          var fs={};
+          ["A","B","C","D","E","F","G","H","I","J","K","L"].forEach(function(g){
+            var t=_realGroupTable(g); fs[t.order[0].id]=1; fs[t.order[1].id]=1;
+          });
+          var q3=[]; r32real.forEach(function(m){[m.t1,m.t2].forEach(function(id){
+            if(!fs[id]&&q3.indexOf(id)<0)q3.push(id);
+          })});
+          if(q3.length===8)V.sim3rd=q3;
+        }
+        // 3. Matchs à élimination déjà joués → vainqueurs officiels verrouillés
+        var locked=realityLockedSlots();
+        Object.keys(locked).forEach(function(k){ V.simKO[k]=locked[k] });
+        V.simLocked=locked;
+      }catch(e){}
+    }
+
     function rSimul(){
+      try{ syncSimWithReality(); }catch(e){}
+      var _lk=V.simLocked||{};
+      var _lockedCount=Object.keys(_lk).length;
       var h='<div class="sec">🎮 Pronostic — Tableau officiel FIFA</div>';
+      if(_lockedCount>0){
+        h+='<div style="background:linear-gradient(135deg,rgba(46,160,67,.15),rgba(46,160,67,.05));border:1.5px solid rgba(46,160,67,.5);border-radius:12px;padding:10px 12px;margin-bottom:10px;display:flex;gap:10px;align-items:center">';
+        h+='<div style="font-size:20px">📡</div>';
+        h+='<div style="flex:1"><div style="font-size:12px;font-weight:800;color:var(--g)">Synchronisé avec le vrai tournoi</div>';
+        h+='<div style="font-size:10px;color:var(--t2);line-height:1.4">Groupes et matchs déjà joués = résultats officiels 🔒 ('+_lockedCount+' match'+(_lockedCount>1?'s':'')+' acté'+(_lockedCount>1?'s':'')+'). Tu ne pronostiques que la suite du tableau.</div></div>';
+        h+='</div>';
+      }
 
       // v1.058 — Encart "Fais tes pronos des 3 journées" si peu/pas de pronos saisis
       var grStats=getGroupsPronosFilledPct();
-      if(grStats.filled<grStats.total){
+      var _groupsReal=_realGroupsDone();
+      if(!_groupsReal&&grStats.filled<grStats.total){
         var pctMsg=grStats.filled===0?'Tu n\'as pas encore fait de pronos.':
                    'Tu as rempli '+grStats.filled+'/'+grStats.total+' matchs des 3 journées de groupe.';
         var btnLabel=grStats.filled===0?'🎯 Faire mes pronostics':'🎯 Continuer mes pronos';
@@ -9400,7 +9635,7 @@
         h+='<div style="font-size:10px;color:var(--t2);line-height:1.35">'+pctMsg+' Tu peux pronostiquer les 3 journées et revenir ici pour une simulation auto-remplie.</div></div></div>';
         h+='<button onclick="go(\'prono\')" style="width:100%;padding:9px;background:rgba(70,130,255,0.25);color:#8ab4ff;border:1px solid rgba(70,130,255,0.6);border-radius:8px;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit">'+btnLabel+'</button>';
         h+='</div>';
-      } else if(grStats.filled===grStats.total){
+      } else if(!_groupsReal&&grStats.filled===grStats.total){
         // 100% rempli → petit badge d'info + bouton pour réimporter les pronos (utile si on a modifié)
         h+='<div style="background:var(--s1);border:1px solid var(--g);border-radius:10px;padding:9px 12px;margin-bottom:10px;display:flex;align-items:center;gap:8px">';
         h+='<div style="font-size:18px">✅</div>';
@@ -9421,7 +9656,7 @@
 
       h+='<div onclick="V.simStep1=!V.simStep1;render()" style="padding:12px;background:var(--s1);border:1px solid '+(allDone?'var(--g)':'var(--s3)')+';border-radius:12px;margin-bottom:8px;cursor:pointer;display:flex;justify-content:space-between;align-items:center">';
       h+='<span style="font-size:13px;font-weight:800">'+(allDone?'✅':'1️⃣')+' Groupes — qualifies</span>';
-      h+='<span style="font-size:11px;color:'+(allDone?'var(--g)':'var(--am)')+';font-weight:700">'+totalPicked+'/24</span></div>';
+      h+='<span style="font-size:11px;color:'+(allDone?'var(--g)':'var(--am)')+';font-weight:700">'+Math.min(totalPicked,24)+'/24</span></div>';
 
       if(!allDone||V.simStep1){
         Object.keys(groups).sort().forEach(function(g){
@@ -9527,6 +9762,12 @@
         {id:"r15",a:W["G"],b:pick3(["A","E","H","I","J"]),label:"1G vs 3e",round:"R32"},
         {id:"r16",a:W["D"],b:pick3(["B","E","F","I","J"]),label:"1D vs 3e",round:"R32"}
       ];
+      // v1.9.34 — affiches RÉELLES pour les créneaux déjà connus du vrai
+      // tableau (16es officiels) : plus d'appariements inventés.
+      bracket.forEach(function(bm){
+        var rm=_simRealMatch(bm.id);
+        if(rm&&rm.t1&&rm.t1!=="TBD"&&rm.t2&&rm.t2!=="TBD"){bm.a=rm.t1;bm.b=rm.t2}
+      });
 
         // v1.9.14 — Arbre conforme au bracket officiel FIFA 2026 (M89-M102).
         // Les 8es ne s'obtiennent PAS en appariant les 16es consécutifs (M1+M2…),
@@ -9554,12 +9795,19 @@
         var a=V.simKO[qf[p[0]].id],b=V.simKO[qf[p[1]].id];
         sf.push({id:"s"+i,a:a||"?",b:b||"?",ready:!!a&&!!b,label:"DF"+(i+1),round:"SF"});
       });
+      // v1.9.34 — affiches RÉELLES (8es, quarts, demies) dès qu'elles sont
+      // officielles : le vrai tableau prime sur les picks.
+      [r16,qf,sf].forEach(function(round){round.forEach(function(m){
+        var rm=_simRealMatch(m.id);
+        if(rm&&rm.t1&&rm.t1!=="TBD"&&rm.t2&&rm.t2!=="TBD"){m.a=rm.t1;m.b=rm.t2;m.ready=true}
+      })});
 
         function brTeam(id,mid,clickable){
         if(!id||id==="?")return'<div style="flex:1;min-width:0;padding:6px;background:var(--s2);border-radius:6px;font-size:10px;color:var(--t2);text-align:center;height:32px;display:flex;align-items:center;justify-content:center">?</div>';
         var won=V.simKO[mid]===id;
-        var canClick=clickable&&id!=="?";
-        return'<div onclick="'+(canClick?"event.stopPropagation();pickKO(&#39;"+mid+"&#39;,&#39;"+id+"&#39;)":"")+'" style="flex:1;min-width:0;display:flex;align-items:center;gap:3px;padding:4px 6px;height:32px;background:'+(won?'var(--gw)':'var(--s2)')+';border:1.5px solid '+(won?'var(--g)':'transparent')+';border-radius:6px;cursor:'+(canClick?'pointer':'default')+';overflow:hidden">'+flagImg(id,14)+'<span style="font-size:9px;font-weight:'+(won?'800':'500')+';white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+getTeam(id).name+'</span>'+(won?'<span style="font-size:8px;color:var(--g)">✓</span>':'')+'</div>';
+        var _lockd=!!(V.simLocked&&V.simLocked[mid]); // v1.9.34 — déjà joué
+        var canClick=clickable&&id!=="?"&&!_lockd;
+        return'<div onclick="'+(canClick?"event.stopPropagation();pickKO(&#39;"+mid+"&#39;,&#39;"+id+"&#39;)":"")+'" style="flex:1;min-width:0;display:flex;align-items:center;gap:3px;padding:4px 6px;height:32px;background:'+(won?'var(--gw)':'var(--s2)')+';border:1.5px solid '+(won?'var(--g)':'transparent')+';border-radius:6px;cursor:'+(canClick?'pointer':'default')+';overflow:hidden">'+flagImg(id,14)+'<span style="font-size:9px;font-weight:'+(won?'800':'500')+';white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+getTeam(id).name+'</span>'+(won?'<span style="font-size:8px;color:var(--g)">'+(_lockd?'🔒':'✓')+'</span>':'')+'</div>';
       }
 
       function brBranch(r32a,r32b,r16m,qfm,side){
@@ -10109,6 +10357,28 @@
     function tierWeight(t){return t===1?3:(t===2?2:(t===3?1:0.5))}
 
     function autoSimulate(){
+      // v1.9.34 — la simulation SUIT le vrai tournoi : on importe d'abord les
+      // résultats officiels ; les matchs déjà joués ne sont JAMAIS re-simulés.
+      try{ syncSimWithReality(); }catch(e){}
+      var _lk=V.simLocked||{};
+      // v1.9.32 — caches locaux à la simulation (recalculés à chaque run) :
+      // forme RÉELLE dans le tournoi et « note presse » de l'effectif.
+      // Déclarés en tête pour être disponibles dès le remplissage des groupes.
+      var _tfC={},_stC={};
+      function _tf(id){
+        if(!(id in _tfC))_tfC[id]=(typeof tournamentForm==="function")?tournamentForm(id):0;
+        return _tfC[id];
+      }
+      function _stars(id){
+        if(!(id in _stC)){
+          var t=getTeam(id),arr=[];
+          if(t&&t.players)t.players.forEach(function(pl){try{arr.push(computePlayerRating(pl,id).overall||0)}catch(e){}});
+          arr.sort(function(x,y){return y-x});
+          var top=arr.slice(0,5);
+          _stC[id]=top.length?top.reduce(function(s,v){return s+v},0)/top.length:75;
+        }
+        return _stC[id];
+      }
       // Keep existing group picks, only fill empty ones
       var groups={};TEAMS.forEach(function(t){if(!groups[t.group])groups[t.group]=[];groups[t.group].push(t)});
       if(!V.simPicks)V.simPicks={};
@@ -10127,11 +10397,12 @@
         } else {
           // Auto-fill this group
           var ts=groups[g].slice();
-          // Tri pondéré : classe de favori + rank, avec aléa modéré
-          // (une classe 4 peut créer la surprise sur UN match, pas finir 1re devant un favori)
+          // Tri pondéré : classe de favori + rank + forme RÉELLE du tournoi
+          // (v1.9.32), avec aléa modéré (une classe 4 peut créer la surprise
+          // sur UN match, pas finir 1re devant un favori)
           ts.sort(function(a,b){
-            var sa=a.rank-tierWeight(teamTier(a.id))*12+Math.random()*20-10;
-            var sb=b.rank-tierWeight(teamTier(b.id))*12+Math.random()*20-10;
+            var sa=a.rank-tierWeight(teamTier(a.id))*12-_tf(a.id)*2+Math.random()*20-10;
+            var sb=b.rank-tierWeight(teamTier(b.id))*12-_tf(b.id)*2+Math.random()*20-10;
             return sa-sb;
           });
           V.simPicks[g]=[ts[0].id,ts[1].id,ts[2].id];
@@ -10169,6 +10440,12 @@
         var pA=wa/(wa+wb);
         // Affinage par rank FIFA (départage au sein d'une même classe)
         pA+=(rb-ra)*0.004;
+        // v1.9.32 — Forme RÉELLE du tournoi en cours (résultats officiels,
+        // -6 à +6) : une équipe qui cartonne part avec un bonus, max ±14%.
+        pA+=(_tf(a)-_tf(b))*0.012;
+        // v1.9.32 — « Notes presse » : moyenne des 5 meilleures notes de
+        // l'effectif (barème calé sur le Ballon d'Or). Écart max ~±6%.
+        pA+=(_stars(a)-_stars(b))*0.003;
         // Surprises possibles mais bornées — de moins en moins en avançant,
         // et plafond relevé selon l'écart de classe (un classe 1 vs classe 4
         // gagne ~95%, pas 78%)
@@ -10185,34 +10462,36 @@
       }
 
       // R32
-      bracket.forEach(function(m){V.simKO[m.id]=pickWinner(m.a,m.b,"r32")});
+      bracket.forEach(function(m){V.simKO[m.id]=_lk[m.id]||pickWinner(m.a,m.b,"r32")});
       // R16 — arbre officiel FIFA 2026 (cf. r16pairs dans rBracket)
       var r16=[];[[2,5],[0,3],[1,4],[6,7],[9,8],[15,14],[12,11],[10,13]].forEach(function(p,i){
         var a=V.simKO[bracket[p[0]].id],b=V.simKO[bracket[p[1]].id];
-        var mid="h"+i;r16.push(mid);V.simKO[mid]=pickWinner(a,b,"r16");
+        var mid="h"+i;r16.push(mid);V.simKO[mid]=_lk[mid]||pickWinner(a,b,"r16");
       });
       // QF — M97=h0×h1, M98=h4×h5, M99=h2×h3, M100=h6×h7
       var qfIds=[];[[0,1],[4,5],[2,3],[6,7]].forEach(function(p,i){
         var a=V.simKO[r16[p[0]]],b=V.simKO[r16[p[1]]];
-        var mid="q"+i;qfIds.push(mid);V.simKO[mid]=pickWinner(a,b,"qf");
+        var mid="q"+i;qfIds.push(mid);V.simKO[mid]=_lk[mid]||pickWinner(a,b,"qf");
       });
       // SF
       var sfIds=[];[[0,1],[2,3]].forEach(function(p,i){
         var a=V.simKO[qfIds[p[0]]],b=V.simKO[qfIds[p[1]]];
-        var mid="s"+i;sfIds.push(mid);V.simKO[mid]=pickWinner(a,b,"sf");
+        var mid="s"+i;sfIds.push(mid);V.simKO[mid]=_lk[mid]||pickWinner(a,b,"sf");
       });
       // Final
-      V.simKO["final"]=pickWinner(V.simKO["s0"],V.simKO["s1"],"f");
+      V.simKO["final"]=_lk["final"]||pickWinner(V.simKO["s0"],V.simKO["s1"],"f");
       V.simBracketShown=true;
       toast("🎲 Simulation terminee ! Champion: "+getTeam(V.simKO["final"]).name);
       render();
     }
 
     function simReset(){
-      return'<button onclick="V.simPicks={};V.simKO={};V.sim3rd=[];V.simStep1=false;V.simStep3=false;V.simBracketShown=false;render()" style="width:100%;padding:10px;background:var(--s1);border:1px solid var(--s3);color:var(--rd);border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:8px">🔄 Reinitialiser</button>';
+      return'<button onclick="V.simPicks={};V.simKO={};V.sim3rd=[];V.simStep1=false;V.simStep3=false;V.simBracketShown=false;try{syncSimWithReality()}catch(e){};render()" style="width:100%;padding:10px;background:var(--s1);border:1px solid var(--s3);color:var(--rd);border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:8px">🔄 Reinitialiser</button>';
     }
 
     function toggleSim3rd(tid){
+      // v1.9.34 — les 8 vrais 3es sont connus : sélection officielle intouchable
+      try{ if(_realGroupsDone()&&MATCHES.filter(function(m){return m.st==="16e de finale"&&m.t1&&m.t1!=="TBD"}).length===16){toast("🔒 Les 8 meilleurs 3es sont officiels");return} }catch(e){}
       if(!V.sim3rd)V.sim3rd=[];
       var idx=V.sim3rd.indexOf(tid);
       if(idx>=0)V.sim3rd.splice(idx,1);
@@ -10221,6 +10500,8 @@
     }
 
     function toggleSimPick(g,tid){
+      // v1.9.34 — groupe réel terminé : qualifiés officiels intouchables
+      try{ if(_realGroupTable(g).complete){toast("🔒 Groupe "+g+" terminé — qualifiés officiels");return} }catch(e){}
       if(!V.simPicks[g])V.simPicks[g]=[];
       var idx=V.simPicks[g].indexOf(tid);
       if(idx>=0)V.simPicks[g].splice(idx,1);
@@ -10231,6 +10512,8 @@
 
     function pickKO(mid,tid){
       if(!V.simKO)V.simKO={};
+      // v1.9.34 — match déjà joué : résultat officiel intouchable
+      if(V.simLocked&&V.simLocked[mid]){try{toast("🔒 Déjà joué — résultat officiel : "+((getTeam(V.simLocked[mid])||{}).name||""))}catch(e){}return}
       var old=V.simKO[mid];
       V.simKO[mid]=tid;
       if(old&&old!==tid){
@@ -10610,157 +10893,154 @@
       var sfm=MATCHES.filter(function(m){return m.st&&m.st.indexOf("Demi")>=0});
       var finm=MATCHES.filter(function(m){return m.st&&m.st.toUpperCase()==="FINALE"});
 
-      // Known bracket matchups (FIFA 2026 structure)
-      // v1.9.24 — Libellés DANS L'ORDRE DES MATCHS (#73→#88), transcrits des
-      // descripteurs officiels t1from/t2from de matches.json. (Avant : ordre
-      // « arbre » décalé → un créneau TBD affichait le mauvais libellé, ex.
-      // #77 = « 1er I vs 3e » montré comme « 2e E vs 2e I ».)
+      // Libellés officiels FIFA 2026 (t1from/t2from de matches.json), indexés
+      // par position du match dans son tour (ordre des ids #73→#104).
       var R32_LABELS=[
         ["2e Gr.A","2e Gr.B"],["1er Gr.E","Meilleur 3e"],["1er Gr.F","2e Gr.C"],["1er Gr.C","2e Gr.F"],
         ["1er Gr.I","Meilleur 3e"],["2e Gr.E","2e Gr.I"],["1er Gr.A","Meilleur 3e"],["1er Gr.L","Meilleur 3e"],
         ["1er Gr.D","Meilleur 3e"],["1er Gr.G","Meilleur 3e"],["2e Gr.K","2e Gr.L"],["1er Gr.H","2e Gr.J"],
         ["1er Gr.B","Meilleur 3e"],["1er Gr.J","2e Gr.H"],["1er Gr.K","Meilleur 3e"],["2e Gr.D","2e Gr.G"]
       ];
-      // 8es (#89→#96) dans l'ordre des matchs — arbre officiel FIFA 2026.
-      // M89=M2×M5 · M90=M1×M3 · M91=M4×M6 · M92=M7×M8 · M93=M11×M12 ·
-      // M94=M9×M10 · M95=M14×M16 · M96=M13×M15 (M_k = k-ième 16e, #72+k).
       var R16_LABELS=[["Vainq. M2","Vainq. M5"],["Vainq. M1","Vainq. M3"],["Vainq. M4","Vainq. M6"],["Vainq. M7","Vainq. M8"],
         ["Vainq. M11","Vainq. M12"],["Vainq. M9","Vainq. M10"],["Vainq. M14","Vainq. M16"],["Vainq. M13","Vainq. M15"]];
       var QF_LABELS=[["Vainq. 8e-1","Vainq. 8e-2"],["Vainq. 8e-5","Vainq. 8e-6"],["Vainq. 8e-3","Vainq. 8e-4"],["Vainq. 8e-7","Vainq. 8e-8"]];
       var SF_LABELS=[["Vainq. QF1","Vainq. QF2"],["Vainq. QF3","Vainq. QF4"]];
       var FIN_LABELS=["Vainq. Demi 1","Vainq. Demi 2"];
-      // v1.9.31 — Cartes lisibles : nom + score sur la même ligne, vainqueur en
-      // gras/vert avec ✔, perdant estompé, t.a.b. affichés, en-tête M# + date.
-      function realTm(id,label,score,win,lose){
+
+      // Maps id → {label, tag} pour retrouver les infos une fois l'arbre ordonné
+      var mById={}, mLbl={}, mTag={};
+      MATCHES.forEach(function(m){mById[m.id]=m});
+      r32.forEach(function(m,i){mLbl[m.id]=R32_LABELS[i]||["?","?"];mTag[m.id]="16e M"+(i+1)});
+      r16m.forEach(function(m,i){mLbl[m.id]=R16_LABELS[i]||["?","?"];mTag[m.id]="8e-"+(i+1)});
+      qfm.forEach(function(m,i){mLbl[m.id]=QF_LABELS[i]||["?","?"];mTag[m.id]="QF"+(i+1)});
+      sfm.forEach(function(m,i){mLbl[m.id]=SF_LABELS[i]||["?","?"];mTag[m.id]="Demi "+(i+1)});
+      if(finm[0]){mLbl[finm[0].id]=FIN_LABELS;mTag[finm[0].id]="FINALE"}
+
+      // Ordre « arbre » : DFS depuis la finale via KO_SLOTS (tokens M:n = matchs
+      // qui alimentent le créneau). cols[0]=16es … cols[4]=finale, chaque
+      // colonne rangée de haut en bas pour que chaque paire pointe vers son match.
+      function childrenOf(id){
+        var s=(typeof KO_SLOTS!=="undefined")?KO_SLOTS[id]:null; if(!s)return[];
+        var out=[]; s.forEach(function(t){var p=(""+t).split(":");if(p[0]==="M")out.push(+p[1])}); return out;
+      }
+      var cols=[[],[],[],[],[]];
+      (function walk(id,depth){
+        if(depth>4||cols[4-depth]==null)return;
+        cols[4-depth].push(id);
+        childrenOf(id).forEach(function(k){walk(k,depth+1)});
+      })(finm[0]?finm[0].id:104,0);
+      // Repli si la structure n'a pas pu être bâtie (KO_SLOTS absent)
+      if(!cols[0].length){
+        cols=[r32.map(function(m){return m.id}),r16m.map(function(m){return m.id}),
+              qfm.map(function(m){return m.id}),sfm.map(function(m){return m.id}),
+              finm.map(function(m){return m.id})];
+      }
+
+      function ffbTeam(id,label,score,win,lose){
         if(!id||id==="TBD"||!getTeam(id)||getTeam(id).name==="?"){
-          return '<div style="display:flex;align-items:center;gap:4px;padding:4px 6px;font-size:10px;color:var(--t2);min-height:18px"><span style="opacity:.6">⏳</span><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+(label||"À déterminer")+'</span></div>';
+          return '<div class="ffb-tm tbd"><span class="nm">'+(label||"à déterminer")+'</span></div>';
         }
-        return '<div onclick="event.stopPropagation();goTeam(\''+id+'\')" style="display:flex;align-items:center;gap:5px;padding:4px 6px;font-size:11px;cursor:pointer;min-width:0;'+(lose?'opacity:.45;':'')+(win?'font-weight:800;':'font-weight:600;')+'">'
-          +flagImg(id,14)
-          +'<span style="flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+getTeam(id).name+'</span>'
-          +(win?'<span style="color:var(--g);font-size:9px">✔</span>':'')
-          +(score!=null?'<span style="font-weight:900;min-width:13px;text-align:right;color:'+(win?'var(--g)':(lose?'var(--t2)':'var(--tx)'))+'">'+score+'</span>':'')
+        return '<div class="ffb-tm '+(win?'win':'')+(lose?' lose':'')+'" onclick="event.stopPropagation();goTeam(\''+id+'\')">'
+          +flagImg(id,13)
+          +'<span class="nm">'+getTeam(id).name+'</span>'
+          +(win?'<span style="color:var(--g);font-size:8px">✔</span>':'')
+          +(score!=null?'<span class="sc" style="color:'+(win?'var(--g)':(lose?'var(--t2)':'var(--tx)'))+'">'+score+'</span>':'')
         +'</div>';
       }
-      function realMc(m,tag,labels){
+      function ffbCard(id){
+        var m=mById[id]; if(!m)return'';
+        var isFin=m.st&&m.st.toUpperCase()==="FINALE";
         var played=m.s1!==null&&m.s1!==undefined&&m.s2!==null&&m.s2!==undefined;
-        var l1=labels?labels[0]:"?",l2=labels?labels[1]:"?";
+        var lab=mLbl[id]||["?","?"], tag=mTag[id]||'';
         var p1=(m.pen1!=null?m.pen1:(m._live&&m._live.pen1!=null?m._live.pen1:null));
         var p2=(m.pen2!=null?m.pen2:(m._live&&m._live.pen2!=null?m._live.pen2:null));
-        var w=0;
-        if(played){ if(m.s1>m.s2)w=1; else if(m.s2>m.s1)w=2; else if(p1!=null&&p2!=null&&p1!==p2)w=(p1>p2?1:2); }
-        var dateTxt='';
-        if(m.d){try{dateTxt=fmtDate(m.d)+' · '+fmtTimeFR(m.d,m.city);}catch(e){}}
-        var head='<div style="display:flex;justify-content:space-between;align-items:center;gap:4px;padding:3px 6px;border-bottom:1px solid var(--s3);background:rgba(128,128,128,.07)">'
-          +'<span style="font-size:8px;font-weight:900;color:var(--am);letter-spacing:.5px">'+(tag||'')+'</span>'
-          +'<span style="font-size:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:'+(played?'var(--t2)':'var(--am)')+'">'+(played?'✅ Terminé':(dateTxt?'📅 '+dateTxt+' FR':'À venir'))+'</span>'
-        +'</div>';
-        var tab=(played&&m.s1===m.s2&&p1!=null&&p2!=null)?'<div style="font-size:8px;color:var(--am);text-align:center;padding:2px 4px;border-top:1px dashed var(--s3)">🥅 t.a.b. '+p1+'–'+p2+'</div>':'';
-        return '<div onclick="showMatchDetail('+m.id+')" style="background:var(--s1);border:1px solid '+(played?'var(--s3)':'rgba(231,196,92,.45)')+';border-radius:8px;overflow:hidden;min-width:0;cursor:pointer">'
-          +head
-          +realTm(m.t1,l1,played?m.s1:null,w===1,w===2)
-          +realTm(m.t2,l2,played?m.s2:null,w===2,w===1)
+        var w=0; if(played){if(m.s1>m.s2)w=1;else if(m.s2>m.s1)w=2;else if(p1!=null&&p2!=null&&p1!==p2)w=(p1>p2?1:2)}
+        var st;
+        if(played)st='<span style="color:var(--t2)">✅</span>';
+        else{var d='';try{if(m.d)d=fmtDate(m.d)}catch(e){}st='<span style="color:var(--am)">'+(d?'📅 '+d:'à venir')+'</span>'}
+        var tab=(played&&m.s1===m.s2&&p1!=null&&p2!=null)?'<div class="ffb-tab">t.a.b. '+p1+'–'+p2+'</div>':'';
+        return '<div class="ffb-card'+(isFin?' fin':'')+(played?'':' upc')+'" onclick="showMatchDetail('+m.id+')">'
+          +'<div class="ffb-chd"><span class="ffb-tag">'+(isFin?'🏆 FINALE':tag)+'</span><span class="ffb-st">'+st+'</span></div>'
+          +ffbTeam(m.t1,lab[0],played?m.s1:null,w===1,w===2)
+          +ffbTeam(m.t2,lab[1],played?m.s2:null,w===2,w===1)
           +tab
         +'</div>';
       }
 
-      // Comment lire le tableau
-      h+='<div style="background:var(--s1);border:1px solid var(--s3);border-radius:8px;padding:8px 10px;margin-bottom:10px;font-size:10px;color:var(--t2);line-height:1.5">'
-        +'💡 <b style="color:var(--tx)">Comment lire :</b> chaque carte = 1 match. Le <b style="color:var(--g)">vainqueur ✔</b> avance au tour suivant (ex. « Vainq. M5 » = le gagnant du match M5). Le perdant (grisé) est éliminé. Tape une carte pour le détail du match.'
-      +'</div>';
+      // Hint scroll + légende
+      h+='<div class="ffb-hint">👆 Touche une affiche pour le détail · fais défiler horizontalement ↔ jusqu\'à la finale 🏆</div>';
 
-      // 16es
-      if(r32.length){
-        h+='<div style="font-size:11px;font-weight:900;color:var(--am);margin:8px 0 2px">⚔️ 16ES DE FINALE <span style="font-weight:600;color:var(--t2)">· '+r32.length+' matchs · 28 juin → 3 juil.</span></div>';
-        h+='<div style="font-size:9px;color:var(--t2);margin-bottom:5px">Les vainqueurs (M1→M16) se retrouvent en 8es de finale ci-dessous.</div>';
-        h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">';
-        h+='<div><div style="text-align:center;font-size:9px;font-weight:900;color:var(--g);padding:3px;background:var(--s1);border-radius:4px;margin-bottom:4px">◀ MOITIÉ GAUCHE</div>';
-        h+='<div style="display:grid;gap:4px">';
-        r32.slice(0,8).forEach(function(m,i){h+=realMc(m,"M"+(i+1),R32_LABELS[i])});
+      // L'arbre lui-même
+      var COL_NAMES=["16es","8es","Quarts","Demies","Finale"];
+      var COL_CLS=["col-r32","","","","col-fin"];
+      h+='<div class="ffb-wrap"><div class="ffb">';
+      cols.forEach(function(colIds,ci){
+        if(!colIds||!colIds.length)return;
+        h+='<div class="ffb-round '+COL_CLS[ci]+'">';
+        h+='<div class="ffb-rh">'+COL_NAMES[ci]+'</div>';
+        h+='<div class="ffb-cards">';
+        colIds.forEach(function(id){h+='<div class="ffb-match">'+ffbCard(id)+'</div>'});
         h+='</div></div>';
-        h+='<div><div style="text-align:center;font-size:9px;font-weight:900;color:var(--g);padding:3px;background:var(--s1);border-radius:4px;margin-bottom:4px">MOITIÉ DROITE ▶</div>';
-        h+='<div style="display:grid;gap:4px">';
-        r32.slice(8,16).forEach(function(m,i){h+=realMc(m,"M"+(i+9),R32_LABELS[i+8])});
-        h+='</div></div></div>';
-      }
+      });
+      h+='</div></div>';
 
-      // Classement des 3es (favoris à la qualification) — provisoire tant que les 12 groupes ne sont pas finis
+      // Classement des 3es — pleinement affiché PENDANT la phase de groupes ;
+      // ensuite conservé « pour mémoire » dans un volet repliable (archive),
+      // pour ne plus encombrer le tableau au stade des quarts.
       var thirdsRk=_realThirdsRanking();
+      var koStarted=r16m.concat(qfm,sfm).some(function(m){
+        return (m.s1!=null&&m.s2!=null)||(m.t1&&m.t1!=="TBD"&&getTeam(m.t1)&&getTeam(m.t1).name!=="?");
+      });
+      var allComplete=(thirdsRk.length===12)&&thirdsRk.every(function(x){return x.complete});
+      var thirdsArchived=koStarted||allComplete;
       if(thirdsRk.length){
-        var allComplete=(thirdsRk.length===12)&&thirdsRk.every(function(x){return x.complete});
-        h+='<div style="font-size:10px;font-weight:900;color:var(--am);margin:14px 0 4px">🥉 CLASSEMENT DES 3ES — '+(allComplete?'définitif':'provisoire')+'</div>';
-        h+='<div style="font-size:9px;color:var(--t2);margin-bottom:6px">Les <b>8 meilleurs 3es</b> se qualifient. Départage : points › goal average › buts marqués.'+(allComplete?'':' Mis à jour au fil des matchs.')+'</div>';
-        h+='<div style="background:var(--s1);border:1px solid var(--s3);border-radius:8px;overflow:hidden">';
-        h+='<div style="display:grid;grid-template-columns:20px 1fr 26px 34px 28px;gap:4px;padding:5px 8px;font-size:8px;font-weight:800;color:var(--t2);border-bottom:1px solid var(--s3)"><span>#</span><span>Équipe</span><span style="text-align:center">Pts</span><span style="text-align:center">Diff</span><span style="text-align:center">BP</span></div>';
-        thirdsRk.forEach(function(x,i){
-          var qual=i<8;
-          var nm=(getTeam(x.id)||{}).name||x.id;
-          var prov=x.complete?'':' <span style="color:var(--am);font-size:7px">'+x.played+'/'+x.total+'</span>';
-          h+='<div style="display:grid;grid-template-columns:20px 1fr 26px 34px 28px;gap:4px;padding:5px 8px;font-size:10px;align-items:center;'+(qual?'background:rgba(46,160,67,.08);':'')+(i===7?'border-bottom:2px solid var(--g);':'border-bottom:1px solid var(--s3);')+'">';
-          h+='<span style="font-size:9px;font-weight:800;color:'+(qual?'var(--g)':'var(--t2)')+'">'+(i+1)+'</span>';
-          h+='<span style="display:flex;align-items:center;gap:4px;min-width:0"><span style="font-size:8px;color:var(--t2);min-width:12px">'+x.g+'</span>'+flagImg(x.id,14)+'<span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:'+(qual?'700':'500')+'">'+nm+'</span>'+prov+'</span>';
-          h+='<span style="text-align:center;font-weight:800">'+x.pts+'</span>';
-          h+='<span style="text-align:center;color:var(--t2)">'+(x.diff>0?'+':'')+x.diff+'</span>';
-          h+='<span style="text-align:center;color:var(--t2)">'+x.gf+'</span>';
-          h+='</div>';
-        });
-        h+='</div>';
-        h+='<div style="font-size:8px;color:var(--t2);margin-top:4px">'+(allComplete?'✅ Qualification des 3es figée.':'⚠️ Ligne verte = zone de qualification. Non figé tant que les 12 groupes ne sont pas terminés (l\'affectation aux 8es suit la table FIFA).')+'</div>';
-      }
-
-      // 8es
-      if(r16m.length){
-        h+='<div style="font-size:11px;font-weight:900;color:var(--am);margin:12px 0 2px">🏅 8ES DE FINALE <span style="font-weight:600;color:var(--t2)">· '+r16m.length+' matchs · 4 → 7 juil.</span></div>';
-        h+='<div style="font-size:9px;color:var(--t2);margin-bottom:5px">« Vainq. M2 » = vainqueur du 16e M2 ci-dessus. Les vainqueurs (8e-1→8e-8) vont en quarts.</div>';
-        h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">';
-        h+='<div style="display:grid;gap:4px">';
-        r16m.slice(0,4).forEach(function(m,i){h+=realMc(m,"8e-"+(i+1),R16_LABELS[i])});
-        h+='</div><div style="display:grid;gap:4px">';
-        r16m.slice(4,8).forEach(function(m,i){h+=realMc(m,"8e-"+(i+5),R16_LABELS[i+4])});
-        h+='</div></div>';
-      }
-
-      // QF
-      if(qfm.length){
-        h+='<div style="font-size:11px;font-weight:900;color:var(--am);margin:12px 0 2px">⚡ QUARTS DE FINALE <span style="font-weight:600;color:var(--t2)">· '+qfm.length+' matchs · 9 → 11 juil.</span></div>';
-        h+='<div style="font-size:9px;color:var(--t2);margin-bottom:5px">« Vainq. 8e-1 » = vainqueur du 8e n°1 ci-dessus. Les vainqueurs (QF1→QF4) vont en demi-finales.</div>';
-        h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">';
-        h+='<div style="display:grid;gap:4px">';
-        qfm.slice(0,2).forEach(function(m,i){h+=realMc(m,"QF"+(i+1),QF_LABELS[i])});
-        h+='</div><div style="display:grid;gap:4px">';
-        qfm.slice(2,4).forEach(function(m,i){h+=realMc(m,"QF"+(i+3),QF_LABELS[i+2])});
-        h+='</div></div>';
-      }
-
-      // SF
-      if(sfm.length){
-        h+='<div style="font-size:11px;font-weight:900;color:var(--am);margin:12px 0 2px">🔥 DEMI-FINALES <span style="font-weight:600;color:var(--t2)">· 14 → 15 juil.</span></div>';
-        h+='<div style="font-size:9px;color:var(--t2);margin-bottom:5px">Les 2 vainqueurs se retrouvent en finale le 19 juillet.</div>';
-        h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">';
-        sfm.forEach(function(m,i){h+=realMc(m,"Demi "+(i+1),SF_LABELS[i])});
-        h+='</div>';
-      }
-
-      // Finale
-      if(finm.length){
-        h+='<div style="background:var(--s1);border:2px solid var(--g);border-radius:12px;padding:14px;text-align:center;margin-top:8px">';
-        h+='<div style="font-size:12px;font-weight:900;color:var(--g);letter-spacing:3px;margin-bottom:6px">🏆 FINALE</div>';
-        var fm=finm[0];
-        h+='<div style="display:flex;align-items:center;justify-content:center;gap:8px">';
-        var ft1=getTeam(fm.t1),ft2=getTeam(fm.t2);
-        var ft1n=(ft1&&ft1.name&&ft1.name!=="?")?flagImg(fm.t1,24)+'<div style="font-size:12px;font-weight:800">'+ft1.name+'</div>':'<div style="font-size:10px;color:var(--t2)">'+FIN_LABELS[0]+'</div>';
-        var ft2n=(ft2&&ft2.name&&ft2.name!=="?")?flagImg(fm.t2,24)+'<div style="font-size:12px;font-weight:800">'+ft2.name+'</div>':'<div style="font-size:10px;color:var(--t2)">'+FIN_LABELS[1]+'</div>';
-        h+='<div>'+ft1n+'</div>';
-        h+='<div style="font-size:14px;font-weight:900;color:var(--g)">VS</div>';
-        h+='<div>'+ft2n+'</div>';
-        h+='</div>';
-        if(fm.d){
-          try{
-            h+='<div style="font-size:10px;font-weight:800;color:var(--am);margin-top:8px">📅 '+fmtDate(fm.d)+' · '+fmtTimeFR(fm.d,fm.city)+' <span style="opacity:.7">heure FR</span></div>';
-            if(fm.stad||fm.city)h+='<div style="font-size:9px;color:var(--t2);margin-top:2px">📍 '+(fm.stad?fm.stad+(fm.city?' · ':''):'')+(fm.city||'')+'</div>';
-          }catch(e){}
+        // Qui s'est RÉELLEMENT qualifié : les 3es qui ont disputé un 16e
+        // (source : affiches officielles), plus fiable que la position i<8
+        // quand le flux a tranché un départage.
+        var _q3={};
+        if(thirdsArchived)r32.forEach(function(m){[m.t1,m.t2].forEach(function(id){
+          if(id&&id!=="TBD")thirdsRk.forEach(function(x){if(x.id===id)_q3[id]=1});
+        })});
+        function _thirdsTable(){
+          var s='<div style="background:var(--s1);border:1px solid var(--s3);border-radius:8px;overflow:hidden">';
+          s+='<div style="display:grid;grid-template-columns:20px 1fr 26px 34px 28px;gap:4px;padding:5px 8px;font-size:8px;font-weight:800;color:var(--t2);border-bottom:1px solid var(--s3)"><span>#</span><span>Équipe</span><span style="text-align:center">Pts</span><span style="text-align:center">Diff</span><span style="text-align:center">BP</span></div>';
+          thirdsRk.forEach(function(x,i){
+            var qual=thirdsArchived?!!_q3[x.id]:(i<8);
+            var nm=(getTeam(x.id)||{}).name||x.id;
+            var prov=x.complete?'':' <span style="color:var(--am);font-size:7px">'+x.played+'/'+x.total+'</span>';
+            var badge=thirdsArchived?(qual?' <span style="color:var(--g);font-size:7px;font-weight:800">✔ QUALIFIÉ</span>':' <span style="color:var(--t2);font-size:7px">éliminé</span>'):'';
+            s+='<div style="display:grid;grid-template-columns:20px 1fr 26px 34px 28px;gap:4px;padding:5px 8px;font-size:10px;align-items:center;'+(qual?'background:rgba(46,160,67,.08);':'')+(i===7&&!thirdsArchived?'border-bottom:2px solid var(--g);':'border-bottom:1px solid var(--s3);')+'">';
+            s+='<span style="font-size:9px;font-weight:800;color:'+(qual?'var(--g)':'var(--t2)')+'">'+(i+1)+'</span>';
+            s+='<span style="display:flex;align-items:center;gap:4px;min-width:0"><span style="font-size:8px;color:var(--t2);min-width:12px">'+x.g+'</span>'+flagImg(x.id,14)+'<span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:'+(qual?'700':'500')+'">'+nm+'</span>'+prov+badge+'</span>';
+            s+='<span style="text-align:center;font-weight:800">'+x.pts+'</span>';
+            s+='<span style="text-align:center;color:var(--t2)">'+(x.diff>0?'+':'')+x.diff+'</span>';
+            s+='<span style="text-align:center;color:var(--t2)">'+x.gf+'</span>';
+            s+='</div>';
+          });
+          s+='</div>';
+          return s;
         }
-        h+='</div>';
+        if(!thirdsArchived){
+          // Phase de groupes en cours : tableau vivant, bien visible
+          h+='<div style="font-size:10px;font-weight:900;color:var(--am);margin:16px 0 4px">🥉 CLASSEMENT DES 3ES — provisoire</div>';
+          h+='<div style="font-size:9px;color:var(--t2);margin-bottom:6px">Les <b>8 meilleurs 3es</b> se qualifient pour les 16es. Départage : points › goal average › buts marqués. Mis à jour au fil des matchs.</div>';
+          h+=_thirdsTable();
+          h+='<div style="font-size:8px;color:var(--t2);margin-top:4px">⚠️ Ligne verte = zone de qualification. Non figé tant que les 12 groupes ne sont pas terminés.</div>';
+        } else {
+          // Phase finale : archive repliée « pour mémoire »
+          h+='<div style="margin:14px 0 4px">';
+          h+='<button onclick="V.show3rdArchive=!V.show3rdArchive;render()" style="display:flex;align-items:center;justify-content:space-between;width:100%;padding:9px 12px;background:var(--s1);border:1px solid var(--s3);border-radius:10px;color:var(--tx);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;text-align:left">';
+          h+='<span>🥉 Classement final des meilleurs 3es <span style="color:var(--t2);font-weight:600">· pour mémoire</span></span>';
+          h+='<span style="color:var(--g);font-size:12px">'+(V.show3rdArchive?'▲ masquer':'▼ voir')+'</span>';
+          h+='</button>';
+          if(V.show3rdArchive){
+            h+='<div style="margin-top:6px">';
+            h+='<div style="font-size:9px;color:var(--t2);margin-bottom:6px">Phase de groupes terminée : les <b style="color:var(--g)">8 troisièmes ✔</b> ci-dessous ont accédé aux 16es (affectation officielle FIFA). Départage : points › goal average › buts marqués.</div>';
+            h+=_thirdsTable();
+            h+='</div>';
+          }
+          h+='</div>';
+        }
       }
 
       // v1.9.13 — Stats du tournoi (alimentées par les faits de jeu connus :
@@ -11892,6 +12172,18 @@
         h+='<div style="font-size:20px;font-weight:900;color:var(--g)">'+s.v+'</div></div>';
       });
       h+='</div></div>';
+
+      // v1.9.32 — 🏆 MONDIAL 2026 EN COURS : buts réels du joueur dans le
+      // tournoi, dérivés automatiquement des faits de jeu (flux officiel).
+      var _wc26=(typeof tournamentPlayerStats==="function")?tournamentPlayerStats(teamId,p.n):{g:0,pen:0,matches:[]};
+      if(_wc26.g>0){
+        h+='<div class="pl-extra-tile">';
+        h+='<div class="pl-extra-title">🏆 MONDIAL 2026 — EN COURS</div>';
+        h+='<div style="font-size:24px;font-weight:900;color:var(--g);margin:4px 0">'+_wc26.g+' but'+(_wc26.g>1?'s':'')
+          +(_wc26.pen?' <span style="font-size:11px;color:var(--t2);font-weight:600">dont '+_wc26.pen+' pén.</span>':'')+'</div>';
+        h+='<div style="font-size:10px;color:var(--t2)">Buteur sur '+_wc26.matches.length+' match'+(_wc26.matches.length>1?'s':'')+' · mis à jour automatiquement avec les résultats officiels</div>';
+        h+='</div>';
+      }
 
       // v1.077 — VALEUR MARCHANDE
       var marketValue = getPlayerMarketValue(p, teamId, rating);

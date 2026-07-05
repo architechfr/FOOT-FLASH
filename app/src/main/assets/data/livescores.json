@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-05T00:15:26.680Z",
+  "lastUpdated": "2026-07-05T01:52:15.966Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2948,7 +2948,6 @@
         0,
         0
       ],
-      "ref": "Il'giz Tantashev",
       "goals": [
         {
           "m": "70",
@@ -2957,7 +2956,8 @@
           "type": "P",
           "a": null
         }
-      ]
+      ],
+      "ref": "Il'giz Tantashev"
     },
     "90": {
       "s1": 0,
