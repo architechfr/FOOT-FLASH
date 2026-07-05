@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-05T22:08:50.340Z",
+  "lastUpdated": "2026-07-05T22:11:47.548Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2994,23 +2994,45 @@
       "ref": "Michael Oliver"
     },
     "91": {
-      "s1": 0,
-      "s2": 0,
-      "status": "HT",
+      "s1": 1,
+      "s2": 2,
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         0,
         0
       ],
-      "ref": "Ismail Elfath"
+      "ref": "Ismail Elfath",
+      "goals": [
+        {
+          "m": "90+10",
+          "t": 1,
+          "n": "Neymar",
+          "type": "P",
+          "a": null
+        },
+        {
+          "m": "79",
+          "t": 2,
+          "n": "Erling Haaland",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "90",
+          "t": 2,
+          "n": "Erling Haaland",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 90,
-      "LIVE": 1,
+      "FINISHED": 91,
       "TIMED": 13
     },
     "firstUtc": "2026-06-11T19:00:00Z",
