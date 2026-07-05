@@ -2640,6 +2640,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.9.42",d:"05/07/2026",changes:"Tour d'horizon expert de l'app — premiers fruits. (1) QUIZ : 18 nouvelles questions exclusives tirées des 25 journaux du dossier presse — les pépites que les résultats bruts ne racontent pas : Klopp attendu comme sélectionneur de l'Allemagne, démission de Koeman le soir même, les 20 cartons de Pays-Bas–Maroc, le CSC du gardien Verbruggen PENDANT la séance de t.a.b., la panenka de Salah, le récital de Mpasi contre l'Angleterre, Eustáquio et son but dédié à ses parents, le record d'Olise au rythme de Pelé 1970, Modric parti à 40 ans, Ramos l'homme des fins de match, le VAR à la 90e+13… (2) PARTAGE DU SIMULATEUR : au coup de sifflet final, bouton « 📤 Partager ce scénario » — score, buteurs minute par minute et lien de l'app, prêt à coller dans le groupe WhatsApp. (3) DATES CORRIGÉES dans le hub Pronos (8es 4-7 juillet, quarts 9-12, demies 14-15 — les anciens libellés dataient d'avant le calendrier officiel)."},
       {v:"v1.9.41",d:"05/07/2026",changes:"Pronostics moins sûrs d'eux, plus vrais (retours d'usage : « le % de la France est trop confiant » et « l'Argentine a l'arbitrage pour elle, Messi est protégé »). (1) AMORTISSEUR DE SURPRISE : dans le calcul des % de titre, chaque match à élimination directe est désormais traité comme ce qu'il est — un match sec où tout peut arriver. La probabilité du favori est tirée vers 50% et PLAFONNÉE à 85% : fini les France à 90% de passer chaque tour qui gonflaient de tour en tour. Les gros favoris baissent, les outsiders remontent — plus conforme à la vraie histoire des Coupes du monde. (2) FACTEUR ARBITRAGE 🧑‍⚖️ : l'Argentine reçoit un bonus « décisions favorables » (Messi protégé, penaltys et coups francs obtenus — voir le penalty généreux contre le Cap-Vert), le Brésil un plus léger (prestige). Appliqué aux % de titre ET au simulateur minute par minute, où la ligne d'avant-match l'annonce désormais."},
       {v:"v1.9.40",d:"05/07/2026",changes:"Téléphone enfin d'accord avec le PC (retour d'usage : affichage différent selon l'appareil). Deux causes trouvées et corrigées. (1) Le CALENDRIER EMBARQUÉ de secours (utilisé quand le calendrier en ligne n'est pas encore chargé) datait d'avant le calendrier officiel FIFA : 8es datés 3-4 juillet (d'où des matchs non joués affichés « terminés ») et France-Maroc annoncé le 7 juillet à la place du 9. Il est réaligné sur le vrai calendrier : 8es les 4-7 juillet (Brésil-Norvège dim. 22h FR, Mexique-Angleterre lun. 2h, Portugal-Espagne lun. 21h, USA-Belgique mar. 2h, Argentine-Égypte mar. 18h, Suisse-Colombie mar. 22h), quarts 9-12, demies 14-15, finale 19 juillet — avec les bons stades. (2) LA MISE À JOUR AUTO NE SE DÉCLENCHAIT PLUS : le téléphone ne recharge la nouvelle version que quand version.json change, et il n'avait pas suivi les dernières évolutions — réparé, et le rituel de publication est corrigé pour que ça n'arrive plus. Ferme et rouvre l'app une fois : tout doit être identique au PC."},
       {v:"v1.9.39",d:"05/07/2026",changes:"Plus jamais de « TERMINÉ » sans score (retour d'usage : des 8es pas encore joués apparaissaient terminés et le « prochain match » sautait au quart de la France). Nouvelle règle stricte dans l'onglet Matchs : un match n'est considéré TERMINÉ que si son score est connu (résultat officiel figé ou statut final du flux live). Si l'heure est passée mais qu'aucun score n'est remonté (données en retard, horaire décalé, vieux cache), la carte affiche « ⏳ score en attente » en ambre au lieu d'un faux TERMINÉ, le match n'est PAS replié dans « matchs déjà joués », et l'ancrage « prochain match » ne saute plus par-dessus des matchs non joués. Même garde-fou dans le calendrier par jour. NB : si tu vois encore des horaires aberrants, c'est un vieux cache — recharge la version web (2×) ou réinstalle l'APK par-dessus, les données actuelles sont correctes (8es les 5-6-7 juillet, quarts 9-11)."},
@@ -2699,7 +2700,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.41 — Pronos réalistes : amortisseur de surprise (favori plafonné à 85%/match) + facteur arbitrage (Argentine/Messi) · 5 juillet 2026";
+    var APP_VERSION="v1.9.42 — 18 questions quiz exclusives (presse), partage du scénario simulé, dates du hub Pronos corrigées · 5 juillet 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -7196,10 +7197,10 @@
         {id:"j1",emoji:"1️⃣",label:"Groupes – Journée 1",hint:"12 matchs · 11–14 juin"},
         {id:"j2",emoji:"2️⃣",label:"Groupes – Journée 2",hint:"12 matchs · 15–19 juin"},
         {id:"j3",emoji:"3️⃣",label:"Groupes – Journée 3",hint:"12 matchs · 20–24 juin"},
-        {id:"r32",emoji:"🎯",label:"16es de finale",hint:"16 matchs · 28 juin–2 juil"},
-        {id:"r16",emoji:"🏆",label:"8es de finale",hint:"8 matchs · 3–4 juillet"},
-        {id:"qf",emoji:"🏅",label:"Quarts de finale",hint:"4 matchs · 7–8 juillet"},
-        {id:"sf",emoji:"🥈",label:"Demi-finales",hint:"2 matchs · 11–12 juillet"},
+        {id:"r32",emoji:"🎯",label:"16es de finale",hint:"16 matchs · 28 juin–3 juil"},
+        {id:"r16",emoji:"🏆",label:"8es de finale",hint:"8 matchs · 4–7 juillet"},
+        {id:"qf",emoji:"🏅",label:"Quarts de finale",hint:"4 matchs · 9–12 juillet"},
+        {id:"sf",emoji:"🥈",label:"Demi-finales",hint:"2 matchs · 14–15 juillet"},
         {id:"tp",emoji:"🥉",label:"Petite finale",hint:"1 match · 18 juillet"},
         {id:"f",emoji:"🏆",label:"Finale",hint:"1 match · 19 juillet"}
       ];
@@ -8754,6 +8755,97 @@
      choices:["10","6","8","12"],answerIndex:0,
      explanation:"3-1 contre le Senegal, 3-0 contre l'Irak et 4-1 contre la Norvege : 10 buts, meilleure attaque des poules a egalite avec l'Allemagne et les Pays-Bas.",
      tags:["france","groupes","attaque"],era:"2026",status:"active",questionType:"stable",availability:"always"},
+    // ==================== v1.9.42 — QUESTIONS TIREES DE LA PRESSE (journaux L'Equipe & co) ====================
+    {id:"w26_113",category:"mondial_2026",difficulty:"medium",
+     question:"Apres l'elimination de l'Allemagne en 16es, quel entraineur la federation allemande veut-elle nommer selectionneur ?",
+     choices:["Hansi Flick","Jurgen Klopp","Matthias Sammer","Joachim Low"],answerIndex:1,
+     explanation:"Klopp (59 ans), consultant TV pendant le tournoi, est le candidat n°1 de la DFB — un contrat de 4 ans est en discussion, aucun autre coach n'a ete contacte.",
+     tags:["allemagne","klopp","presse"],era:"2026",status:"active",questionType:"stable",availability:"always"},
+    {id:"w26_114",category:"mondial_2026",difficulty:"medium",
+     question:"Qu'a fait Ronald Koeman le soir meme de l'elimination des Pays-Bas contre le Maroc ?",
+     choices:["Il a demissionne","Il a prolonge son contrat","Il a critique l'arbitre","Il a annonce sa retraite du football"],answerIndex:0,
+     explanation:"Le selectionneur neerlandais a demissionne dans la foulee de la 3e elimination consecutive des Oranje aux tirs au but en Coupe du Monde.",
+     tags:["koeman","pays-bas"],era:"2026",status:"active",questionType:"stable",availability:"always"},
+    {id:"w26_115",category:"mondial_2026",difficulty:"hard",
+     question:"Combien de cartons ont ete distribues lors de Pays-Bas - Maroc, record de ce Mondial 2026 ?",
+     choices:["12","16","20","24"],answerIndex:2,
+     explanation:"16 jaunes et 4 rouges (2 par equipe) : un total digne de la 'bataille de Nuremberg' de 2006 (Portugal-Pays-Bas, deja).",
+     tags:["cartons","record","maroc"],era:"2026",status:"active",questionType:"stable",availability:"always"},
+    {id:"w26_116",category:"mondial_2026",difficulty:"hard",
+     question:"Quel fait rarissime a marque la seance de tirs au but de Pays-Bas - Maroc ?",
+     choices:["Un gardien a marque contre son camp","Un tireur a tire deux fois","La seance a dure 20 tireurs","Un remplacant non inscrit a tire"],answerIndex:0,
+     explanation:"Le gardien neerlandais Verbruggen a devie une tentative dans son propre but pendant la seance — un CSC de gardien en pleine seance de t.a.b.",
+     tags:["verbruggen","tab","insolite"],era:"2026",status:"active",questionType:"stable",availability:"always"},
+    {id:"w26_117",category:"mondial_2026",difficulty:"easy",
+     question:"Comment Mohamed Salah a-t-il transforme son tir au but decisif contre l'Australie ?",
+     choices:["D'une panenka","D'une frappe en lucarne","A contre-pied rase-terre","En deux temps apres arret"],answerIndex:0,
+     explanation:"Panenka pleine de sang-froid en 3e tireur, sourire aux levres. 'Si quelqu'un devait le faire, c'etait moi.'",
+     tags:["salah","panenka","egypte"],era:"2026",status:"active",questionType:"stable",availability:"always"},
+    {id:"w26_118",category:"mondial_2026",difficulty:"medium",
+     question:"En battant l'Australie, l'Egypte s'est qualifiee pour un 8e de finale de Coupe du Monde pour la...",
+     choices:["1re fois de son histoire","2e fois","3e fois","4e fois"],answerIndex:0,
+     explanation:"Premiere qualification pour un 8e en 4 participations. Salah, 34 ans, laisse libre par Liverpool, a porte les Pharaons.",
+     tags:["egypte","histoire"],era:"2026",status:"active",questionType:"stable",availability:"always"},
+    {id:"w26_119",category:"mondial_2026",difficulty:"medium",
+     question:"Avec 11 buts, Kylian Mbappe est devenu seul recordman des buts en phase a elimination directe de Coupe du Monde. Qui detenait le record (8 buts) avec Ronaldo ?",
+     choices:["Leonardo","Pele","Klose","Batistuta"],answerIndex:0,
+     explanation:"Mbappe a depasse les 8 buts de Leonardo et Ronaldo des son double contre la Suede, puis a enfonce le clou sur penalty contre le Paraguay.",
+     tags:["mbappe","record","ko"],era:"2026",status:"active",questionType:"stable",availability:"always"},
+    {id:"w26_120",category:"mondial_2026",difficulty:"medium",
+     question:"Avec 5 passes decisives en 4 matchs, Michael Olise tient un rythme que seul un joueur avait atteint en 1970. Lequel ?",
+     choices:["Pele","Jairzinho","Beckenbauer","Rivelino"],answerIndex:0,
+     explanation:"L'Equipe a compare le rythme de passes d'Olise a celui de Pele lors du Mondial 1970 — reference absolue du createur en Coupe du Monde.",
+     tags:["olise","pele","passes"],era:"2026",status:"active",questionType:"stable",availability:"always"},
+    {id:"w26_121",category:"mondial_2026",difficulty:"medium",
+     question:"Quel gardien remplacant a failli faire chavirer l'Angleterre en 16es avec trois arrets exceptionnels pour la RD Congo ?",
+     choices:["Lionel Mpasi","Timothy Fayulu","Dimitry Bertaud","Herve Lomboto"],answerIndex:0,
+     explanation:"Mpasi a ecoeure les Anglais (30e, 45+2e, 53e) avant le double tardif de Kane. La RDC, dirigee par le Francais Sebastien Desabre, disputait son 2e Mondial apres 1974 (sous le nom du Zaire).",
+     tags:["mpasi","rdc","angleterre"],era:"2026",status:"active",questionType:"stable",availability:"always"},
+    {id:"w26_122",category:"mondial_2026",difficulty:"hard",
+     question:"Qui a marque le seul but de Afrique du Sud - Canada (0-1) a la 90e+2 en 16es de finale ?",
+     choices:["Jonathan David","Stephen Eustaquio","Alphonso Davies","Cyle Larin"],answerIndex:1,
+     explanation:"Eustaquio, prete par Porto au Los Angeles FC, a delivre le Canada au bout du temps additionnel — un but dedie a ses parents disparus en 2023 et 2024.",
+     tags:["eustaquio","canada"],era:"2026",status:"active",questionType:"stable",availability:"always"},
+    {id:"w26_123",category:"mondial_2026",difficulty:"easy",
+     question:"Quelle legende de 40 ans a dispute son dernier match de Coupe du Monde lors de Portugal - Croatie ?",
+     choices:["Luka Modric","Cristiano Ronaldo","Ivan Perisic","Pepe"],answerIndex:0,
+     explanation:"Modric, sur le terrain jusqu'a la 90e+13, a quitte la scene mondiale sur cette elimination. Ronaldo est venu le saluer apres le match.",
+     tags:["modric","croatie","legende"],era:"2026",status:"active",questionType:"stable",availability:"always"},
+    {id:"w26_124",category:"mondial_2026",difficulty:"medium",
+     question:"Quel joueur, transfere a l'AC Milan pour 60 M EUR un mois avant, a delivre le Portugal de la tete a la 90e+4 contre la Croatie ?",
+     choices:["Goncalo Ramos","Rafael Leao","Joao Felix","Francisco Conceicao"],answerIndex:0,
+     explanation:"Entre en jeu lors d'un quadruple changement, Ramos a confirme son statut de tueur du money-time : 7 de ses 10 derniers buts en club inscrits en sortie de banc.",
+     tags:["ramos","portugal","milan"],era:"2026",status:"active",questionType:"stable",availability:"always"},
+    {id:"w26_125",category:"mondial_2026",difficulty:"hard",
+     question:"A quelle minute le VAR a-t-il annule le but croate qui aurait egalise contre le Portugal en 16es ?",
+     choices:["90e+3","90e+7","90e+13","120e"],answerIndex:2,
+     explanation:"Interminable : l'egalisation croate est intervenue a la 90e+13... avant d'etre invalidee. Le Portugal n'avait plus renverse un match KO de Mondial depuis 1966.",
+     tags:["var","portugal","croatie"],era:"2026",status:"active",questionType:"stable",availability:"always"},
+    {id:"w26_126",category:"mondial_2026",difficulty:"medium",
+     question:"La victoire contre la Cote d'Ivoire a envoye la Norvege en 8es de finale pour la premiere fois depuis...",
+     choices:["1994","1998","2002","C'est une premiere"],answerIndex:1,
+     explanation:"Premier 8e depuis 1998 (elimination contre l'Italie a Marseille). Haaland, discret, a offert le but decisif a Berg d'un centre a la 86e — son 60e but en 53 selections etant venu plus tot dans le tournoi.",
+     tags:["norvege","haaland","1998"],era:"2026",status:"active",questionType:"stable",availability:"always"},
+    {id:"w26_127",category:"mondial_2026",difficulty:"easy",
+     question:"Combien de buts l'Espagne a-t-elle encaisses dans ce Mondial 2026 avant les quarts de finale ?",
+     choices:["0","2","4","6"],answerIndex:0,
+     explanation:"Aucun but encaisse, et une serie d'invincibilite portee a 34 matchs apres le 3-0 contre l'Autriche (double d'Oyarzabal).",
+     tags:["espagne","defense","serie"],era:"2026",status:"active",questionType:"stable",availability:"always"},
+    {id:"w26_128",category:"mondial_2026",difficulty:"hard",
+     question:"Avant 2026, de quand datait le dernier match a elimination directe gagne par l'Espagne en Coupe du Monde ?",
+     choices:["2010","2014","2018","2022"],answerIndex:0,
+     explanation:"Depuis son sacre de 2010, la Roja n'avait plus passe un tour KO en Mondial. Elle n'avait meme plus marque en phase KO depuis un CSC russe en 2018.",
+     tags:["espagne","2010","ko"],era:"2026",status:"active",questionType:"stable",availability:"always"},
+    {id:"w26_129",category:"mondial_2026",difficulty:"hard",
+     question:"Quel arbitre francais a dirige Colombie - Ghana en 16es de finale 2026 ?",
+     choices:["Clement Turpin","Benoit Bastien","Francois Letexier","Jerome Brisard"],answerIndex:0,
+     explanation:"Turpin a arbitre la victoire 1-0 de la Colombie (but de Jhon Arias des la 14e), un match cadenasse.",
+     tags:["turpin","arbitre"],era:"2026",status:"active",questionType:"stable",availability:"always"},
+    {id:"w26_130",category:"mondial_2026",difficulty:"hard",
+     question:"Que s'est-il passe PENDANT le quadruple changement du Portugal a la 62e contre la Croatie ?",
+     choices:["Le VAR a signale un penalty pour le Portugal","La Croatie a marque son 2e but","L'arbitre a expulse un banc","Une coupure d'eclairage"],answerIndex:0,
+     explanation:"Au moment ou les quatre entrants penetraient sur la pelouse, le VAR signalait une faute sur Renato Veiga : penalty transforme par Ronaldo (68e). Un moment completement fou.",
+     tags:["portugal","var","penalty"],era:"2026",status:"active",questionType:"stable",availability:"always"},
 
     // ==================== EVOLVING TEMPLATES ====================
     // Pre-filled inactive templates: flip status to "active" once you fill in the real choices
@@ -15424,7 +15516,8 @@
       if(!all.length) return;
       var w1=all.filter(function(x){return x.winner===_sim.m.t1}).length;
       var w2=all.filter(function(x){return x.winner===_sim.m.t2}).length;
-      var h='<div style="font-size:10px;font-weight:900;color:var(--am);margin-bottom:4px">🗂 MES SIMULATIONS DE CE MATCH ('+all.length+')</div>';
+      var h='<button onclick="ffSimShare()" style="display:block;width:100%;padding:10px;margin-bottom:8px;background:var(--g);color:#000;border:none;border-radius:10px;font-size:13px;font-weight:900;cursor:pointer;font-family:inherit">📤 Partager ce scénario</button>';
+      h+='<div style="font-size:10px;font-weight:900;color:var(--am);margin-bottom:4px">🗂 MES SIMULATIONS DE CE MATCH ('+all.length+')</div>';
       h+='<div style="font-size:10px;color:var(--t2);margin-bottom:4px">'+_sim.A.name+' gagne '+Math.round(w1/all.length*100)+'% · '+_sim.B.name+' '+Math.round(w2/all.length*100)+'%</div>';
       all.slice(0,5).forEach(function(x){
         h+='<div style="font-size:10px;padding:3px 0;border-bottom:1px solid rgba(128,128,128,.07)">'+new Date(x.d).toLocaleString("fr-FR",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"})+' — <b>'+x.s[0]+'-'+x.s[1]+'</b>'+(x.pen?' ('+x.pen[0]+'-'+x.pen[1]+' t.a.b.)':'')+'</div>';
@@ -15432,6 +15525,21 @@
       z.innerHTML='<div style="background:var(--s1);border:1px solid var(--s3);border-radius:10px;padding:8px">'+h+'</div>';
     }
     function ffSimClose(){ if(_sim&&_sim.timer)clearInterval(_sim.timer); _sim=null; var el=document.getElementById("ffsim-modal"); if(el)el.remove(); }
+    // v1.9.42 — Partage du scénario simulé (Web Share → presse-papiers en secours)
+    function ffSimShare(){
+      if(!_sim||!_sim.res) return;
+      var r=_sim.res;
+      var buts=r.events.filter(function(e){return e.goal}).map(function(e){return e.m+"' "+e.txt.replace(/BUUUT de /,"⚽ ").replace(/ ! .*$/,"").replace(/PENALTY transformé par /,"⚽ (pén.) ")}).join("\n");
+      var txt="🎬 Ma simulation Foot Flash — "+(_sim.m.st||"")+"\n"
+        +_sim.A.name+" "+r.s1+" - "+r.s2+" "+_sim.B.name+(r.ext?" a.p.":"")+(r.pen1!=null?" ("+r.pen1+"-"+r.pen2+" t.a.b.)":"")+"\n"
+        +(buts?buts+"\n":"")
+        +"Simule le tien sur Foot Flash 2026 ⚽ https://architechfr.github.io/FOOT-FLASH/app/src/main/assets/index.html";
+      try{
+        if(navigator.share){ navigator.share({text:txt}).catch(function(){}); return; }
+      }catch(e){}
+      try{ navigator.clipboard.writeText(txt).then(function(){ toast("📋 Scénario copié — colle-le à tes potos !"); }); }
+      catch(e){ toast("Partage indisponible sur cet appareil"); }
+    }
 
     // v1.075 — MODAL DÉTAIL MATCH
     function showMatchDetail(matchId){
