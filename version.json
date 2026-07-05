@@ -1,5 +1,5 @@
 {
-  "versionCode": 44,
-  "version": "v1.9.54",
-  "notes": "LE COUT DU VOYAGE : nouveau classement dans Pronos — les equipes encore en vie triees par kilometres reellement parcourus (barre visuelle, changements de ville, prolongations subies, repos, malus applique). Et sur chaque FICHE DE MATCH A VENIR : la fatigue comparee des deux equipes cote a cote avec le badge PLUS FRAIS. Le critere fatigue pese sur les % de titre et le simulateur ; tout est chiffre et transparent."
+  "versionCode": 45,
+  "version": "v1.9.55",
+  "notes": "Fatigue integree PARTOUT : en plus du simulateur et des % de titre, elle pese maintenant sur le prono auto et les probabilites 1N2 de chaque fiche match (comme la chaleur et l'avantage du pays hote). Libelles clarifies : '1 prolongation jouee' au lieu de '+30 min', km avec separateur de milliers. Classement du Cout du voyage dans Pronos et Fatigue comparee (badge PLUS FRAIS) sur chaque match a venir."
 }

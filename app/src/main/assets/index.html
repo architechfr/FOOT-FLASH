@@ -2640,6 +2640,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.9.55",d:"05/07/2026",changes:"Fatigue : intégration complète + lisibilité (retours d'usage). (1) La fatigue pèse désormais sur TOUS les calculs : elle était déjà dans le simulateur minute par minute et les % de titre (Favoris) — elle entre maintenant aussi dans le PRONO AUTO de chaque fiche match et les probabilités 1N2 affichées (via l'ajustement contextuel, comme la chaleur et l'avantage du pays hôte). Une équipe cramée par les voyages verra son prono baisser partout, de façon cohérente. (2) LISIBILITÉ : le cryptique « ⏱ +30 min » devient « ⏱ 1 prolongation jouée » (tu avais bien deviné : ce sont les 30 minutes de prolongation subies, comptées par match allé en prolongation ou aux t.a.b.) — corrigé dans le classement du Coût du voyage, la Fatigue comparée des fiches match et le détail des Favoris. Les km s'affichent aussi avec le séparateur de milliers (9 235 km)."},
       {v:"v1.9.54",d:"05/07/2026",changes:"Le voyage devient lisible (retour d'usage : « un tableau des km parcourus serait intéressant, et dans pronostic on donne des infos par équipe »). (1) ✈️ LE COÛT DU VOYAGE : nouveau classement dans l'onglet Pronos — toutes les équipes encore en vie, triées par kilomètres réellement parcourus, avec barre visuelle, nombre de changements de ville 🏨, minutes de prolongation subies ⏱, jours de repos 😴 et le malus appliqué aux pronos. On voit d'un coup d'œil qui a traversé le continent trois fois et qui a dormi dans le même hôtel. (2) ✈️ FATIGUE COMPARÉE sur chaque FICHE DE MATCH À VENIR : les deux équipes côte à côte (km, villes, prolongations, repos), avec le badge « PLUS FRAIS » sur celle qui arrive le mieux — l'info par équipe, exactement là où on fait son pronostic."},
       {v:"v1.9.53",d:"05/07/2026",changes:"LA FATIGUE entre dans l'équation (retour d'usage). Dans ce Mondial à trois pays, un Vancouver→Miami c'est 4 500 km — et certaines équipes enchaînent les traversées de continent pendant que d'autres restent posées. Nouveau critère calculé pour chaque équipe : ✈️ KILOMÈTRES réellement parcourus entre ses villes de match (distances réelles, y compris le voyage vers le prochain stade), 🏨 CHANGEMENTS DE VILLE (donc d'hôtel), ⏱ MINUTES DE PROLONGATION subies (une prolongation + t.a.b. laisse des traces) et 😴 JOURS DE REPOS avant le prochain match. Les équipes plus chargées que la moyenne du plateau prennent un malus (jusqu'à -3) appliqué aux % de titre ET au simulateur minute par minute — qui l'annonce dans son avant-match quand une équipe arrive cramée. Le détail chiffré est visible dans la fiche dépliée de chaque équipe (Pronos → Favoris) : km, hôtels, prolongations, repos, malus."},
       {v:"v1.9.52",d:"05/07/2026",changes:"Favoris : deux lectures + le duel qui vient (retours d'usage : « l'Espagne et le Portugal sont plus favoris que le Maroc » et « le Maroc va jouer la France, comment tu proposes ça ? »). (1) DEUX TRIS AU CHOIX : 🏆 % de titre sur le tableau réel (l'Espagne et le Portugal s'entretuent dès ce soir en 8e — leurs chances individuelles se divisent, c'est mathématique) OU 💪 Force brute (et là l'Espagne 85 et le Portugal 84 dominent bien le Maroc 71, conforme à l'intuition). Les deux points de vue coexistent, chacun est juste dans sa logique. (2) 🤜🤛 LE DUEL QUI VIENT : la fiche dépliée de chaque équipe affiche son prochain adversaire réel et son % de passer CE tour précis — le Maroc montre ses ~38% de battre la France en quart : son % de titre contient déjà ce duel, rien n'est caché. (3) Rappel pédagogique : la France est déjà en quart (4 victoires pour le titre), l'Argentine doit encore passer son 8e (5 victoires) — voilà pourquoi ~19% contre ~10%."},
@@ -2712,7 +2713,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.54 — ✈️ Le coût du voyage : classement des km par équipe + fatigue comparée sur chaque match à venir · 5 juillet 2026";
+    var APP_VERSION="v1.9.55 — Fatigue intégrée partout (prono auto compris) + libellés clairs (« 1 prolongation jouée ») · 5 juillet 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -7704,7 +7705,7 @@
               // v1.9.53 — la fatigue, chiffrée et transparente
               try{
                 var _ft=ffTeamFatigue(y.id);
-                h+='<div style="margin-top:3px">😮‍💨 <b style="color:var(--am)">Fatigue :</b> ~'+_ft.km+' km parcourus · '+_ft.moves+' changements de ville · '+(_ft.extra?_ft.extra+' min de prolongation · ':'')+'repos '+_ft.rest+' j <span style="color:'+(_ft.adj<0?'var(--rd)':'var(--g)')+';font-weight:800">('+(_ft.adj>=0?'±0':_ft.adj)+')</span></div>';
+                h+='<div style="margin-top:3px">😮‍💨 <b style="color:var(--am)">Fatigue :</b> ~'+_ft.km.toLocaleString("fr-FR")+' km parcourus · '+_ft.moves+' changements de ville · '+(_ft.extra?(_ft.extra/30)+' prolongation'+(_ft.extra>30?'s':'')+' jouée'+(_ft.extra>30?'s':'')+' · ':'')+'repos '+_ft.rest+' j <span style="color:'+(_ft.adj<0?'var(--rd)':'var(--g)')+';font-weight:800">('+(_ft.adj>=0?'±0':_ft.adj)+')</span></div>';
               }catch(e){}
               h+='</div>';
             }
@@ -7741,7 +7742,7 @@
           h+='<span style="font-size:12px;font-weight:900;color:var(--tx);min-width:64px;text-align:right">'+f.km.toLocaleString("fr-FR")+' km</span>';
           h+='</div>';
           h+='<div style="display:flex;gap:10px;font-size:9px;color:var(--t2);margin-top:3px;padding-left:26px">';
-          h+='<span>🏨 '+f.moves+' villes</span>'+(f.extra?'<span>⏱ +'+f.extra+' min</span>':'')+'<span>😴 repos '+f.rest+' j</span>';
+          h+='<span>🏨 '+f.moves+' villes</span>'+(f.extra?'<span>⏱ '+(f.extra/30)+' prolongation'+(f.extra>30?'s':'')+' jouée'+(f.extra>30?'s':'')+'</span>':'')+'<span>😴 repos '+f.rest+' j</span>';
           h+='<span style="margin-left:auto;font-weight:800;color:'+(f.adj<0?'var(--rd)':'var(--g)')+'">'+(f.adj<0?f.adj+' aux pronos':'frais ±0')+'</span>';
           h+='</div></div>';
         });
@@ -15122,6 +15123,9 @@
         if(HEAT_HARDENED[teamId]) adj += 2;
         else if(HEAT_SENSITIVE[teamId]) adj -= 2;
       }
+      // v1.9.55 — la FATIGUE pèse aussi sur le prono auto de chaque match
+      // (voyages, changements d'hôtel, prolongations subies, manque de repos)
+      try{ if(typeof ffTeamFatigue==="function") adj += ffTeamFatigue(teamId).adj; }catch(e){}
       return adj;
     }
     // Libellé lisible des facteurs actifs (fiche match, "Pourquoi ce choix ?")
@@ -15941,7 +15945,7 @@
             h+='<div style="flex:1;background:'+(fresher?'rgba(46,160,67,.08)':'var(--s2)')+';border:1px solid '+(fresher?'var(--g)':'var(--s3)')+';border-radius:10px;padding:8px;text-align:center">';
             h+='<div style="margin-bottom:4px">'+flagImg(tid,22)+(fresher?' <span style="font-size:9px;font-weight:900;color:var(--g)">PLUS FRAIS</span>':'')+'</div>';
             h+='<div style="font-size:14px;font-weight:900;color:var(--tx)">'+f.km.toLocaleString("fr-FR")+' km</div>';
-            h+='<div style="font-size:9px;color:var(--t2);margin-top:2px">🏨 '+f.moves+' villes'+(f.extra?' · ⏱ +'+f.extra+' min':'')+' · 😴 '+f.rest+' j</div>';
+            h+='<div style="font-size:9px;color:var(--t2);margin-top:2px">🏨 '+f.moves+' villes'+(f.extra?' · ⏱ '+(f.extra/30)+' prolong.':'')+' · 😴 '+f.rest+' j</div>';
             h+='<div style="font-size:10px;font-weight:800;margin-top:3px;color:'+(f.adj<0?'var(--rd)':'var(--g)')+'">'+(f.adj<0?f.adj+' aux pronos':'±0')+'</div>';
             h+='</div>';
           });
