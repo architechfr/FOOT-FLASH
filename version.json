@@ -1,5 +1,5 @@
 {
-  "versionCode": 29,
-  "version": "v1.9.33",
-  "notes": "L'app se met a l'heure du VRAI tournoi. (1) Le classement des meilleurs 3es revient 'pour memoire' : volet repliable sous le tableau final, classement fige avec les 8 qualifies reels et les elimines. (2) Quiz a jour : 22 nouvelles questions sur les faits marquants reels du Mondial (Paraguay-Allemagne aux t.a.b., epopee du Maroc, conte de fees du Cap-Vert, triples de Messi/Dembele/David, remontada belge, France-Maroc en quart...). (3) Fiches joueurs : encart 'Mondial 2026 en cours' avec les buts reels du joueur, calcules automatiquement depuis les resultats officiels. (4) Pronos/simulation : l'algorithme integre la forme reelle du tournoi et les notes presse des effectifs. (5) Records actualises : le record de Klose est tombe, Messi (20) et Mbappe (19) l'ont depasse."
+  "versionCode": 30,
+  "version": "v1.9.34",
+  "notes": "La Simulation suit enfin le vrai tournoi. Les groupes reellement termines sont importes depuis les resultats officiels et verrouilles (impossible de choisir d'autres qualifies), les 8 meilleurs 3es sont les vrais qualifies, les matchs a elimination deja joues (16es, 8es...) affichent les vraies affiches et leurs vainqueurs officiels verrouilles. La Simulation auto ne tire au sort QUE les matchs restants, en partant de l'etat reel du tableau. Un bandeau 'Synchronise avec le vrai tournoi' indique combien de matchs sont actes. Fini les enormites du type 'Republique tcheque 1re du groupe A' alors qu'on est deja en 8es de finale."
 }
