@@ -1,5 +1,5 @@
 {
-  "versionCode": 31,
-  "version": "v1.9.40",
-  "notes": "Calendrier embarque realigne sur le calendrier officiel FIFA (8es les 4-7 juillet, quarts 9-12, demies 14-15, finale 19 juillet, bons stades) : plus de matchs non joues affiches 'termines' ni de faux prochain match. Garde-fou : un match sans score n'est plus jamais marque TERMINE. Recits de presse sur les fiches match, simulateur minute par minute avec suspense et animations, Favoris du Mondial simules sur le vrai tableau, forces recalibrees (Portugal/Angleterre/Espagne rehausses, bonus domicile Mexique/USA, Bresil ajuste)."
+  "versionCode": 32,
+  "version": "v1.9.41",
+  "notes": "Pronostics realistes : amortisseur de surprise (le favori d'un match KO est plafonne a 85%, fini les % de titre gonfles pour la France) + facteur arbitrage (l'Argentine profite des decisions, Messi protege ; leger bonus prestige Bresil), applique aux % de titre et au simulateur minute par minute. Inclut aussi : calendrier embarque realigne (8es 4-7/07, quarts 9-12), garde-fou 'jamais termine sans score', recits de presse, simulateur anime."
 }

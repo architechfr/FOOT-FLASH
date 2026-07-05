@@ -2640,6 +2640,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.9.41",d:"05/07/2026",changes:"Pronostics moins sûrs d'eux, plus vrais (retours d'usage : « le % de la France est trop confiant » et « l'Argentine a l'arbitrage pour elle, Messi est protégé »). (1) AMORTISSEUR DE SURPRISE : dans le calcul des % de titre, chaque match à élimination directe est désormais traité comme ce qu'il est — un match sec où tout peut arriver. La probabilité du favori est tirée vers 50% et PLAFONNÉE à 85% : fini les France à 90% de passer chaque tour qui gonflaient de tour en tour. Les gros favoris baissent, les outsiders remontent — plus conforme à la vraie histoire des Coupes du monde. (2) FACTEUR ARBITRAGE 🧑‍⚖️ : l'Argentine reçoit un bonus « décisions favorables » (Messi protégé, penaltys et coups francs obtenus — voir le penalty généreux contre le Cap-Vert), le Brésil un plus léger (prestige). Appliqué aux % de titre ET au simulateur minute par minute, où la ligne d'avant-match l'annonce désormais."},
       {v:"v1.9.40",d:"05/07/2026",changes:"Téléphone enfin d'accord avec le PC (retour d'usage : affichage différent selon l'appareil). Deux causes trouvées et corrigées. (1) Le CALENDRIER EMBARQUÉ de secours (utilisé quand le calendrier en ligne n'est pas encore chargé) datait d'avant le calendrier officiel FIFA : 8es datés 3-4 juillet (d'où des matchs non joués affichés « terminés ») et France-Maroc annoncé le 7 juillet à la place du 9. Il est réaligné sur le vrai calendrier : 8es les 4-7 juillet (Brésil-Norvège dim. 22h FR, Mexique-Angleterre lun. 2h, Portugal-Espagne lun. 21h, USA-Belgique mar. 2h, Argentine-Égypte mar. 18h, Suisse-Colombie mar. 22h), quarts 9-12, demies 14-15, finale 19 juillet — avec les bons stades. (2) LA MISE À JOUR AUTO NE SE DÉCLENCHAIT PLUS : le téléphone ne recharge la nouvelle version que quand version.json change, et il n'avait pas suivi les dernières évolutions — réparé, et le rituel de publication est corrigé pour que ça n'arrive plus. Ferme et rouvre l'app une fois : tout doit être identique au PC."},
       {v:"v1.9.39",d:"05/07/2026",changes:"Plus jamais de « TERMINÉ » sans score (retour d'usage : des 8es pas encore joués apparaissaient terminés et le « prochain match » sautait au quart de la France). Nouvelle règle stricte dans l'onglet Matchs : un match n'est considéré TERMINÉ que si son score est connu (résultat officiel figé ou statut final du flux live). Si l'heure est passée mais qu'aucun score n'est remonté (données en retard, horaire décalé, vieux cache), la carte affiche « ⏳ score en attente » en ambre au lieu d'un faux TERMINÉ, le match n'est PAS replié dans « matchs déjà joués », et l'ancrage « prochain match » ne saute plus par-dessus des matchs non joués. Même garde-fou dans le calendrier par jour. NB : si tu vois encore des horaires aberrants, c'est un vieux cache — recharge la version web (2×) ou réinstalle l'APK par-dessus, les données actuelles sont correctes (8es les 5-6-7 juillet, quarts 9-11)."},
       {v:"v1.9.38",d:"05/07/2026",changes:"Simulateur & favoris recalibrés (retours d'usage). (1) FINI LES BUTEURS FANTÔMES : « Johan Manzambi » (un Suisse !) pouvait marquer pour la France — désormais un buteur simulé doit appartenir à l'EFFECTIF de son équipe (vérification par nom, accents ignorés) ; sinon le moteur pioche dans les vrais buteurs du tournoi de l'équipe (Mbappé, Dembélé, Barcola, Doué pour les Bleus). (2) FORCES RECALIBRÉES : le Portugal (money-time royal), l'Angleterre et l'Espagne étaient sous-cotés — corrigé ; le MEXIQUE et les USA reçoivent leur vrai bonus DOMICILE (public + pays hôte, appliqué au simulateur ET aux % de titre) ; le Brésil, friable derrière et renversé par le Japon avant d'être sauvé à la 90e+5, perd sa surcote historique. Ces réglages s'appliquent partout : simulateur minute par minute, Favoris du Mondial (Monte-Carlo du tableau) et pronos."},
@@ -2698,7 +2699,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.40 — Calendrier embarqué réaligné (8es 4-7 juil, quarts 9-12) + mise à jour auto réparée · 5 juillet 2026";
+    var APP_VERSION="v1.9.41 — Pronos réalistes : amortisseur de surprise (favori plafonné à 85%/match) + facteur arbitrage (Argentine/Messi) · 5 juillet 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -7462,13 +7463,21 @@
           try{ s+=compFormAdj(id); }catch(e){}
           try{ if(typeof SIM_PRESS!=="undefined"&&SIM_PRESS[id]) s+=SIM_PRESS[id].b; }catch(e){}
           try{ if(typeof WC2026_HOSTS!=="undefined"&&WC2026_HOSTS[id]) s+=2; }catch(e){} // domicile MEX/USA
+          try{ if(typeof SIM_REF!=="undefined"&&SIM_REF[id]) s+=SIM_REF[id].b; }catch(e){} // arbitrage (Messi & co)
           return s;
         }
         var pc={};
         function P(a,b){ // p(a élimine b) — le nul se résout au prorata (t.a.b.)
           var k=a+"|"+b; if(pc[k]!=null)return pc[k];
           var pr=computeOutcomeProbabilities(strength(a),strength(b));
-          var t=pr.home+pr.away; pc[k]=t>0?pr.home/t:0.5; return pc[k];
+          var t=pr.home+pr.away, p=t>0?pr.home/t:0.5;
+          // v1.9.41 — AMORTISSEUR DE SURPRISE : un match KO sec reste un match sec.
+          // Le foot est un sport à petits scores : le favori gagne moins souvent que
+          // sa force ne le suggère. On tire p vers 50% et on le borne à 85% max —
+          // sans quoi les % de titre des gros (France…) gonflaient de tour en tour.
+          p = 0.5 + (p-0.5)*0.78;
+          p = Math.max(0.15, Math.min(0.85, p));
+          pc[k]=p; return p;
         }
         var ids=[89,90,91,92,93,94,95,96,97,98,99,100,101,102,104];
         var fixed={}, alive={};
@@ -15140,6 +15149,12 @@
       BRA:{b:-2, why:"Surcotée : menée par le Japon, sauvée à la 90e+5 — friable derrière"}
     };
     function _simNorm(s){ try{return String(s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");}catch(e){return String(s||"").toLowerCase();} }
+    // v1.9.41 — Facteur ARBITRAGE (retour d'usage) : certaines équipes obtiennent
+    // plus de décisions favorables (stars protégées, penaltys, temps additionnel).
+    var SIM_REF = {
+      ARG:{b:1.5, why:"L'arbitrage lui sourit : Messi protégé, penaltys et coups francs obtenus"},
+      BRA:{b:0.5, why:"Le prestige pèse (un peu) sur les décisions serrées"}
+    };
     var SIM_HOT_CITIES = ["Houston","Arlington","Dallas","Miami","Atlanta","Kansas City","Monterrey","Guadalajara","Mexico City","Philadelphia","East Rutherford"];
 
     function ffSimRng(seed){ // mulberry32 — déterministe, seed rejouable
@@ -15185,9 +15200,11 @@
       if(names.length<4){ getTopPlayersOfTeam(id,6).forEach(function(p){ if(names.indexOf(p.name)<0 && p.pos!=="GAR" && inRoster(p.name)) names.push(p.name); }); }
       var press=SIM_PRESS[id]||{b:0,why:null};
       var host=(typeof WC2026_HOSTS!=="undefined" && WC2026_HOSTS[id])?2:0; // vrai bonus domicile (MEX/USA/CAN)
-      return { id:id, name:t.name||id, rating: sk.skills + press.b + host,
+      var ref=(typeof SIM_REF!=="undefined" && SIM_REF[id])?SIM_REF[id]:null; // facteur arbitrage
+      var why=press.why; if(ref&&ref.why) why=(why?why+". 🧑‍⚖️ ":"🧑‍⚖️ ")+ref.why;
+      return { id:id, name:t.name||id, rating: sk.skills + press.b + host + (ref?ref.b:0),
                gfAvg: pl? gf/pl : 1.2, gaAvg: pl? ga/pl : 1.2, played:pl,
-               scorers:names.slice(0,7), pressWhy:press.why };
+               scorers:names.slice(0,7), pressWhy:why };
     }
 
     // MOTEUR PUR — retourne {events:[{m,ic,txt,goal,team}], s1,s2, pen1,pen2, ext}
