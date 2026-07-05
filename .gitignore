@@ -45,3 +45,6 @@ node_modules/
 package-lock.json
 .npm/
 prono-poto/
+
+# ─── Journaux presse (703 Mo, droits d'auteur — NE JAMAIS COMMIT) ───
+journaux/

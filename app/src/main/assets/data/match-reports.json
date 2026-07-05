@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "lastUpdated": "2026-07-05T00:00:00Z",
+  "source": "Faits extraits de la presse (L'Équipe 29/06-04/07/2026) — récits réécrits, aucune reproduction",
+  "data": {
+    "73": {
+      "recit": "Longtemps muselé par une Afrique du Sud vaillante, le Canada a forcé la décision au bout du temps additionnel : centre long de Shaffelburg, remise de la tête d'Okon et frappe d'Eustáquio glissée dans le petit filet (90e+2). Les Canadiens ont dominé aux occasions (12 tirs à 6) malgré une possession minoritaire.",
+      "tournant": "Le but d'Eustáquio à la 90e+2, seul éclair d'un match verrouillé.",
+      "homme": "Stephen Eustáquio (7/10)",
+      "stats": ["69 237 spectateurs · arbitre J. Pinheiro (POR)", "Possession 58-42 pour la RSA, mais xG 0,13 contre 1,32", "Tirs cadrés : 1 (RSA) - 7 (CAN)"],
+      "anecdotes": ["Eustáquio, prêté par le FC Porto au Los Angeles FC, a perdu ses deux parents entre 2023 et 2024 — il a dédié ce but à leur mémoire.", "Vice-capitaine, il a laissé le brassard à Alphonso Davies à sa sortie."],
+      "src": "L'Équipe du 29/06/2026"
+    },
+    "74": {
+      "recit": "La sensation des 16es : accrochée par le Paraguay d'Enciso (0-1, 42e) puis revenue par Havertz (54e), l'Allemagne a craqué aux tirs au but (3-4). Une élimination précoce et fracassante pour la Mannschaft.",
+      "tournant": "La séance de tirs au but, fatale à l'Allemagne (3-4).",
+      "stats": ["Arbitre : Jalal Jayed"],
+      "anecdotes": ["Conséquence immédiate : Jürgen Klopp (59 ans), consultant TV pendant le tournoi, est attendu comme prochain sélectionneur de l'Allemagne — contrat de 4 ans en discussion, la DFB n'a contacté aucun autre coach.", "Le Paraguay retrouvait un 8e de finale de Coupe du monde pour la première fois depuis 2010."],
+      "src": "L'Équipe du 01/07 et 04/07/2026"
+    },
+    "75": {
+      "recit": "Un combat d'une rare violence tactique et physique : 16 cartons jaunes et 4 rouges (deux par équipe), un total record digne de la « bataille de Nuremberg » de 2006. Gakpo avait ouvert le score (72e), Issa Diop a égalisé au bout du temps additionnel (90e+1), et le Maroc a triomphé aux tirs au but (3-2) — avec un fait rarissime : le gardien néerlandais Verbruggen marquant contre son camp pendant la séance.",
+      "tournant": "L'égalisation d'Issa Diop à la 90e+1, puis la séance fatale aux Oranje.",
+      "stats": ["20 cartons au total — record de la Coupe du monde 2026", "3e élimination consécutive des Pays-Bas aux tirs au but en Coupe du monde"],
+      "anecdotes": ["Ronald Koeman a démissionné le soir même de l'élimination.", "Memphis Depay, meilleur buteur de l'histoire des Pays-Bas (55 buts), n'est jamais entré en jeu.", "Issa Diop ne comptait que 8 sélections avec le Maroc avant ce Mondial — il a le plus gros temps de jeu des nouveaux venus de l'année."],
+      "src": "L'Équipe du 01/07/2026"
+    },
+    "76": {
+      "recit": "Cueilli à froid par la chevauchée solitaire de Sano (29e), le Brésil a renversé le Japon par Casemiro, de la tête sur un centre de Gabriel (56e), puis Martinelli au bout du bout (90e+5, passe de Guimaraes). Premier match à élimination directe renversé par la Seleção depuis 2002.",
+      "tournant": "L'égalisation de Casemiro dès le retour des vestiaires, après une première période où il avait coulé.",
+      "homme": "Bruno Guimaraes (7/10), passeur décisif — flop : Kamada (3/10)",
+      "stats": ["68 777 spectateurs · arbitre M. Mariani (ITA)", "xG 1,72 - 0,23 · possession 68,6 % · tirs 19 (7 cadrés) contre 5 (2)"],
+      "anecdotes": ["Neymar s'est échauffé en seconde période mais n'est jamais entré — choix assumé d'Ancelotti.", "Dernier renversement du Brésil en phase KO : le quart Angleterre-Brésil 2002 (2-1)."],
+      "src": "L'Équipe du 30/06/2026"
+    },
+    "77": {
+      "recit": "Récital des Bleus au MetLife Stadium : ouverture de Mbappé juste avant la pause (45e, servi par Dembélé), break de Barcola (53e) et doublé de Mbappé (74e), les deux sur des caviars d'Olise. La Suède n'a jamais existé (xG 3,17 contre 0,64).",
+      "tournant": "Le but au meilleur moment, à la 45e, après un but refusé à Mbappé (20e) et un retourné d'Olise sur le poteau (35e).",
+      "homme": "Michael Olise (9/10), deux passes décisives",
+      "notes": {"Maignan": 6, "Koundé": 7, "Saliba": 6, "Upamecano": 6, "Digne": 5, "Tchouaméni": 6, "Rabiot": 7, "Olise": 9, "Barcola": 7, "Dembélé": 7, "Mbappé": 8},
+      "stats": ["80 663 spectateurs · arbitre D. Makkelie (NED)", "xG 3,17 - 0,64 · possession 61 % · tirs 25 (8 cadrés) contre 12 (3)", "Note d'équipe : 6,8 contre 3,6 pour la Suède"],
+      "anecdotes": ["Avec ce doublé, Mbappé (10 buts) devient seul meilleur buteur de l'histoire en phase à élimination directe de la Coupe du monde, devant Leonardo et Ronaldo (8).", "Olise prend la tête des passeurs du Mondial (5 offrandes en 4 matchs — seul Pelé a fait mieux à ce rythme en 1970).", "Aucun carton dans le match : aucun Bleu sous la menace d'une suspension."],
+      "src": "L'Équipe du 01/07/2026"
+    },
+    "78": {
+      "recit": "La Norvège a fait tomber la Côte d'Ivoire dans un match piège : ouverture de Nusa (39e), égalisation d'Amad Diallo (74e), puis tête décisive de Berg au second poteau (86e) — sur un centre d'Haaland, discret jusque-là mais passeur au moment clé.",
+      "tournant": "Le centre d'Haaland pour Berg à la 86e, alors que trois défenseurs ivoiriens s'étaient fait aspirer.",
+      "homme": "Martin Ødegaard (7/10) — flop : Bonny (2/10)",
+      "stats": ["Arbitre : J. Valenzuela (VEN)"],
+      "anecdotes": ["Premier 8e de finale de la Norvège depuis 1998 (éliminée alors par l'Italie à Marseille).", "5e but du tournoi pour Haaland — son 60e en 53 sélections.", "Haaland était laissé au repos lors du France-Norvège de poules (4-1 pour les Bleus)."],
+      "src": "L'Équipe du 01/07/2026"
+    },
+    "79": {
+      "recit": "Le Mexique, porté par son public, a plié le match avant la pause : Quiñones (31e) puis Jiménez au bout du temps additionnel de la première période (45e+1). L'Équateur n'a jamais trouvé la faille.",
+      "stats": ["Arbitre : S. Vinčič (SLO)", "Match terminé trop tard pour les éditions françaises — compte rendu presse indisponible"],
+      "src": "Livescores + L'Équipe du 02/07/2026 (bref)"
+    },
+    "80": {
+      "recit": "L'Angleterre a eu très chaud : menée dès la 7e sur un but de Cipenga et longtemps repoussée par le gardien remplaçant Mpasi (arrêts aux 30e, 45e+2 et 53e), elle a été sauvée par un doublé tardif de Kane (75e, 86e), deux fois servi par Gordon, entré en jeu.",
+      "tournant": "L'entrée d'Anthony Gordon, passeur sur les deux buts de Kane.",
+      "homme": "Harry Kane (8/10) — top : Bellingham (6), flop : Wissa (3)",
+      "stats": ["68 239 spectateurs à Atlanta · arbitre A. Makhadmeh (JOR)", "xG 2,04 - 0,8 · possession 60-40 · tirs 16 (7 cadrés) contre 7 (2)"],
+      "anecdotes": ["La RD Congo, entraînée par le Français Sébastien Desabre, disputait le 2e Mondial de son histoire (après 1974, sous le nom du Zaïre).", "Wissa avait touché le poteau anglais à la 42e — le fiasco est passé tout près pour Tuchel."],
+      "src": "L'Équipe du 02/07/2026"
+    },
+    "81": {
+      "recit": "Les États-Unis de Pochettino ont fait le travail devant leur public de Santa Clara : Balogun juste avant la pause (45e), puis Tillman en fin de match (82e). La Bosnie n'a pas cadré assez pour espérer.",
+      "stats": ["Arbitre : R. Claus (BRA)", "Match joué dans la nuit française — compte rendu presse indisponible"],
+      "anecdotes": ["La fédération américaine a proposé à Pochettino une prolongation de 4 ans incluant les JO de Los Angeles 2028 et la Copa América."],
+      "src": "Livescores + L'Équipe du 02-03/07/2026 (brefs)"
+    },
+    "82": {
+      "recit": "Scénario fou à Seattle : menée 2-0 par le Sénégal (Diarra 25e, Sarr 51e), la Belgique a tout renversé en trois minutes par Lukaku (86e) et Tielemans (89e), avant que ce dernier n'offre la qualification sur penalty à la 120e+5, au bout de la prolongation.",
+      "tournant": "L'égalisation éclair 86e-89e, puis le penalty de la 120e+5.",
+      "stats": ["Arbitre : S. Martinez (HON)", "Match joué dans la nuit française — compte rendu presse indisponible"],
+      "src": "Livescores"
+    },
+    "83": {
+      "recit": "Le Portugal a arraché ce choc au scénario fou : dominateur mais puni par Perisic (53e), il a égalisé sur un penalty de Ronaldo signalé par le VAR (68e) — pendant que quatre entrants, dont Gonçalo Ramos, pénétraient sur la pelouse. Sauvée par cinq arrêts de Diogo Costa, la Seleção a gagné sur une tête de Ramos (90e+4), avant qu'un but croate ne soit annulé par le VAR à la 90e+13.",
+      "tournant": "Le quadruple changement de Martinez à la 62e, suivi du penalty : les deux hommes du renversement (Ramos, Neves) venaient d'entrer.",
+      "homme": "Cristiano Ronaldo élu homme du match — mais Diogo Costa et Ramos furent les vrais héros",
+      "stats": ["Arbitre : E. Eskås (NOR)", "Diogo Costa : 5 arrêts"],
+      "anecdotes": ["Premier match à élimination directe renversé par le Portugal en Coupe du monde depuis 1966.", "Luka Modric, 40 ans, a disputé là son dernier match en Coupe du monde — sur le terrain jusqu'à la 90e+13.", "Ramos, transféré à l'AC Milan pour 60 M€ un mois plus tôt : 7 de ses 10 derniers buts en club inscrits en sortie de banc.", "Match dédié à la mémoire de Diogo Jota, disparu un an plus tôt ; l'adjoint Ricardo Carvalho avait enterré son père le matin même.", "Des milliers de supporters ont fêté la victoire sous le balcon de l'hôtel portugais à Toronto jusqu'à 2h du matin."],
+      "src": "L'Équipe du 04/07/2026"
+    },
+    "84": {
+      "recit": "Démonstration espagnole : Oyarzabal, chirurgical, a ouvert le score seul au point de penalty (36e, passe de Cucurella), Porro a fait le break (66e, passe de Baena) et Oyarzabal s'est offert un doublé (89e, encore Cucurella). L'Autriche de Rangnick n'a existé que par les arrêts de Schlager.",
+      "tournant": "L'arrêt de Schlager devant Oyarzabal (33e)… qui n'a retardé l'ouverture du score que de trois minutes.",
+      "homme": "Lamine Yamal élu homme du match (dernier tir sauvé sur la ligne par Alaba, 85e) — top L'Équipe : Oyarzabal (8/10)",
+      "stats": ["70 492 spectateurs · arbitre G. Nyberg (SUE)", "xG 2,84 - 0,32"],
+      "anecdotes": ["Premier tour à élimination directe passé par l'Espagne en Coupe du monde depuis son sacre de 2010.", "La Roja étend sa série d'invincibilité à 34 matchs — et n'a toujours pas encaissé un seul but dans ce Mondial.", "Elle n'avait plus marqué en phase KO d'un Mondial depuis un CSC d'Ignashevich en 2018."],
+      "src": "L'Équipe du 03/07/2026"
+    },
+    "85": {
+      "recit": "La Suisse a plié l'affaire tôt : Embolo à la 10e, puis Ndoye dès le retour des vestiaires (46e). L'Algérie, émoussée après sa folle 3e journée (3-3 contre l'Autriche), n'a pas trouvé les ressources.",
+      "stats": ["Arbitre : Y. Falcón (ARG)"],
+      "src": "L'Équipe du 04/07/2026 (bref)"
+    },
+    "86": {
+      "recit": "L'Argentine a eu très peur face au Petit Poucet : devant par Messi (29e), rejointe par Duarte (59e), sauvée par Lisandro Martínez au bout du temps additionnel (90e+2), à nouveau accrochée par Lopes Cabral (103e), elle n'a été délivrée que par un CSC de Borges (111e). 3-2 après prolongation.",
+      "tournant": "L'égalisation de Lisandro Martínez à la 90e+2, qui a évité la plus grosse sensation de l'histoire du tournoi.",
+      "stats": ["Arbitre : D. Fischer (CAN)", "Match joué dans la nuit française — compte rendu presse indisponible"],
+      "anecdotes": ["Première Coupe du monde de l'histoire du Cap-Vert, porté par une énorme diaspora : plus de 800 000 Cap-Verdiens à l'étranger, dont 142 000 aux États-Unis.", "7e but du tournoi pour Messi, en tête du classement des buteurs."],
+      "src": "Livescores + L'Équipe du 04/07/2026 (avant-match)"
+    },
+    "87": {
+      "recit": "Un but précoce de Jhon Arias (14e) a suffi à la Colombie pour éteindre le Ghana, dans un match cadenassé arbitré par le Français Clément Turpin.",
+      "stats": ["Arbitre : C. Turpin (FRA)", "Match joué dans la nuit française — compte rendu presse indisponible"],
+      "src": "Livescores"
+    },
+    "88": {
+      "recit": "L'Égypte a écrit son histoire à Dallas : devant grâce à une tête d'Ashour (13e), rejointe sur un coup franc dévié dans son propre but par Hany (55e), elle a tenu jusqu'aux tirs au but — remportés 4-2, avec une panenka pleine de sang-froid de Salah en troisième tireur.",
+      "tournant": "La séance : tentative de Souttar dans le ciel texan, panenka de Salah, puis barre de Herrington (18 ans), 4e tireur australien.",
+      "homme": "Mohamed Salah — 5 situations de but créées, 8 ballons touchés dans la surface",
+      "stats": ["70 244 spectateurs · arbitre G. Tejera (URU)", "Temps additionnel : 5+5 minutes, aucun en prolongation"],
+      "anecdotes": ["Première qualification de l'Égypte pour un 8e de finale de Coupe du monde, à sa 4e participation.", "Salah, 34 ans, laissé libre par Liverpool en fin de saison, était incertain après une alerte aux ischio-jambiers contre l'Iran.", "Beach avait sauvé l'Australie d'un arrêt réflexe devant Rabia à la 90e+3."],
+      "src": "L'Équipe du 04/07/2026"
+    },
+    "89": {
+      "recit": "Les Bleus ont fait sauter le verrou paraguayen sur un penalty de Mbappé (70e) à Philadelphie. Une qualification sérieuse et sans frayeur majeure pour les quarts.",
+      "anecdotes": ["11e but de Mbappé en phase à élimination directe de Coupe du monde — il creuse son propre record."],
+      "stats": ["Arbitre : I. Tantashev (UZB)"],
+      "src": "Livescores"
+    },
+    "90": {
+      "recit": "Le Maroc a éteint le Canada chez lui : doublé d'Ounahi (50e, 82e) puis but de Rahimi au bout du temps additionnel (90e+8). Les Lions de l'Atlas filent en quarts sans trembler.",
+      "stats": ["Arbitre : M. Oliver (ENG)"],
+      "src": "Livescores"
+    }
+  }
+}
