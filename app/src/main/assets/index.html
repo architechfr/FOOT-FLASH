@@ -2626,6 +2626,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.9.34",d:"05/07/2026",changes:"La SIMULATION suit enfin le vrai tournoi (retour d'usage : elle affichait des enormites du type « Republique tcheque 1re du groupe A » alors qu'on est deja en 8es !). Desormais : (1) les groupes reellement termines sont importes depuis les resultats OFFICIELS et verrouilles 🔒 — impossible de choisir d'autres qualifies ; (2) les 8 meilleurs 3es sont les vrais qualifies officiels, plus une selection manuelle ; (3) les matchs a elimination deja joues (16es, 8es...) affichent les VRAIES affiches et leurs vainqueurs officiels verrouilles 🔒 — on ne re-simule jamais le passe ; (4) la « Simulation auto » ne tire au sort QUE les matchs restants (le futur), en partant de l'etat reel du tableau ; (5) un bandeau « 📡 Synchronise avec le vrai tournoi » indique combien de matchs sont actes ; (6) le bouton Reinitialiser re-synchronise au lieu de ramener un passe fantaisiste, et le compteur « 36/24 » est corrige. La simulation reste un jeu pour pronostiquer LA SUITE — plus jamais une machine a reecrire l'histoire."},
       {v:"v1.9.33",d:"05/07/2026",changes:"L'app se met à l'heure du VRAI tournoi (analyse complète au 5 juillet). (1) CLASSEMENT DES 3ES DE RETOUR « pour mémoire » : masqué brutalement en phase finale par la v1.9.32, il est désormais conservé dans un volet repliable sous le tableau — classement final figé, avec les 8 qualifiés ✔ réels (affectation officielle) et les éliminés. (2) QUIZ À JOUR : 12 nouvelles questions (mode Libre) + 10 (mode Chrono) sur les faits marquants RÉELS du Mondial en cours — le Paraguay qui sort l'Allemagne aux t.a.b., le Maroc tombeur des Pays-Bas puis du Canada (3-0), le conte de fées du Cap-Vert (0-0 contre l'Espagne, 2e devant l'Uruguay), les triplés de Messi (Algérie), Dembélé (Norvège) et Jonathan David (Qatar), la remontada belge contre le Sénégal, France-Maroc en quart (remake 2022)… (3) FICHES JOUEURS : nouvel encart « 🏆 Mondial 2026 — en cours » avec les buts RÉELS du joueur dans le tournoi (dont pénaltys), calculés automatiquement depuis les résultats officiels — aucun décalage possible avec la réalité. (4) PRONOS/SIMULATION : l'algorithme intègre désormais la forme RÉELLE du tournoi (résultats officiels, bonus/malus jusqu'à ±14%) et les « notes presse » des effectifs (moyenne des 5 meilleures notes, barème Ballon d'Or) — une équipe qui cartonne comme le Maroc pèse plus lourd qu'avant dans les simulations. (5) RECORDS & ANECDOTES ACTUALISÉS : le record de Klose (16 buts) est tombé — Messi (20) et Mbappé (19) l'ont dépassé pendant ce Mondial, fiches records mises à jour ; anecdotes Haaland (5 buts pour son 1er Mondial) et Mbappé réécrites au présent ; 2 nouvelles anecdotes (Paraguay-Allemagne, Cap-Vert)."},
       {v:"v1.9.32",d:"05/07/2026",changes:"Le TABLEAU FINAL ressemble enfin à un vrai tableau (retour d'usage : « ça ne ressemble à rien »). Avant : de longues listes de cartes empilées par tour, séparées par un gros « Classement des 3es » — impossible de suivre le fil d'un tour à l'autre. Désormais c'est un VRAI arbre de bracket, à l'horizontale, avec des traits qui relient chaque affiche à la suivante : 16es → 8es → quarts → demies → 🏆 Finale (dorée) au bout. On fait défiler latéralement jusqu'à la finale. Chaque case reste une affiche cliquable (drapeau + nom + score, vainqueur ✔ en vert, perdant grisé, t.a.b. indiqués, date FR). Et le « Classement des meilleurs 3es » disparaît automatiquement dès que la phase à élimination directe est lancée : au stade des quarts, il n'a plus aucun intérêt et n'encombre plus le tableau (il ne s'affiche que pendant la phase de groupes, quand il sert vraiment)."},
       {v:"v1.9.31",d:"05/07/2026",changes:"Tableau final enfin lisible (retour d'usage : « qui rencontre qui ? »). Les cartes du bracket étaient minuscules (4 par ligne, texte 8-9px), sans scores ni indication du qualifié. Refonte complète : cartes 2 fois plus larges (2 par ligne), chaque équipe sur sa ligne avec drapeau + nom + SCORE, le vainqueur en vert/gras avec ✔ et le perdant grisé (éliminé), tirs au but affichés sous le score (🥅 t.a.b.), en-tête de carte avec numéro du match (M1…M16, 8e-1…8e-8, QF1…QF4) et date/heure FR ou « ✅ Terminé ». Un encart « 💡 Comment lire » explique la logique (le vainqueur avance, « Vainq. M5 » = gagnant du match M5), chaque tour affiche ses dates (16es 28 juin→3 juil, 8es 4→7 juil, quarts 9→11 juil, demis 14→15 juil) et une phrase de liaison vers le tour suivant. Les cases vides indiquent clairement « ⏳ Meilleur 3e » ou « ⏳ 1er Gr.E » au lieu d'un cryptique « 3e ». Tape une carte pour ouvrir le détail du match."},
@@ -2677,7 +2678,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.33 — App à l'heure du vrai tournoi : archive des 3es, quiz & records actualisés, buts Mondial sur les fiches joueurs, pronos dopés à la forme réelle · 5 juillet 2026";
+    var APP_VERSION="v1.9.34 — La Simulation suit le vrai tournoi : groupes & matchs joués verrouillés sur les résultats officiels, on ne pronostique que la suite · 5 juillet 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -9519,12 +9520,97 @@
       document.body.appendChild(el);
     }
 
+    // ═══ v1.9.34 — LA SIMULATION SUIT LE VRAI TOURNOI ═══════════════════
+    // Les étapes déjà jouées (groupes, 16es, 8es…) sont importées depuis les
+    // résultats OFFICIELS et verrouillées 🔒 : impossible d'inventer un passé
+    // alternatif (ex. « République tchèque 1re du groupe A »). On ne
+    // pronostique QUE les matchs restants.
+    // Mapping créneau simulation → id du vrai match (grille FIFA officielle,
+    // cohérent avec KO_SLOTS et r16pairs) :
+    var SIM_REAL_MATCH={r1:73,r2:76,r3:74,r4:75,r5:78,r6:77,r7:79,r8:80,r9:84,r10:83,r11:85,r12:88,r13:86,r14:87,r15:82,r16:81,
+      h0:89,h1:90,h2:91,h3:92,h4:93,h5:94,h6:95,h7:96,q0:97,q1:98,q2:99,q3:100,s0:101,s1:102,"final":104};
+    function _simRealMatch(slot){
+      var id=SIM_REAL_MATCH[slot]; if(!id)return null;
+      for(var i=0;i<MATCHES.length;i++)if(MATCHES[i].id===id)return MATCHES[i];
+      return null;
+    }
+    function _realKOWinnerOf(m){
+      if(!m||!m.t1||!m.t2||m.t1==="TBD"||m.t2==="TBD"||m.s1==null||m.s2==null)return null;
+      if(m.s1>m.s2)return m.t1; if(m.s2>m.s1)return m.t2;
+      var p1=(m.pen1!=null?m.pen1:(m._live&&m._live.pen1!=null?m._live.pen1:null));
+      var p2=(m.pen2!=null?m.pen2:(m._live&&m._live.pen2!=null?m._live.pen2:null));
+      if(p1!=null&&p2!=null&&p1!==p2)return p1>p2?m.t1:m.t2;
+      return null;
+    }
+    // {créneau: vainqueur} pour tous les matchs à élimination déjà joués
+    function realityLockedSlots(){
+      var out={};
+      Object.keys(SIM_REAL_MATCH).forEach(function(slot){
+        var w=_realKOWinnerOf(_simRealMatch(slot)); if(w)out[slot]=w;
+      });
+      return out;
+    }
+    function _realGroupsDone(){
+      var done=true;
+      ["A","B","C","D","E","F","G","H","I","J","K","L"].forEach(function(g){
+        try{ if(!_realGroupTable(g).complete)done=false }catch(e){done=false}
+      });
+      return done;
+    }
+    function syncSimWithReality(){
+      try{
+        if(!V.simPicks)V.simPicks={};
+        if(!V.simKO)V.simKO={};
+        var r32real=MATCHES.filter(function(m){return m.st==="16e de finale"&&m.t1&&m.t1!=="TBD"});
+        var inR32={}; r32real.forEach(function(m){inR32[m.t1]=1;inR32[m.t2]=1});
+        // 1. Groupes réels terminés → picks forcés aux qualifiés officiels.
+        //    Le 3e retenu est celui qui a RÉELLEMENT disputé un 16e (affiches
+        //    officielles), à défaut le 3e du classement calculé.
+        ["A","B","C","D","E","F","G","H","I","J","K","L"].forEach(function(g){
+          var t=_realGroupTable(g); if(!t.complete)return;
+          var first=t.order[0].id, second=t.order[1].id;
+          var third=null;
+          t.order.forEach(function(row,i){ if(i>=2&&!third&&inR32[row.id])third=row.id });
+          if(!third)third=t.order[2]?t.order[2].id:null;
+          var real=[first,second,third];
+          var cur=V.simPicks[g]||[];
+          if(cur[0]!==real[0]||cur[1]!==real[1]||cur[2]!==real[2])V.simPicks[g]=real;
+        });
+        // 2. Les 8 vrais 3es qualifiés = équipes des 16es qui ne sont ni 1res ni 2es
+        if(_realGroupsDone()&&r32real.length===16){
+          var fs={};
+          ["A","B","C","D","E","F","G","H","I","J","K","L"].forEach(function(g){
+            var t=_realGroupTable(g); fs[t.order[0].id]=1; fs[t.order[1].id]=1;
+          });
+          var q3=[]; r32real.forEach(function(m){[m.t1,m.t2].forEach(function(id){
+            if(!fs[id]&&q3.indexOf(id)<0)q3.push(id);
+          })});
+          if(q3.length===8)V.sim3rd=q3;
+        }
+        // 3. Matchs à élimination déjà joués → vainqueurs officiels verrouillés
+        var locked=realityLockedSlots();
+        Object.keys(locked).forEach(function(k){ V.simKO[k]=locked[k] });
+        V.simLocked=locked;
+      }catch(e){}
+    }
+
     function rSimul(){
+      try{ syncSimWithReality(); }catch(e){}
+      var _lk=V.simLocked||{};
+      var _lockedCount=Object.keys(_lk).length;
       var h='<div class="sec">🎮 Pronostic — Tableau officiel FIFA</div>';
+      if(_lockedCount>0){
+        h+='<div style="background:linear-gradient(135deg,rgba(46,160,67,.15),rgba(46,160,67,.05));border:1.5px solid rgba(46,160,67,.5);border-radius:12px;padding:10px 12px;margin-bottom:10px;display:flex;gap:10px;align-items:center">';
+        h+='<div style="font-size:20px">📡</div>';
+        h+='<div style="flex:1"><div style="font-size:12px;font-weight:800;color:var(--g)">Synchronisé avec le vrai tournoi</div>';
+        h+='<div style="font-size:10px;color:var(--t2);line-height:1.4">Groupes et matchs déjà joués = résultats officiels 🔒 ('+_lockedCount+' match'+(_lockedCount>1?'s':'')+' acté'+(_lockedCount>1?'s':'')+'). Tu ne pronostiques que la suite du tableau.</div></div>';
+        h+='</div>';
+      }
 
       // v1.058 — Encart "Fais tes pronos des 3 journées" si peu/pas de pronos saisis
       var grStats=getGroupsPronosFilledPct();
-      if(grStats.filled<grStats.total){
+      var _groupsReal=_realGroupsDone();
+      if(!_groupsReal&&grStats.filled<grStats.total){
         var pctMsg=grStats.filled===0?'Tu n\'as pas encore fait de pronos.':
                    'Tu as rempli '+grStats.filled+'/'+grStats.total+' matchs des 3 journées de groupe.';
         var btnLabel=grStats.filled===0?'🎯 Faire mes pronostics':'🎯 Continuer mes pronos';
@@ -9535,7 +9621,7 @@
         h+='<div style="font-size:10px;color:var(--t2);line-height:1.35">'+pctMsg+' Tu peux pronostiquer les 3 journées et revenir ici pour une simulation auto-remplie.</div></div></div>';
         h+='<button onclick="go(\'prono\')" style="width:100%;padding:9px;background:rgba(70,130,255,0.25);color:#8ab4ff;border:1px solid rgba(70,130,255,0.6);border-radius:8px;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit">'+btnLabel+'</button>';
         h+='</div>';
-      } else if(grStats.filled===grStats.total){
+      } else if(!_groupsReal&&grStats.filled===grStats.total){
         // 100% rempli → petit badge d'info + bouton pour réimporter les pronos (utile si on a modifié)
         h+='<div style="background:var(--s1);border:1px solid var(--g);border-radius:10px;padding:9px 12px;margin-bottom:10px;display:flex;align-items:center;gap:8px">';
         h+='<div style="font-size:18px">✅</div>';
@@ -9556,7 +9642,7 @@
 
       h+='<div onclick="V.simStep1=!V.simStep1;render()" style="padding:12px;background:var(--s1);border:1px solid '+(allDone?'var(--g)':'var(--s3)')+';border-radius:12px;margin-bottom:8px;cursor:pointer;display:flex;justify-content:space-between;align-items:center">';
       h+='<span style="font-size:13px;font-weight:800">'+(allDone?'✅':'1️⃣')+' Groupes — qualifies</span>';
-      h+='<span style="font-size:11px;color:'+(allDone?'var(--g)':'var(--am)')+';font-weight:700">'+totalPicked+'/24</span></div>';
+      h+='<span style="font-size:11px;color:'+(allDone?'var(--g)':'var(--am)')+';font-weight:700">'+Math.min(totalPicked,24)+'/24</span></div>';
 
       if(!allDone||V.simStep1){
         Object.keys(groups).sort().forEach(function(g){
@@ -9662,6 +9748,12 @@
         {id:"r15",a:W["G"],b:pick3(["A","E","H","I","J"]),label:"1G vs 3e",round:"R32"},
         {id:"r16",a:W["D"],b:pick3(["B","E","F","I","J"]),label:"1D vs 3e",round:"R32"}
       ];
+      // v1.9.34 — affiches RÉELLES pour les créneaux déjà connus du vrai
+      // tableau (16es officiels) : plus d'appariements inventés.
+      bracket.forEach(function(bm){
+        var rm=_simRealMatch(bm.id);
+        if(rm&&rm.t1&&rm.t1!=="TBD"&&rm.t2&&rm.t2!=="TBD"){bm.a=rm.t1;bm.b=rm.t2}
+      });
 
         // v1.9.14 — Arbre conforme au bracket officiel FIFA 2026 (M89-M102).
         // Les 8es ne s'obtiennent PAS en appariant les 16es consécutifs (M1+M2…),
@@ -9689,12 +9781,19 @@
         var a=V.simKO[qf[p[0]].id],b=V.simKO[qf[p[1]].id];
         sf.push({id:"s"+i,a:a||"?",b:b||"?",ready:!!a&&!!b,label:"DF"+(i+1),round:"SF"});
       });
+      // v1.9.34 — affiches RÉELLES (8es, quarts, demies) dès qu'elles sont
+      // officielles : le vrai tableau prime sur les picks.
+      [r16,qf,sf].forEach(function(round){round.forEach(function(m){
+        var rm=_simRealMatch(m.id);
+        if(rm&&rm.t1&&rm.t1!=="TBD"&&rm.t2&&rm.t2!=="TBD"){m.a=rm.t1;m.b=rm.t2;m.ready=true}
+      })});
 
         function brTeam(id,mid,clickable){
         if(!id||id==="?")return'<div style="flex:1;min-width:0;padding:6px;background:var(--s2);border-radius:6px;font-size:10px;color:var(--t2);text-align:center;height:32px;display:flex;align-items:center;justify-content:center">?</div>';
         var won=V.simKO[mid]===id;
-        var canClick=clickable&&id!=="?";
-        return'<div onclick="'+(canClick?"event.stopPropagation();pickKO(&#39;"+mid+"&#39;,&#39;"+id+"&#39;)":"")+'" style="flex:1;min-width:0;display:flex;align-items:center;gap:3px;padding:4px 6px;height:32px;background:'+(won?'var(--gw)':'var(--s2)')+';border:1.5px solid '+(won?'var(--g)':'transparent')+';border-radius:6px;cursor:'+(canClick?'pointer':'default')+';overflow:hidden">'+flagImg(id,14)+'<span style="font-size:9px;font-weight:'+(won?'800':'500')+';white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+getTeam(id).name+'</span>'+(won?'<span style="font-size:8px;color:var(--g)">✓</span>':'')+'</div>';
+        var _lockd=!!(V.simLocked&&V.simLocked[mid]); // v1.9.34 — déjà joué
+        var canClick=clickable&&id!=="?"&&!_lockd;
+        return'<div onclick="'+(canClick?"event.stopPropagation();pickKO(&#39;"+mid+"&#39;,&#39;"+id+"&#39;)":"")+'" style="flex:1;min-width:0;display:flex;align-items:center;gap:3px;padding:4px 6px;height:32px;background:'+(won?'var(--gw)':'var(--s2)')+';border:1.5px solid '+(won?'var(--g)':'transparent')+';border-radius:6px;cursor:'+(canClick?'pointer':'default')+';overflow:hidden">'+flagImg(id,14)+'<span style="font-size:9px;font-weight:'+(won?'800':'500')+';white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+getTeam(id).name+'</span>'+(won?'<span style="font-size:8px;color:var(--g)">'+(_lockd?'🔒':'✓')+'</span>':'')+'</div>';
       }
 
       function brBranch(r32a,r32b,r16m,qfm,side){
@@ -10244,6 +10343,10 @@
     function tierWeight(t){return t===1?3:(t===2?2:(t===3?1:0.5))}
 
     function autoSimulate(){
+      // v1.9.34 — la simulation SUIT le vrai tournoi : on importe d'abord les
+      // résultats officiels ; les matchs déjà joués ne sont JAMAIS re-simulés.
+      try{ syncSimWithReality(); }catch(e){}
+      var _lk=V.simLocked||{};
       // v1.9.32 — caches locaux à la simulation (recalculés à chaque run) :
       // forme RÉELLE dans le tournoi et « note presse » de l'effectif.
       // Déclarés en tête pour être disponibles dès le remplissage des groupes.
@@ -10345,34 +10448,36 @@
       }
 
       // R32
-      bracket.forEach(function(m){V.simKO[m.id]=pickWinner(m.a,m.b,"r32")});
+      bracket.forEach(function(m){V.simKO[m.id]=_lk[m.id]||pickWinner(m.a,m.b,"r32")});
       // R16 — arbre officiel FIFA 2026 (cf. r16pairs dans rBracket)
       var r16=[];[[2,5],[0,3],[1,4],[6,7],[9,8],[15,14],[12,11],[10,13]].forEach(function(p,i){
         var a=V.simKO[bracket[p[0]].id],b=V.simKO[bracket[p[1]].id];
-        var mid="h"+i;r16.push(mid);V.simKO[mid]=pickWinner(a,b,"r16");
+        var mid="h"+i;r16.push(mid);V.simKO[mid]=_lk[mid]||pickWinner(a,b,"r16");
       });
       // QF — M97=h0×h1, M98=h4×h5, M99=h2×h3, M100=h6×h7
       var qfIds=[];[[0,1],[4,5],[2,3],[6,7]].forEach(function(p,i){
         var a=V.simKO[r16[p[0]]],b=V.simKO[r16[p[1]]];
-        var mid="q"+i;qfIds.push(mid);V.simKO[mid]=pickWinner(a,b,"qf");
+        var mid="q"+i;qfIds.push(mid);V.simKO[mid]=_lk[mid]||pickWinner(a,b,"qf");
       });
       // SF
       var sfIds=[];[[0,1],[2,3]].forEach(function(p,i){
         var a=V.simKO[qfIds[p[0]]],b=V.simKO[qfIds[p[1]]];
-        var mid="s"+i;sfIds.push(mid);V.simKO[mid]=pickWinner(a,b,"sf");
+        var mid="s"+i;sfIds.push(mid);V.simKO[mid]=_lk[mid]||pickWinner(a,b,"sf");
       });
       // Final
-      V.simKO["final"]=pickWinner(V.simKO["s0"],V.simKO["s1"],"f");
+      V.simKO["final"]=_lk["final"]||pickWinner(V.simKO["s0"],V.simKO["s1"],"f");
       V.simBracketShown=true;
       toast("🎲 Simulation terminee ! Champion: "+getTeam(V.simKO["final"]).name);
       render();
     }
 
     function simReset(){
-      return'<button onclick="V.simPicks={};V.simKO={};V.sim3rd=[];V.simStep1=false;V.simStep3=false;V.simBracketShown=false;render()" style="width:100%;padding:10px;background:var(--s1);border:1px solid var(--s3);color:var(--rd);border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:8px">🔄 Reinitialiser</button>';
+      return'<button onclick="V.simPicks={};V.simKO={};V.sim3rd=[];V.simStep1=false;V.simStep3=false;V.simBracketShown=false;try{syncSimWithReality()}catch(e){};render()" style="width:100%;padding:10px;background:var(--s1);border:1px solid var(--s3);color:var(--rd);border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:8px">🔄 Reinitialiser</button>';
     }
 
     function toggleSim3rd(tid){
+      // v1.9.34 — les 8 vrais 3es sont connus : sélection officielle intouchable
+      try{ if(_realGroupsDone()&&MATCHES.filter(function(m){return m.st==="16e de finale"&&m.t1&&m.t1!=="TBD"}).length===16){toast("🔒 Les 8 meilleurs 3es sont officiels");return} }catch(e){}
       if(!V.sim3rd)V.sim3rd=[];
       var idx=V.sim3rd.indexOf(tid);
       if(idx>=0)V.sim3rd.splice(idx,1);
@@ -10381,6 +10486,8 @@
     }
 
     function toggleSimPick(g,tid){
+      // v1.9.34 — groupe réel terminé : qualifiés officiels intouchables
+      try{ if(_realGroupTable(g).complete){toast("🔒 Groupe "+g+" terminé — qualifiés officiels");return} }catch(e){}
       if(!V.simPicks[g])V.simPicks[g]=[];
       var idx=V.simPicks[g].indexOf(tid);
       if(idx>=0)V.simPicks[g].splice(idx,1);
@@ -10391,6 +10498,8 @@
 
     function pickKO(mid,tid){
       if(!V.simKO)V.simKO={};
+      // v1.9.34 — match déjà joué : résultat officiel intouchable
+      if(V.simLocked&&V.simLocked[mid]){try{toast("🔒 Déjà joué — résultat officiel : "+((getTeam(V.simLocked[mid])||{}).name||""))}catch(e){}return}
       var old=V.simKO[mid];
       V.simKO[mid]=tid;
       if(old&&old!==tid){
