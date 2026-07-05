@@ -1,5 +1,5 @@
 {
-  "versionCode": 37,
-  "version": "v1.9.47",
-  "notes": "Palmares VIVANT : les buts reels du Mondial 2026 s'ajoutent en direct aux totaux carriere des meilleurs buteurs de l'histoire — Messi 20 (+7 en 2026) passe en tete, Mbappe 19 (+7), Klose 3e, Kane remonte a chaque but ; badge dore +N en 2026. Ronaldo, Neymar et Haaland suivis aussi. Inclut le fil du match chronologique (tri 45+5/90+7 corrige), le calendrier embarque realigne, l'export Agenda aux bonnes heures et les quarts de Simulation debloques match par match."
+  "versionCode": 38,
+  "version": "v1.9.48",
+  "notes": "Stats 100% VIVANTES : buts en selection des joueurs (fiche + ligne d'effectif, badge +N en 2026), statistiques des selectionneurs (matchs diriges, victoires, taux de reussite — Deschamps et tous les autres) et Palmares (Messi 20, Mbappe 19, Kane 13) se mettent a jour automatiquement avec chaque resultat officiel du Mondial. Inclut le fil du match chronologique, le calendrier embarque realigne et les quarts de Simulation debloques match par match."
 }

@@ -2640,6 +2640,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.9.48",d:"05/07/2026",changes:"Toutes les stats vivent avec le tournoi — suite et fin du chantier « stats évolutives ». (1) FICHES JOUEURS : le total de buts en sélection intègre désormais les buts réels du Mondial 2026 en direct (ex. Mbappé : base 55 + 7 en 2026), avec badge vert « +N en 2026 » sur la fiche ET la ligne d'effectif (🔺). (2) SÉLECTIONNEURS : les statistiques complètes (matchs dirigés, victoires, taux de réussite) intègrent chaque match du Mondial en direct — Deschamps gagne ses matchs dirigés et ses victoires au fil des Bleus, comme tous les autres coachs (victoire aux t.a.b. comptée comme victoire). (3) Avec le Palmarès vivant de la v1.9.47, la boucle est bouclée : records historiques, fiches joueurs, effectifs et sélectionneurs se mettent tous à jour automatiquement avec les résultats officiels."},
       {v:"v1.9.47",d:"05/07/2026",changes:"Le Palmarès vit avec le tournoi (retour d'usage : « les meilleurs buteurs de l'histoire évoluent puisque Mbappé marque, ainsi que Messi »). Le classement « ⚽ Meilleurs buteurs de l'histoire » est désormais VIVANT : les buts réels du Mondial 2026 s'ajoutent en direct aux totaux de carrière des joueurs encore en activité. Résultat immédiat : 🥇 Messi 20 buts (+7 en 2026), 🥈 Mbappé 19 (+7), Klose (16) relégué 3e, et Kane (8+5=13) rejoint Fontaine et remonte le classement à chaque but. Cristiano Ronaldo, Neymar et Haaland sont désormais suivis aussi — chaque but du reste du tournoi met à jour le classement tout seul, avec un badge doré « +N en 2026 » sur les cartes concernées. Prochaine étape du même chantier : sélections/buts sur les fiches joueurs et stats des sélectionneurs (Deschamps compris) calculés en continu."},
       {v:"v1.9.46",d:"05/07/2026",changes:"Fil du match enfin chronologique (retour d'usage : « un but à la 73e puis à la 31e puis à la 7e… »). Le tri plantait sur les minutes du temps additionnel : « 45+5 » ou « 90+7 » ne sont pas des nombres, la comparaison retournait NaN et l'ordre devenait aléatoire. Nouveau tri robuste (45+5 compris entre 45 et 46) et ordre CHRONOLOGIQUE du coup d'envoi au coup de sifflet — 7', 31', 45+5', 73', 90+7' — cohérent avec la liste des buteurs sous le score."},
       {v:"v1.9.45",d:"05/07/2026",changes:"L'app suit le tournoi, pas l'inverse (retours d'usage en rafale). (1) SIMULATION — LES QUARTS SE DÉBLOQUENT MATCH PAR MATCH : France-Maroc, officiellement connu, s'affiche immédiatement (verrouillé 🔒) au lieu d'attendre que TOUS les 8es soient terminés ; les quarts encore inconnus affichent « ⏳ En attente des 8es ». (2) BUTS ENFIN DANS L'ORDRE : la source de données livre les buteurs dans le désordre (le 90e+5 avant le 29e…) — ils sont désormais triés par minute PARTOUT (fiche match, cartes, accueil). (3) QUIZ À L'HEURE : la question « meilleur buteur de l'histoire = Klose » était périmée depuis que Messi (20 buts) a pulvérisé le record PENDANT ce Mondial — reformulée en deux questions (avant/pendant 2026). Records et anecdotes déjà à jour au 5 juillet (Messi 20, Mbappé 19) ; prochaine étape : totaux carrière calculés en continu (joueurs ET sélectionneurs — Deschamps compris)."},
@@ -2705,7 +2706,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.47 — Palmarès vivant : les buts du Mondial s'ajoutent en direct aux totaux carrière (Messi 20, Mbappé 19…) · 5 juillet 2026";
+    var APP_VERSION="v1.9.48 — Stats 100% vivantes : buts joueurs, effectifs et stats sélectionneurs (Deschamps…) suivent le tournoi en direct · 5 juillet 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -6756,12 +6757,25 @@
       if(c.stats){
         h+='<div style="padding:16px;background:var(--s1);border-top:1px solid var(--s3)">';
         h+='<div style="font-size:13px;font-weight:900;color:var(--g);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px">📊 Statistiques complètes</div>';
+        // v1.9.48 — stats de sélectionneur VIVANTES (retour d'usage : « j'espère que
+        // les stats de Deschamps évoluent aussi ») : chaque match du Mondial 2026
+        // dirigé s'ajoute en direct (victoire = jeu, ou t.a.b. gagnés).
+        var _c26={m:0,w:0};
+        try{ (MATCHES||[]).forEach(function(mm){
+          if(mm.s1==null||mm.s2==null) return;
+          var side=mm.t1===teamId?1:mm.t2===teamId?2:0; if(!side) return;
+          _c26.m++;
+          var my=side===1?mm.s1:mm.s2, op=side===1?mm.s2:mm.s1;
+          if(my>op)_c26.w++;
+          else if(my===op&&mm.pen1!=null&&mm.pen2!=null&&((side===1&&mm.pen1>mm.pen2)||(side===2&&mm.pen2>mm.pen1)))_c26.w++;
+        }); }catch(e){}
+        var _cm=(c.stats.matches||0)+_c26.m, _cw=(c.stats.wins||0)+_c26.w;
         h+='<div style="background:var(--s2);border-radius:8px;padding:16px">';
         h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">';
-        h+='<div style="text-align:center"><div style="font-size:20px;font-weight:900;color:var(--g)">'+c.stats.matches+'</div><div style="font-size:10px;color:var(--t2)">Matchs dirigés</div></div>';
-        h+='<div style="text-align:center"><div style="font-size:20px;font-weight:900;color:var(--g)">'+c.stats.wins+'</div><div style="font-size:10px;color:var(--t2)">Victoires</div></div>';
+        h+='<div style="text-align:center"><div style="font-size:20px;font-weight:900;color:var(--g)">'+_cm+'</div><div style="font-size:10px;color:var(--t2)">Matchs dirigés'+(_c26.m?' <span style="color:var(--g);font-weight:800">(+'+_c26.m+' en 2026)</span>':'')+'</div></div>';
+        h+='<div style="text-align:center"><div style="font-size:20px;font-weight:900;color:var(--g)">'+_cw+'</div><div style="font-size:10px;color:var(--t2)">Victoires'+(_c26.w?' <span style="color:var(--g);font-weight:800">(+'+_c26.w+' en 2026)</span>':'')+'</div></div>';
         h+='</div>';
-        var winPct=c.stats.matches>0?(c.stats.wins/c.stats.matches*100).toFixed(1):0;
+        var winPct=_cm>0?(_cw/_cm*100).toFixed(1):0;
         h+='<div style="text-align:center;padding-top:12px;border-top:1px solid var(--s3)">';
         h+='<div style="font-size:16px;font-weight:900;color:var(--am)">'+winPct+'%</div>';
         h+='<div style="font-size:10px;color:var(--t2)">Taux de réussite</div>';
@@ -7035,7 +7049,10 @@
               injBadge = '<span style="display:inline-flex;align-items:center;gap:3px;padding:1px 6px;border-radius:99px;background:'+(injury.status==="out"?"rgba(255,23,68,.2)":injury.status==="doubt"?"rgba(255,179,0,.2)":"rgba(231,196,92,.2)")+';color:'+info.color+';font-size:9px;font-weight:900;margin-left:6px;vertical-align:middle;line-height:1.3" title="'+info.label+' — '+injury.injury+'">'+info.icon+(pct!==null?' '+pct+'%':'')+'</span>';
             }
             h+='<div class="pc-name">'+p.n+capBadge+injBadge+'<div style="font-size:10px;color:var(--t2)">'+p.club+(injury?' <span style="color:'+info.color+';font-weight:700">· '+injury.injury+'</span>':'')+"</div></div>";
-            h+='<div class="pc-stat">'+(p.caps>0?p.caps+" sél":"sél. n.c.")+(p.g?" · "+p.g+" buts":"")+'</div><span style="color:var(--t2);font-size:14px">›</span></div>';
+            // v1.9.48 — buts carrière VIVANTS sur la ligne d'effectif (base + Mondial 2026)
+            var _tg26=(typeof tournamentPlayerStats==="function")?tournamentPlayerStats(V.selTeam,p.n).g:0;
+            var _gTot=(p.g||0)+_tg26;
+            h+='<div class="pc-stat">'+(p.caps>0?p.caps+" sél":"sél. n.c.")+(_gTot?" · "+_gTot+" buts":"")+(_tg26?' <span style="color:var(--g);font-weight:800">🔺</span>':'')+'</div><span style="color:var(--t2);font-size:14px">›</span></div>';
           });
         });
       }
@@ -12417,13 +12434,17 @@
       h+='<div style="font-size:10px;color:var(--t2);font-weight:700">NOTE GLOBALE</div>';
       h+='<div style="font-size:8px;color:var(--t2);margin-top:2px;opacity:.7">MàJ '+RATINGS_VERSION.date+'</div>';
       h+='</div>';
-      h+='<div style="flex:1;background:var(--s1);border:1px solid var(--s3);border-radius:12px;padding:14px;text-align:center"><div style="font-size:12px;font-weight:800;color:'+levelColor+';margin-bottom:4px">'+level+'</div><div style="font-size:10px;color:var(--t2)">'+(p.caps>0?p.caps+' sélections':'sél. n.c.')+'</div><div style="font-size:10px;color:var(--t2)">'+p.g+' buts</div></div>';
+      // v1.9.48 — Totaux carrière VIVANTS : les buts du Mondial 2026 s'ajoutent
+      // en direct au total en sélection (base = avant tournoi).
+      var _wc26pre=(typeof tournamentPlayerStats==="function")?tournamentPlayerStats(teamId,p.n):{g:0,pen:0,matches:[]};
+      var _gLive=(p.g||0)+_wc26pre.g;
+      h+='<div style="flex:1;background:var(--s1);border:1px solid var(--s3);border-radius:12px;padding:14px;text-align:center"><div style="font-size:12px;font-weight:800;color:'+levelColor+';margin-bottom:4px">'+level+'</div><div style="font-size:10px;color:var(--t2)">'+(p.caps>0?p.caps+' sélections':'sél. n.c.')+'</div><div style="font-size:10px;color:var(--t2)">'+_gLive+' buts'+(_wc26pre.g>0?' <span style="color:var(--g);font-weight:800">(+'+_wc26pre.g+' en 2026)</span>':'')+'</div></div>';
       h+='</div>';
 
         h+='<div class="pl-info"><div style="font-size:12px;font-weight:800;color:var(--g);margin-bottom:10px">📊 STATS EN SELECTION</div>';
       var stats=[
         {l:"Sélections",v:(p.caps>0?p.caps:'—'),icon:"🏟️"},
-        {l:"Buts",v:p.g,icon:"⚽"},
+        {l:"Buts",v:_gLive+(_wc26pre.g>0?' 🔺':''),icon:"⚽"},
         {l:"Ratio buts/match",v:ratio,icon:"📈"},
         {l:"Coupes du Monde",v:getDisplayedWC(p),icon:"🌍"},
       ];
@@ -12437,7 +12458,7 @@
 
       // v1.9.32 — 🏆 MONDIAL 2026 EN COURS : buts réels du joueur dans le
       // tournoi, dérivés automatiquement des faits de jeu (flux officiel).
-      var _wc26=(typeof tournamentPlayerStats==="function")?tournamentPlayerStats(teamId,p.n):{g:0,pen:0,matches:[]};
+      var _wc26=_wc26pre;
       if(_wc26.g>0){
         h+='<div class="pl-extra-tile">';
         h+='<div class="pl-extra-title">🏆 MONDIAL 2026 — EN COURS</div>';
