@@ -2640,6 +2640,8 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.9.51",d:"05/07/2026",changes:"L'algo s'explique — la stat devient une expérience (retour d'usage : « il faut que l'utilisateur comprenne comment l'algo dit France favorite, et pourquoi »). (1) Sous le podium des Favoris, un encart « 💡 Pourquoi la France en tête ? » résume force, presse et chemin. (2) Dans le classement complet, TAPE UNE ÉQUIPE : sa fiche dépliée montre désormais son 🛣️ PARCOURS SIMULÉ tour par tour (probabilité d'atteindre les quarts, les demies, la finale, le titre — calculée sur les 3000 tirages du vrai tableau), 📰 CE QUE DIT LA PRESSE (l'analyse tirée des 25 journaux épluchés, avec le bonus/malus appliqué), 🧑‍⚖️ le facteur arbitrage (Argentine : Messi protégé +1.5) et 📈 la forme réelle du tournoi chiffrée. On comprend d'un coup d'œil pourquoi le Maroc est si haut (Espagne et Portugal s'éliminent entre eux dès les 8es !) et ce qui sépare un favori d'un outsider. La richesse des journaux, enfin visible là où elle travaille."},
+      {v:"v1.9.50",d:"05/07/2026",changes:"Les récits de presse enfin VISIBLES (retour d'usage : « je n'ai pas vu la richesse de ces données »). Les fiches des matchs joués de la phase finale cachent des trésors extraits de 25 journaux — récit du match, tournant, homme du match, NOTES DES JOUEURS (France-Suède complet : Olise 9, Mbappé 8…), stats xG/affluence/arbitre et anecdotes exclusives (le vestiaire portugais dédiant sa victoire à Diogo Jota, les parents d'Eustáquio, la panenka de Salah…) — mais rien ne signalait leur existence. Désormais, dans l'onglet Matchs, chaque match qui possède son récit affiche « 📰 Récit & anecdotes » en doré à côté de TERMINÉ. Ouvre la fiche et descends sous le fil du match : bloc « 📰 LE RÉCIT ». Disponible sur les 16 seizièmes + les 2 premiers 8es ; les récits des matchs suivants arriveront avec les journaux des 6-8 juillet."},
       {v:"v1.9.49",d:"05/07/2026",changes:"TOUTE l'histoire de la Coupe du monde, racontée (dernier chantier du programme du jour). Chacune des 22 éditions du Palmarès a désormais son RÉCIT — le moment qui l'a définie : la Main de Dieu et le But du Siècle (1986), le Miracle de Berne (1954), le Maracanazo (1950), la nuit de Séville avec Battiston (1982), le coup de boule de Zidane (2006), le Mineirazo 7-1 (2014), le but fantôme de Wembley (1966), Pelé à 17 ans (1958), le football total trahi (1974), jusqu'à la finale Messi-Mbappé de 2022… — plus le 👟 MEILLEUR BUTEUR de chaque édition (Fontaine 13, Kocsis 11, Gerd Müller 10, Eusébio 9…). L'onglet Palmarès devient une vraie encyclopédie du Mondial : palmarès vivant 2026 en haut, 96 ans d'histoire en dessous."},
       {v:"v1.9.48",d:"05/07/2026",changes:"Toutes les stats vivent avec le tournoi — suite et fin du chantier « stats évolutives ». (1) FICHES JOUEURS : le total de buts en sélection intègre désormais les buts réels du Mondial 2026 en direct (ex. Mbappé : base 55 + 7 en 2026), avec badge vert « +N en 2026 » sur la fiche ET la ligne d'effectif (🔺). (2) SÉLECTIONNEURS : les statistiques complètes (matchs dirigés, victoires, taux de réussite) intègrent chaque match du Mondial en direct — Deschamps gagne ses matchs dirigés et ses victoires au fil des Bleus, comme tous les autres coachs (victoire aux t.a.b. comptée comme victoire). (3) Avec le Palmarès vivant de la v1.9.47, la boucle est bouclée : records historiques, fiches joueurs, effectifs et sélectionneurs se mettent tous à jour automatiquement avec les résultats officiels."},
       {v:"v1.9.47",d:"05/07/2026",changes:"Le Palmarès vit avec le tournoi (retour d'usage : « les meilleurs buteurs de l'histoire évoluent puisque Mbappé marque, ainsi que Messi »). Le classement « ⚽ Meilleurs buteurs de l'histoire » est désormais VIVANT : les buts réels du Mondial 2026 s'ajoutent en direct aux totaux de carrière des joueurs encore en activité. Résultat immédiat : 🥇 Messi 20 buts (+7 en 2026), 🥈 Mbappé 19 (+7), Klose (16) relégué 3e, et Kane (8+5=13) rejoint Fontaine et remonte le classement à chaque but. Cristiano Ronaldo, Neymar et Haaland sont désormais suivis aussi — chaque but du reste du tournoi met à jour le classement tout seul, avec un badge doré « +N en 2026 » sur les cartes concernées. Prochaine étape du même chantier : sélections/buts sur les fiches joueurs et stats des sélectionneurs (Deschamps compris) calculés en continu."},
@@ -2707,7 +2709,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.49 — L'histoire complète du Mondial : récit + meilleur buteur pour chacune des 22 éditions (1930-2022) · 5 juillet 2026";
+    var APP_VERSION="v1.9.51 — L'algo s'explique : parcours simulé tour par tour + analyse presse/arbitrage/forme par équipe, badge 📰 sur les récits · 5 juillet 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -6258,7 +6260,11 @@
             if(lv&&!lv.fin)h+='<div class="mc-status" style="color:var(--rd)"><span class="dot" style="background:var(--rd)"></span>EN DIRECT'+(lv.min?" · "+lv.min+"'":(lv.label==="Mi-temps"?" · Mi-temps":""))+"</div>";
         else if(st==="live")h+='<div class="mc-status" style="color:var(--g)"><span class="dot" style="background:var(--g)"></span>EN COURS</div>';
         else if(st==="soon")h+='<div class="mc-status" style="color:var(--am)">⏰ BIENTÔT — '+fmtTimeDual(m.d,m.city)+"</div>";
-        else if(st==="done")h+='<div class="mc-status" style="color:var(--t2)">TERMINÉ</div>';
+        else if(st==="done"){
+          // v1.9.50 — signaler le récit de presse disponible (données des journaux)
+          var _hasRep=(typeof MATCH_REPORTS!=="undefined"&&MATCH_REPORTS&&MATCH_REPORTS[String(m.id)]);
+          h+='<div class="mc-status" style="color:var(--t2)">TERMINÉ'+(_hasRep?' <span style="color:var(--am);font-weight:900">· 📰 Récit & anecdotes</span>':'')+'</div>';
+        }
         else if(st==="pending")h+='<div class="mc-status" style="color:var(--am)">⏳ '+fmtTimeDual(m.d,m.city)+' · score en attente</div>';
         else h+='<div class="mc-status" style="color:var(--t2)">'+fmtTimeDual(m.d,m.city)+" · "+m.st+"</div>";
             h+='<div class="mc-teams"><div class="mc-team" onclick="event.stopPropagation();goTeam(\''+m.t1+'\')"><div class="mc-flag">'+flagImg(m.t1,36)+'</div><div class="mc-name" style="text-decoration:underline;text-decoration-color:rgba(255,255,255,.2)">'+t1.name+"</div></div>";
@@ -7525,6 +7531,10 @@
           if(w){ fixed[id]=w; var l=(w===m.t1)?m.t2:m.t1; if(l&&l!=="TBD")delete alive[l]; }
         });
         var N=3000, wins={};
+        // v1.9.51 — on trace aussi le PARCOURS : combien de fois chaque équipe
+        // atteint les quarts / demies / finale sur les 3000 tirages (transparence
+        // de l'algo pour l'utilisateur : « pourquoi la France est favorite »).
+        var reach={qf:{},sf:{},f:{}};
         for(var it=0;it<N;it++){
           var res={};
           for(var i=0;i<ids.length;i++){
@@ -7543,13 +7553,16 @@
             if(!b){res[id]=a;continue;}
             res[id]=(Math.random()<P(a,b,stageOf(id)))?a:b;
           }
+          for(var r8=89;r8<=96;r8++){ if(res[r8])reach.qf[res[r8]]=(reach.qf[res[r8]]||0)+1; }
+          for(var rq=97;rq<=100;rq++){ if(res[rq])reach.sf[res[rq]]=(reach.sf[res[rq]]||0)+1; }
+          [101,102].forEach(function(rs){ if(res[rs])reach.f[res[rs]]=(reach.f[res[rs]]||0)+1; });
           var champ=res[104]; if(champ)wins[champ]=(wins[champ]||0)+1;
         }
         if(!Object.keys(wins).length) return null;
         var out={};
         Object.keys(alive).forEach(function(k){out[k]=0;}); // en vie mais jamais titré en simu → 0.0% (≠ éliminé)
         Object.keys(wins).forEach(function(k){out[k]=wins[k]/N*100;});
-        _brOddsCache={t:Date.now(),v:out};
+        _brOddsCache={t:Date.now(),v:out,reach:reach,N:N};
         return out;
       }catch(e){ return null; }
     }
@@ -7594,6 +7607,10 @@
         h+='</div>';
       }
       h+='</div>';
+      if(brMode && arr[0] && !arr[0].out){
+        var _ld=arr[0], _ldp=(typeof SIM_PRESS!=="undefined")?SIM_PRESS[_ld.id]:null;
+        h+='<div style="font-size:10px;color:var(--t2);line-height:1.5;background:var(--s2);border-radius:8px;padding:8px 10px;margin-bottom:10px">💡 <b style="color:var(--g)">Pourquoi '+_ld.name+' en tête ?</b> Meilleure force du plateau ('+Math.round(_ld.skills)+')'+(_ldp?' · 📰 '+_ldp.why:'')+' · et son chemin réel dans le tableau. <b style="color:var(--am)">Tape une équipe ci-dessous</b> pour voir son parcours simulé tour par tour et ce que disent les journaux.</div>';
+      }
       h+='<div id="favChevron" onclick="ffToggleFavList()" style="text-align:center;font-size:11px;font-weight:700;color:var(--g);cursor:pointer;padding:8px;background:var(--s2);border-radius:8px">Voir le classement complet des 48 ▾</div>';
       h+='<div id="favFullList" style="display:none;margin-top:10px">';
       var curTier=null;
@@ -7625,6 +7642,35 @@
           h+='</div>';
         }
         if(y.bd.fifaRank)h+='<div style="font-size:9px;color:var(--t2);margin-top:4px">Rang FIFA #'+y.bd.fifaRank+' · note moyenne '+y.bd.avgRating+' · '+y.bd.titlesCount+' titre(s)</div>';
+        // v1.9.51 — TRANSPARENCE DE L'ALGO : parcours simulé tour par tour +
+        // ce que disent les 25 journaux (presse, arbitrage, forme du tournoi).
+        if(brMode && !y.out){
+          try{
+            var _oc=_brOddsCache;
+            if(_oc && _oc.reach){
+              var _N=_oc.N||3000;
+              function _rp(map){ return map&&map[y.id]?Math.round(map[y.id]/_N*100):0; }
+              var _pq=_rp(_oc.reach.qf), _ps=_rp(_oc.reach.sf), _pf=_rp(_oc.reach.f);
+              h+='<div style="margin-top:8px;padding-top:8px;border-top:1px dashed var(--s3)">';
+              h+='<div style="font-size:10px;font-weight:800;color:var(--am);margin-bottom:4px">🛣️ PARCOURS SIMULÉ (3000 tirages du vrai tableau)</div>';
+              h+='<div style="display:flex;gap:4px;text-align:center">';
+              [["Quarts",_pq],["Demies",_ps],["Finale",_pf],["🏆 Titre",Math.round(y.titleProb)]].forEach(function(st){
+                h+='<div style="flex:1;background:var(--s1);border-radius:6px;padding:5px 2px"><div style="font-size:13px;font-weight:900;color:var(--g)">'+st[1]+'%</div><div style="font-size:8px;color:var(--t2)">'+st[0]+'</div></div>';
+              });
+              h+='</div></div>';
+            }
+            var _pr=(typeof SIM_PRESS!=="undefined")?SIM_PRESS[y.id]:null;
+            var _rf=(typeof SIM_REF!=="undefined")?SIM_REF[y.id]:null;
+            var _fm=0; try{_fm=Math.round(compFormAdj(y.id)*10)/10;}catch(e){}
+            if(_pr||_rf||_fm){
+              h+='<div style="margin-top:6px;font-size:10px;line-height:1.5;color:var(--tx)">';
+              if(_pr)h+='<div>📰 <b style="color:var(--am)">La presse :</b> '+_pr.why+' <span style="color:'+(_pr.b>=0?'var(--g)':'var(--rd)')+';font-weight:800">('+(_pr.b>=0?'+':'')+_pr.b+')</span></div>';
+              if(_rf)h+='<div style="margin-top:3px">🧑‍⚖️ <b style="color:var(--am)">Arbitrage :</b> '+_rf.why+' <span style="color:var(--g);font-weight:800">(+'+_rf.b+')</span></div>';
+              if(_fm)h+='<div style="margin-top:3px">📈 <b style="color:var(--am)">Forme du tournoi :</b> résultats réels pondérés par le niveau des adversaires <span style="color:'+(_fm>=0?'var(--g)':'var(--rd)')+';font-weight:800">('+(_fm>=0?'+':'')+_fm+')</span></div>';
+              h+='</div>';
+            }
+          }catch(e){}
+        }
         h+='</div>';
         h+='</div>';
       }

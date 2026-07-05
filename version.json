@@ -1,5 +1,5 @@
 {
-  "versionCode": 39,
-  "version": "v1.9.49",
-  "notes": "L'HISTOIRE COMPLETE du Mondial dans le Palmares : recit du moment qui a defini chacune des 22 editions (Main de Dieu 1986, Miracle de Berne 1954, Maracanazo 1950, nuit de Seville 1982, coup de boule 2006, Mineirazo 2014, but fantome 1966, Pele 1958...) + meilleur buteur de chaque edition (Fontaine 13, Kocsis 11...). Et toutes les stats restent vivantes : buts joueurs, stats selectionneurs et records suivent le tournoi 2026 en direct."
+  "versionCode": 41,
+  "version": "v1.9.51",
+  "notes": "L'ALGO S'EXPLIQUE : dans Pronos > Favoris, tape une equipe du classement complet pour voir son parcours simule tour par tour (quarts/demies/finale/titre sur 3000 tirages du vrai tableau), l'analyse de la presse tiree des 25 journaux (avec bonus/malus), le facteur arbitrage et la forme reelle chiffree — on comprend enfin pourquoi la France est favorite et pourquoi le Maroc est si haut (Espagne et Portugal s'eliminent entre eux en 8es). Badge 'Recit & anecdotes' sur les matchs qui ont leur recit de presse, et histoire complete des 22 editions dans le Palmares."
 }
