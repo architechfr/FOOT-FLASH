@@ -2626,6 +2626,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.9.37",d:"05/07/2026",changes:"Le simulateur minute par minute prend son temps — et met le paquet (retour d'usage : « plus de suspense, plus long, de l'animation »). (1) VRAIE HORLOGE DE MATCH : la simulation dure désormais ~1 minute à vitesse ×1 (90 minutes de jeu déroulées en continu, prolongation et tirs au but en rab), au lieu de tout débiter en 15 secondes. Le chrono tourne ⚽, une barre de progression avance sous le score, le point rouge « live » pulse. (2) SUSPENSE : avant chaque but, une ligne « 🔥 Ça chauffe dans la surface… » s'affiche et le temps se fige une seconde — on ne sait pas encore si ça va rentrer. Chaque tireur de la séance de t.a.b. passe un par un, avec pause entre chaque. (3) ANIMATIONS : le score EXPLOSE à chaque but (+ vibration du téléphone), les lignes du commentaire glissent en fondu, le fil TREMBLE sur un carton rouge, et le coup de sifflet final déclenche une pluie de confettis ⚽🎉🏆. Les vitesses ×2/×4 et ⏭ Fin restent disponibles pour les impatients."},
       {v:"v1.9.36",d:"05/07/2026",changes:"Les Favoris du Mondial tiennent enfin compte du TABLEAU (retour d'usage : « l'Argentine n'est pas favorite avec le tableau qu'elle a ! »). Avant, le % de titre était un simple indice de force : il ignorait totalement le chemin réel de chaque équipe. Désormais, dès la phase à élimination directe, la probabilité de titre est SIMULÉE sur le vrai tableau restant (3000 tirages de l'arbre officiel) : les matchs joués sont figés sur les vainqueurs réels, chaque match à venir est tiré selon les forces (force + forme du tournoi + presse), et le nul se tranche comme aux tirs au but. Concrètement : une équipe avec un tableau dur (ex. Argentine, promise à Espagne ou Portugal dès la demie) voit son % baisser ; une équipe au tableau dégagé grimpe ; un ÉLIMINÉ tombe à 0 et est étiqueté « éliminé » dans le classement complet. Le classement est retrié par ce nouveau %, l'indice de force reste affiché à titre indicatif. Recalcul automatique toutes les 2 minutes — le classement évolue en direct au fil des 8es, quarts et demies."},
       {v:"v1.9.35",d:"05/07/2026",changes:"Les journaux entrent dans l'app + SIMULATEUR MINUTE PAR MINUTE. (1) 📰 LE RÉCIT : chaque match joué de la phase finale a désormais sa vraie feuille de match enrichie, construite à partir des faits extraits de 25 journaux (L'Équipe, France Football…) : récit du match, tournant, homme du match, notes des joueurs (France-Suède complet !), stats (xG, affluence, arbitre) et anecdotes (Klopp futur sélectionneur de l'Allemagne, démission de Koeman, record de cartons Pays-Bas–Maroc, panenka de Salah…). Visible sur la fiche match, sous le fil du match (fichier data/match-reports.json, mis à jour via GitHub Pages). (2) 🎬 SIMULATEUR : sur tout match À VENIR, bouton « Simuler ce match minute par minute » — le match se joue sous tes yeux (commentaire français, buts, VAR, cartons, pauses fraîcheur dans les villes chaudes, prolongation et tirs au but tireur par tireur). Le moteur utilise les forces/faiblesses réelles : notes d'équipe, forme du tournoi (buts pour/contre), buteurs réels pondérés, distribution RÉELLE des minutes de but du Mondial (les fins de match folles de 2026 pèsent leur poids) et un ajustement presse par équipe. Contrôles lecture/pause/vitesse/fin, re-simulation en 1 tap, et HISTORIQUE persistant : l'app retient tes simulations (% de victoires par équipe sur ce match). Jamais proposé sur un match déjà joué — la compétition avance, l'app aussi. Moteur générique conservé pour les prochaines apps (Ligue 1, Euro 2028…)."},
       {v:"v1.9.34",d:"05/07/2026",changes:"La SIMULATION suit enfin le vrai tournoi (retour d'usage : elle affichait des enormites du type « Republique tcheque 1re du groupe A » alors qu'on est deja en 8es !). Desormais : (1) les groupes reellement termines sont importes depuis les resultats OFFICIELS et verrouilles 🔒 — impossible de choisir d'autres qualifies ; (2) les 8 meilleurs 3es sont les vrais qualifies officiels, plus une selection manuelle ; (3) les matchs a elimination deja joues (16es, 8es...) affichent les VRAIES affiches et leurs vainqueurs officiels verrouilles 🔒 — on ne re-simule jamais le passe ; (4) la « Simulation auto » ne tire au sort QUE les matchs restants (le futur), en partant de l'etat reel du tableau ; (5) un bandeau « 📡 Synchronise avec le vrai tournoi » indique combien de matchs sont actes ; (6) le bouton Reinitialiser re-synchronise au lieu de ramener un passe fantaisiste, et le compteur « 36/24 » est corrige. La simulation reste un jeu pour pronostiquer LA SUITE — plus jamais une machine a reecrire l'histoire."},
@@ -2680,7 +2681,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.36 — Favoris du Mondial simulés sur le VRAI tableau : le chemin de chaque équipe compte · 5 juillet 2026";
+    var APP_VERSION="v1.9.37 — Simulateur minute par minute : vraie horloge (~1 min), suspense avant les buts, animations & confettis · 5 juillet 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -15245,8 +15246,17 @@
         localStorage.setItem("ffsim_hist_v1",JSON.stringify(h)); }catch(e){}
     }
 
-    // UI — modale de simulation
+    // UI — modale de simulation (v1.9.37 : horloge réelle ~60 s, suspense, animations)
     var _sim = null;
+    var FFSIM_CSS='<style>'
+      +'@keyframes ffFeedIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}'
+      +'@keyframes ffGoalPop{0%{transform:scale(1)}35%{transform:scale(1.55);color:var(--g)}100%{transform:scale(1)}}'
+      +'@keyframes ffPulse{0%,100%{opacity:1}50%{opacity:.3}}'
+      +'@keyframes ffBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}'
+      +'@keyframes ffFall{to{transform:translateY(105vh) rotate(340deg)}}'
+      +'@keyframes ffShake{0%,100%{transform:none}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}'
+      +'@keyframes ffTease{0%,100%{background:rgba(231,196,92,.10)}50%{background:rgba(231,196,92,.30)}}'
+      +'</style>';
     function ffSimOpen(matchId){
       var m=MATCHES.find(function(x){return x.id===parseInt(matchId)}); if(!m) return;
       if(m.s1!==null){ toast("✋ Ce match a déjà été joué — on ne refait pas l'histoire !"); return; }
@@ -15258,17 +15268,23 @@
       var res=ffSimEngine(A,B,ctx,ffSimRng(seed));
       ffSimSaveHist({v:1,app:FF_SIM.app,id:m.id,teams:m.t1+"-"+m.t2,d:Date.now(),seed:seed,
                      s:[res.s1,res.s2],pen:res.pen1!=null?[res.pen1,res.pen2]:null,winner:res.winner});
-      _sim={m:m,A:A,B:B,res:res,idx:0,timer:null,speed:1};
+      var totalMin=90;
+      res.events.forEach(function(e){ if(e.m>totalMin) totalMin=e.m; });
+      _sim={m:m,A:A,B:B,res:res,ei:0,clock:0,hold:0,timer:null,speed:1,totalMin:totalMin+1,done:false};
       var el=document.createElement("div"); el.className="pl-modal"; el.id="ffsim-modal"; el.style.zIndex=99999;
       el.onclick=function(e){ if(e.target===el) ffSimClose(); };
-      el.innerHTML='<div class="pl-card" style="max-height:94vh;overflow-y:auto;display:flex;flex-direction:column">'
+      el.innerHTML=FFSIM_CSS
+        +'<div class="pl-card" style="max-height:94vh;overflow-y:auto;display:flex;flex-direction:column">'
         +'<button class="back" onclick="ffSimClose()">← Fermer</button>'
         +'<div style="text-align:center;margin:4px 0"><div style="font-size:10px;color:var(--am);font-weight:800">🎬 SIMULATION · '+(m.st||"")+'</div>'
         +'<div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-top:6px">'
         +'<div style="text-align:center">'+flagImg(m.t1,36)+'<div style="font-size:11px;font-weight:800">'+A.name+'</div></div>'
-        +'<div><div id="ffsim-score" style="font-size:28px;font-weight:900">0 - 0</div><div id="ffsim-min" style="font-size:11px;color:var(--g);font-weight:900;text-align:center">0\'</div></div>'
+        +'<div><div id="ffsim-score" style="font-size:28px;font-weight:900">0 - 0</div>'
+        +'<div id="ffsim-min" style="font-size:12px;color:var(--g);font-weight:900;text-align:center"><span id="ffsim-live" style="display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--rd);animation:ffPulse 1.1s infinite;margin-right:4px"></span>0\' <span style="display:inline-block;animation:ffBounce 1s infinite">⚽</span></div></div>'
         +'<div style="text-align:center">'+flagImg(m.t2,36)+'<div style="font-size:11px;font-weight:800">'+B.name+'</div></div>'
-        +'</div></div>'
+        +'</div>'
+        +'<div style="height:5px;background:var(--s3);border-radius:3px;margin:8px 10px 0;overflow:hidden"><div id="ffsim-prog" style="height:100%;width:0%;background:linear-gradient(90deg,var(--g),var(--am));border-radius:3px;transition:width .4s linear"></div></div>'
+        +'</div>'
         +'<div style="display:flex;gap:6px;justify-content:center;margin:8px 0">'
         +'<button id="ffsim-play" onclick="ffSimToggle()" style="padding:8px 18px;background:var(--g);color:#000;border:none;border-radius:8px;font-weight:900;font-family:inherit;cursor:pointer">⏸ Pause</button>'
         +'<button onclick="ffSimSpeed()" id="ffsim-spd" style="padding:8px 14px;background:var(--s2);color:var(--tx);border:1px solid var(--s3);border-radius:8px;font-weight:800;font-family:inherit;cursor:pointer">×1</button>'
@@ -15281,29 +15297,80 @@
       document.body.appendChild(el);
       ffSimTick(); _sim.timer=setInterval(ffSimTick, 420);
     }
+    function _ffSimLine(e,teaser){
+      var f=document.getElementById("ffsim-feed"); if(!f) return;
+      var div=document.createElement("div");
+      var base="padding:5px 4px;border-bottom:1px solid rgba(128,128,128,.07);font-size:11px;line-height:1.5;animation:ffFeedIn .35s ease";
+      if(teaser) base+=";animation:ffTease 0.9s ease 2,ffFeedIn .35s ease;border-radius:6px;color:var(--am);font-weight:700";
+      else if(e.goal) base+=";background:rgba(46,160,67,.14);border-radius:6px;font-weight:700";
+      div.style.cssText=base;
+      div.innerHTML='<span style="color:var(--g);font-weight:900">'+(e.m?e.m+"'":"")+'</span> '+(teaser?'🔥 '+teaser:e.ic+' '+e.txt);
+      f.appendChild(div); f.scrollTop=f.scrollHeight;
+    }
     function ffSimTick(){
       if(!_sim) return;
       var f=document.getElementById("ffsim-feed"); if(!f){ ffSimClose(); return; }
-      var n=_sim.speed; // événements par tick
-      while(n-->0 && _sim.idx<_sim.res.events.length){
-        var e=_sim.res.events[_sim.idx++];
-        var div=document.createElement("div");
-        div.style.cssText="padding:4px 2px;border-bottom:1px solid rgba(128,128,128,.07);font-size:11px;line-height:1.45"+(e.goal?";background:rgba(46,160,67,.12);border-radius:6px;font-weight:700":"");
-        div.innerHTML='<span style="color:var(--g);font-weight:900">'+(e.m?e.m+"'":"")+'</span> '+e.ic+' '+e.txt;
-        f.appendChild(div); f.scrollTop=f.scrollHeight;
-        var sc=document.getElementById("ffsim-score"), mn=document.getElementById("ffsim-min");
-        if(mn&&e.m) mn.textContent=e.m+"'";
-        if(sc&&e.goal){ var parts=e.txt.match(/(\d+) - (\d+)/); if(parts) sc.textContent=parts[1]+" - "+parts[2]; }
+      if(_sim.hold>0){ _sim.hold--; return; }              // pause suspense
+      _sim.clock=Math.min(_sim.totalMin, _sim.clock + 0.72*_sim.speed); // ~53 s pour 90' à ×1
+      var mn=document.getElementById("ffsim-min"), pg=document.getElementById("ffsim-prog");
+      var shown=Math.floor(Math.min(_sim.clock, _sim.totalMin));
+      if(mn) mn.innerHTML='<span id="ffsim-live" style="display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--rd);animation:ffPulse 1.1s infinite;margin-right:4px"></span>'+shown+'\' <span style="display:inline-block;animation:ffBounce 1s infinite">⚽</span>';
+      if(pg) pg.style.width=Math.round(_sim.clock/_sim.totalMin*100)+"%";
+      var burst=0;
+      while(_sim.ei<_sim.res.events.length && _sim.res.events[_sim.ei].m<=_sim.clock && burst<3){
+        var e=_sim.res.events[_sim.ei];
+        if(e.goal && !e._teased && _sim.speed<4){          // l'astuce suspense : on annonce l'action AVANT le but
+          e._teased=true;
+          var tn=e.team===1?_sim.A.name:e.team===2?_sim.B.name:"";
+          _ffSimLine(e,"Ça chauffe"+(tn?" côté "+tn:"")+" dans la surface…");
+          _sim.hold=2;                                      // ~0,8 s de tension
+          return;
+        }
+        _sim.ei++; burst++;
+        _ffSimLine(e,null);
+        if(e.goal){
+          var sc=document.getElementById("ffsim-score");
+          if(sc){ var parts=e.txt.match(/(\d+) - (\d+)/); if(parts) sc.textContent=parts[1]+" - "+parts[2];
+                  sc.style.animation="none"; void sc.offsetWidth; sc.style.animation="ffGoalPop .8s ease"; }
+          try{ if(navigator.vibrate) navigator.vibrate([60,40,120]); }catch(err){}
+          _sim.hold=2; break;                               // savourer le but
+        }
+        if(e.ic==="🟥"){ f.style.animation="none"; void f.offsetWidth; f.style.animation="ffShake .4s ease"; _sim.hold=1; break; }
+        if(e.ic==="✅"||e.ic==="❌"||e.ic==="🥅"||e.ic==="🎯"){ _sim.hold=1; break; } // t.a.b. tireur par tireur
+        if(e.ic==="⏸"||e.ic==="🔥"){ _sim.hold=1; break; }
       }
-      if(_sim.idx>=_sim.res.events.length){ clearInterval(_sim.timer); _sim.timer=null; ffSimShowHist(); var b=document.getElementById("ffsim-play"); if(b) b.textContent="✔ Fini"; }
+      if(_sim.ei>=_sim.res.events.length && _sim.clock>=_sim.totalMin && !_sim.done){
+        _sim.done=true; clearInterval(_sim.timer); _sim.timer=null;
+        ffSimShowHist(); ffSimParty();
+        var b=document.getElementById("ffsim-play"); if(b) b.textContent="✔ Fini";
+        if(mn) mn.innerHTML='🏁 Terminé';
+        if(pg) pg.style.width="100%";
+      }
+    }
+    function ffSimParty(){
+      try{
+        var em=["⚽","🎉","⭐","🏆","🎊"];
+        for(var i=0;i<26;i++){
+          var s=document.createElement("span");
+          s.textContent=em[i%em.length];
+          s.style.cssText="position:fixed;top:-34px;left:"+Math.round(Math.random()*94)+"%;font-size:"+Math.round(14+Math.random()*14)+"px;z-index:100000;pointer-events:none;animation:ffFall "+(2.2+Math.random()*2)+"s linear forwards;animation-delay:"+(Math.random()*0.9)+"s";
+          document.body.appendChild(s);
+          (function(sp){ setTimeout(function(){ try{sp.remove()}catch(e){} }, 5500); })(s);
+        }
+        if(navigator.vibrate) navigator.vibrate(200);
+      }catch(e){}
     }
     function ffSimToggle(){
-      if(!_sim) return; var b=document.getElementById("ffsim-play");
+      if(!_sim||_sim.done) return; var b=document.getElementById("ffsim-play");
       if(_sim.timer){ clearInterval(_sim.timer); _sim.timer=null; if(b)b.textContent="▶ Lecture"; }
-      else if(_sim.idx<_sim.res.events.length){ _sim.timer=setInterval(ffSimTick,420); if(b)b.textContent="⏸ Pause"; }
+      else{ _sim.timer=setInterval(ffSimTick,420); if(b)b.textContent="⏸ Pause"; }
     }
     function ffSimSpeed(){ if(!_sim) return; _sim.speed=_sim.speed>=4?1:_sim.speed*2; var b=document.getElementById("ffsim-spd"); if(b)b.textContent="×"+_sim.speed; }
-    function ffSimEnd(){ if(!_sim) return; _sim.speed=999; ffSimTick(); }
+    function ffSimEnd(){
+      if(!_sim||_sim.done) return;
+      _sim.speed=8; _sim.hold=0; _sim.clock=_sim.totalMin;
+      var guard=400; while(!_sim.done && guard-->0){ _sim.hold=0; ffSimTick(); }
+    }
     function ffSimReplay(){ if(!_sim) return; var id=_sim.m.id; ffSimClose(); ffSimOpen(id); }
     function ffSimShowHist(){
       if(!_sim) return; var z=document.getElementById("ffsim-histzone"); if(!z) return;
