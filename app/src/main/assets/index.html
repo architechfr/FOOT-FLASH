@@ -2640,6 +2640,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.9.46",d:"05/07/2026",changes:"Fil du match enfin chronologique (retour d'usage : « un but à la 73e puis à la 31e puis à la 7e… »). Le tri plantait sur les minutes du temps additionnel : « 45+5 » ou « 90+7 » ne sont pas des nombres, la comparaison retournait NaN et l'ordre devenait aléatoire. Nouveau tri robuste (45+5 compris entre 45 et 46) et ordre CHRONOLOGIQUE du coup d'envoi au coup de sifflet — 7', 31', 45+5', 73', 90+7' — cohérent avec la liste des buteurs sous le score."},
       {v:"v1.9.45",d:"05/07/2026",changes:"L'app suit le tournoi, pas l'inverse (retours d'usage en rafale). (1) SIMULATION — LES QUARTS SE DÉBLOQUENT MATCH PAR MATCH : France-Maroc, officiellement connu, s'affiche immédiatement (verrouillé 🔒) au lieu d'attendre que TOUS les 8es soient terminés ; les quarts encore inconnus affichent « ⏳ En attente des 8es ». (2) BUTS ENFIN DANS L'ORDRE : la source de données livre les buteurs dans le désordre (le 90e+5 avant le 29e…) — ils sont désormais triés par minute PARTOUT (fiche match, cartes, accueil). (3) QUIZ À L'HEURE : la question « meilleur buteur de l'histoire = Klose » était périmée depuis que Messi (20 buts) a pulvérisé le record PENDANT ce Mondial — reformulée en deux questions (avant/pendant 2026). Records et anecdotes déjà à jour au 5 juillet (Messi 20, Mbappé 19) ; prochaine étape : totaux carrière calculés en continu (joueurs ET sélectionneurs — Deschamps compris)."},
       {v:"v1.9.44",d:"05/07/2026",changes:"LE bug racine des « bugs partout » est éradiqué (retour d'usage : heures fausses dans l'export Agenda, France-Suède au mauvais jour, Sénégal « 2-1 » au lieu de 3-1, Norvège « 0-1 » au lieu de 4-1…). Le calendrier de SECOURS embarqué dans l'app était un VIEUX planning d'avril, avec d'autres numéros de matchs, d'autres affiches, d'autres stades et d'autres horaires : quand le calendrier officiel en ligne n'était pas encore chargé (téléphone, cache), les scores réels s'attachaient aux MAUVAIS matchs et l'export Agenda héritait des mauvaises heures. Les 104 matchs embarqués sont désormais la copie exacte du calendrier officiel (mêmes ids, mêmes affiches, heures locales des stades converties automatiquement dans le bon fuseau). Concrètement : France-Sénégal redevient un 3-1 le 16 juin à 21h, France-Suède un 3-0 le 30 juin à 23h, France-Norvège un 4-1, et l'export 📅 Agenda donne enfin les bonnes heures partout, tout le temps, même hors ligne."},
       {v:"v1.9.43",d:"05/07/2026",changes:"Favoris du Mondial : l'aléa diminue au fil des tours (retour d'usage : « le Maroc 2e, champion du monde ça paraît peu crédible »). L'amortisseur de surprise de la v1.9.41 traitait tous les tours pareil : un outsider en forme avec un tableau favorable (le Maroc, aidé par le fait qu'Espagne et Portugal s'entretuent dès les 8es) pouvait grimper au 2e rang des favoris. Correction dans l'esprit des classes de favoris : la surprise vit en 8es (aléa fort), mais plus on avance, plus la force brute et le pedigree parlent — quarts plus fiables, demies encore plus, finale presque au mérite (plafonds 85→92%). Un Maroc peut toujours sortir la France UN soir de quart, mais enchaîner quart-demie-finale contre des cadors redevient ce que c'est : un exploit rarissime. La hiérarchie des favoris redevient crédible sans tuer les surprises match par match."},
@@ -2703,7 +2704,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.45 — Calendrier embarqué réparé (104 matchs officiels), buts triés, quarts débloqués match par match · 5 juillet 2026";
+    var APP_VERSION="v1.9.46 — Fil du match chronologique (tri robuste des minutes 45+5/90+7) · 5 juillet 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -15682,7 +15683,10 @@
       (_ev.goals||[]).forEach(function(g){_evts.push({m:g.m||0,ic:'⚽',txt:'<b>But'+(g.type==="P"?' (pénalty)':g.type==="CSC"?' (contre son camp)':'')+'</b> — '+g.n+(g.a?' <span style="color:var(--t2)">(passe : '+g.a+')</span>':''),t:g.t})});
       (_ev.cards||[]).forEach(function(c){_evts.push({m:c.m||0,ic:(c.c==="R"?'🟥':'🟨'),txt:(c.c==="R"?'<b>Carton rouge</b>':'Carton jaune')+' — '+c.n,t:c.t})});
       if(_evts.length){
-        _evts.sort(function(a,b){return b.m-a.m});
+        // v1.9.46 — tri CHRONOLOGIQUE robuste : "45+5" et "90+7" ne sont pas des
+        // nombres, l'ancien tri (b.m-a.m) retournait NaN → ordre aléatoire (73' avant 7').
+        var _mm=function(v){ var p=String(v==null?"0":v).split("+"); return (parseInt(p[0],10)||0)+((parseInt(p[1],10)||0)/100); };
+        _evts.sort(function(a,b){return _mm(a.m)-_mm(b.m)});
         h += '<div class="mtd-sec">';
         h += '<div class="mtd-sec-title">⏱ FIL DU MATCH</div>';
         _evts.forEach(function(e){

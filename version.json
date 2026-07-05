@@ -1,5 +1,5 @@
 {
-  "versionCode": 35,
-  "version": "v1.9.45",
-  "notes": "Grosse fournee de fiabilite : calendrier de secours embarque entierement realigne sur les 104 matchs officiels (fini les scores rattaches aux mauvais matchs, les heures fausses dans l'export Agenda, France-Suede au mauvais jour), buts tries par minute sur toutes les fiches, quarts de la Simulation debloques match par match (France-Maroc s'affiche des maintenant, verrouille), question quiz Klose reformulee (Messi 20 buts est passe par la), favoris credibles (aleatoire decroissant par tour), facteur arbitrage Argentine."
+  "versionCode": 36,
+  "version": "v1.9.46",
+  "notes": "Fil du match enfin CHRONOLOGIQUE : le tri plantait sur les minutes du temps additionnel (45+5, 90+7) et melangait les buts (73e avant la 7e) — corrige, du coup d'envoi au coup de sifflet. Inclut la grosse fournee du jour : calendrier embarque realigne sur les 104 matchs officiels, export Agenda aux bonnes heures, quarts de la Simulation debloques match par match (France-Maroc visible et verrouille), buts tries partout, favoris credibles, facteur arbitrage."
 }
