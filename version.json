@@ -1,5 +1,5 @@
 {
-  "versionCode": 38,
-  "version": "v1.9.48",
-  "notes": "Stats 100% VIVANTES : buts en selection des joueurs (fiche + ligne d'effectif, badge +N en 2026), statistiques des selectionneurs (matchs diriges, victoires, taux de reussite — Deschamps et tous les autres) et Palmares (Messi 20, Mbappe 19, Kane 13) se mettent a jour automatiquement avec chaque resultat officiel du Mondial. Inclut le fil du match chronologique, le calendrier embarque realigne et les quarts de Simulation debloques match par match."
+  "versionCode": 39,
+  "version": "v1.9.49",
+  "notes": "L'HISTOIRE COMPLETE du Mondial dans le Palmares : recit du moment qui a defini chacune des 22 editions (Main de Dieu 1986, Miracle de Berne 1954, Maracanazo 1950, nuit de Seville 1982, coup de boule 2006, Mineirazo 2014, but fantome 1966, Pele 1958...) + meilleur buteur de chaque edition (Fontaine 13, Kocsis 11...). Et toutes les stats restent vivantes : buts joueurs, stats selectionneurs et records suivent le tournoi 2026 en direct."
 }

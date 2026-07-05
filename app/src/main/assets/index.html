@@ -2640,6 +2640,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.9.49",d:"05/07/2026",changes:"TOUTE l'histoire de la Coupe du monde, racontée (dernier chantier du programme du jour). Chacune des 22 éditions du Palmarès a désormais son RÉCIT — le moment qui l'a définie : la Main de Dieu et le But du Siècle (1986), le Miracle de Berne (1954), le Maracanazo (1950), la nuit de Séville avec Battiston (1982), le coup de boule de Zidane (2006), le Mineirazo 7-1 (2014), le but fantôme de Wembley (1966), Pelé à 17 ans (1958), le football total trahi (1974), jusqu'à la finale Messi-Mbappé de 2022… — plus le 👟 MEILLEUR BUTEUR de chaque édition (Fontaine 13, Kocsis 11, Gerd Müller 10, Eusébio 9…). L'onglet Palmarès devient une vraie encyclopédie du Mondial : palmarès vivant 2026 en haut, 96 ans d'histoire en dessous."},
       {v:"v1.9.48",d:"05/07/2026",changes:"Toutes les stats vivent avec le tournoi — suite et fin du chantier « stats évolutives ». (1) FICHES JOUEURS : le total de buts en sélection intègre désormais les buts réels du Mondial 2026 en direct (ex. Mbappé : base 55 + 7 en 2026), avec badge vert « +N en 2026 » sur la fiche ET la ligne d'effectif (🔺). (2) SÉLECTIONNEURS : les statistiques complètes (matchs dirigés, victoires, taux de réussite) intègrent chaque match du Mondial en direct — Deschamps gagne ses matchs dirigés et ses victoires au fil des Bleus, comme tous les autres coachs (victoire aux t.a.b. comptée comme victoire). (3) Avec le Palmarès vivant de la v1.9.47, la boucle est bouclée : records historiques, fiches joueurs, effectifs et sélectionneurs se mettent tous à jour automatiquement avec les résultats officiels."},
       {v:"v1.9.47",d:"05/07/2026",changes:"Le Palmarès vit avec le tournoi (retour d'usage : « les meilleurs buteurs de l'histoire évoluent puisque Mbappé marque, ainsi que Messi »). Le classement « ⚽ Meilleurs buteurs de l'histoire » est désormais VIVANT : les buts réels du Mondial 2026 s'ajoutent en direct aux totaux de carrière des joueurs encore en activité. Résultat immédiat : 🥇 Messi 20 buts (+7 en 2026), 🥈 Mbappé 19 (+7), Klose (16) relégué 3e, et Kane (8+5=13) rejoint Fontaine et remonte le classement à chaque but. Cristiano Ronaldo, Neymar et Haaland sont désormais suivis aussi — chaque but du reste du tournoi met à jour le classement tout seul, avec un badge doré « +N en 2026 » sur les cartes concernées. Prochaine étape du même chantier : sélections/buts sur les fiches joueurs et stats des sélectionneurs (Deschamps compris) calculés en continu."},
       {v:"v1.9.46",d:"05/07/2026",changes:"Fil du match enfin chronologique (retour d'usage : « un but à la 73e puis à la 31e puis à la 7e… »). Le tri plantait sur les minutes du temps additionnel : « 45+5 » ou « 90+7 » ne sont pas des nombres, la comparaison retournait NaN et l'ordre devenait aléatoire. Nouveau tri robuste (45+5 compris entre 45 et 46) et ordre CHRONOLOGIQUE du coup d'envoi au coup de sifflet — 7', 31', 45+5', 73', 90+7' — cohérent avec la liste des buteurs sous le score."},
@@ -2706,7 +2707,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.48 — Stats 100% vivantes : buts joueurs, effectifs et stats sélectionneurs (Deschamps…) suivent le tournoi en direct · 5 juillet 2026";
+    var APP_VERSION="v1.9.49 — L'histoire complète du Mondial : récit + meilleur buteur pour chacune des 22 éditions (1930-2022) · 5 juillet 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -11354,28 +11355,28 @@
     function bConn(){return'<div style="display:flex;justify-content:center;margin:2px 0"><div style="width:2px;height:12px;background:var(--s3)"></div></div><div style="display:flex;justify-content:center;margin-bottom:2px"><div style="font-size:10px;color:var(--t2)">▲</div></div>'}
 
     var WC_WINNERS=[
-    {y:2022,w:"Argentine",r:"France",s:"3-3 (4-2 tab)",h:"Qatar",t3:"Croatie",t4:"Maroc",s3:"2-1"},
-    {y:2018,w:"France",r:"Croatie",s:"4-2",h:"Russie",t3:"Belgique",t4:"Angleterre",s3:"2-0"},
-    {y:2014,w:"Allemagne",r:"Argentine",s:"1-0 ap",h:"Bresil",t3:"Pays-Bas",t4:"Bresil",s3:"3-0"},
-    {y:2010,w:"Espagne",r:"Pays-Bas",s:"1-0 ap",h:"Afrique du Sud",t3:"Allemagne",t4:"Uruguay",s3:"3-2"},
-    {y:2006,w:"Italie",r:"France",s:"1-1 (5-3 tab)",h:"Allemagne",t3:"Allemagne",t4:"Portugal",s3:"3-1"},
-    {y:2002,w:"Bresil",r:"Allemagne",s:"2-0",h:"Coree/Japon",t3:"Turquie",t4:"Coree du Sud",s3:"3-2"},
-    {y:1998,w:"France",r:"Bresil",s:"3-0",h:"France",t3:"Croatie",t4:"Pays-Bas",s3:"2-1"},
-    {y:1994,w:"Bresil",r:"Italie",s:"0-0 (3-2 tab)",h:"USA",t3:"Suede",t4:"Bulgarie",s3:"4-0"},
-    {y:1990,w:"Allemagne",r:"Argentine",s:"1-0",h:"Italie",t3:"Italie",t4:"Angleterre",s3:"2-1"},
-    {y:1986,w:"Argentine",r:"Allemagne",s:"3-2",h:"Mexique",t3:"France",t4:"Belgique",s3:"4-2 ap"},
-    {y:1982,w:"Italie",r:"Allemagne",s:"3-1",h:"Espagne",t3:"Pologne",t4:"France",s3:"3-2"},
-    {y:1978,w:"Argentine",r:"Pays-Bas",s:"3-1 ap",h:"Argentine",t3:"Bresil",t4:"Italie",s3:"2-1"},
-    {y:1974,w:"Allemagne",r:"Pays-Bas",s:"2-1",h:"Allemagne",t3:"Pologne",t4:"Bresil",s3:"1-0"},
-    {y:1970,w:"Bresil",r:"Italie",s:"4-1",h:"Mexique",t3:"Allemagne",t4:"Uruguay",s3:"1-0"},
-    {y:1966,w:"Angleterre",r:"Allemagne",s:"4-2 ap",h:"Angleterre",t3:"Portugal",t4:"URSS",s3:"2-1"},
-    {y:1962,w:"Bresil",r:"Tchecoslovaquie",s:"3-1",h:"Chili",t3:"Chili",t4:"Yougoslavie",s3:"1-0"},
-    {y:1958,w:"Bresil",r:"Suede",s:"5-2",h:"Suede",t3:"France",t4:"Allemagne",s3:"6-3"},
-    {y:1954,w:"Allemagne",r:"Hongrie",s:"3-2",h:"Suisse",t3:"Autriche",t4:"Uruguay",s3:"3-1"},
-    {y:1950,w:"Uruguay",r:"Bresil",s:"2-1",h:"Bresil",t3:"Suede",t4:"Espagne",s3:"Poule finale"},
-    {y:1938,w:"Italie",r:"Hongrie",s:"4-2",h:"France",t3:"Bresil",t4:"Suede",s3:"4-2"},
-    {y:1934,w:"Italie",r:"Tchecoslovaquie",s:"2-1 ap",h:"Italie",t3:"Allemagne",t4:"Autriche",s3:"3-2"},
-    {y:1930,w:"Uruguay",r:"Argentine",s:"4-2",h:"Uruguay",t3:"USA",t4:"Yougoslavie",s3:"Pas de match"}
+    {y:2022,w:"Argentine",r:"France",s:"3-3 (4-2 tab)",h:"Qatar",t3:"Croatie",t4:"Maroc",s3:"2-1",gb:"Mbappé (FRA) · 8 buts",story:"La plus grande finale de l'histoire : triplé de Mbappé (1er en finale depuis 1966), mais Messi touche enfin sa Coupe à 35 ans. Le Maroc, 1er pays africain en demi-finale."},
+    {y:2018,w:"France",r:"Croatie",s:"4-2",h:"Russie",t3:"Belgique",t4:"Angleterre",s3:"2-0",gb:"Kane (ENG) · 6 buts",story:"La 2e étoile des Bleus, 20 ans après. Mbappé, 19 ans, marque en finale comme Pelé. Modric Ballon d'Or du tournoi malgré la défaite."},
+    {y:2014,w:"Allemagne",r:"Argentine",s:"1-0 ap",h:"Bresil",t3:"Pays-Bas",t4:"Bresil",s3:"3-0",gb:"James Rodríguez (COL) · 6 buts",story:"Le Mineirazo : Brésil humilié 7-1 chez lui par l'Allemagne en demie (4 buts en 6 minutes). Götze délivre la Mannschaft à la 113e de la finale."},
+    {y:2010,w:"Espagne",r:"Pays-Bas",s:"1-0 ap",h:"Afrique du Sud",t3:"Allemagne",t4:"Uruguay",s3:"3-2",gb:"T. Müller, Villa, Sneijder, Forlán · 5 buts",story:"Le sacre du tiki-taka : l'Espagne gagne son 1er titre avec 8 buts en 7 matchs. Iniesta délivre tout un pays à la 116e. Premier Mondial africain, au son des vuvuzelas."},
+    {y:2006,w:"Italie",r:"France",s:"1-1 (5-3 tab)",h:"Allemagne",t3:"Allemagne",t4:"Portugal",s3:"3-1",gb:"Klose (GER) · 5 buts",story:"Le coup de boule : Zidane, panenka en finale puis expulsé à la 110e pour son geste sur Materazzi — dernier match de sa carrière. L'Italie gagne aux t.a.b., Trezeguet frappe la barre."},
+    {y:2002,w:"Bresil",r:"Allemagne",s:"2-0",h:"Coree/Japon",t3:"Turquie",t4:"Coree du Sud",s3:"3-2",gb:"Ronaldo (BRA) · 8 buts",story:"La rédemption de Ronaldo : 8 buts dont un doublé en finale, 4 ans après son mystérieux malaise de 1998. La Corée du Sud en demie, la France championne sortante éliminée sans marquer un but."},
+    {y:1998,w:"France",r:"Bresil",s:"3-0",h:"France",t3:"Croatie",t4:"Pays-Bas",s3:"2-1",gb:"Šuker (CRO) · 6 buts",story:"La 1re étoile : doublé de tête de Zidane en finale au Stade de France, black-blanc-beur sur les Champs-Élysées. Le mystère Ronaldo, convulsions le jour de la finale, plane encore."},
+    {y:1994,w:"Bresil",r:"Italie",s:"0-0 (3-2 tab)",h:"USA",t3:"Suede",t4:"Bulgarie",s3:"4-0",gb:"Salenko (RUS), Stoichkov (BUL) · 6 buts",story:"Première finale décidée aux tirs au but : Baggio, héros du tournoi, envoie le dernier dans le ciel de Pasadena. Romário porte le Brésil, Salenko marque 5 buts en un match (record)."},
+    {y:1990,w:"Allemagne",r:"Argentine",s:"1-0",h:"Italie",t3:"Italie",t4:"Angleterre",s3:"2-1",gb:"Schillaci (ITA) · 6 buts",story:"Italia 90, les nuits magiques de Totò Schillaci. La RFA prend sa revanche de 1986 sur un penalty de Brehme (85e) dans une finale fermée. Les larmes de Gazza en demie."},
+    {y:1986,w:"Argentine",r:"Allemagne",s:"3-2",h:"Mexique",t3:"France",t4:"Belgique",s3:"4-2 ap",gb:"Lineker (ENG) · 6 buts",story:"Le Mondial de Maradona : la Main de Dieu PUIS le But du Siècle en 4 minutes contre l'Angleterre. Diego porte seul l'Albiceleste jusqu'au titre."},
+    {y:1982,w:"Italie",r:"Allemagne",s:"3-1",h:"Espagne",t3:"Pologne",t4:"France",s3:"3-2",gb:"Rossi (ITA) · 6 buts",story:"Paolo Rossi, de la suspension au triplé contre le Brésil de Zico. Et la nuit de Séville : France-RFA, l'agression de Schumacher sur Battiston, 3-3, premiers t.a.b. de l'histoire — les Bleus brisés."},
+    {y:1978,w:"Argentine",r:"Pays-Bas",s:"3-1 ap",h:"Argentine",t3:"Bresil",t4:"Italie",s3:"2-1",gb:"Kempes (ARG) · 6 buts",story:"Titre à domicile sous la junte militaire, dans un Monumental couvert de confettis. Doublé de Kempes en finale ; les Pays-Bas perdent leur 2e finale de suite, sans Cruyff resté au pays."},
+    {y:1974,w:"Allemagne",r:"Pays-Bas",s:"2-1",h:"Allemagne",t3:"Pologne",t4:"Bresil",s3:"1-0",gb:"Lato (POL) · 7 buts",story:"Le football total de Cruyff mène 1-0 sur penalty avant que l'Allemagne n'ait touché le ballon… et perd. Breitner puis Gerd Müller renversent la plus belle équipe jamais battue."},
+    {y:1970,w:"Bresil",r:"Italie",s:"4-1",h:"Mexique",t3:"Allemagne",t4:"Uruguay",s3:"1-0",gb:"G. Müller (GER) · 10 buts",story:"La plus belle équipe de l'histoire : Pelé, Jairzinho (but à chaque match), Rivelino, Tostão… et le but de Carlos Alberto en finale, chef-d'œuvre collectif. 3e titre : le Brésil garde la Jules Rimet."},
+    {y:1966,w:"Angleterre",r:"Allemagne",s:"4-2 ap",h:"Angleterre",t3:"Portugal",t4:"URSS",s3:"2-1",gb:"Eusébio (POR) · 9 buts",story:"Wembley et le but fantôme : la frappe de Hurst sur la barre a-t-elle franchi la ligne ? Triplé unique en finale, seul titre anglais. Eusébio illumine le tournoi."},
+    {y:1962,w:"Bresil",r:"Tchecoslovaquie",s:"3-1",h:"Chili",t3:"Chili",t4:"Yougoslavie",s3:"1-0",gb:"6 joueurs · 4 buts (dont Garrincha)",story:"Pelé blessé dès le 2e match, Garrincha prend le relais et porte le Brésil au doublé — dribbles fous, deux doublés en quarts et demie. La 'Bataille de Santiago' contre l'Italie reste un des matchs les plus violents de l'histoire."},
+    {y:1958,w:"Bresil",r:"Suede",s:"5-2",h:"Suede",t3:"France",t4:"Allemagne",s3:"6-3",gb:"Fontaine (FRA) · 13 buts",story:"Naissance du Roi : Pelé, 17 ans, doublé en finale et 6 buts dans le tournoi. Just Fontaine plante 13 buts en 6 matchs — record de tous les temps, toujours debout."},
+    {y:1954,w:"Allemagne",r:"Hongrie",s:"3-2",h:"Suisse",t3:"Autriche",t4:"Uruguay",s3:"3-1",gb:"Kocsis (HUN) · 11 buts",story:"Le Miracle de Berne : la Hongrie de Puskás, invaincue depuis 4 ans et vainqueur 8-3 des Allemands en poules, mène 2-0 en finale… et s'incline 3-2 sous la pluie. Rahn, héros éternel."},
+    {y:1950,w:"Uruguay",r:"Bresil",s:"2-1",h:"Bresil",t3:"Suede",t4:"Espagne",s3:"Poule finale",gb:"Ademir (BRA) · 8 buts",story:"Le Maracanazo : 200 000 Brésiliens venus fêter le titre, un nul suffisait. Ghiggia marque à la 79e, le Maracanã devient le stade le plus silencieux du monde. Traumatisme national."},
+    {y:1938,w:"Italie",r:"Hongrie",s:"4-2",h:"France",t3:"Bresil",t4:"Suede",s3:"4-2",gb:"Leônidas (BRA) · 7 buts",story:"Doublé de l'Italie de Vittorio Pozzo, seul sélectionneur à deux titres. Leônidas, l'inventeur du retourné, enflamme la France hôte. Dernier Mondial avant la guerre — 12 ans d'attente."},
+    {y:1934,w:"Italie",r:"Tchecoslovaquie",s:"2-1 ap",h:"Italie",t3:"Allemagne",t4:"Autriche",s3:"3-2",gb:"Nejedlý (TCH) · 5 buts",story:"Titre à domicile dans l'Italie de Mussolini, qui fait du tournoi un outil de propagande. Schiavio délivre les Azzurri en prolongation. L'Uruguay, tenant, boycotte — cas unique."},
+    {y:1930,w:"Uruguay",r:"Argentine",s:"4-2",h:"Uruguay",t3:"USA",t4:"Yougoslavie",s3:"Pas de match",gb:"Stábile (ARG) · 8 buts",story:"La toute première : 13 équipes, un seul stade construit pour l'occasion (le Centenario), et l'Uruguay double champion olympique confirme chez lui. Mené 2-1 à la pause, il renverse l'Argentine devant 68 000 personnes."}
     ];
     var WC_SCORERS=[
     {n:"Miroslav Klose",c:"GER",g:16,wc:"2002-14",t:24},{n:"Ronaldo",c:"BRA",g:15,wc:"1998-06",t:19},
@@ -11478,6 +11479,9 @@
             h+='<span style="font-size:11px;flex:1;text-align:right">'+w.t4+'</span>';
             h+='<span style="font-size:10px;min-width:20px;text-align:right;color:var(--t2)">4e</span></div>';
           }
+          // v1.9.49 — L'HISTOIRE de chaque édition : récit + meilleur buteur
+          if(w.gb)h+='<div style="font-size:10px;color:var(--t2);margin-top:5px">👟 <b style="color:var(--am)">'+w.gb+'</b></div>';
+          if(w.story)h+='<div style="font-size:11px;line-height:1.55;color:var(--tx);margin-top:5px;padding:7px 9px;background:rgba(231,196,92,.06);border-left:2px solid var(--am);border-radius:6px">💡 '+w.story+'</div>';
           h+='</div>';
         });
 
