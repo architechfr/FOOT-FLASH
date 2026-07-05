@@ -2640,6 +2640,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.9.53",d:"05/07/2026",changes:"LA FATIGUE entre dans l'équation (retour d'usage). Dans ce Mondial à trois pays, un Vancouver→Miami c'est 4 500 km — et certaines équipes enchaînent les traversées de continent pendant que d'autres restent posées. Nouveau critère calculé pour chaque équipe : ✈️ KILOMÈTRES réellement parcourus entre ses villes de match (distances réelles, y compris le voyage vers le prochain stade), 🏨 CHANGEMENTS DE VILLE (donc d'hôtel), ⏱ MINUTES DE PROLONGATION subies (une prolongation + t.a.b. laisse des traces) et 😴 JOURS DE REPOS avant le prochain match. Les équipes plus chargées que la moyenne du plateau prennent un malus (jusqu'à -3) appliqué aux % de titre ET au simulateur minute par minute — qui l'annonce dans son avant-match quand une équipe arrive cramée. Le détail chiffré est visible dans la fiche dépliée de chaque équipe (Pronos → Favoris) : km, hôtels, prolongations, repos, malus."},
       {v:"v1.9.52",d:"05/07/2026",changes:"Favoris : deux lectures + le duel qui vient (retours d'usage : « l'Espagne et le Portugal sont plus favoris que le Maroc » et « le Maroc va jouer la France, comment tu proposes ça ? »). (1) DEUX TRIS AU CHOIX : 🏆 % de titre sur le tableau réel (l'Espagne et le Portugal s'entretuent dès ce soir en 8e — leurs chances individuelles se divisent, c'est mathématique) OU 💪 Force brute (et là l'Espagne 85 et le Portugal 84 dominent bien le Maroc 71, conforme à l'intuition). Les deux points de vue coexistent, chacun est juste dans sa logique. (2) 🤜🤛 LE DUEL QUI VIENT : la fiche dépliée de chaque équipe affiche son prochain adversaire réel et son % de passer CE tour précis — le Maroc montre ses ~38% de battre la France en quart : son % de titre contient déjà ce duel, rien n'est caché. (3) Rappel pédagogique : la France est déjà en quart (4 victoires pour le titre), l'Argentine doit encore passer son 8e (5 victoires) — voilà pourquoi ~19% contre ~10%."},
       {v:"v1.9.51",d:"05/07/2026",changes:"L'algo s'explique — la stat devient une expérience (retour d'usage : « il faut que l'utilisateur comprenne comment l'algo dit France favorite, et pourquoi »). (1) Sous le podium des Favoris, un encart « 💡 Pourquoi la France en tête ? » résume force, presse et chemin. (2) Dans le classement complet, TAPE UNE ÉQUIPE : sa fiche dépliée montre désormais son 🛣️ PARCOURS SIMULÉ tour par tour (probabilité d'atteindre les quarts, les demies, la finale, le titre — calculée sur les 3000 tirages du vrai tableau), 📰 CE QUE DIT LA PRESSE (l'analyse tirée des 25 journaux épluchés, avec le bonus/malus appliqué), 🧑‍⚖️ le facteur arbitrage (Argentine : Messi protégé +1.5) et 📈 la forme réelle du tournoi chiffrée. On comprend d'un coup d'œil pourquoi le Maroc est si haut (Espagne et Portugal s'éliminent entre eux dès les 8es !) et ce qui sépare un favori d'un outsider. La richesse des journaux, enfin visible là où elle travaille."},
       {v:"v1.9.50",d:"05/07/2026",changes:"Les récits de presse enfin VISIBLES (retour d'usage : « je n'ai pas vu la richesse de ces données »). Les fiches des matchs joués de la phase finale cachent des trésors extraits de 25 journaux — récit du match, tournant, homme du match, NOTES DES JOUEURS (France-Suède complet : Olise 9, Mbappé 8…), stats xG/affluence/arbitre et anecdotes exclusives (le vestiaire portugais dédiant sa victoire à Diogo Jota, les parents d'Eustáquio, la panenka de Salah…) — mais rien ne signalait leur existence. Désormais, dans l'onglet Matchs, chaque match qui possède son récit affiche « 📰 Récit & anecdotes » en doré à côté de TERMINÉ. Ouvre la fiche et descends sous le fil du match : bloc « 📰 LE RÉCIT ». Disponible sur les 16 seizièmes + les 2 premiers 8es ; les récits des matchs suivants arriveront avec les journaux des 6-8 juillet."},
@@ -2710,7 +2711,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.52 — Favoris : tri % titre / force brute + « le duel qui vient » avec % de passer le tour · 5 juillet 2026";
+    var APP_VERSION="v1.9.53 — Critère fatigue : km parcourus, changements d'hôtel, prolongations et repos pèsent sur les pronos · 5 juillet 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -7502,6 +7503,7 @@
           try{ if(typeof SIM_PRESS!=="undefined"&&SIM_PRESS[id]) s+=SIM_PRESS[id].b; }catch(e){}
           try{ if(typeof WC2026_HOSTS!=="undefined"&&WC2026_HOSTS[id]) s+=2; }catch(e){} // domicile MEX/USA
           try{ if(typeof SIM_REF!=="undefined"&&SIM_REF[id]) s+=SIM_REF[id].b; }catch(e){} // arbitrage (Messi & co)
+          try{ s+=ffTeamFatigue(id).adj; }catch(e){} // fatigue : voyages, hôtels, prolongations, repos
           return s;
         }
         var pc={};
@@ -7698,6 +7700,11 @@
               if(_pr)h+='<div>📰 <b style="color:var(--am)">La presse :</b> '+_pr.why+' <span style="color:'+(_pr.b>=0?'var(--g)':'var(--rd)')+';font-weight:800">('+(_pr.b>=0?'+':'')+_pr.b+')</span></div>';
               if(_rf)h+='<div style="margin-top:3px">🧑‍⚖️ <b style="color:var(--am)">Arbitrage :</b> '+_rf.why+' <span style="color:var(--g);font-weight:800">(+'+_rf.b+')</span></div>';
               if(_fm)h+='<div style="margin-top:3px">📈 <b style="color:var(--am)">Forme du tournoi :</b> résultats réels pondérés par le niveau des adversaires <span style="color:'+(_fm>=0?'var(--g)':'var(--rd)')+';font-weight:800">('+(_fm>=0?'+':'')+_fm+')</span></div>';
+              // v1.9.53 — la fatigue, chiffrée et transparente
+              try{
+                var _ft=ffTeamFatigue(y.id);
+                h+='<div style="margin-top:3px">😮‍💨 <b style="color:var(--am)">Fatigue :</b> ~'+_ft.km+' km parcourus · '+_ft.moves+' changements de ville · '+(_ft.extra?_ft.extra+' min de prolongation · ':'')+'repos '+_ft.rest+' j <span style="color:'+(_ft.adj<0?'var(--rd)':'var(--g)')+';font-weight:800">('+(_ft.adj>=0?'±0':_ft.adj)+')</span></div>';
+              }catch(e){}
               h+='</div>';
             }
           }catch(e){}
@@ -15405,6 +15412,37 @@
       ARG:{b:1.5, why:"L'arbitrage lui sourit : Messi protégé, penaltys et coups francs obtenus"},
       BRA:{b:0.5, why:"Le prestige pèse (un peu) sur les décisions serrées"}
     };
+    // v1.9.53 — FATIGUE (retour d'usage) : dans ce Mondial à 3 pays, les kilomètres
+    // comptent. Indice par équipe = voyages entre villes de match + changements
+    // d'hôtel + prolongations subies + manque de repos avant le prochain match.
+    // Malus appliqué aux % de titre ET au simulateur minute par minute.
+    var CITY_GEO={"Mexico City":[19.30,-99.15],"Guadalajara":[20.68,-103.35],"Zapopan":[20.68,-103.35],"Monterrey":[25.67,-100.24],"Los Angeles":[33.95,-118.34],"Inglewood":[33.95,-118.34],"Santa Clara":[37.40,-121.97],"San Francisco":[37.40,-121.97],"Seattle":[47.60,-122.33],"Vancouver":[49.28,-123.12],"Kansas City":[39.05,-94.48],"Houston":[29.68,-95.41],"Arlington":[32.75,-97.08],"Dallas":[32.75,-97.08],"Atlanta":[33.75,-84.40],"Miami":[25.96,-80.24],"Toronto":[43.63,-79.42],"Foxborough":[42.09,-71.26],"Boston":[42.09,-71.26],"Philadelphia":[39.90,-75.17],"Philadelphie":[39.90,-75.17],"East Rutherford":[40.81,-74.07],"New York":[40.81,-74.07]};
+    function _geoKm(a,b){ if(!a||!b)return 0; var R=6371,dLa=(b[0]-a[0])*Math.PI/180,dLo=(b[1]-a[1])*Math.PI/180,la1=a[0]*Math.PI/180,la2=b[0]*Math.PI/180; var hh=Math.sin(dLa/2)*Math.sin(dLa/2)+Math.cos(la1)*Math.cos(la2)*Math.sin(dLo/2)*Math.sin(dLo/2); return Math.round(2*R*Math.asin(Math.sqrt(hh))); }
+    var _fatCache={t:0,v:{}};
+    function ffTeamFatigue(id){
+      try{
+        if(Date.now()-_fatCache.t>120000){ _fatCache={t:Date.now(),v:{}}; }
+        if(_fatCache.v[id]) return _fatCache.v[id];
+        var played=[];
+        (MATCHES||[]).forEach(function(m){ if(m.s1!=null&&(m.t1===id||m.t2===id)) played.push(m); });
+        played.sort(function(a,b){ return new Date(a.d)-new Date(b.d); });
+        var km=0,moves=0,extra=0,prev=null,last=null;
+        played.forEach(function(m){
+          if(prev&&prev!==m.city){ km+=_geoKm(CITY_GEO[prev],CITY_GEO[m.city]); moves++; }
+          prev=m.city; last=m;
+          var dr=m.dur||(m._live&&m._live.dur);
+          if(dr==="AET"||dr==="PEN") extra+=30;
+        });
+        var next=null;
+        for(var i=0;i<MATCHES.length;i++){ var mm=MATCHES[i]; if(mm.s1==null&&mm.t1!=="TBD"&&(mm.t1===id||mm.t2===id)){ if(!next||new Date(mm.d)<new Date(next.d)) next=mm; } }
+        var rest=(last&&next)?Math.max(0,Math.round((new Date(next.d)-new Date(last.d))/86400000)):4;
+        if(next&&prev&&next.city!==prev){ km+=_geoKm(CITY_GEO[prev],CITY_GEO[next.city]); moves++; }
+        var idx=km/1500 + moves*0.35 + (extra/30)*1.2 + Math.max(0,(3-rest))*1.5;
+        var adj=-Math.max(0,Math.min(3,(idx-7)*0.8)); // en dessous de la charge moyenne du plateau : pas de malus
+        var out={km:km,moves:moves,extra:extra,rest:rest,idx:Math.round(idx*10)/10,adj:Math.round(adj*10)/10};
+        _fatCache.v[id]=out; return out;
+      }catch(e){ return {km:0,moves:0,extra:0,rest:4,idx:0,adj:0}; }
+    }
     var SIM_HOT_CITIES = ["Houston","Arlington","Dallas","Miami","Atlanta","Kansas City","Monterrey","Guadalajara","Mexico City","Philadelphia","East Rutherford"];
 
     function ffSimRng(seed){ // mulberry32 — déterministe, seed rejouable
@@ -15451,8 +15489,10 @@
       var press=SIM_PRESS[id]||{b:0,why:null};
       var host=(typeof WC2026_HOSTS!=="undefined" && WC2026_HOSTS[id])?2:0; // vrai bonus domicile (MEX/USA/CAN)
       var ref=(typeof SIM_REF!=="undefined" && SIM_REF[id])?SIM_REF[id]:null; // facteur arbitrage
+      var fat=(typeof ffTeamFatigue==="function")?ffTeamFatigue(id):{adj:0,km:0,moves:0};
       var why=press.why; if(ref&&ref.why) why=(why?why+". 🧑‍⚖️ ":"🧑‍⚖️ ")+ref.why;
-      return { id:id, name:t.name||id, rating: sk.skills + press.b + host + (ref?ref.b:0),
+      if(fat.adj<=-1) why=(why?why+". ":"")+"😮‍💨 Fatigue : ~"+fat.km+" km et "+fat.moves+" changements de ville depuis le début";
+      return { id:id, name:t.name||id, rating: sk.skills + press.b + host + (ref?ref.b:0) + fat.adj,
                gfAvg: pl? gf/pl : 1.2, gaAvg: pl? ga/pl : 1.2, played:pl,
                scorers:names.slice(0,7), pressWhy:why };
     }

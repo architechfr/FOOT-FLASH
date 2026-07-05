@@ -1,5 +1,5 @@
 {
-  "versionCode": 42,
-  "version": "v1.9.52",
-  "notes": "Favoris : DEUX LECTURES au choix — % de titre sur le vrai tableau (l'Espagne et le Portugal s'entretuent en 8e, leurs chances se divisent) ou FORCE BRUTE (la, Espagne et Portugal dominent bien le Maroc, conforme a l'intuition). Et sur chaque equipe depliee : LE DUEL QUI VIENT (prochain adversaire reel + % de passer ce tour — le Maroc affiche ses ~38% de battre la France), le parcours simule tour par tour, l'analyse presse des 25 journaux, l'arbitrage et la forme chiffree. L'algo n'a plus de boite noire."
+  "versionCode": 43,
+  "version": "v1.9.53",
+  "notes": "LA FATIGUE entre dans les pronos : kilometres reellement parcourus entre les villes de match (Vancouver-Miami = 4500 km !), changements d'hotel, minutes de prolongation subies et jours de repos avant le prochain match — malus jusqu'a -3 applique aux % de titre et au simulateur, detail chiffre dans la fiche de chaque equipe (Pronos > Favoris). Inclut aussi : tri % titre / force brute, le duel qui vient avec % de passer le tour, parcours simule tour par tour et analyse presse des 25 journaux."
 }
