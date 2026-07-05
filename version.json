@@ -1,5 +1,5 @@
 {
-  "versionCode": 36,
-  "version": "v1.9.46",
-  "notes": "Fil du match enfin CHRONOLOGIQUE : le tri plantait sur les minutes du temps additionnel (45+5, 90+7) et melangait les buts (73e avant la 7e) — corrige, du coup d'envoi au coup de sifflet. Inclut la grosse fournee du jour : calendrier embarque realigne sur les 104 matchs officiels, export Agenda aux bonnes heures, quarts de la Simulation debloques match par match (France-Maroc visible et verrouille), buts tries partout, favoris credibles, facteur arbitrage."
+  "versionCode": 37,
+  "version": "v1.9.47",
+  "notes": "Palmares VIVANT : les buts reels du Mondial 2026 s'ajoutent en direct aux totaux carriere des meilleurs buteurs de l'histoire — Messi 20 (+7 en 2026) passe en tete, Mbappe 19 (+7), Klose 3e, Kane remonte a chaque but ; badge dore +N en 2026. Ronaldo, Neymar et Haaland suivis aussi. Inclut le fil du match chronologique (tri 45+5/90+7 corrige), le calendrier embarque realigne, l'export Agenda aux bonnes heures et les quarts de Simulation debloques match par match."
 }

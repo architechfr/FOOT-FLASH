@@ -2640,6 +2640,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.9.47",d:"05/07/2026",changes:"Le Palmarès vit avec le tournoi (retour d'usage : « les meilleurs buteurs de l'histoire évoluent puisque Mbappé marque, ainsi que Messi »). Le classement « ⚽ Meilleurs buteurs de l'histoire » est désormais VIVANT : les buts réels du Mondial 2026 s'ajoutent en direct aux totaux de carrière des joueurs encore en activité. Résultat immédiat : 🥇 Messi 20 buts (+7 en 2026), 🥈 Mbappé 19 (+7), Klose (16) relégué 3e, et Kane (8+5=13) rejoint Fontaine et remonte le classement à chaque but. Cristiano Ronaldo, Neymar et Haaland sont désormais suivis aussi — chaque but du reste du tournoi met à jour le classement tout seul, avec un badge doré « +N en 2026 » sur les cartes concernées. Prochaine étape du même chantier : sélections/buts sur les fiches joueurs et stats des sélectionneurs (Deschamps compris) calculés en continu."},
       {v:"v1.9.46",d:"05/07/2026",changes:"Fil du match enfin chronologique (retour d'usage : « un but à la 73e puis à la 31e puis à la 7e… »). Le tri plantait sur les minutes du temps additionnel : « 45+5 » ou « 90+7 » ne sont pas des nombres, la comparaison retournait NaN et l'ordre devenait aléatoire. Nouveau tri robuste (45+5 compris entre 45 et 46) et ordre CHRONOLOGIQUE du coup d'envoi au coup de sifflet — 7', 31', 45+5', 73', 90+7' — cohérent avec la liste des buteurs sous le score."},
       {v:"v1.9.45",d:"05/07/2026",changes:"L'app suit le tournoi, pas l'inverse (retours d'usage en rafale). (1) SIMULATION — LES QUARTS SE DÉBLOQUENT MATCH PAR MATCH : France-Maroc, officiellement connu, s'affiche immédiatement (verrouillé 🔒) au lieu d'attendre que TOUS les 8es soient terminés ; les quarts encore inconnus affichent « ⏳ En attente des 8es ». (2) BUTS ENFIN DANS L'ORDRE : la source de données livre les buteurs dans le désordre (le 90e+5 avant le 29e…) — ils sont désormais triés par minute PARTOUT (fiche match, cartes, accueil). (3) QUIZ À L'HEURE : la question « meilleur buteur de l'histoire = Klose » était périmée depuis que Messi (20 buts) a pulvérisé le record PENDANT ce Mondial — reformulée en deux questions (avant/pendant 2026). Records et anecdotes déjà à jour au 5 juillet (Messi 20, Mbappé 19) ; prochaine étape : totaux carrière calculés en continu (joueurs ET sélectionneurs — Deschamps compris)."},
       {v:"v1.9.44",d:"05/07/2026",changes:"LE bug racine des « bugs partout » est éradiqué (retour d'usage : heures fausses dans l'export Agenda, France-Suède au mauvais jour, Sénégal « 2-1 » au lieu de 3-1, Norvège « 0-1 » au lieu de 4-1…). Le calendrier de SECOURS embarqué dans l'app était un VIEUX planning d'avril, avec d'autres numéros de matchs, d'autres affiches, d'autres stades et d'autres horaires : quand le calendrier officiel en ligne n'était pas encore chargé (téléphone, cache), les scores réels s'attachaient aux MAUVAIS matchs et l'export Agenda héritait des mauvaises heures. Les 104 matchs embarqués sont désormais la copie exacte du calendrier officiel (mêmes ids, mêmes affiches, heures locales des stades converties automatiquement dans le bon fuseau). Concrètement : France-Sénégal redevient un 3-1 le 16 juin à 21h, France-Suède un 3-0 le 30 juin à 23h, France-Norvège un 4-1, et l'export 📅 Agenda donne enfin les bonnes heures partout, tout le temps, même hors ligne."},
@@ -2704,7 +2705,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.46 — Fil du match chronologique (tri robuste des minutes 45+5/90+7) · 5 juillet 2026";
+    var APP_VERSION="v1.9.47 — Palmarès vivant : les buts du Mondial s'ajoutent en direct aux totaux carrière (Messi 20, Mbappé 19…) · 5 juillet 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -11367,8 +11368,35 @@
     {n:"Helmut Rahn",c:"GER",g:10,wc:"1954-58",t:10},{n:"Thomas Muller",c:"GER",g:10,wc:"2010-18",t:16},
     {n:"Lionel Messi",c:"ARG",g:13,wc:"2006-22",t:26,cap:true},{n:"Teofilo Cubillas",c:"PER",g:10,wc:"1970-82",t:13},
     {n:"Grzegorz Lato",c:"POL",g:10,wc:"1974-82",t:20},{n:"Gary Lineker",c:"ENG",g:10,wc:"1986-90",t:12},
-    {n:"Gabriel Batistuta",c:"ARG",g:10,wc:"1994-02",t:12}
+    {n:"Gabriel Batistuta",c:"ARG",g:10,wc:"1994-02",t:12},
+    {n:"Cristiano Ronaldo",c:"POR",g:8,wc:"2006-22",t:22,cap:true},{n:"Harry Kane",c:"ENG",g:8,wc:"2018-22",t:11,cap:true},
+    {n:"Neymar",c:"BRA",g:8,wc:"2014-22",t:13,cap:true},{n:"Erling Haaland",c:"NOR",g:0,wc:"2026",t:0,cap:true}
     ];
+    // v1.9.47 — Classement historique ÉVOLUTIF (retour d'usage : « le résultat
+    // évolue puisque Mbappé marque, ainsi que Messi »). Les joueurs encore en
+    // activité (cap:true) voient leurs buts RÉELS du Mondial 2026 s'ajouter en
+    // direct à leur total carrière. Base g = total avant le 11 juin 2026.
+    function wcScorersLive(){
+      var out=WC_SCORERS.map(function(x){return {n:x.n,c:x.c,g:x.g,wc:x.wc,t:x.t,cap:!!x.cap,plus:0,gt:x.g};});
+      try{
+        var idx={};
+        out.forEach(function(x){ if(x.cap) idx[x.c+"|"+_wcLast(x.n)]=x; });
+        (MATCHES||[]).forEach(function(m){
+          if(!m||!m._live||!m._live.goals) return;
+          m._live.goals.forEach(function(g){
+            if(g.type==="CSC") return;
+            var side=g.t===1?m.t1:g.t===2?m.t2:null; if(!side||side==="TBD") return;
+            var e=idx[side+"|"+_wcLast(g.n)]; if(e) e.plus++;
+          });
+        });
+        out.forEach(function(x){
+          if(x.plus>0){ x.gt=x.g+x.plus; var y0=String(x.wc).split("-")[0]; x.wc=(y0==="2026")?"2026":(y0+"-26"); }
+        });
+      }catch(e){}
+      out.sort(function(a,b){ return (b.gt-a.gt)||(a.t-b.t); });
+      return out;
+    }
+    function _wcLast(s){ try{ var w=_simNorm(s).split(" "); return w[w.length-1]; }catch(e){ var w2=String(s||"").toLowerCase().split(" "); return w2[w2.length-1]; } }
     var WC_GOLDEN_BALL=[
     {y:2022,n:"Lionel Messi",c:"ARG"},{y:2018,n:"Luka Modric",c:"CRO"},
     {y:2014,n:"Lionel Messi",c:"ARG"},{y:2010,n:"Diego Forlan",c:"URU"},
@@ -11437,13 +11465,14 @@
         });
 
             h+='<div class="sec">⚽ Meilleurs buteurs de l\'histoire</div>';
-        WC_SCORERS.sort(function(a,b){return b.g-a.g}).slice(0,12).forEach(function(s,i){
+        h+='<div style="font-size:10px;color:var(--t2);margin:-2px 0 8px">📡 Classement VIVANT : les buts du Mondial 2026 s\'ajoutent en direct aux totaux de carrière (badge doré).</div>';
+        wcScorersLive().slice(0,12).forEach(function(s,i){
           var medal=i===0?"🥇":i===1?"🥈":i===2?"🥉":"";
-          h+='<div style="display:flex;align-items:center;gap:8px;padding:8px;margin-bottom:4px;background:var(--s1);border:1px solid var(--s3);border-radius:8px">';
+          h+='<div style="display:flex;align-items:center;gap:8px;padding:8px;margin-bottom:4px;background:var(--s1);border:1px solid '+(s.plus>0?'var(--g)':'var(--s3)')+';border-radius:8px">';
           h+='<div style="font-size:16px;font-weight:900;color:'+(i<3?'var(--g)':'var(--t2)')+';min-width:24px">'+(medal||(i+1))+'</div>';
-          h+='<div style="flex:1"><div style="font-weight:700;font-size:13px">'+s.n+'</div>';
-          h+='<div style="font-size:10px;color:var(--t2)">'+s.c+' · '+s.wc+' · '+s.t+' matchs</div></div>';
-          h+='<div style="font-size:18px;font-weight:900;color:var(--g)">'+s.g+'</div>';
+          h+='<div style="flex:1"><div style="font-weight:700;font-size:13px">'+s.n+(s.plus>0?' <span style="font-size:9px;font-weight:900;color:#000;background:var(--g);border-radius:99px;padding:1px 6px;vertical-align:middle">+'+s.plus+' en 2026</span>':'')+'</div>';
+          h+='<div style="font-size:10px;color:var(--t2)">'+s.c+' · '+s.wc+' · '+s.t+' matchs'+(s.cap&&!s.plus?' · en activité':'')+'</div></div>';
+          h+='<div style="font-size:18px;font-weight:900;color:var(--g)">'+s.gt+'</div>';
           h+='<div style="font-size:9px;color:var(--t2)">buts</div></div>';
         });
 
