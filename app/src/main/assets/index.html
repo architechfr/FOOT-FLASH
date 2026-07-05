@@ -2626,6 +2626,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.9.38",d:"05/07/2026",changes:"Simulateur & favoris recalibrés (retours d'usage). (1) FINI LES BUTEURS FANTÔMES : « Johan Manzambi » (un Suisse !) pouvait marquer pour la France — désormais un buteur simulé doit appartenir à l'EFFECTIF de son équipe (vérification par nom, accents ignorés) ; sinon le moteur pioche dans les vrais buteurs du tournoi de l'équipe (Mbappé, Dembélé, Barcola, Doué pour les Bleus). (2) FORCES RECALIBRÉES : le Portugal (money-time royal), l'Angleterre et l'Espagne étaient sous-cotés — corrigé ; le MEXIQUE et les USA reçoivent leur vrai bonus DOMICILE (public + pays hôte, appliqué au simulateur ET aux % de titre) ; le Brésil, friable derrière et renversé par le Japon avant d'être sauvé à la 90e+5, perd sa surcote historique. Ces réglages s'appliquent partout : simulateur minute par minute, Favoris du Mondial (Monte-Carlo du tableau) et pronos."},
       {v:"v1.9.37",d:"05/07/2026",changes:"Le simulateur minute par minute prend son temps — et met le paquet (retour d'usage : « plus de suspense, plus long, de l'animation »). (1) VRAIE HORLOGE DE MATCH : la simulation dure désormais ~1 minute à vitesse ×1 (90 minutes de jeu déroulées en continu, prolongation et tirs au but en rab), au lieu de tout débiter en 15 secondes. Le chrono tourne ⚽, une barre de progression avance sous le score, le point rouge « live » pulse. (2) SUSPENSE : avant chaque but, une ligne « 🔥 Ça chauffe dans la surface… » s'affiche et le temps se fige une seconde — on ne sait pas encore si ça va rentrer. Chaque tireur de la séance de t.a.b. passe un par un, avec pause entre chaque. (3) ANIMATIONS : le score EXPLOSE à chaque but (+ vibration du téléphone), les lignes du commentaire glissent en fondu, le fil TREMBLE sur un carton rouge, et le coup de sifflet final déclenche une pluie de confettis ⚽🎉🏆. Les vitesses ×2/×4 et ⏭ Fin restent disponibles pour les impatients."},
       {v:"v1.9.36",d:"05/07/2026",changes:"Les Favoris du Mondial tiennent enfin compte du TABLEAU (retour d'usage : « l'Argentine n'est pas favorite avec le tableau qu'elle a ! »). Avant, le % de titre était un simple indice de force : il ignorait totalement le chemin réel de chaque équipe. Désormais, dès la phase à élimination directe, la probabilité de titre est SIMULÉE sur le vrai tableau restant (3000 tirages de l'arbre officiel) : les matchs joués sont figés sur les vainqueurs réels, chaque match à venir est tiré selon les forces (force + forme du tournoi + presse), et le nul se tranche comme aux tirs au but. Concrètement : une équipe avec un tableau dur (ex. Argentine, promise à Espagne ou Portugal dès la demie) voit son % baisser ; une équipe au tableau dégagé grimpe ; un ÉLIMINÉ tombe à 0 et est étiqueté « éliminé » dans le classement complet. Le classement est retrié par ce nouveau %, l'indice de force reste affiché à titre indicatif. Recalcul automatique toutes les 2 minutes — le classement évolue en direct au fil des 8es, quarts et demies."},
       {v:"v1.9.35",d:"05/07/2026",changes:"Les journaux entrent dans l'app + SIMULATEUR MINUTE PAR MINUTE. (1) 📰 LE RÉCIT : chaque match joué de la phase finale a désormais sa vraie feuille de match enrichie, construite à partir des faits extraits de 25 journaux (L'Équipe, France Football…) : récit du match, tournant, homme du match, notes des joueurs (France-Suède complet !), stats (xG, affluence, arbitre) et anecdotes (Klopp futur sélectionneur de l'Allemagne, démission de Koeman, record de cartons Pays-Bas–Maroc, panenka de Salah…). Visible sur la fiche match, sous le fil du match (fichier data/match-reports.json, mis à jour via GitHub Pages). (2) 🎬 SIMULATEUR : sur tout match À VENIR, bouton « Simuler ce match minute par minute » — le match se joue sous tes yeux (commentaire français, buts, VAR, cartons, pauses fraîcheur dans les villes chaudes, prolongation et tirs au but tireur par tireur). Le moteur utilise les forces/faiblesses réelles : notes d'équipe, forme du tournoi (buts pour/contre), buteurs réels pondérés, distribution RÉELLE des minutes de but du Mondial (les fins de match folles de 2026 pèsent leur poids) et un ajustement presse par équipe. Contrôles lecture/pause/vitesse/fin, re-simulation en 1 tap, et HISTORIQUE persistant : l'app retient tes simulations (% de victoires par équipe sur ce match). Jamais proposé sur un match déjà joué — la compétition avance, l'app aussi. Moteur générique conservé pour les prochaines apps (Ligue 1, Euro 2028…)."},
@@ -2681,7 +2682,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.37 — Simulateur minute par minute : vraie horloge (~1 min), suspense avant les buts, animations & confettis · 5 juillet 2026";
+    var APP_VERSION="v1.9.38 — Buteurs simulés fiables (effectif vérifié) + forces recalibrées (POR/ENG/ESP ↑, domicile MEX/USA, BRA ↓) · 5 juillet 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -7441,6 +7442,7 @@
           var s=computeTeamSkills(id).skills;
           try{ s+=compFormAdj(id); }catch(e){}
           try{ if(typeof SIM_PRESS!=="undefined"&&SIM_PRESS[id]) s+=SIM_PRESS[id].b; }catch(e){}
+          try{ if(typeof WC2026_HOSTS!=="undefined"&&WC2026_HOSTS[id]) s+=2; }catch(e){} // domicile MEX/USA
           return s;
         }
         var pc={};
@@ -15099,25 +15101,26 @@
     // ============================================================
     var FF_SIM = { app:"FF26", version:1 };
 
-    // Ajustements presse (extraits des journaux — juillet 2026, phase finale)
+    // Ajustements presse + contexte (journaux juillet 2026, recalibrés retours d'usage v1.9.38)
     var SIM_PRESS = {
-      ESP:{b:6,  why:"34 matchs sans défaite, 0 but encaissé dans le tournoi"},
+      ESP:{b:7,  why:"Rouleau compresseur : 34 matchs sans défaite, 0 but encaissé"},
+      POR:{b:5,  why:"Money-time royal : Ronaldo, Ramos et Diogo Costa décisifs"},
+      MEX:{b:5,  why:"À DOMICILE, porté par l'Azteca — 2 clean sheets en KO"},
+      USA:{b:5,  why:"Pays hôte À DOMICILE + dynamique Pochettino"},
       FRA:{b:4,  why:"Olise (5 passes) et Mbappé (11 buts en KO, record) en feu"},
       MAR:{b:4,  why:"Défense de fer et Ounahi double buteur en 8e"},
       NOR:{b:3,  why:"Haaland décisif même dans les matchs fermés"},
-      POR:{b:2,  why:"Money-time royal : Ramos et Diogo Costa décisifs"},
-      MEX:{b:2,  why:"Porté par son public, 2 clean sheets en KO"},
-      USA:{b:2,  why:"Dynamique Pochettino + avantage du pays hôte"},
       EGY:{b:2,  why:"Salah patron : l'Égypte n'a plus peur des grands soirs"},
       SUI:{b:1,  why:"Sérieux helvète : victoires sans trembler"},
-      BRA:{b:1,  why:"A appris à renverser (1er comeback en KO depuis 2002)"},
+      ENG:{b:1,  why:"Sait gagner moche — le doublé de Kane a rappelé qui elle est"},
+      COL:{b:1,  why:"Solide et efficace, Turpin n'a rien eu à siffler contre elle"},
       BEL:{b:0,  why:"Renversante contre le Sénégal… mais 2 buts encaissés"},
-      COL:{b:0,  why:"Efficace mais peu prolifique (1-0 en 16e)"},
-      ARG:{b:-1, why:"Grosses frayeurs contre le Cap-Vert (3-2 a.p.)"},
-      ENG:{b:-2, why:"Poussive : menée par la RDC, sauvée par Kane à la 75e"},
       PAR:{b:0,  why:"Tombeur de l'Allemagne aux t.a.b. — mental d'acier"},
-      CAN:{b:-1, why:"Muet 90 minutes contre la RSA avant la délivrance"}
+      ARG:{b:-1, why:"Grosses frayeurs contre le Cap-Vert (3-2 a.p.)"},
+      CAN:{b:-1, why:"Muet 90 minutes contre la RSA avant la délivrance"},
+      BRA:{b:-2, why:"Surcotée : menée par le Japon, sauvée à la 90e+5 — friable derrière"}
     };
+    function _simNorm(s){ try{return String(s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");}catch(e){return String(s||"").toLowerCase();} }
     var SIM_HOT_CITIES = ["Houston","Arlington","Dallas","Miami","Atlanta","Kansas City","Monterrey","Guadalajara","Mexico City","Philadelphia","East Rutherford"];
 
     function ffSimRng(seed){ // mulberry32 — déterministe, seed rejouable
@@ -15144,19 +15147,26 @@
     // Adaptateur FootFlash → profil générique
     function ffSimProfile(id){
       var t=getTeam(id)||{}, sk=computeTeamSkills(id);
+      // v1.9.38 — GARDE-FOU EFFECTIF : un buteur simulé doit appartenir à l'équipe
+      // (fini les « Johan Manzambi » suisses qui marquent pour la France) :
+      // comparaison par nom de famille normalisé (accents ignorés).
+      var _tp=(t.players||[]), rosterLast={};
+      _tp.forEach(function(p){ if(p&&p.n){ var w=_simNorm(p.n).split(" "); rosterLast[w[w.length-1]]=1; } });
+      function inRoster(n){ if(!_tp.length) return true; var w=_simNorm(n).split(" "); return !!rosterLast[w[w.length-1]]; }
       var gf=0, ga=0, pl=0, scorers={};
       try{
         (MATCHES||[]).forEach(function(mm){
           if(mm.s1==null) return;
           var side = mm.t1===id?1 : mm.t2===id?2 : 0; if(!side) return;
           pl++; gf += side===1?mm.s1:mm.s2; ga += side===1?mm.s2:mm.s1;
-          if(mm._live&&mm._live.goals) mm._live.goals.forEach(function(g){ if(g.t===side && g.type!=="CSC") scorers[g.n]=(scorers[g.n]||0)+1; });
+          if(mm._live&&mm._live.goals) mm._live.goals.forEach(function(g){ if(g.t===side && g.type!=="CSC" && inRoster(g.n)) scorers[g.n]=(scorers[g.n]||0)+1; });
         });
       }catch(e){}
       var names=Object.keys(scorers).sort(function(a,b){return scorers[b]-scorers[a]});
-      if(names.length<4){ getTopPlayersOfTeam(id,6).forEach(function(p){ if(names.indexOf(p.name)<0 && p.pos!=="GAR") names.push(p.name); }); }
+      if(names.length<4){ getTopPlayersOfTeam(id,6).forEach(function(p){ if(names.indexOf(p.name)<0 && p.pos!=="GAR" && inRoster(p.name)) names.push(p.name); }); }
       var press=SIM_PRESS[id]||{b:0,why:null};
-      return { id:id, name:t.name||id, rating: sk.skills + press.b,
+      var host=(typeof WC2026_HOSTS!=="undefined" && WC2026_HOSTS[id])?2:0; // vrai bonus domicile (MEX/USA/CAN)
+      return { id:id, name:t.name||id, rating: sk.skills + press.b + host,
                gfAvg: pl? gf/pl : 1.2, gaAvg: pl? ga/pl : 1.2, played:pl,
                scorers:names.slice(0,7), pressWhy:press.why };
     }
