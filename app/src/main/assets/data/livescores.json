@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-06T01:54:49.998Z",
+  "lastUpdated": "2026-07-06T01:57:46.760Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3030,8 +3030,12 @@
     "92": {
       "s1": 1,
       "s2": 2,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
+      "ht": [
+        1,
+        2
+      ],
       "ref": "Alireza Faghani"
     }
   },
@@ -3040,7 +3044,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 91,
-      "IN_PLAY": 1,
+      "PAUSED": 1,
       "TIMED": 12
     },
     "firstUtc": "2026-06-11T19:00:00Z",
