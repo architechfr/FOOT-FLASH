@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-06T03:08:34.735Z",
+  "lastUpdated": "2026-07-06T03:11:31.491Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3030,21 +3030,57 @@
     "92": {
       "s1": 2,
       "s2": 3,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         1,
         2
       ],
-      "ref": "Alireza Faghani"
+      "ref": "Alireza Faghani",
+      "goals": [
+        {
+          "m": "36",
+          "t": 2,
+          "n": "Jude Bellingham",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "38",
+          "t": 2,
+          "n": "Jude Bellingham",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "42",
+          "t": 1,
+          "n": "Julián Quiñones",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "60",
+          "t": 2,
+          "n": "Harry Kane",
+          "type": "P",
+          "a": null
+        },
+        {
+          "m": "69",
+          "t": 1,
+          "n": "Raúl Jiménez",
+          "type": "P",
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 91,
-      "IN_PLAY": 1,
+      "FINISHED": 92,
       "TIMED": 12
     },
     "firstUtc": "2026-06-11T19:00:00Z",
