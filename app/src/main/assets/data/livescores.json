@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-06T22:58:37.080Z",
+  "lastUpdated": "2026-07-06T23:01:34.418Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3084,7 +3084,6 @@
         0,
         0
       ],
-      "ref": "Anthony Taylor",
       "goals": [
         {
           "m": "90+1",
@@ -3093,7 +3092,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Anthony Taylor"
     }
   },
   "meta": {
