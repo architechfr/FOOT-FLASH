@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-06T21:06:57.478Z",
+  "lastUpdated": "2026-07-06T21:09:55.004Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3084,7 +3084,16 @@
         0,
         0
       ],
-      "ref": "Anthony Taylor"
+      "ref": "Anthony Taylor",
+      "goals": [
+        {
+          "m": "90+1",
+          "t": 2,
+          "n": "Mikel Merino",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
