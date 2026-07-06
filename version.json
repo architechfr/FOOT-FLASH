@@ -1,5 +1,5 @@
 {
-  "versionCode": 46,
-  "version": "v1.9.56",
-  "notes": "LA PEPITE DU JOUR : une anecdote 'Le saviez-vous ?' qui change chaque jour, affichee en haut de l'accueil a la place du texte FOOT FLASH, cliquable vers le module complet Anecdotes & Records. Inclut aussi : fatigue integree partout (simulateur, % de titre, prono auto de chaque match), libelles clarifies (1 prolongation jouee), classement du Cout du voyage et Fatigue comparee sur les matchs a venir."
+  "versionCode": 47,
+  "version": "v1.9.57",
+  "notes": "CORRECTIFS : (1) La pepite du jour 'Le saviez-vous ?' en haut de l'accueil ouvre enfin le module Anecdotes & Records au lieu de renvoyer vers le calendrier (le clic etait avale par le hero) ; meme correction pour les bandeaux EN DIRECT / PROCHAIN MATCH. (2) Favoris/Pronostics : un nouveau resultat (ex. Espagne-Portugal) recalcule immediatement les % de titre au lieu d'attendre jusqu'a 2 min, et l'explication du leader ne pretend plus qu'il a 'la meilleure force du plateau' quand il est n°1 grace a un chemin plus degage. (3) PRONOSTICS VERROUILLES AU COUP D'ENVOI : impossible de pronostiquer ou modifier un match deja commence ou termine (hub ET vue complete) — les scores connus s'affichent en lecture seule (🔒)."
 }

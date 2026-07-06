@@ -2640,6 +2640,7 @@
     }
 
     var APP_CHANGELOG=[
+      {v:"v1.9.57",d:"07/07/2026",changes:"Correctifs (retours d'usage). (1) LA PÉPITE DU JOUR enfin cliquable : « 💡 Le saviez-vous ? » en haut de l'accueil ouvrait le calendrier au lieu du module Anecdotes & Records — le clic était « avalé » par le bandeau d'accueil (qui renvoie vers Matchs). Corrigé, comme pour les bandeaux 🔴 EN DIRECT et ⏱ PROCHAIN MATCH qui ouvrent désormais bien la fiche du match. (2) FAVORIS À JOUR EN DIRECT : un nouveau résultat (ex. Espagne 1-0 Portugal) recalcule tout de suite les % de titre au lieu d'attendre le rafraîchissement de 2 min. L'encart « Pourquoi X en tête ? » n'affirme plus que le leader a « la meilleure force du plateau » : il explique qu'on peut être n°1 au % de titre simulé grâce à un chemin restant plus dégagé (la France, déjà en quart face au Maroc, peut devancer une équipe plus forte au tableau plus dur) — une équipe qui vient de gagner un tour ne passe pas mécaniquement en tête. (3) 🔒 PRONOSTICS VERROUILLÉS AU COUP D'ENVOI : on ne peut plus pronostiquer ni modifier un match déjà commencé ou joué (retour d'usage : « on a encore accès à des matchs déjà joués »). Verrou posé sur les deux saisies (hub par blocs ET vue complète) ; les scores connus restent visibles en lecture seule."},
       {v:"v1.9.56",d:"05/07/2026",changes:"LA PÉPITE DU JOUR en haut de l'accueil (retour d'usage : « Le saviez-vous est trop bien, il faut un meilleur accès »). Le texte décoratif « FOOT FLASH » du bandeau d'accueil cède sa place à une anecdote qui CHANGE CHAQUE JOUR — records en danger, histoires de légende, faits du tournoi en cours — cliquable pour ouvrir le module complet Anecdotes & Records (Le saviez-vous). La rubrique passe du fond de l'accueil au premier écran que tu vois en ouvrant l'app : une raison de revenir chaque matin. L'ancienne tuile d'accès reste en place plus bas pour ceux qui scrollent."},
       {v:"v1.9.55",d:"05/07/2026",changes:"Fatigue : intégration complète + lisibilité (retours d'usage). (1) La fatigue pèse désormais sur TOUS les calculs : elle était déjà dans le simulateur minute par minute et les % de titre (Favoris) — elle entre maintenant aussi dans le PRONO AUTO de chaque fiche match et les probabilités 1N2 affichées (via l'ajustement contextuel, comme la chaleur et l'avantage du pays hôte). Une équipe cramée par les voyages verra son prono baisser partout, de façon cohérente. (2) LISIBILITÉ : le cryptique « ⏱ +30 min » devient « ⏱ 1 prolongation jouée » (tu avais bien deviné : ce sont les 30 minutes de prolongation subies, comptées par match allé en prolongation ou aux t.a.b.) — corrigé dans le classement du Coût du voyage, la Fatigue comparée des fiches match et le détail des Favoris. Les km s'affichent aussi avec le séparateur de milliers (9 235 km)."},
       {v:"v1.9.54",d:"05/07/2026",changes:"Le voyage devient lisible (retour d'usage : « un tableau des km parcourus serait intéressant, et dans pronostic on donne des infos par équipe »). (1) ✈️ LE COÛT DU VOYAGE : nouveau classement dans l'onglet Pronos — toutes les équipes encore en vie, triées par kilomètres réellement parcourus, avec barre visuelle, nombre de changements de ville 🏨, minutes de prolongation subies ⏱, jours de repos 😴 et le malus appliqué aux pronos. On voit d'un coup d'œil qui a traversé le continent trois fois et qui a dormi dans le même hôtel. (2) ✈️ FATIGUE COMPARÉE sur chaque FICHE DE MATCH À VENIR : les deux équipes côte à côte (km, villes, prolongations, repos), avec le badge « PLUS FRAIS » sur celle qui arrive le mieux — l'info par équipe, exactement là où on fait son pronostic."},
@@ -2714,7 +2715,7 @@
       {v:"v1.016",d:"12/04/2026",changes:"Release initiale. 48 equipes, 104 matchs, quiz 163 questions, simulation bracket FIFA, palmares complet, records en danger, multi-langue, export PDF paysage."},
       {v:"v0.x",d:"12/04/2026",changes:"Phase de dev: 9 onglets, 1070+ joueurs, chaînes TV 30 pays, ticker RSS, countdown live, PWA, theme clair/sombre."}
     ];
-    var APP_VERSION="v1.9.56 — 💡 La pépite du jour : une anecdote qui change chaque jour en haut de l'accueil, accès direct aux Anecdotes & Records · 5 juillet 2026";
+    var APP_VERSION="v1.9.57 — 🔧 Pépite du jour cliquable (ouvre les Anecdotes, plus le calendrier) + Favoris recalculés en direct à chaque résultat · 7 juillet 2026";
 
     // ═══ MISE À JOUR DE L'APK (v1.9.2) ═══════════════════════════
     // Les APK installés hors Play Store se mettent à jour en installant
@@ -4421,6 +4422,7 @@
           .then(function(j){
             if(j && j.data){
               LIVESCORES = j.data; applyLiveScores();
+              try{ _brOddsCache=null; }catch(e){} // v1.9.57 — un nouveau résultat invalide le cache des % de titre (Favoris) : recalcul immédiat, plus d'attente de 2 min
               try{ if(typeof render==="function" && typeof V!=="undefined" && !V.detail && (V.view==="cal"||V.view==="home"||V.view==="team"||V.view==="groups"||V.view==="prono")) render(); }catch(e){}
             }
           }).catch(function(){});
@@ -4450,6 +4452,7 @@
           .then(function(j){
             if(j && j.data){
               KO_BRACKET = j.data; applyKoBracket();
+              try{ _brOddsCache=null; }catch(e){} // v1.9.57 — le tableau a bougé : recalcul immédiat des % de titre
               try{ if(typeof render==="function" && typeof V!=="undefined" && !V.detail) render(); }catch(e){}
             }
           }).catch(function(){});
@@ -5073,12 +5076,12 @@
         if(_hLive){
           var _hLv=wcLiveState(_hLive)||{};
           var _hSc=(_hLv.s1!=null&&_hLv.s2!=null)?(_hLv.s1+' - '+_hLv.s2):'0 - 0';
-          h+='<div onclick="showMatchDetail('+_hLive.id+')" style="cursor:pointer;margin:6px auto;display:inline-block;background:rgba(0,0,0,.5);border:1px solid rgba(255,90,90,.6);border-radius:12px;padding:8px 16px">';
+          h+='<div onclick="event.stopPropagation();showMatchDetail('+_hLive.id+')" style="cursor:pointer;margin:6px auto;display:inline-block;background:rgba(0,0,0,.5);border:1px solid rgba(255,90,90,.6);border-radius:12px;padding:8px 16px">';
           h+='<div style="font-size:10px;font-weight:900;color:#ff6b6b;letter-spacing:1px;margin-bottom:3px">🔴 EN DIRECT'+(_hLv.min?' · '+_hLv.min+"'":(_hLv.label==="Mi-temps"?' · Mi-temps':''))+'</div>';
           h+='<div style="font-size:14px;font-weight:900;color:#fff">'+_hT(_hLive.t1)+' <span style="color:var(--g);font-size:17px;letter-spacing:1px"> '+_hSc+' </span> '+_hT(_hLive.t2)+'</div>';
           h+='</div>';
         } else if(_hNext){
-          h+='<div onclick="showMatchDetail('+_hNext.id+')" style="cursor:pointer;margin:6px auto;display:inline-block;background:rgba(0,0,0,.45);border:1px solid rgba(231,196,92,.35);border-radius:12px;padding:8px 16px">';
+          h+='<div onclick="event.stopPropagation();showMatchDetail('+_hNext.id+')" style="cursor:pointer;margin:6px auto;display:inline-block;background:rgba(0,0,0,.45);border:1px solid rgba(231,196,92,.35);border-radius:12px;padding:8px 16px">';
           h+='<div style="font-size:10px;font-weight:800;color:var(--g);letter-spacing:1px;margin-bottom:3px">⏱ PROCHAIN MATCH</div>';
           h+='<div style="font-size:13px;font-weight:900;color:#fff">'+_hT(_hNext.t1)+' <span style="opacity:.6">vs</span> '+_hT(_hNext.t2)+'</div>';
           h+='<div style="font-size:10px;color:rgba(255,255,255,.65);margin-top:2px">'+fmtDate(_hNext.d)+' · '+fmtTimeFR(_hNext.d,_hNext.city)+' heure FR</div>';
@@ -5098,7 +5101,7 @@
         }
       }catch(e){}
       if(_dayStory){
-        h+='<div onclick="V.view=\'stories\';V.storiesTab=\'home\';V.storiesOpen=null;scrollTo(0,0);render()" style="cursor:pointer;margin:8px auto 2px;max-width:520px;background:rgba(0,0,0,.45);border:1px solid rgba(231,196,92,.45);border-radius:12px;padding:8px 14px;text-align:center">';
+        h+='<div onclick="event.stopPropagation();V.view=\'stories\';V.storiesTab=\'home\';V.storiesOpen=null;scrollTo(0,0);render()" style="cursor:pointer;margin:8px auto 2px;max-width:520px;background:rgba(0,0,0,.45);border:1px solid rgba(231,196,92,.45);border-radius:12px;padding:8px 14px;text-align:center">';
         h+='<div style="font-size:9px;font-weight:900;color:var(--g);letter-spacing:2px;margin-bottom:3px">💡 LE SAVIEZ-VOUS ? <span style="opacity:.6;letter-spacing:0">— la pépite du jour</span></div>';
         h+='<div style="font-size:11px;font-weight:700;color:#fff;line-height:1.4">'+(_dayStory.shortText||_dayStory.title)+'</div>';
         h+='<div style="font-size:9px;color:var(--g);margin-top:3px;font-weight:800">Toutes les anecdotes & records ›</div>';
@@ -7646,7 +7649,9 @@
       h+='</div>';
       if(brMode && arr[0] && !arr[0].out){
         var _ld=arr[0], _ldp=(typeof SIM_PRESS!=="undefined")?SIM_PRESS[_ld.id]:null;
-        h+='<div style="font-size:10px;color:var(--t2);line-height:1.5;background:var(--s2);border-radius:8px;padding:8px 10px;margin-bottom:10px">💡 <b style="color:var(--g)">Pourquoi '+_ld.name+' en tête ?</b> Meilleure force du plateau ('+Math.round(_ld.skills)+')'+(_ldp?' · 📰 '+_ldp.why:'')+' · et son chemin réel dans le tableau. <b style="color:var(--am)">Tape une équipe ci-dessous</b> pour voir son parcours simulé tour par tour et ce que disent les journaux.</div>';
+        var _ldTop=arr.reduce(function(a,b){return b.skills>a.skills?b:a},arr[0]);
+        var _ldForce=(_ldTop.id===_ld.id)?'meilleure force du plateau ('+Math.round(_ld.skills)+')':'force '+Math.round(_ld.skills)+' + un chemin plus dégagé que '+_ldTop.name+' ('+Math.round(_ldTop.skills)+')';
+        h+='<div style="font-size:10px;color:var(--t2);line-height:1.5;background:var(--s2);border-radius:8px;padding:8px 10px;margin-bottom:10px">💡 <b style="color:var(--g)">Pourquoi '+_ld.name+' en tête ?</b> Classé n°1 au <b>% de titre simulé sur le vrai tableau</b> : '+_ldForce+(_ldp?' · 📰 '+_ldp.why:'')+'. Une équipe qui vient de gagner un tour peut rester derrière si son chemin restant est plus dur. <b style="color:var(--am)">Tape une équipe ci-dessous</b> pour voir son parcours simulé tour par tour.</div>';
       }
       h+='<div id="favChevron" onclick="ffToggleFavList()" style="text-align:center;font-size:11px;font-weight:700;color:var(--g);cursor:pointer;padding:8px;background:var(--s2);border-radius:8px">Voir le classement complet des 48 ▾</div>';
       h+='<div id="favFullList" style="display:none;margin-top:10px">';
@@ -7996,11 +8001,20 @@
         h+='<span>🔒 en attente des qualifiés</span>';
       }
       h+='</div>';
+      // v1.9.57 — Saisie verrouillée au coup d'envoi : boutons de score en lecture seule
+      var pLock=(typeof isPronoLocked==="function")?isPronoLocked(m):realPlayed;
       h+='<div class="prn-match-row">';
       h+='<div class="prn-match-team">'+flagImg(m.t1,22)+'<span>'+(t1?t1.name:m.t1)+'</span></div>';
-      h+='<div ontouchstart="pronoPressStart('+m.id+',\'a\');event.preventDefault()" ontouchend="return pronoPressEnd('+m.id+',\'a\',event)" ontouchcancel="pronoPressCancel()" onmousedown="pronoPressStart('+m.id+',\'a\')" onmouseup="pronoPressEnd('+m.id+',\'a\',event)" onmouseleave="pronoPressCancel()" class="prn-score-btn'+(hasA?' filled':'')+'">'+(hasA?p.a:'–')+'</div>';
-      h+='<span class="prn-score-sep">·</span>';
-      h+='<div ontouchstart="pronoPressStart('+m.id+',\'b\');event.preventDefault()" ontouchend="return pronoPressEnd('+m.id+',\'b\',event)" ontouchcancel="pronoPressCancel()" onmousedown="pronoPressStart('+m.id+',\'b\')" onmouseup="pronoPressEnd('+m.id+',\'b\',event)" onmouseleave="pronoPressCancel()" class="prn-score-btn'+(hasB?' filled':'')+'">'+(hasB?p.b:'–')+'</div>';
+      if(pLock){
+        var _lkTitle=filled?'Ton prono (verrouillé)':'Non pronostiqué — match commencé';
+        h+='<div class="prn-score-btn'+(hasA?' filled':'')+'" style="opacity:.5;cursor:not-allowed" title="'+_lkTitle+'">'+(hasA?p.a:'–')+'</div>';
+        h+='<span class="prn-score-sep">🔒</span>';
+        h+='<div class="prn-score-btn'+(hasB?' filled':'')+'" style="opacity:.5;cursor:not-allowed" title="'+_lkTitle+'">'+(hasB?p.b:'–')+'</div>';
+      } else {
+        h+='<div ontouchstart="pronoPressStart('+m.id+',\'a\');event.preventDefault()" ontouchend="return pronoPressEnd('+m.id+',\'a\',event)" ontouchcancel="pronoPressCancel()" onmousedown="pronoPressStart('+m.id+',\'a\')" onmouseup="pronoPressEnd('+m.id+',\'a\',event)" onmouseleave="pronoPressCancel()" class="prn-score-btn'+(hasA?' filled':'')+'">'+(hasA?p.a:'–')+'</div>';
+        h+='<span class="prn-score-sep">·</span>';
+        h+='<div ontouchstart="pronoPressStart('+m.id+',\'b\');event.preventDefault()" ontouchend="return pronoPressEnd('+m.id+',\'b\',event)" ontouchcancel="pronoPressCancel()" onmousedown="pronoPressStart('+m.id+',\'b\')" onmouseup="pronoPressEnd('+m.id+',\'b\',event)" onmouseleave="pronoPressCancel()" class="prn-score-btn'+(hasB?' filled':'')+'">'+(hasB?p.b:'–')+'</div>';
+      }
       h+='<div class="prn-match-team right"><span>'+(t2?t2.name:m.t2)+'</span>'+flagImg(m.t2,22)+'</div>';
       h+='</div>';
       h+='</div>';
@@ -8040,6 +8054,15 @@
       _pronoLongDone=false;
     }
 
+    // v1.9.57 — Un pronostic se verrouille AU COUP D'ENVOI : impossible de prédire
+    // (ou modifier) un match déjà commencé ou terminé (retour d'usage : « on a encore
+    // accès à des matchs déjà joués dans les pronos »). TBD = géré à part (pas encore ouvert).
+    function isPronoLocked(m){
+      if(!m||m.t1==="TBD"||m.t2==="TBD")return false;
+      try{ if(m.s1!=null&&m.s2!=null)return true; }catch(e){}   // résultat réel connu
+      try{ return Date.now() >= new Date(m.d).getTime(); }catch(e){} // coup d'envoi passé
+      return false;
+    }
     function cyclePronoScore(mid,side){
       loadPredictions();
       if(!V.bets)V.bets={};
@@ -8049,6 +8072,10 @@
       for(var i=0;i<MATCHES.length;i++)if(MATCHES[i].id===parseInt(mid)){m=MATCHES[i];break}
       if(m&&(m.t1==="TBD"||m.t2==="TBD")){
         toast("⏳ Équipes pas encore qualifiées");
+        return;
+      }
+      if(isPronoLocked(m)){
+        toast("🔒 Match commencé — pronostic verrouillé");
         return;
       }
       var p=V.pronos[id]||{a:"",b:""};
@@ -8091,6 +8118,10 @@
       for(var i=0;i<MATCHES.length;i++)if(MATCHES[i].id===parseInt(mid)){m=MATCHES[i];break}
       if(m&&(m.t1==="TBD"||m.t2==="TBD")){
         toast("⏳ Équipes pas encore qualifiées");
+        return;
+      }
+      if(isPronoLocked(m)){
+        toast("🔒 Match commencé — pronostic verrouillé");
         return;
       }
       var p=V.pronos[id]||{a:"",b:""};
@@ -8238,17 +8269,18 @@
         h+='<span style="font-size:11px;font-weight:700;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;max-width:60px;text-decoration:underline;text-decoration-color:rgba(255,255,255,.15)">'+t1.name+'</span>';
         h+='</div>';
 
-        // Score A - tap to cycle 0-9
+        // Score A - tap to cycle 0-9 (verrouillé au coup d'envoi — v1.9.57)
+        var _plk=(typeof isPronoLocked==="function")?isPronoLocked(m):(m.s1!==null);
         var sa=saved?saved.a:"";
-        h+='<div onclick="cycleScore('+m.id+',\'a\')" style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:'+(sa!==""?'var(--gw)':'var(--s2)')+';border:2px solid '+(sa!==""?'var(--g)':'var(--s3)')+';border-radius:8px;cursor:pointer;user-select:none">';
+        h+='<div '+(_plk?'':'onclick="cycleScore('+m.id+',\'a\')" ')+'style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:'+(sa!==""?'var(--gw)':'var(--s2)')+';border:2px solid '+(sa!==""?'var(--g)':'var(--s3)')+';border-radius:8px;cursor:'+(_plk?'not-allowed':'pointer')+';user-select:none;opacity:'+(_plk?'.5':'1')+'">';
         h+='<span style="font-size:18px;font-weight:900;color:'+(sa!==""?'var(--g)':'var(--t2)')+'">'+( sa!==""?sa:"-")+'</span>';
         h+='</div>';
 
-        h+='<span style="font-size:10px;color:var(--t2);font-weight:900">:</span>';
+        h+='<span style="font-size:10px;color:var(--t2);font-weight:900">'+(_plk?'🔒':':')+'</span>';
 
         // Score B
         var sb=saved?saved.b:"";
-        h+='<div onclick="cycleScore('+m.id+',\'b\')" style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:'+(sb!==""?'var(--gw)':'var(--s2)')+';border:2px solid '+(sb!==""?'var(--g)':'var(--s3)')+';border-radius:8px;cursor:pointer;user-select:none">';
+        h+='<div '+(_plk?'':'onclick="cycleScore('+m.id+',\'b\')" ')+'style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:'+(sb!==""?'var(--gw)':'var(--s2)')+';border:2px solid '+(sb!==""?'var(--g)':'var(--s3)')+';border-radius:8px;cursor:'+(_plk?'not-allowed':'pointer')+';user-select:none;opacity:'+(_plk?'.5':'1')+'">';
         h+='<span style="font-size:18px;font-weight:900;color:'+(sb!==""?'var(--g)':'var(--t2)')+'">'+( sb!==""?sb:"-")+'</span>';
         h+='</div>';
 
@@ -8272,6 +8304,12 @@
     function cycleScore(mid,side){
       if(!V.pronos)V.pronos={};
       if(!V.bets)V.bets={};
+
+      // v1.9.57 — Même verrou que le hub : pas de prono sur un match TBD ni déjà commencé
+      var _m=null;
+      for(var _i=0;_i<MATCHES.length;_i++)if(MATCHES[_i].id===parseInt(mid)){_m=MATCHES[_i];break}
+      if(_m&&(_m.t1==="TBD"||_m.t2==="TBD")){ toast("⏳ Équipes pas encore qualifiées"); return; }
+      if(typeof isPronoLocked==="function"&&isPronoLocked(_m)){ toast("🔒 Match commencé — pronostic verrouillé"); return; }
 
       // AUTO-COMPLÉTION : avant de toucher ce match, on complète avec 0 tout autre match
       // où un seul des deux côtés a été rempli (l'utilisateur a "oublié" l'autre)
