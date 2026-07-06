@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-05T21:08:08.811Z",
+  "lastUpdated": "2026-07-06T22:42:57.913Z",
   "data": {
     "1": {
       "s1": 2,
@@ -2994,24 +2994,114 @@
       "ref": "Michael Oliver"
     },
     "91": {
-      "s1": 0,
-      "s2": 0,
-      "status": "HT",
+      "s1": 1,
+      "s2": 2,
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         0,
         0
       ],
+      "goals": [
+        {
+          "m": "90+10",
+          "t": 1,
+          "n": "Neymar",
+          "type": "P",
+          "a": null
+        },
+        {
+          "m": "79",
+          "t": 2,
+          "n": "Erling Haaland",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "90",
+          "t": 2,
+          "n": "Erling Haaland",
+          "type": null,
+          "a": null
+        }
+      ],
       "ref": "Ismail Elfath"
+    },
+    "92": {
+      "s1": 2,
+      "s2": 3,
+      "status": "FINISHED",
+      "minute": null,
+      "ht": [
+        1,
+        2
+      ],
+      "goals": [
+        {
+          "m": "36",
+          "t": 2,
+          "n": "Jude Bellingham",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "38",
+          "t": 2,
+          "n": "Jude Bellingham",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "42",
+          "t": 1,
+          "n": "Julián Quiñones",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "60",
+          "t": 2,
+          "n": "Harry Kane",
+          "type": "P",
+          "a": null
+        },
+        {
+          "m": "69",
+          "t": 1,
+          "n": "Raúl Jiménez",
+          "type": "P",
+          "a": null
+        }
+      ],
+      "ref": "Alireza Faghani"
+    },
+    "93": {
+      "s1": 0,
+      "s2": 1,
+      "status": "FINISHED",
+      "minute": null,
+      "ht": [
+        0,
+        0
+      ],
+      "ref": "Anthony Taylor",
+      "goals": [
+        {
+          "m": "90+1",
+          "t": 2,
+          "n": "Mikel Merino",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 90,
-      "PAUSED": 1,
-      "TIMED": 13
+      "FINISHED": 93,
+      "TIMED": 11
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z",

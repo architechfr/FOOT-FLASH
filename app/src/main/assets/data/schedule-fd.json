@@ -548,7 +548,7 @@
    "stage": "LAST_16"
   },
   "fd-537378": {
-   "utc": "2026-07-06T00:00:00Z",
+   "utc": "2026-07-06T01:00:00Z",
    "home": "Mexico",
    "away": "England",
    "stage": "LAST_16"
@@ -591,8 +591,8 @@
   },
   "fd-537385": {
    "utc": "2026-07-11T21:00:00Z",
-   "home": null,
-   "away": null,
+   "home": "Norway",
+   "away": "England",
    "stage": "QUARTER_FINALS"
   },
   "fd-537386": {
