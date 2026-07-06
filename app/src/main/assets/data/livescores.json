@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-06T19:54:59.915Z",
+  "lastUpdated": "2026-07-06T19:57:56.906Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3074,6 +3074,17 @@
         }
       ],
       "ref": "Alireza Faghani"
+    },
+    "93": {
+      "s1": 0,
+      "s2": 0,
+      "status": "HT",
+      "minute": null,
+      "ht": [
+        0,
+        0
+      ],
+      "ref": "Anthony Taylor"
     }
   },
   "meta": {
@@ -3081,7 +3092,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 92,
-      "LIVE": 1,
+      "PAUSED": 1,
       "TIMED": 11
     },
     "firstUtc": "2026-06-11T19:00:00Z",
