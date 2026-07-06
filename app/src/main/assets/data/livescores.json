@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-06T01:03:22.520Z",
+  "lastUpdated": "2026-07-06T01:06:19.751Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3026,6 +3026,13 @@
         }
       ],
       "ref": "Ismail Elfath"
+    },
+    "92": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Alireza Faghani"
     }
   },
   "meta": {
@@ -3033,7 +3040,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 91,
-      "TIMED": 13
+      "IN_PLAY": 1,
+      "TIMED": 12
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z",
