@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-07T00:56:16.918Z",
+  "lastUpdated": "2026-07-07T00:59:14.582Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3098,8 +3098,12 @@
     "94": {
       "s1": 1,
       "s2": 2,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
+      "ht": [
+        1,
+        2
+      ],
       "ref": "Adham Makhadmeh"
     }
   },
@@ -3108,7 +3112,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 93,
-      "IN_PLAY": 1,
+      "PAUSED": 1,
       "TIMED": 10
     },
     "firstUtc": "2026-06-11T19:00:00Z",
