@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-07T22:24:17.199Z",
+  "lastUpdated": "2026-07-07T22:27:14.184Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3196,6 +3196,7 @@
       "s2": 0,
       "status": "IN_PLAY",
       "minute": null,
+      "dur": "AET",
       "ht": [
         0,
         0
