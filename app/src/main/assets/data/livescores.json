@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-07T20:03:24.221Z",
+  "lastUpdated": "2026-07-07T20:06:21.560Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3190,6 +3190,13 @@
         }
       ],
       "ref": "François Letexier"
+    },
+    "96": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Ivan Barton"
     }
   },
   "meta": {
@@ -3197,7 +3204,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 95,
-      "TIMED": 9
+      "IN_PLAY": 1,
+      "TIMED": 8
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z",
