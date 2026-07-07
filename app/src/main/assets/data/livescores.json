@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-07T19:57:30.754Z",
+  "lastUpdated": "2026-07-07T20:00:27.468Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3152,7 +3152,6 @@
         0,
         1
       ],
-      "ref": "François Letexier",
       "goals": [
         {
           "m": "79",
@@ -3189,7 +3188,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "François Letexier"
     }
   },
   "meta": {
