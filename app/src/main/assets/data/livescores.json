@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-07T22:47:53.316Z",
+  "lastUpdated": "2026-07-07T22:50:50.183Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3192,7 +3192,7 @@
       "ref": "François Letexier"
     },
     "96": {
-      "s1": -1,
+      "s1": 1,
       "s2": 0,
       "status": "FINISHED",
       "minute": null,
