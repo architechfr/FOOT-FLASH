@@ -1,6 +1,6 @@
 {
  "source": "football-data.org (UTC-map)",
- "lastUpdated": "2026-07-06T06:02:34.519Z",
+ "lastUpdated": "2026-07-07T06:17:29.217Z",
  "data": {
   "73": {
    "t1": "RSA",
@@ -101,6 +101,10 @@
   "97": {
    "t1": "FRA",
    "t2": "MAR"
+  },
+  "98": {
+   "t1": "ESP",
+   "t2": "BEL"
   },
   "99": {
    "t1": "NOR",
