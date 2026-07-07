@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-07T18:11:01.520Z",
+  "lastUpdated": "2026-07-07T18:13:59.110Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3152,7 +3152,44 @@
         0,
         1
       ],
-      "ref": "François Letexier"
+      "ref": "François Letexier",
+      "goals": [
+        {
+          "m": "79",
+          "t": 1,
+          "n": "Cristian Romero",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "83",
+          "t": 1,
+          "n": "Lionel Messi",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "90+2",
+          "t": 1,
+          "n": "Enzo Fernández",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "15",
+          "t": 2,
+          "n": "Yasser Ibrahim",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "67",
+          "t": 2,
+          "n": "Mostafa Zico",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
