@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-07T22:59:40.971Z",
+  "lastUpdated": "2026-07-07T23:02:37.841Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3192,12 +3192,12 @@
       "ref": "François Letexier"
     },
     "96": {
-      "s1": 1,
+      "s1": 0,
       "s2": 0,
       "status": "FINISHED",
       "minute": null,
       "dur": "PEN",
-      "pen1": 3,
+      "pen1": 4,
       "pen2": 3,
       "ht": [
         0,
@@ -3217,7 +3217,8 @@
     "lastUtc": "2026-07-19T19:00:00Z",
     "ofConflicts": [
       "#82 fd=3-2 of=2-2",
-      "#86 fd=3-2 of=1-1"
+      "#86 fd=3-2 of=1-1",
+      "#96 fd=1-0 of=0-0"
     ]
   }
 }
