@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-07T22:44:56.346Z",
+  "lastUpdated": "2026-07-07T22:47:53.316Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3192,11 +3192,13 @@
       "ref": "François Letexier"
     },
     "96": {
-      "s1": 0,
+      "s1": -1,
       "s2": 0,
-      "status": "HT",
+      "status": "FINISHED",
       "minute": null,
-      "dur": "AET",
+      "dur": "PEN",
+      "pen1": 1,
+      "pen2": 1,
       "ht": [
         0,
         0
@@ -3208,8 +3210,7 @@
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 95,
-      "PAUSED": 1,
+      "FINISHED": 96,
       "TIMED": 8
     },
     "firstUtc": "2026-06-11T19:00:00Z",
