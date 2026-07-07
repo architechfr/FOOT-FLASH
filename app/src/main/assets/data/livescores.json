@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-07T02:02:20.334Z",
+  "lastUpdated": "2026-07-07T02:05:17.137Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3098,21 +3098,57 @@
     "94": {
       "s1": 1,
       "s2": 4,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         1,
         2
       ],
-      "ref": "Adham Makhadmeh"
+      "ref": "Adham Makhadmeh",
+      "goals": [
+        {
+          "m": "9",
+          "t": 2,
+          "n": "Charles De Ketelaere",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "31",
+          "t": 1,
+          "n": "Malik Tillman",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "33",
+          "t": 2,
+          "n": "Charles De Ketelaere",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "57",
+          "t": 2,
+          "n": "Hans Vanaken",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "90+3",
+          "t": 2,
+          "n": "Romelu Lukaku",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 93,
-      "IN_PLAY": 1,
+      "FINISHED": 94,
       "TIMED": 10
     },
     "firstUtc": "2026-06-11T19:00:00Z",
