@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-07T00:05:53.808Z",
+  "lastUpdated": "2026-07-07T00:08:52.923Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3094,6 +3094,13 @@
         }
       ],
       "ref": "Anthony Taylor"
+    },
+    "94": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Adham Makhadmeh"
     }
   },
   "meta": {
@@ -3101,7 +3108,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 93,
-      "LIVE": 1,
+      "IN_PLAY": 1,
       "TIMED": 10
     },
     "firstUtc": "2026-06-11T19:00:00Z",
