@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-07T16:57:39.012Z",
+  "lastUpdated": "2026-07-07T17:00:36.570Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3142,6 +3142,17 @@
         }
       ],
       "ref": "Adham Makhadmeh"
+    },
+    "95": {
+      "s1": 0,
+      "s2": 1,
+      "status": "HT",
+      "minute": null,
+      "ht": [
+        0,
+        1
+      ],
+      "ref": "François Letexier"
     }
   },
   "meta": {
@@ -3149,7 +3160,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 94,
-      "LIVE": 1,
+      "PAUSED": 1,
       "TIMED": 9
     },
     "firstUtc": "2026-06-11T19:00:00Z",
