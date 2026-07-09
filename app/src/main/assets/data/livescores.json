@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-09T22:07:35.521Z",
+  "lastUpdated": "2026-07-09T22:10:33.170Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3214,7 +3214,23 @@
         0,
         0
       ],
-      "ref": "Facundo Tello"
+      "ref": "Facundo Tello",
+      "goals": [
+        {
+          "m": "60",
+          "t": 1,
+          "n": "Kylian Mbappé",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "66",
+          "t": 1,
+          "n": "Ousmane Dembélé",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
