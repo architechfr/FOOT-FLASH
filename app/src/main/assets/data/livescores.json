@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-10T19:46:49.413Z",
+  "lastUpdated": "2026-07-10T19:49:46.890Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3234,7 +3234,7 @@
     },
     "98": {
       "s1": 1,
-      "s2": 0,
+      "s2": 1,
       "status": "IN_PLAY",
       "minute": null,
       "ref": "Michael Oliver"
