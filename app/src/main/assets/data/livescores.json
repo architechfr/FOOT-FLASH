@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-10T19:05:16.585Z",
+  "lastUpdated": "2026-07-10T19:08:14.324Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3231,6 +3231,13 @@
         }
       ],
       "ref": "Facundo Tello"
+    },
+    "98": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Michael Oliver"
     }
   },
   "meta": {
@@ -3238,7 +3245,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 97,
-      "TIMED": 7
+      "IN_PLAY": 1,
+      "TIMED": 6
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z",
