@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-10T21:03:08.595Z",
+  "lastUpdated": "2026-07-10T21:06:06.569Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3235,21 +3235,43 @@
     "98": {
       "s1": 2,
       "s2": 1,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "minute": null,
       "ht": [
         1,
         1
       ],
-      "ref": "Michael Oliver"
+      "ref": "Michael Oliver",
+      "goals": [
+        {
+          "m": "30",
+          "t": 1,
+          "n": "Fabián Ruiz",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "41",
+          "t": 2,
+          "n": "Charles De Ketelaere",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "88",
+          "t": 1,
+          "n": "Mikel Merino",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 97,
-      "IN_PLAY": 1,
+      "FINISHED": 98,
       "TIMED": 6
     },
     "firstUtc": "2026-06-11T19:00:00Z",
