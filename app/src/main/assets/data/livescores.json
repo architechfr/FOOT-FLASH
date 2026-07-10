@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-10T19:55:42.258Z",
+  "lastUpdated": "2026-07-10T19:58:39.851Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3235,8 +3235,12 @@
     "98": {
       "s1": 1,
       "s2": 1,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
+      "ht": [
+        1,
+        1
+      ],
       "ref": "Michael Oliver"
     }
   },
@@ -3245,7 +3249,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 97,
-      "IN_PLAY": 1,
+      "PAUSED": 1,
       "TIMED": 6
     },
     "firstUtc": "2026-06-11T19:00:00Z",
