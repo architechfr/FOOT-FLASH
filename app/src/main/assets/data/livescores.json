@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-10T20:54:13.517Z",
+  "lastUpdated": "2026-07-10T20:57:11.209Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3233,7 +3233,7 @@
       "ref": "Facundo Tello"
     },
     "98": {
-      "s1": 1,
+      "s1": 2,
       "s2": 1,
       "status": "IN_PLAY",
       "minute": null,
