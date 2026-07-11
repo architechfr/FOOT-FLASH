@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-11T23:07:24.630Z",
+  "lastUpdated": "2026-07-11T23:10:21.707Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3267,9 +3267,9 @@
       "ref": "Michael Oliver"
     },
     "99": {
-      "s1": 2,
+      "s1": 1,
       "s2": 1,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
       "ht": [
         1,
@@ -3284,7 +3284,7 @@
     "statuses": {
       "FINISHED": 97,
       "2026-07-06 01:00:00Z": 1,
-      "IN_PLAY": 1,
+      "PAUSED": 1,
       "TIMED": 5
     },
     "firstUtc": "2026-06-11T19:00:00Z",
