@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-12T03:45:22.688Z",
+  "lastUpdated": "2026-07-12T03:48:19.588Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3302,7 +3302,7 @@
       "ref": "Clément Turpin"
     },
     "100": {
-      "s1": 2,
+      "s1": 3,
       "s2": 1,
       "status": "IN_PLAY",
       "minute": null,
@@ -3311,7 +3311,37 @@
         1,
         0
       ],
-      "ref": "João Pinheiro"
+      "ref": "João Pinheiro",
+      "goals": [
+        {
+          "m": "10",
+          "t": 1,
+          "n": "Alexis Mac Allister",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "112",
+          "t": 1,
+          "n": "Julián Álvarez",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "120+1",
+          "t": 1,
+          "n": "Lautaro Martínez",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "67",
+          "t": 2,
+          "n": "Dan Ndoye",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
