@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-12T03:36:31.222Z",
+  "lastUpdated": "2026-07-12T03:39:28.617Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3302,7 +3302,7 @@
       "ref": "Clément Turpin"
     },
     "100": {
-      "s1": 1,
+      "s1": 2,
       "s2": 1,
       "status": "IN_PLAY",
       "minute": null,
