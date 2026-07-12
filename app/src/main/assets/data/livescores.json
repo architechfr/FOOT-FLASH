@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-12T01:56:10.848Z",
+  "lastUpdated": "2026-07-12T01:59:07.831Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3304,8 +3304,12 @@
     "100": {
       "s1": 1,
       "s2": 0,
-      "status": "IN_PLAY",
+      "status": "HT",
       "minute": null,
+      "ht": [
+        1,
+        0
+      ],
       "ref": "João Pinheiro"
     }
   },
@@ -3315,7 +3319,7 @@
     "statuses": {
       "FINISHED": 98,
       "2026-07-06 01:00:00Z": 1,
-      "IN_PLAY": 1,
+      "PAUSED": 1,
       "TIMED": 4
     },
     "firstUtc": "2026-06-11T19:00:00Z",
