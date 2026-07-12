@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-12T01:03:14.958Z",
+  "lastUpdated": "2026-07-12T01:06:12.879Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3300,6 +3300,13 @@
         }
       ],
       "ref": "Clément Turpin"
+    },
+    "100": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "João Pinheiro"
     }
   },
   "meta": {
@@ -3308,7 +3315,8 @@
     "statuses": {
       "FINISHED": 98,
       "2026-07-06 01:00:00Z": 1,
-      "TIMED": 5
+      "IN_PLAY": 1,
+      "TIMED": 4
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z",
