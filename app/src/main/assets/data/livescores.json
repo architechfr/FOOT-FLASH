@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-13T06:11:09.959Z",
+  "lastUpdated": "2026-07-13T06:14:07.016Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3345,19 +3345,10 @@
     }
   },
   "meta": {
-    "fixtures": 104,
+    "fixtures": 0,
     "season": "2026",
-    "statuses": {
-      "FINISHED": 100,
-      "TIMED": 4
-    },
-    "firstUtc": "2026-06-11T19:00:00Z",
-    "lastUtc": "2026-07-19T19:00:00Z",
-    "ofConflicts": [
-      "#82 fd=3-2 of=2-2",
-      "#86 fd=3-2 of=1-1",
-      "#99 fd=1-2 of=1-1",
-      "#100 fd=3-1 of=1-1"
-    ]
+    "statuses": {},
+    "firstUtc": null,
+    "lastUtc": null
   }
 }
