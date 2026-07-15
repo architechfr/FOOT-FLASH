@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-15T21:05:34.609Z",
+  "lastUpdated": "2026-07-15T21:08:31.666Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3379,7 +3379,30 @@
         0,
         0
       ],
-      "ref": "Ismail Elfath"
+      "ref": "Ismail Elfath",
+      "goals": [
+        {
+          "m": "55",
+          "t": 1,
+          "n": "Anthony Gordon",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "86",
+          "t": 2,
+          "n": "Enzo Fernández",
+          "type": null,
+          "a": null
+        },
+        {
+          "m": "92",
+          "t": 2,
+          "n": "Lautaro Martínez",
+          "type": null,
+          "a": null
+        }
+      ]
     }
   },
   "meta": {
