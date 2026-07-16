@@ -616,13 +616,13 @@
   "fd-537389": {
    "utc": "2026-07-18T21:00:00Z",
    "home": "France",
-   "away": null,
+   "away": "England",
    "stage": "THIRD_PLACE"
   },
   "fd-537390": {
    "utc": "2026-07-19T19:00:00Z",
    "home": "Spain",
-   "away": null,
+   "away": "Argentina",
    "stage": "FINAL"
   }
  }
