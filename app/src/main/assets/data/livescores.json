@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-18T21:05:10.015Z",
+  "lastUpdated": "2026-07-18T21:08:06.916Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3403,6 +3403,13 @@
         }
       ],
       "ref": "Ismail Elfath"
+    },
+    "103": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Jesús Valenzuela"
     }
   },
   "meta": {
@@ -3410,7 +3417,8 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 102,
-      "TIMED": 2
+      "IN_PLAY": 1,
+      "TIMED": 1
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z",
