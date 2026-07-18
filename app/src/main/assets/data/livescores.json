@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-18T21:22:52.607Z",
+  "lastUpdated": "2026-07-18T21:25:16.819Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3406,7 +3406,7 @@
     },
     "103": {
       "s1": 0,
-      "s2": 1,
+      "s2": 2,
       "status": "IN_PLAY",
       "minute": null,
       "ref": "Jesús Valenzuela"
