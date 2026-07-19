@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-19T22:13:26.789Z",
+  "lastUpdated": "2026-07-19T22:16:24.054Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3492,12 +3492,12 @@
       "s2": 0,
       "status": "FINISHED",
       "minute": null,
+      "dur": "AET",
       "ht": [
         0,
         0
       ],
-      "ref": "Slavko Vinčič",
-      "dur": "AET"
+      "ref": "Slavko Vinčič"
     }
   },
   "meta": {
