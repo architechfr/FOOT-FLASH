@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-19T00:59:20.656Z",
+  "lastUpdated": "2026-07-19T01:02:17.394Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3413,7 +3413,6 @@
         0,
         4
       ],
-      "ref": "Jesús Valenzuela",
       "goals": [
         {
           "m": "48",
@@ -3485,7 +3484,8 @@
           "type": null,
           "a": null
         }
-      ]
+      ],
+      "ref": "Jesús Valenzuela"
     }
   },
   "meta": {
