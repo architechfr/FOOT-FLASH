@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-19T22:04:35.989Z",
+  "lastUpdated": "2026-07-19T22:07:32.886Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3488,9 +3488,9 @@
       "ref": "Jesús Valenzuela"
     },
     "104": {
-      "s1": 0,
+      "s1": 1,
       "s2": 0,
-      "status": "HT",
+      "status": "FINISHED",
       "minute": null,
       "dur": "AET",
       "ht": [
@@ -3504,8 +3504,7 @@
     "fixtures": 104,
     "season": "2026",
     "statuses": {
-      "FINISHED": 103,
-      "LIVE": 1
+      "FINISHED": 104
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z",
