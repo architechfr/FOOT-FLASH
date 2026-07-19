@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-19T19:04:40.443Z",
+  "lastUpdated": "2026-07-19T19:07:37.565Z",
   "data": {
     "1": {
       "s1": 2,
@@ -3486,6 +3486,13 @@
         }
       ],
       "ref": "Jesús Valenzuela"
+    },
+    "104": {
+      "s1": 0,
+      "s2": 0,
+      "status": "IN_PLAY",
+      "minute": null,
+      "ref": "Slavko Vinčič"
     }
   },
   "meta": {
@@ -3493,7 +3500,7 @@
     "season": "2026",
     "statuses": {
       "FINISHED": 103,
-      "TIMED": 1
+      "IN_PLAY": 1
     },
     "firstUtc": "2026-06-11T19:00:00Z",
     "lastUtc": "2026-07-19T19:00:00Z",
