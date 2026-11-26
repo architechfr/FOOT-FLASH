@@ -1,0 +1,16 @@
+name: Stop remaining World Cup polling
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/retire-world-cup-live-loop.yml
+permissions: {}
+concurrency:
+  group: update-livescores
+  cancel-in-progress: true
+jobs:
+  stop:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - run: echo "Ancienne boucle remplacée, aucune donnée modifiée."
